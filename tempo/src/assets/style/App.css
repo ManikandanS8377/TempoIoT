@@ -262,7 +262,7 @@ main {
     border: 1px solid black;
     border-radius: 5px;
     padding: 0.5rem 1rem 0.5rem 1rem;
-
+    color: var(--FONT_COLOR);
 
 }
 
@@ -330,6 +330,7 @@ main {
     /* gap: 10px; */
     /* justify-content: space-evenly; */
     box-shadow: var(--BOX-SHADOW);
+    color: var(--FONT_COLOR);
 }
 
 .col-head {
@@ -343,6 +344,7 @@ main {
     width: 100%;
     height: 100%;
     box-shadow: var(--BOX-SHADOW);
+    color: var(--FONT_COLOR);
 }
 
 /* models */
