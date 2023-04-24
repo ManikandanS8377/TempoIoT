@@ -46,16 +46,47 @@ const Sidebar = ({ children }) => {
             name: "Device",
             icon: <FaThList />
         }
-    ]
+    ];
+
+    menuItem.map((item, index) => {
+        let dropdownContent;
+        if (item.name === 'dashboard') {
+            dropdownContent = (
+                <div className="dropdown-content" style={{ display: 'none' }}>
+                    <a href="#">Link 1</a>
+                </div>
+            );
+        } else {
+            dropdownContent = (
+                <div className="dropdown-content" style={{ display: 'none' }}>
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            );
+        }
+    });
 
     return (
         <div className="container-slidebar">
             <div className="sidebar">
                 {
-                    menuItem.map((item) => (
-                        <NavLink to={item.path} className="link" activeclassName="active">
+                    menuItem.map((item, index) => (
+                        <NavLink
+                            to={item.path}
+                            className="link"
+                            activeClassName="active"
+                            onMouseEnter={() => { // add mouse enter event handler
+                                const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
+                                dropdownContent.style.display = 'block';
+                            }}
+                            onMouseLeave={() => { // add mouse leave event handler
+                                const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
+                                dropdownContent.style.display = 'none';
+                            }}
+                        >
                             <div className="icon">{item.icon}</div>
-                            <div class="dropdown-content">
+                            <div className="dropdown-content" style={{ display: 'none' }}>
                                 <a href="#">Link 1</a>
                                 <a href="#">Link 2</a>
                                 <a href="#">Link 3</a>
@@ -64,6 +95,8 @@ const Sidebar = ({ children }) => {
                     ))
                 }
             </div>
+
+
             <main>{children}</main>
         </div>
     );
