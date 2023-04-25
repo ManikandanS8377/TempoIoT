@@ -19,57 +19,45 @@ const Sidebar = ({ children }) => {
         {
             path: "/",
             name: "Dashboard",
-            icon: <FaTh />
+            icon: <FaTh />,
+            links: ['Dashboard']
         },
         {
             path: "/about",
             name: "About",
-            icon: <FaUserAlt />
+            icon: <FaUserAlt />,
+            links: ['Mangement', 'Assert', 'Alert','Device','Site','User']
         },
         {
             path: "/analytics",
             name: "Analytics",
-            icon: <FaRegChartBar />
-        },
-        {
-            path: "/comment",
-            name: "Comment",
-            icon: <FaCommentAlt />
-        },
-        {
-            path: "/product",
-            name: "Product",
-            icon: <FaShoppingBag />
+            icon: <FaRegChartBar />,
+            links: ['Configuraation', 'Alert','Modbus Slave','Modbus Master']
         },
         {
             path: "/Device",
-            name: "Device",
-            icon: <FaThList />
-        },{
-            path : "/Add_device",
-            name : "Add Devive",
-            icon : <FaShoppingBag/>
-        }
+            name: "Comment",
+            icon: <FaCommentAlt />,
+            links: ['Upgradation', 'Frimware']
+        },
+        {
+            path: "/Add_device",
+            name: "Product",
+            icon: <FaShoppingBag />,
+            links: ['Log Mantainance', 'Event', 'Device Connection','Real Data']
+        },
+        // {
+        //     path: "/comment",
+        //     name: "Device",
+        //     icon: <FaThList />,
+        //     links: ['Link 1', 'Link 2', 'Link 3']
+        // }, {
+        //     path: "/product",
+        //     name: "Add Devive",
+        //     icon: <FaShoppingBag />,
+        //     links: ['Link 1', 'Link 2', 'Link 3']
+        // }
     ];
-
-    menuItem.map((item, index) => {
-        let dropdownContent;
-        if (item.name === 'dashboard') {
-            dropdownContent = (
-                <div className="dropdown-content" style={{ display: 'none' }}>
-                    <a href="#">Link 1</a>
-                </div>
-            );
-        } else {
-            dropdownContent = (
-                <div className="dropdown-content" style={{ display: 'none' }}>
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            );
-        }
-    });
 
     return (
         <div className="container-slidebar">
@@ -86,18 +74,24 @@ const Sidebar = ({ children }) => {
                             }}
                             onMouseLeave={() => { // add mouse leave event handler
                                 const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
-                                dropdownContent.style.display = 'none';
+                                dropdownContent.style.transition = 'opacity 0.5s ease-in';
+                                setTimeout(() => {
+                                    dropdownContent.style.display = 'none';
+                                  }, 80);
                             }}
                         >
                             <div className="icon">{item.icon}</div>
                             <div className="dropdown-content" style={{ display: 'none' }}>
-                                <a href="#">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
+                                {item.links.map((link, i) => (
+                                    <a key={i} href="#">{link}</a>
+                                ))}
                             </div>
+
                         </NavLink>
+
                     ))
                 }
+
             </div>
 
 

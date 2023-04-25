@@ -2,7 +2,9 @@
     --THEME_COLOUR: #011D63;
     --INNER_COLOUR: #ffffff;
     --COLOR_BEFORE_HOVER:#154fdf;
+    --THEME_SEC_COLOR:rgb(9, 9, 169);
     --TOP_NAVBAR_BTN_CLR:#2D065C;
     --BOX-SHADOW:2px 2px 10px rgba(0, 0, 0, 0.178);
     --FONT_COLOR: black;
+    --LIGHT_GREY_COLOR:rgba(128, 128, 128, 0.829); /*.light-grey */
   }

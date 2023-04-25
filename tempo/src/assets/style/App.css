@@ -18,6 +18,18 @@
     display: flex;
 }
 
+.light-grey {
+    color: var(--LIGHT_GREY_COLOR);
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+
+
+
+/* design */
 .container-slidebar {
     display: flex;
 }
@@ -38,7 +50,6 @@ main {
     align-items: center;
 }
 
-
 /* slidebar hover */
 .icon {
     position: relative;
@@ -53,6 +64,7 @@ main {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    transition-duration: 5s;
 }
 
 .dropdown-content a {
@@ -450,7 +462,7 @@ main {
 }
 
 .new_device .theme-btn {
-    background-color: var(--TOP_NAVBAR_BTN_CLR);
+    background-color: var(--THEME_SEC_COLOR);
     color: var(--INNER_COLOUR);
 }
 
@@ -461,7 +473,17 @@ main {
 
 .row_three {
     display: flex;
+    flex-direction: column;
+}
+
+.mqtt_protocol {
+    gap: 100px;
+    justify-content: start;
+}
+
+.sub_row_three {
     justify-content: space-around;
+    width: 100%;
 }
 
 .row_five {
@@ -471,13 +493,12 @@ main {
 
 .row_one,
 .row_two,
-.row_three,
 .row_five {
     height: 90px;
     align-items: center;
 }
 
-.inputbox{
+.inputbox {
     display: flex;
     flex-direction: column;
 }
@@ -485,21 +506,55 @@ main {
 input {
     padding: 0.5rem;
 }
-.check_box{
+
+.check_boxses {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 200px;
 }
-.operating_buttons{
+
+.Enable_services {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 1rem;
+}
+
+.operating_buttons {
     justify-content: space-between;
 }
-.save_cancel_btn{
+
+.save_cancel_btn {
     justify-content: space-around;
     padding: 0.5rem;
     width: 200px;
 }
-.client_id{
+
+.client_id {
     display: flex;
     flex-direction: column;
 }
+
+.add_button {
+    background-color: var(--THEME_SEC_COLOR);
+    color: var(--INNER_COLOUR);
+}
+
+.row_four {
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.add_device_container {
+    /* border: 1px solid; */
+    padding: 1rem;
+}
+.new_device_content{
+    border: 1px solid rgba(128, 128, 128, 0.276);
+    box-shadow: var(--BOX-SHADOW);
+}
+
+/* .add_device_container{
+    border: 1px solid;
+    padding: 1rem;
+} */
