@@ -45,6 +45,10 @@ const Sidebar = ({ children }) => {
             path: "/Device",
             name: "Device",
             icon: <FaThList />
+        },{
+            path : "/Add_device",
+            name : "Add Devive",
+            icon : <FaShoppingBag/>
         }
     ];
 
