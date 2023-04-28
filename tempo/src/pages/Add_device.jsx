@@ -65,7 +65,7 @@ const Add_device = () => {
     }
 
     //function to validate
-    function handleClick(){
+    const handleClick=async()=>{
 
         //conditions to validate
         const isValidclientid=/^[0-9]+$/.test(clientid)
@@ -108,7 +108,12 @@ const Add_device = () => {
             alert("enter valid password..your password must contain upper,lower,number and special case")
         }
         else{
-            alert("hi")
+            const body={clientid,devicename,devicemodel,devicemacaddress,firmwareversion,clientname,host,username,password}
+            await fetch('http://127.0.0.1:4000/user',{
+                method:"POST",
+                headers:{"content-Type":"application/json"},
+                body:JSON.stringify(body)
+            })
         }
     }
 
@@ -217,7 +222,7 @@ const Add_device = () => {
                         </div>
                         <div className="save_cancel_btn display-flex">
                             <button className="btn-loc inactive-loc" onClick={handleCancel}>cancel</button>
-                            <button className="btn-loc active-loc" onClick={handleClick}>Save</button>
+                            <button className="btn-loc active-loc" onClick={()=>handleClick()}>Save</button>
                         </div>
                     </div>
                 </div>

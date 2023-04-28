@@ -2,12 +2,12 @@ const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'postgres',
   host: '127.0.0.1',
-  database: 'tempo_iot',
-  password: 'tempo',
+  database: 'demo',
+  password: 'gt55tt44',
   port: 5432,
 })
 const getUsers = (request, response) => {
-  pool.query('SELECT * FROM test ORDER BY r_no ASC', (error, results) => {
+  pool.query('SELECT * FROM demo_manage ORDER BY r_no ASC', (error, results) => {
     if (error) {
       throw error
     }
