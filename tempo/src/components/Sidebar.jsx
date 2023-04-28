@@ -74,10 +74,10 @@ const Sidebar = ({ children }) => {
                             }}
                             onMouseLeave={() => { // add mouse leave event handler
                                 const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
-                                dropdownContent.style.transition = 'opacity 0.5s ease-in';
-                                setTimeout(() => {
-                                    dropdownContent.style.display = 'none';
-                                  }, 80);
+                                dropdownContent.style.display = 'none';
+                                // setTimeout(() => {
+                                //     dropdownContent.style.display = 'none';
+                                //   }, 80);
                             }}
                         >
                             <div className="icon">{item.icon}</div>

@@ -26,7 +26,9 @@
     text-transform: uppercase;
 }
 
-
+.gap-loc-4 {
+    gap: 1rem;
+}
 
 
 /* design */
@@ -59,7 +61,7 @@ main {
 .dropdown-content {
     display: none;
     position: absolute;
-    left: 52px;
+    left: 45px;
     background-color: var(--INNER_COLOUR);
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -246,18 +248,19 @@ main {
     font-weight: 400;
     user-select: none;
     border: 1px solid transparent;
-    padding: 0.375rem 0.75rem;
+    padding: 0.4rem 1.5rem 0.4rem 1.5rem;
     font-size: 1rem;
     line-height: 1.5;
     border-radius: 0.25rem;
     line-height: 1.5;
     border-radius: 0.5rem;
+    margin: 0.5rem;
     /* width: 100px; */
 }
 
 .inactive-loc {
-    color: red;
-    border-color: red;
+    color: var(--CANCEL_BTN_CLR);
+    border-color: var(--CANCEL_BTN_CLR);
 
 }
 
@@ -454,7 +457,7 @@ main {
 
 .row_two {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
 }
 
 .new_device {
@@ -470,6 +473,11 @@ main {
     padding: 0.5rem;
 }
 
+.input-boxes , .sub_row_three{
+    width: 100%;
+    gap: 5rem;
+    margin-left: 3rem;
+}
 
 .row_three {
     display: flex;
@@ -481,18 +489,15 @@ main {
     justify-content: start;
 }
 
-.sub_row_three {
-    justify-content: space-around;
-    width: 100%;
-}
+
 
 .row_five {
     width: 70%;
-    justify-content: space-around;
+    gap: 5rem;
+    margin-left: 3rem;
 }
 
 .row_one,
-.row_two,
 .row_five {
     height: 90px;
     align-items: center;
@@ -504,13 +509,24 @@ main {
 }
 
 input {
-    padding: 0.5rem;
+    padding: 0.2rem;
+    border: 1px solid gray;
+    border-radius: 0.3rem;
+
 }
 
 .check_boxses {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Increase checkbox size */
+input[type="checkbox"] {
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    transform: scale(1.5);
 }
 
 .Enable_services {
@@ -522,12 +538,6 @@ input {
 
 .operating_buttons {
     justify-content: space-between;
-}
-
-.save_cancel_btn {
-    justify-content: space-around;
-    padding: 0.5rem;
-    width: 200px;
 }
 
 .client_id {
@@ -548,13 +558,23 @@ input {
 .add_device_container {
     /* border: 1px solid; */
     padding: 1rem;
+
 }
-.new_device_content{
+
+.new_device_content {
     border: 1px solid rgba(128, 128, 128, 0.276);
-    box-shadow: var(--BOX-SHADOW);
+    border-radius: 15px;
+}
+
+.adding_new_device {
+    color: var(--ADD_DEVICE_DETIAL_CLR);
 }
 
 /* .add_device_container{
     border: 1px solid;
     padding: 1rem;
 } */
+
+.Add-icon{
+    transform: scale(1.5);
+}

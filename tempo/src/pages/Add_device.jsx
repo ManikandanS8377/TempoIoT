@@ -8,7 +8,8 @@ import {
 const Add_device = () => {
     const [divs, setDivs] = useState([]);
 
-    const handleButtonClick = () => {
+    const handleButtonClick = (e) => {
+        e.preventDefault();
         const newDivs = [...divs];
         newDivs.push(
             <div className="row_five padding-loc display-flex">
@@ -36,34 +37,46 @@ const Add_device = () => {
             <div className="add_device_container">
                 <div className="new_device_content">
                     <div className="row_one">
-                        <div className="adding_new_device light-grey uppercase">Add Device Detials </div>
+                        <div className="adding_new_device uppercase">Add Device Detials </div>
                         <div className="client_id">
                             <label htmlFor="device_id">Client Id</label>
                             <input type="text" id="device_id" />
                         </div>
                     </div>
                     <div className="row_two padding-loc">
-                        <div className="inputbox input">
-                            <label htmlFor="">Device name</label>
-                            <input type="text" />
+                        <div className="device_info uppercase light-grey">
+                            device info
                         </div>
-                        <div className="inputbox">
-                            <label htmlFor="">Device Model</label>
-                            <input type="text" />
-                        </div>
-                        <div className="inputbox">
-                            <label htmlFor="">Device MAC address</label>
-                            <input type="text" />
-                        </div>
-                        <div className="inputbox">
-                            <label htmlFor="">Frimeware version</label>
-                            <input type="text" />
+                        <div className="input-boxes display-flex">
+                            <div className="inputbox input">
+                                <label htmlFor="">Device name</label>
+                                <input type="text" />
+                            </div>
+                            <div className="inputbox">
+                                <label htmlFor="">Device Model</label>
+                                <input type="text" />
+                            </div>
+                            <div className="inputbox">
+                                <label htmlFor="">Device MAC address</label>
+                                <input type="text" />
+                            </div>
+                            <div className="inputbox">
+                                <label htmlFor="">Frimeware version</label>
+                                <input type="text" />
+                            </div>
                         </div>
                     </div>
                     <div className="row_three padding-loc">
                         <div className="mqtt_protocol display-flex">
                             <div className="network_protocol light-grey uppercase">Network Protocol</div>
-                            <div className="mqtt_type uppercase"><input type="radio" />Mqtt</div>
+                            <div className="mqtt_type display-flex uppercase gap-loc-4">
+                                <div className="radio_mqtt">
+                                    <input type="radio" />
+                                </div>
+                                <div className="mqtt_txt">
+                                    Mqtt
+                                </div>
+                            </div>
                         </div>
                         <div className="sub_row_three display-flex">
                             <div className="inputbox display-flex">
@@ -84,16 +97,16 @@ const Add_device = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="row_four padding-loc display-flex">
+                    <div className="row_four padding-loc display-flex gap-2">
                         <div className="device_data light-grey uppercase">Device Data</div>
-                        <div className="icon"><RiAddCircleLine onClick={handleButtonClick} /></div>
+                        <div className="icon"><RiAddCircleLine className="Add-icon light-grey" onClick={handleButtonClick} /></div>
                     </div>
 
                     {divs}
 
                     <div className="operating_buttons display-flex padding-loc">
                         <div className="check_boxses padding-loc">
-                            <div className="check_box">
+                            <div className="check_box_div">
                                 <input type="checkbox" className="check_box_input" />
                             </div>
                             <div className="Enable_services">Enable services</div>
