@@ -1,12 +1,102 @@
 import React from "react";
 import { useState } from "react";
 // import add_new_div from "../Functions/Add_new_div";
-import {
-    RiAddCircleLine
-} from "react-icons/ri";
+import {RiAddCircleLine} from "react-icons/ri";
 
 const Add_device = () => {
     const [divs, setDivs] = useState([]);
+
+    //states to use their values and validate
+    const [clientid,setclientid]=useState("")
+    const [devicename,setdevicename]= useState("");
+    const [devicemodel,setdevicemodel]= useState("");
+    const [devicemacaddress,setdevicemacaddress]= useState("");
+    const [firmwareversion,setfirmwareversion]= useState("");
+    const [clientname,setclientname]= useState("");
+    const [host,sethost]= useState("");
+    const [username,setusername]= useState("");
+    const [password,setpassword]= useState("");
+
+
+
+    //function to set the value to state
+
+    function handleclientid(event){
+        setclientid(event.target.value)
+    }
+    function handledevicename(event){
+        setdevicename(event.target.value)
+    }
+    function handledevicemodel(event){
+        setdevicemodel(event.target.value)
+    }
+    function handledevicemacaddress(event){
+        setdevicemacaddress(event.target.value)
+    }
+    function handlefirmwareversion(event){
+        setfirmwareversion(event.target.value)
+    }
+    function handleclientname(event){
+        setclientname(event.target.value)
+    }
+    function handlehost(event){
+        sethost(event.target.value)
+    }
+    function handleusername(event){
+        setusername(event.target.value)
+    }
+    function handlepassword(event){
+        setpassword(event.target.value)
+    }
+
+
+    //function to validate
+    function handleClick(){
+
+        //conditions to validate
+        const isValidclientid=/^[0-9]+$/.test(clientid)
+        const isValiddevicename=/^[a-zA-Z0-9]+$/.test(devicename)
+        const isValiddevicemodel=/^[a-zA-Z0-9]+$/.test(devicemodel)
+        const isValidmacaddress=/^[0-9a-fA-F]{2}([-:])[0-9a-fA-F]{2}(\1[0-9a-fA-F]{2}){4}$/.test(devicemacaddress)
+        const isValidfirmwareversion=/^[a-zA-Z0-9]+$/.test(firmwareversion)
+        const isValidclientname=/^[a-zA-Z0-9]+$/.test(clientname)
+        const isValidhost=/^(?:(?!\d+\.)[a-zA-Z0-9-]{1,63}\.?)+(?:[a-zA-Z]{2,})$/.test(host)
+        const isValidusername=/^[a-zA-Z0-9]+$/.test(username)
+        const isValidpassword= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(password);
+
+
+        //check if valid or not
+        if(!isValidclientid){
+            alert("enter valid client id")
+        }
+        else if(!isValiddevicename){
+            alert("enter valid devicename")
+        }
+        else if(!isValiddevicemodel){
+            alert("enter valid device model")
+        }
+        else if(!isValidmacaddress){
+            alert("enter valid macaddress")
+        }
+        else if(!isValidfirmwareversion){
+            alert("enter valid firmware version")
+        }
+        else if(!isValidclientname){
+            alert("enter valid clientname")
+        }
+        else if(!isValidhost){
+            alert("enter valid host")
+        }
+        else if(!isValidusername){
+            alert("enter valid username")
+        }
+        else if(!isValidpassword){
+            alert("enter valid password..your password must contain upper,lower,number and special case")
+        }
+        else{
+            alert("hi")
+        }
+    }
 
     const handleButtonClick = (e) => {
         e.preventDefault();
@@ -40,7 +130,7 @@ const Add_device = () => {
                         <div className="adding_new_device uppercase">Add Device Detials </div>
                         <div className="client_id">
                             <label htmlFor="device_id">Client Id</label>
-                            <input type="text" id="device_id" />
+                            <input type="text" id="device_id" onChange={handleclientid} />
                         </div>
                     </div>
                     <div className="row_two padding-loc">
@@ -50,19 +140,19 @@ const Add_device = () => {
                         <div className="input-boxes display-flex">
                             <div className="inputbox input">
                                 <label htmlFor="">Device name</label>
-                                <input type="text" />
+                                <input type="text" value={devicename} onChange={handledevicename}/>
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Device Model</label>
-                                <input type="text" />
+                                <input type="text" value={devicemodel} onChange={handledevicemodel}/>
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Device MAC address</label>
-                                <input type="text" />
+                                <input type="text" value={devicemacaddress} onChange={handledevicemacaddress}/>
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Frimeware version</label>
-                                <input type="text" />
+                                <input type="text" value={firmwareversion} onChange={handlefirmwareversion}/>
                             </div>
                         </div>
                     </div>
@@ -81,19 +171,19 @@ const Add_device = () => {
                         <div className="sub_row_three display-flex">
                             <div className="inputbox display-flex">
                                 <label htmlFor="">Mqqt Clint name</label>
-                                <input type="text" />
+                                <input type="text" value={clientname} onChange={handleclientname}/>
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Host</label>
-                                <input type="text" />
+                                <input type="text" value={host} onChange={handlehost}/>
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Username</label>
-                                <input type="text" />
+                                <input type="text" value={username} onChange={handleusername}/>
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Password</label>
-                                <input type="text" />
+                                <input type="text" value={password} onChange={handlepassword}/>
                             </div>
                         </div>
                     </div>
@@ -113,7 +203,7 @@ const Add_device = () => {
                         </div>
                         <div className="save_cancel_btn display-flex">
                             <button className="btn-loc inactive-loc">cancel</button>
-                            <button className="btn-loc active-loc">Save</button>
+                            <button className="btn-loc active-loc" onClick={handleClick}>Save</button>
                         </div>
                     </div>
                 </div>
