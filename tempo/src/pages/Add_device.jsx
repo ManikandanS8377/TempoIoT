@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 // import add_new_div from "../Functions/Add_new_div";
 import {RiAddCircleLine} from "react-icons/ri";
-// demo mathan
 const Add_device = () => {
     const [divs, setDivs] = useState([]);
 
