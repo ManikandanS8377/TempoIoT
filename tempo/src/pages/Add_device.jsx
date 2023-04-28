@@ -49,6 +49,20 @@ const Add_device = () => {
     }
 
 
+    //on click cancel
+
+    function handleCancel(){
+        setclientid("");
+        setdevicename("");
+        setdevicemodel("");
+        setdevicemacaddress("");
+        setfirmwareversion("");
+        setclientname("");
+        sethost("");
+        setusername("");
+        setpassword("");
+    }
+
     //function to validate
     function handleClick(){
 
@@ -129,7 +143,7 @@ const Add_device = () => {
                         <div className="adding_new_device uppercase">Add Device Detials </div>
                         <div className="client_id">
                             <label htmlFor="device_id">Client Id</label>
-                            <input type="text" id="device_id" onChange={handleclientid} />
+                            <input type="text" id="device_id" value={clientid} onChange={handleclientid} />
                         </div>
                     </div>
                     <div className="row_two padding-loc">
@@ -201,7 +215,7 @@ const Add_device = () => {
                             <div className="Enable_services">Enable services</div>
                         </div>
                         <div className="save_cancel_btn display-flex">
-                            <button className="btn-loc inactive-loc">cancel</button>
+                            <button className="btn-loc inactive-loc" onClick={handleCancel}>cancel</button>
                             <button className="btn-loc active-loc" onClick={handleClick}>Save</button>
                         </div>
                     </div>
