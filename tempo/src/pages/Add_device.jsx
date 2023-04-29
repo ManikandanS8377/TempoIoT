@@ -155,7 +155,7 @@ const Add_device = () => {
                     <input type="checkbox" />
                 </div>
                 <div className="inputbox">
-                    <input className="btn-loc add_button" type="button" value="Add" />
+                    <input className="btn-loc add_button btn btn-blue" type="button" value="Add" />
                 </div>
                 <div className="inputbox">
                     <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete" onClick={() => handleDelete(newDivs.length-1)} />
@@ -178,9 +178,9 @@ const Add_device = () => {
             <div className="add_device_container">
                 <div className="new_device_content">
                     <div className="row_one">
-                        <div className="adding_new_device uppercase bold">Add Device Details </div>
+                        <div className="adding_new_device uppercase bold">Add Device Detials </div>
                         <div className="client_id">
-                            <label htmlFor="device_id">Client ID</label>
+                            <label htmlFor="device_id">Client Id</label>
                             <input type="text" id="device_id" value={clientid} onChange={handleclientid} />
                         </div>
                     </div>
@@ -198,11 +198,11 @@ const Add_device = () => {
                                 <input type="text" value={devicemodel} onChange={handledevicemodel} />
                             </div>
                             <div className="inputbox">
-                                <label htmlFor="">Device MAC Address(<span className="required_star">*</span>)</label>
+                                <label htmlFor="">Device MAC address(<span className="required_star">*</span>)</label>
                                 <input type="text" value={devicemacaddress} onChange={handledevicemacaddress} />
                             </div>
                             <div className="inputbox">
-                                <label htmlFor="">Firmware Version(<span className="required_star">*</span>)</label>
+                                <label htmlFor="">Firmware version(<span className="required_star">*</span>)</label>
                                 <input type="text" value={firmwareversion} onChange={handlefirmwareversion} />
                             </div>
                         </div>
@@ -221,11 +221,11 @@ const Add_device = () => {
                         </div>
                         <div className="sub_row_three display-flex">
                             <div className="inputbox display-flex">
-                                <label htmlFor="">Mqqt Client ID (<span className="required_star">*</span>)</label>
+                                <label htmlFor="">Mqqt Client Name (<span className="required_star">*</span>)</label>
                                 <input type="text" value={clientname} onChange={handleclientname} />
                             </div>
                             <div className="inputbox">
-                                <label htmlFor="">Host IP Address(<span className="required_star">*</span>)</label>
+                                <label htmlFor="">Host(<span className="required_star">*</span>)</label>
                                 <input type="text" value={host} onChange={handlehost} />
                             </div>
                             <div className="inputbox">
@@ -234,10 +234,6 @@ const Add_device = () => {
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Password(<span className="required_star">*</span>)</label>
-                                <input type="text" value={password} onChange={handlepassword} />
-                            </div>
-                            <div className="inputbox">
-                                <label htmlFor="">Topic Name(<span className="required_star">*</span>)</label>
                                 <input type="text" value={password} onChange={handlepassword} />
                             </div>
                         </div>
@@ -254,7 +250,7 @@ const Add_device = () => {
                             <div className="check_box_div">
                                 <input type="checkbox" className="check_box_input" />
                             </div>
-                            <div className="Enable_services">Enable Services</div>
+                            <div className="Enable_services">Enable services</div>
                         </div>
                         <div className="save_cancel_btn display-flex">
                             <button className="btn-loc active-loc btn btn-outline-success" onClick={() => handleClick()}>Save</button>

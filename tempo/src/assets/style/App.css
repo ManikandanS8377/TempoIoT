@@ -583,10 +583,10 @@ input[type="checkbox"] {
     flex-direction: column;
 }
 
-.add_button {
+/* .add_button {
     background-color: var(--THEME_SEC_COLOR);
     color: var(--INNER_COLOUR);
-}
+} */
 
 .row_four {
     /* justify-content: center; */
@@ -627,10 +627,34 @@ input[type="checkbox"] {
 /* button hover */
 .btn.btn-outline-danger {
     color: #FB350D;
-    border-color: #FB350D;
 }
 
 .btn.btn-outline-danger:hover {
     background-color: #FB350D;
+    color: white;
+}
+
+/* delete button */
+
+.btn.btn-danger {
+    color: #ffffff;
+    border-color: #FB350D;
+}
+
+.btn.btn-danger:hover {
+    background-color: #FB350D;
+    color: white;
+}
+
+/* add button */
+
+.btn.btn-blue{
+    color: #ffffff;
+    background-color: var(--THEME_SEC_COLOR);
+    
+}
+
+.btn.btn-blue:hover {
+    background-color: #2c30af;
     color: white;
 }
