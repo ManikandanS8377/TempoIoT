@@ -15,6 +15,8 @@ const Add_device = () => {
     const [host,sethost]= useState("");
     const [username,setusername]= useState("");
     const [password,setpassword]= useState("");
+    const [parameter,setparameter]=useState("");
+    const [datatype,setdatatype]=useState("");
 
 
 
@@ -47,6 +49,12 @@ const Add_device = () => {
     function handlepassword(event){
         setpassword(event.target.value)
     }
+    function handleparameter(event){
+        setparameter(event.target.value)
+    }
+    function handledatatype(event){
+        setdatatype(event.target.value)
+    }
 
 
     //on click cancel
@@ -73,9 +81,11 @@ const Add_device = () => {
         const isValidmacaddress=/^[0-9a-fA-F]{2}([-:])[0-9a-fA-F]{2}(\1[0-9a-fA-F]{2}){4}$/.test(devicemacaddress)
         const isValidfirmwareversion=/^[a-zA-Z0-9]+$/.test(firmwareversion)
         const isValidclientname=/^[a-zA-Z0-9]+$/.test(clientname)
-        const isValidhost=/^[a-zA-Z0-9]+$/.test(host) // /^(?:(?!\d+\.)[a-zA-Z0-9-]{1,63}\.?)+(?:[a-zA-Z]{2,})$/
+        const isValidhost=/^[a-zA-Z0-9]+$/.test(host)
         const isValidusername=/^[a-zA-Z0-9]+$/.test(username)
         const isValidpassword= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(password);
+        const isValidparameter=/^[0-9a-zA-Z]+$/.test(parameter)
+        const isValiddatatype=/^[a-zA-Z]+$/.test(datatype)
 
 
         //check if valid or not
@@ -106,8 +116,14 @@ const Add_device = () => {
         else if(!isValidpassword){
             alert("Enter valid password..your password must contain upper,lower,number and special case")
         }
+        else if(!isValidparameter){
+            alert("enter valid parameter")
+        }
+        else if(!isValiddatatype){
+            alert("enter valid datatype")
+        }
         else{
-            const body={clientid,devicename,devicemodel,devicemacaddress,firmwareversion,clientname,host,username,password}
+            const body={clientid,devicename,devicemodel,devicemacaddress,firmwareversion,clientname,host,username,password,parameter,datatype}
             await fetch('http://127.0.0.1:4000/user',{
                 method:"POST",
                 headers:{"content-Type":"application/json"},
@@ -124,11 +140,11 @@ const Add_device = () => {
             <div className="row_five padding-loc display-flex">
                 <div className="inputbox">
                     <label htmlFor="">Parameter</label>
-                    <input type="text" />
+                    <input type="text" onChange={handleparameter}/>
                 </div>
                 <div className="inputbox">
                     <label htmlFor="">Datatype</label>
-                    <input type="text" />
+                    <input type="text" onChange={handledatatype}/>
                 </div>
                 <div className="inputbox">
                     <label htmlFor="">Is Null</label>
