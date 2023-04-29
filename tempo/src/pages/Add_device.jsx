@@ -158,7 +158,7 @@ const Add_device = () => {
                     <input className="btn-loc add_button" type="button" value="Add" />
                 </div>
                 <div className="inputbox">
-                    <input className="btn-loc add_button" type="button" value="Delete" onClick={() => handleDelete(newDivs.length-1)} />
+                    <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete" onClick={() => handleDelete(newDivs.length-1)} />
                 </div>
             </div>
 
@@ -168,7 +168,7 @@ const Add_device = () => {
     const handleDelete = (index) => {
         const newDivs = [...divs];
         newDivs.splice(index, 1);
-        setDivs(newDivs);
+        setDivs(newDivs);    
     };
     return (
         <div className='Add_device'>
