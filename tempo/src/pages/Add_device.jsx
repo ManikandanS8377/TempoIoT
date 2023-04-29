@@ -157,6 +157,9 @@ const Add_device = () => {
                 <div className="inputbox">
                     <input className="btn-loc add_button" type="button" value="Add" />
                 </div>
+                <div className="inputbox">
+                    <input className="btn-loc add_button" type="button" value="Delete" onClick={() => handleDelete(newDivs.length-1)} />
+                </div>
             </div>
 
         );
