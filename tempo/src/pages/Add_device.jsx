@@ -250,8 +250,8 @@ const Add_device = () => {
                             <div className="Enable_services">Enable services</div>
                         </div>
                         <div className="save_cancel_btn display-flex">
-                            <button className="btn-loc inactive-loc" onClick={handleCancel}>cancel</button>
-                            <button className="btn-loc active-loc" onClick={()=>handleClick()}>Save</button>
+                            <button className="btn-loc inactive-loc btn btn-outline-danger" onClick={handleCancel}>cancel</button>
+                            <button className="btn-loc active-loc btn btn-outline-success" onClick={()=>handleClick()}>Save</button>
                         </div>
                     </div>
                 </div>
