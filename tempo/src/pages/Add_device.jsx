@@ -253,7 +253,7 @@ const Add_device = () => {
                             <input type="checkbox" />
                         </div>
                         <div className="inputbox">
-                            <input className="btn-loc add_button" type="button" value="Add" />
+                            <input className="btn-loc add_button btn btn-blue" type="button" value="Add" />
                         </div>
                         <div className="inputbox">
                             <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete"/>
