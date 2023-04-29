@@ -123,14 +123,14 @@ const Add_device = () => {
         else if (!isValiddatatype) {
             alert("enter valid datatype")
         }
-        else {
-            const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, parameter, datatype }
-            await fetch('http://127.0.0.1:4000/user', {
-                method: "POST",
-                headers: { "content-Type": "application/json" },
-                body: JSON.stringify(body)
+        else{
+            const body={clientid,devicename,devicemodel,devicemacaddress,firmwareversion,clientname,host,username,password,parameter,datatype}
+            await fetch('http://127.0.0.1:4000/user',{
+                method:"POST",
+                headers:{"content-Type":"application/json"},
+                body:JSON.stringify(body)
             })
-            alert("data saved successfully")
+            
         }
     }
     const Delete_button = () => {
@@ -157,13 +157,14 @@ const Add_device = () => {
                 <div className="inputbox">
                     <input className="btn-loc add_button" type="button" value="Add" />
                 </div>
-                <div className="inputbox">
-
-                    <input className="btn-loc inactive-loc" onClick={Delete_button} type="button" value="Delete" />
-                </div>
             </div>
 
         );
+        setDivs(newDivs);
+    };
+    const handleDelete = (index) => {
+        const newDivs = [...divs];
+        newDivs.splice(index, 1);
         setDivs(newDivs);
     };
     return (
