@@ -189,7 +189,7 @@ const Add_device = () => {
                                 <input type="text" value={devicemacaddress} onChange={handledevicemacaddress}/>
                             </div>
                             <div className="inputbox">
-                                <label htmlFor="">Frimeware version</label>
+                                <label htmlFor="">Firmware version</label>
                                 <input type="text" value={firmwareversion} onChange={handlefirmwareversion}/>
                             </div>
                         </div>
