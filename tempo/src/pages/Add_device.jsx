@@ -3,7 +3,6 @@ import { useState } from "react";
 // import add_new_div from "../Functions/Add_new_div";
 import { RiAddCircleLine } from "react-icons/ri";
 const Add_device = () => {
-    const [isVisible, setIsVisible] = useState(true);
     const [divs, setDivs] = useState([]);
 
     //states to use their values and validate
@@ -130,13 +129,11 @@ const Add_device = () => {
                 headers: { "content-Type": "application/json" },
                 body: JSON.stringify(body)
             })
-
         }
     }
-    const Delete_button = () => {
-        setIsVisible(!isVisible)
-    }
+    
 
+    //push input box to the page
     const handleButtonClick = (e) => {
         e.preventDefault();
         const newDivs = [...divs];
@@ -158,7 +155,7 @@ const Add_device = () => {
                     <input className="btn-loc add_button btn btn-blue" type="button" value="Add" />
                 </div>
                 <div className="inputbox">
-                    <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete" onClick={() => handleDelete(newDivs.length-1)} />
+                    <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete" onClick={() => handleDelete(newDivs.length - 1)} />
                 </div>
             </div>
 
@@ -168,7 +165,7 @@ const Add_device = () => {
     const handleDelete = (index) => {
         const newDivs = [...divs];
         newDivs.splice(index, 1);
-        setDivs(newDivs);    
+        setDivs(newDivs);
     };
     return (
         <div className='Add_device'>
@@ -242,7 +239,26 @@ const Add_device = () => {
                         <div className="device_data light-grey uppercase">Device Data</div>
                         <div className="icon"><RiAddCircleLine className="Add-icon light-grey" onClick={handleButtonClick} /></div>
                     </div>
-
+                    <div className="row_five padding-loc display-flex mb-loc-5">
+                        <div className="inputbox">
+                            <label htmlFor="">Parameter</label>
+                            <input type="text" onChange={handleparameter} />
+                        </div>
+                        <div className="inputbox">
+                            <label htmlFor="">Datatype</label>
+                            <input type="text" onChange={handledatatype} />
+                        </div>
+                        <div className="inputbox">
+                            <label htmlFor="">Is Null</label>
+                            <input type="checkbox" />
+                        </div>
+                        <div className="inputbox">
+                            <input className="btn-loc add_button" type="button" value="Add" />
+                        </div>
+                        <div className="inputbox">
+                            <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete"/>
+                        </div>
+                    </div>
                     {divs}
 
                     <div className="operating_buttons display-flex padding-loc">
