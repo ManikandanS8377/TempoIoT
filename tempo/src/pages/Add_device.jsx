@@ -124,12 +124,13 @@ const Add_device = () => {
         }
         else{
             const body={clientid,devicename,devicemodel,devicemacaddress,firmwareversion,clientname,host,username,password,parameter,datatype}
+            alert("data saved successfully")
             await fetch('http://127.0.0.1:4000/user',{
                 method:"POST",
                 headers:{"content-Type":"application/json"},
                 body:JSON.stringify(body)
             })
-            alert("data saved successfully")
+            
         }
     }
 
@@ -153,8 +154,16 @@ const Add_device = () => {
                 <div className="inputbox">
                     <input className="btn-loc add_button" type="button" value="Add" />
                 </div>
+                <div className="inputbox">
+                    <input className="btn-loc add_button" type="button" value="Delete" onClick={() => handleDelete(newDivs.length-1)} />
+                </div>
             </div>
         );
+        setDivs(newDivs);
+    };
+    const handleDelete = (index) => {
+        const newDivs = [...divs];
+        newDivs.splice(index, 1);
         setDivs(newDivs);
     };
     return (
