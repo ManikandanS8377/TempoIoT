@@ -3,7 +3,6 @@ import { useState } from "react";
 // import add_new_div from "../Functions/Add_new_div";
 import { RiAddCircleLine } from "react-icons/ri";
 const Add_device = () => {
-    const [isVisible, setIsVisible] = useState(true);
     const [divs, setDivs] = useState([]);
 
     //states to use their values and validate
@@ -130,13 +129,11 @@ const Add_device = () => {
                 headers: { "content-Type": "application/json" },
                 body: JSON.stringify(body)
             })
-
         }
     }
-    const Delete_button = () => {
-        setIsVisible(!isVisible)
-    }
+    
 
+    //push input box to the page
     const handleButtonClick = (e) => {
         e.preventDefault();
         const newDivs = [...divs];
