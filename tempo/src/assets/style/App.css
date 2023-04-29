@@ -8,6 +8,7 @@
 
 .box-shadow {
     box-shadow: var(--BOX-SHADOW);
+    border: 1px solid #e9e4e4;
 }
 
 .padding-loc {
@@ -155,6 +156,7 @@ main {
 .top-nav {
     height: 10vh;
     box-shadow: var(--BOX-SHADOW);
+    border: 1px solid #e9e4e4;
 }
 
 .flex-class {
@@ -457,8 +459,15 @@ main {
 
 /* Add Device */
 .new_device {
-    display: flex;
-    justify-content: end;
+    /* display: flex; */
+    /* justify-content: end; */
+    text-align: end;
+}
+.new_device_btn{
+    margin-right: 1rem;
+}
+.required_star{
+    color: var(--CANCEL_BTN_CLR);
 }
 
 .row_one {
@@ -509,7 +518,7 @@ main {
 
 
 .row_five {
-    width: 70%;
+    width: 90%;
     gap: 5rem;
     margin-left: 3rem;
     border: 0.1px solid rgba(143, 137, 137, 0.342);
@@ -518,7 +527,6 @@ main {
 
 .row_one,
 .row_five {
-    height: 90px;
     align-items: center;
 }
 
