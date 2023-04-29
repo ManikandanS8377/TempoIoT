@@ -73,7 +73,7 @@ const Add_device = () => {
         const isValidmacaddress=/^[0-9a-fA-F]{2}([-:])[0-9a-fA-F]{2}(\1[0-9a-fA-F]{2}){4}$/.test(devicemacaddress)
         const isValidfirmwareversion=/^[a-zA-Z0-9]+$/.test(firmwareversion)
         const isValidclientname=/^[a-zA-Z0-9]+$/.test(clientname)
-        const isValidhost=/^(?:(?!\d+\.)[a-zA-Z0-9-]{1,63}\.?)+(?:[a-zA-Z]{2,})$/.test(host)
+        const isValidhost=/^[a-zA-Z0-9]+$/.test(host) // /^(?:(?!\d+\.)[a-zA-Z0-9-]{1,63}\.?)+(?:[a-zA-Z]{2,})$/
         const isValidusername=/^[a-zA-Z0-9]+$/.test(username)
         const isValidpassword= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(password);
 
