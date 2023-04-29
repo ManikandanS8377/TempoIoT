@@ -612,4 +612,11 @@ input[type="checkbox"] {
 }
 
 /* button hover */
-
+.btn.btn-outline-danger {
+    color: #FB350D;
+    border-color: #FB350D;
+}
+.btn.btn-outline-danger:hover {
+    background-color: #FB350D;
+    color: white;
+}
