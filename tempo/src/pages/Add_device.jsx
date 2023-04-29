@@ -64,18 +64,22 @@ const Add_device = () => {
     //on click cancel
 
     function handleCancel() {
-        setclientid("");
-        setdevicename("");
-        setdevicemodel("");
-        setdevicemacaddress("");
-        setfirmwareversion("");
-        setclientname("");
-        sethost("");
-        setusername("");
-        setpassword("");
-        settopicname("");
-        setparameter("");
-        setdatatype("");
+        const result = window.confirm("Are you sure you want to delete this item?");
+        if(result){
+            setclientid("");
+            setdevicename("");
+            setdevicemodel("");
+            setdevicemacaddress("");
+            setfirmwareversion("");
+            setclientname("");
+            sethost("");
+            setusername("");
+            setpassword("");
+            settopicname("");
+            setparameter("");
+            setdatatype("");
+        }
+        
     }
 
     //function to validate
@@ -97,37 +101,37 @@ const Add_device = () => {
 
         //check if valid or not
         if (!isValidclientid) {
-            alert("Enter valid client id")
+            alert("Enter Valid Client ID")
         }
         else if (!isValiddevicename) {
-            alert("Enter valid devicename")
+            alert("Enter Valid DeviceName")
         }
         else if (!isValiddevicemodel) {
-            alert("Enter valid device model")
+            alert("Enter Valid Device Model")
         }
         else if (!isValidmacaddress) {
-            alert("Enter valid macaddress")
+            alert("Enter Valid MAC Address")
         }
         else if (!isValidfirmwareversion) {
-            alert("Enter valid firmware version")
+            alert("Enter Valid Firmware Version")
         }
         else if (!isValidclientname) {
-            alert("Enter valid clientname")
+            alert("Enter Valid ClientID")
         }
         else if (!isValidhost) {
-            alert("Enter valid host")
+            alert("Enter Valid Host")
         }
         else if (!isValidusername) {
-            alert("Enter valid username")
+            alert("Enter valid Username")
         }
         else if (!isValidpassword) {
-            alert("Enter valid password..your password must contain upper,lower,number and special case")
+            alert("Enter Valid Password..your password must contain upper,lower,number and special case")
         }
         else if (!isValidparameter) {
-            alert("enter valid parameter")
+            alert("Enter Valid Parameter")
         }
         else if (!isValiddatatype) {
-            alert("enter valid datatype")
+            alert("Enter Valid Datatype")
         }
         else {
             const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, parameter, datatype }
