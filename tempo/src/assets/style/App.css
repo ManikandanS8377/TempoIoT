@@ -23,7 +23,8 @@
 }
 
 .uppercase {
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
+    font-weight: bold;
 }
 
 .gap-loc-4 {
@@ -600,3 +601,6 @@ input[type="checkbox"] {
 .Add-icon{
     transform: scale(1.5);
 }
+
+/* button hover */
+
