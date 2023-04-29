@@ -24,8 +24,7 @@
 }
 
 .uppercase {
-    /* text-transform: uppercase; */
-    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .gap-loc-4 {
@@ -43,7 +42,9 @@
 .bg{
     background-color: red;
 }
-
+.bold{
+    font-weight: bold;
+}
 /* design */
 .container-slidebar {
     display: flex;
@@ -512,7 +513,7 @@ main {
     align-items: center;
 }
 .radio_check{
-    transform: scale(1.5);
+    transform: scale(1.3);
 }
 
 
@@ -550,10 +551,10 @@ input {
 
 /* Increase checkbox size */
 input[type="checkbox"] {
-    -webkit-transform: scale(1.5);
-    -moz-transform: scale(1.5);
-    -ms-transform: scale(1.5);
-    transform: scale(1.5);
+    -webkit-transform: scale(1.3);
+    -moz-transform: scale(1.3);
+    -ms-transform: scale(1.3);
+    transform: scale(1.3);
 }
 
 .Enable_services {
