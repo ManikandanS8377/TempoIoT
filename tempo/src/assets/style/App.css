@@ -1,4 +1,4 @@
-@import url("./cofig.css");
+    @import url("./cofig.css");
 
 * {
     margin: 0;
@@ -29,7 +29,18 @@
 .gap-loc-4 {
     gap: 1rem;
 }
-
+.mb-loc-5{
+    margin-bottom: 0.5rem;
+}
+.mb-loc-3{
+    margin-bottom: 0.5rem;
+}
+.mt-loc-3{
+    margin-top: 0.3rem;
+}
+.bg{
+    background-color: red;
+}
 
 /* design */
 .container-slidebar {
@@ -460,6 +471,7 @@ main {
     flex-direction: column;
 }
 
+
 .new_device {
     padding: 0.5rem;
 }
@@ -485,8 +497,12 @@ main {
 }
 
 .mqtt_protocol {
-    gap: 100px;
+    gap: 50px;
     justify-content: start;
+    align-items: center;
+}
+.radio_check{
+    transform: scale(1.5);
 }
 
 
@@ -555,6 +571,10 @@ input[type="checkbox"] {
 .row_four {
     /* justify-content: center; */
     align-items: center;
+}
+.Add_device{
+    height: 90vh;
+    overflow-x: hidden;
 }
 
 .add_device_container {

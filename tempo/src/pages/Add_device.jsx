@@ -172,7 +172,7 @@ const Add_device = () => {
                         </div>
                     </div>
                     <div className="row_two padding-loc">
-                        <div className="device_info uppercase light-grey">
+                        <div className="device_info uppercase light-grey mb-loc-5">
                             device info
                         </div>
                         <div className="input-boxes display-flex">
@@ -196,10 +196,10 @@ const Add_device = () => {
                     </div>
                     <div className="row_three padding-loc">
                         <div className="mqtt_protocol display-flex">
-                            <div className="network_protocol light-grey uppercase">Network Protocol</div>
+                            <div className="network_protocol light-grey uppercase mb-loc-5 mt-loc-3">Network Protocol</div>
                             <div className="mqtt_type display-flex uppercase gap-loc-4">
                                 <div className="radio_mqtt">
-                                    <input type="radio" />
+                                    <input type="radio" className="radio_check"/>
                                 </div>
                                 <div className="mqtt_txt">
                                     Mqtt
