@@ -178,7 +178,7 @@ const Add_device = () => {
             <div className="add_device_container">
                 <div className="new_device_content">
                     <div className="row_one">
-                        <div className="adding_new_device uppercase">Add Device Detials </div>
+                        <div className="adding_new_device uppercase bold">Add Device Detials </div>
                         <div className="client_id">
                             <label htmlFor="device_id">Client Id</label>
                             <input type="text" id="device_id" value={clientid} onChange={handleclientid} />
