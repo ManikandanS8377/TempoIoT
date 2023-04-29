@@ -158,7 +158,7 @@ const Add_device = () => {
                     <input className="btn-loc add_button" type="button" value="Add" />
                 </div>
                 <div className="inputbox">
-                    <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete" onClick={() => handleDelete(newDivs.length-1)} />
+                    <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete" onClick={() => handleDelete(newDivs.length - 1)} />
                 </div>
             </div>
 
@@ -168,7 +168,7 @@ const Add_device = () => {
     const handleDelete = (index) => {
         const newDivs = [...divs];
         newDivs.splice(index, 1);
-        setDivs(newDivs);    
+        setDivs(newDivs);
     };
     return (
         <div className='Add_device'>
@@ -246,7 +246,26 @@ const Add_device = () => {
                         <div className="device_data light-grey uppercase">Device Data</div>
                         <div className="icon"><RiAddCircleLine className="Add-icon light-grey" onClick={handleButtonClick} /></div>
                     </div>
-
+                    <div className="row_five padding-loc display-flex mb-loc-5">
+                        <div className="inputbox">
+                            <label htmlFor="">Parameter</label>
+                            <input type="text" onChange={handleparameter} />
+                        </div>
+                        <div className="inputbox">
+                            <label htmlFor="">Datatype</label>
+                            <input type="text" onChange={handledatatype} />
+                        </div>
+                        <div className="inputbox">
+                            <label htmlFor="">Is Null</label>
+                            <input type="checkbox" />
+                        </div>
+                        <div className="inputbox">
+                            <input className="btn-loc add_button" type="button" value="Add" />
+                        </div>
+                        <div className="inputbox">
+                            <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete"/>
+                        </div>
+                    </div>
                     {divs}
 
                     <div className="operating_buttons display-flex padding-loc">
