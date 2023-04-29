@@ -17,6 +17,7 @@ const Add_device = () => {
     const [password, setpassword] = useState("");
     const [parameter, setparameter] = useState("");
     const [datatype, setdatatype] = useState("");
+    const [topicname,settopicname]=useState("");
 
 
 
@@ -49,6 +50,9 @@ const Add_device = () => {
     function handlepassword(event) {
         setpassword(event.target.value)
     }
+    function handletopicname(event){
+        settopicname(event.target.value)
+    }
     function handleparameter(event) {
         setparameter(event.target.value)
     }
@@ -69,6 +73,9 @@ const Add_device = () => {
         sethost("");
         setusername("");
         setpassword("");
+        settopicname("");
+        setparameter("");
+        setdatatype("");
     }
 
     //function to validate
@@ -235,7 +242,7 @@ const Add_device = () => {
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Topic Name(<span className="required_star">*</span>)</label>
-                                <input type="text" value={password} onChange={handlepassword} />
+                                <input type="text" value={topicname} onChange={handletopicname} />
                             </div>
                         </div>
                     </div>
