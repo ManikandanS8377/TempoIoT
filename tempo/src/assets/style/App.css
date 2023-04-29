@@ -495,6 +495,8 @@ main {
     width: 70%;
     gap: 5rem;
     margin-left: 3rem;
+    border: 0.1px solid rgba(143, 137, 137, 0.342);
+    border-radius: 0.5rem;
 }
 
 .row_one,

@@ -80,31 +80,31 @@ const Add_device = () => {
 
         //check if valid or not
         if(!isValidclientid){
-            alert("enter valid client id")
+            alert("Enter valid client id")
         }
         else if(!isValiddevicename){
-            alert("enter valid devicename")
+            alert("Enter valid devicename")
         }
         else if(!isValiddevicemodel){
-            alert("enter valid device model")
+            alert("Enter valid device model")
         }
         else if(!isValidmacaddress){
-            alert("enter valid macaddress")
+            alert("Enter valid macaddress")
         }
         else if(!isValidfirmwareversion){
-            alert("enter valid firmware version")
+            alert("Enter valid firmware version")
         }
         else if(!isValidclientname){
-            alert("enter valid clientname")
+            alert("Enter valid clientname")
         }
         else if(!isValidhost){
-            alert("enter valid host")
+            alert("Enter valid host")
         }
         else if(!isValidusername){
-            alert("enter valid username")
+            alert("Enter valid username")
         }
         else if(!isValidpassword){
-            alert("enter valid password..your password must contain upper,lower,number and special case")
+            alert("Enter valid password..your password must contain upper,lower,number and special case")
         }
         else{
             const body={clientid,devicename,devicemodel,devicemacaddress,firmwareversion,clientname,host,username,password}
@@ -113,6 +113,7 @@ const Add_device = () => {
                 headers:{"content-Type":"application/json"},
                 body:JSON.stringify(body)
             })
+            alert("data saved successfully")
         }
     }
 
@@ -122,12 +123,15 @@ const Add_device = () => {
         newDivs.push(
             <div className="row_five padding-loc display-flex">
                 <div className="inputbox">
+                    <label htmlFor="">Parameter</label>
                     <input type="text" />
                 </div>
                 <div className="inputbox">
+                    <label htmlFor="">Datatype</label>
                     <input type="text" />
                 </div>
                 <div className="inputbox">
+                    <label htmlFor="">Is Null</label>
                     <input type="checkbox" />
                 </div>
                 <div className="inputbox">
