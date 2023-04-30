@@ -6,7 +6,7 @@ const Add_device = () => {
     const [divs, setDivs] = useState([]);
 
     //states to use their values and validate
-    const [clientid, setclientid] = useState("")
+    const [clientid, setclientid] = useState("");
     const [devicename, setdevicename] = useState("");
     const [devicemodel, setdevicemodel] = useState("");
     const [devicemacaddress, setdevicemacaddress] = useState("");
@@ -18,6 +18,8 @@ const Add_device = () => {
     const [parameter, setparameter] = useState("");
     const [datatype, setdatatype] = useState("");
     const [topicname,settopicname]=useState("");
+
+    //enable services checking state
     const [isChecked,setisChecked]=useState(false);
     const [checking,setchecking]=useState("")
 
@@ -86,12 +88,14 @@ const Add_device = () => {
 
     //check is they enable services
     function handleChange(){
-        const checks=window.confirm("Do you want to enable service?")
-        if(checks){
             setisChecked(!isChecked);
-            setchecking("true");
-        }
-        
+            if(!isChecked){
+                setchecking("true")
+            }
+            else{
+                setchecking("")
+            }
+            
     }
 
     //function to validate
@@ -156,7 +160,6 @@ const Add_device = () => {
                 headers: { "content-Type": "application/json" },
                 body: JSON.stringify(body)
             })
-            alert("data saved successfully")
         }
     }
     
