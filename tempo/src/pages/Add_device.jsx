@@ -20,8 +20,8 @@ const Add_device = () => {
     const [topicname,settopicname]=useState("");
 
     //enable services checking state
-    const [isChecked,setisChecked]=useState(false);
-    const [checking,setchecking]=useState("")
+    const [isChecked,setisChecked]=useState(true);
+    const [checking,setchecking]=useState("true")
 
 
 
@@ -89,11 +89,11 @@ const Add_device = () => {
     //check is they enable services
     function handleChange(){
             setisChecked(!isChecked);
-            if(!isChecked){
-                setchecking("true")
+            if(isChecked){
+                setchecking("")
             }
             else{
-                setchecking("")
+                setchecking("true")
             }
             
     }
@@ -240,7 +240,7 @@ const Add_device = () => {
                             <div className="network_protocol light-grey uppercase mb-loc-5 mt-loc-3">Network Protocol</div>
                             <div className="mqtt_type display-flex uppercase gap-loc-4">
                                 <div className="radio_mqtt">
-                                    <input type="radio" className="radio_check" />
+                                    <input type="radio" className="radio_check" defaultChecked/>
                                 </div>
                                 <div className="mqtt_txt">
                                     Mqtt
