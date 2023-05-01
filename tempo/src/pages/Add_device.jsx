@@ -267,11 +267,11 @@ const Add_device = () => {
                             <label htmlFor="">Is Null</label>
                             <input type="checkbox" />
                         </div>
-                        <div className="inputbox">
-                            <input className="btn-loc add_button btn btn-blue" type="button" value="Add" />
+                        <div className="inputbox add_del_gap">
+                            <input className="btn-loc add_button btn btn-blue del_btn" type="button" value="Add" />
                         </div>
-                        <div className="inputbox">
-                            <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete"/>
+                        <div className="inputbox add_del_gap">
+                            <input className="btn-loc add_button  btn btn-danger del_btn" type="button" value="Delete"/>
                         </div>
                     </div>
                     {divs}

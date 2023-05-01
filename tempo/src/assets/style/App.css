@@ -535,6 +535,9 @@ main {
     border: 0.1px solid rgba(143, 137, 137, 0.342);
     border-radius: 0.5rem;
 }
+.inputbox .del_btn{
+    margin-left: -2rem;
+}
 
 .row_one,
 .row_five {
