@@ -14,6 +14,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "mongoose": "^7.1.0",
+    "mqtt": "^4.3.7",
     "pg": "^8.10.0"
   },
   "devDependencies": {
