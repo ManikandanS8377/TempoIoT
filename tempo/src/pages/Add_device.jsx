@@ -249,7 +249,7 @@ const Add_device = () => {
                         </div>
                         <div className="sub_row_three display-flex">
                             <div className="inputbox display-flex">
-                                <label htmlFor="">Mqqt Client Name (<span className="required_star">*</span>)</label>
+                                <label htmlFor="">MQTT Client ID (<span className="required_star">*</span>)</label>
                                 <input type="text" value={clientname} onChange={handleclientname} />
                             </div>
                             <div className="inputbox">
