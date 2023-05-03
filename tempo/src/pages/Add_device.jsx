@@ -17,11 +17,11 @@ const Add_device = () => {
     const [password, setpassword] = useState("");
     const [parameter, setparameter] = useState("");
     const [datatype, setdatatype] = useState("");
-    const [topicname,settopicname]=useState("");
+    const [topicname, settopicname] = useState("");
 
     //enable services checking state
-    const [isChecked,setisChecked]=useState(true);
-    const [checking,setchecking]=useState("true")
+    const [isChecked, setisChecked] = useState(true);
+    const [checking, setchecking] = useState("true")
 
 
 
@@ -44,17 +44,17 @@ const Add_device = () => {
     }
     function handleclientname(event) {
         setclientname(event.target.value)
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-    function handlehost(event) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-        sethost(event.target.value)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-    function handleusername(event) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-        setusername(event.target.value)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-    function handlepassword(event) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-        setpassword(event.target.value)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-    function handletopicname(event){
+    }
+    function handlehost(event) {
+        sethost(event.target.value)
+    }
+    function handleusername(event) {
+        setusername(event.target.value)
+    }
+    function handlepassword(event) {
+        setpassword(event.target.value)
+    }
+    function handletopicname(event) {
         settopicname(event.target.value)
     }
     function handleparameter(event) {
@@ -69,7 +69,7 @@ const Add_device = () => {
 
     function handleCancel() {
         const result = window.confirm("Are you sure you want to delete this item?");
-        if(result){
+        if (result) {
             setclientid("");
             setdevicename("");
             setdevicemodel("");
@@ -83,19 +83,19 @@ const Add_device = () => {
             setparameter("");
             setdatatype("");
         }
-        
+
     }
 
     //check is they enable services
-    function handleChange(){
-            setisChecked(!isChecked);
-            if(isChecked){
-                setchecking("")
-            }
-            else{
-                setchecking("true")
-            }
-            
+    function handleChange() {
+        setisChecked(!isChecked);
+        if (isChecked) {
+            setchecking("")
+        }
+        else {
+            setchecking("true")
+        }
+
     }
 
     //function to validate
@@ -110,7 +110,7 @@ const Add_device = () => {
         const isValidclientname = /^[a-zA-Z0-9]+$/.test(clientname)
         const isValidhost = /^[a-zA-Z0-9]+$/.test(host)
         const isValidusername = /^[a-zA-Z0-9]+$/.test(username)
-        const isValidtopicname=/^[0-9a-zA-Z]+$/.test(topicname)
+        const isValidtopicname = /^[0-9a-zA-Z]+$/.test(topicname)
         const isValidpassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(password);
         const isValidparameter = /^[0-9a-zA-Z]+$/.test(parameter)
         const isValiddatatype = /^[a-zA-Z]+$/.test(datatype)
@@ -119,7 +119,7 @@ const Add_device = () => {
         //check if valid or not
         if (!isValidclientid) {
             alert("Enter Valid Client ID")
-        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+        }
         else if (!isValiddevicename) {
             alert("Enter Valid DeviceName")
         }
@@ -144,7 +144,7 @@ const Add_device = () => {
         else if (!isValidpassword) {
             alert("Enter Valid Password..your password must contain upper,lower,number and special case")
         }
-        else if(!isValidtopicname){
+        else if (!isValidtopicname) {
             alert("Enter Valid Topic Name ")
         }
         else if (!isValidparameter) {
@@ -154,7 +154,7 @@ const Add_device = () => {
             alert("Enter Valid Datatype")
         }
         else {
-            const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password,topicname, parameter, datatype,checking}
+            const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, topicname, parameter, datatype, checking }
             await fetch('http://127.0.0.1:4000/user', {
                 method: "POST",
                 headers: { "content-Type": "application/json" },
@@ -162,13 +162,12 @@ const Add_device = () => {
             })
         }
     }
-    
+
 
     //push input box to the page
     const handleButtonClick = (e) => {
         e.preventDefault();
-        const newDivs = [...divs];
-        newDivs.push(
+        const newDivs = divs.concat(
             <div className="row_five padding-loc display-flex mb-loc-5">
                 <div className="inputbox">
                     <label htmlFor="">Parameter</label>
@@ -183,21 +182,26 @@ const Add_device = () => {
                     <input type="checkbox" />
                 </div>
                 <div className="inputbox">
-                    <input className="btn-loc add_button btn btn-blue" type="button" value="Add" />
+                    <input className="btn-loc add_button btn btn-blue del_btn" type="button" value="Add" />
                 </div>
                 <div className="inputbox">
-                    <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete" onClick={() => handleDelete(newDivs.length - 1)} />
+                    <input className="btn-loc add_button btn btn-danger del_btn" type="button" value="Delete" onClick={() => handleDelete(newDivs.length)} />
                 </div>
             </div>
-
         );
         setDivs(newDivs);
     };
+
+
+
+
     const handleDelete = (index) => {
         const newDivs = [...divs];
         newDivs.splice(index, 1);
         setDivs(newDivs);
-    };
+      };      
+
+
     return (
         <div className='Add_device'>
             <div className="new_device box-shadow">
@@ -208,7 +212,7 @@ const Add_device = () => {
                     <div className="row_one">
                         <div className="adding_new_device uppercase bold">Add Device Detials </div>
                         <div className="client_id">
-                            <label htmlFor="device_id">Client Id</label>
+                            <label htmlFor="device_id">Client ID</label>
                             <input type="text" id="device_id" value={clientid} onChange={handleclientid} />
                         </div>
                     </div>
@@ -230,7 +234,7 @@ const Add_device = () => {
                                 <input type="text" value={devicemacaddress} onChange={handledevicemacaddress} />
                             </div>
                             <div className="inputbox">
-                                <label htmlFor="">Firmware version(<span className="required_star">*</span>)</label>
+                                <label htmlFor="">Firmware Version(<span className="required_star">*</span>)</label>
                                 <input type="text" value={firmwareversion} onChange={handlefirmwareversion} />
                             </div>
                         </div>
@@ -240,7 +244,7 @@ const Add_device = () => {
                             <div className="network_protocol light-grey uppercase mb-loc-5 mt-loc-3">Network Protocol</div>
                             <div className="mqtt_type display-flex uppercase gap-loc-4">
                                 <div className="radio_mqtt">
-                                    <input type="radio" className="radio_check" defaultChecked/>
+                                    <input type="radio" className="radio_check" defaultChecked />
                                 </div>
                                 <div className="mqtt_txt">
                                     Mqtt
@@ -253,7 +257,7 @@ const Add_device = () => {
                                 <input type="text" value={clientname} onChange={handleclientname} />
                             </div>
                             <div className="inputbox">
-                                <label htmlFor="">Host(<span className="required_star">*</span>)</label>
+                                <label htmlFor="">Host IP Address(<span className="required_star">*</span>)</label>
                                 <input type="text" value={host} onChange={handlehost} />
                             </div>
                             <div className="inputbox">
@@ -291,7 +295,7 @@ const Add_device = () => {
                             <input className="btn-loc add_button btn btn-blue del_btn" type="button" value="Add" />
                         </div>
                         <div className="inputbox add_del_gap">
-                            <input className="btn-loc add_button  btn btn-danger del_btn" type="button" value="Delete"/>
+                            <input className="btn-loc add_button  btn btn-danger del_btn" type="button" value="Delete" />
                         </div>
                     </div>
                     {divs}
@@ -309,9 +313,10 @@ const Add_device = () => {
 
                         </div>
                     </div>
+
                 </div>
             </div>
-
+            {/* {rows} */}
         </div>
     );
 };
