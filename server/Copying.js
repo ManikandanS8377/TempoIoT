@@ -11,7 +11,7 @@ let host = '';
 let username = '';
 let password = '';
 for (let i = 0; i < allData.length; i++) {
-  let ini=allData[i].formattedMacAddress.replace(/[:\-]/g, "_");
+  let ini=allData[i].devicemacaddress.replace(/[:\-]/g, "_");
   if (ini === name) {
     host = allData[i].host;
     username=allData[i].host;
