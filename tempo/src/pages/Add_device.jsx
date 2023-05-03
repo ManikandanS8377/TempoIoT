@@ -37,8 +37,8 @@ const Add_device = () => {
         setdevicemodel(event.target.value)
     }
     function handledevicemacaddress(event) {
-        setdevicemacaddress(event.target.value)
-    }
+        setdevicemacaddress(event.target.value);
+    }    
     function handlefirmwareversion(event) {
         setfirmwareversion(event.target.value)
     }
@@ -105,10 +105,10 @@ const Add_device = () => {
         const isValidclientid = /^[0-9]+$/.test(clientid)
         const isValiddevicename = /^[a-zA-Z0-9]+$/.test(devicename)
         const isValiddevicemodel = /^[a-zA-Z0-9]+$/.test(devicemodel)
-        const isValidmacaddress = /^[0-9a-fA-F]{2}([-:])[0-9a-fA-F]{2}(\1[0-9a-fA-F]{2}){4}$/.test(devicemacaddress)
+        const isValidmacaddress = /^[0-9a-zA-Z]{2}([-:_])[0-9a-zA-Z]{2}(\1[0-9a-zA-Z]{2}){4}$/.test(devicemacaddress)
         const isValidfirmwareversion = /^[a-zA-Z0-9]+$/.test(firmwareversion)
         const isValidclientname = /^[a-zA-Z0-9]+$/.test(clientname)
-        const isValidhost = /^[a-zA-Z0-9]+$/.test(host)
+        const isValidhost = /^[0-9a-zA-Z./,:\\-]+$/.test(host)
         const isValidusername = /^[a-zA-Z0-9]+$/.test(username)
         const isValidtopicname=/^[0-9a-zA-Z]+$/.test(topicname)
         const isValidpassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(password);

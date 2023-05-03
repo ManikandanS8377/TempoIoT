@@ -19,22 +19,33 @@ app.post("/user",async(req,res)=>{
     try {
 
         //getting data for enabled srevice
-
+        const data=req.body
         const enables=req.body["checking"]
-        let topicname=req.body["devicemacaddress"]
+
 
        // mqtt connection
         if(enables==="true"){
-            topicname=topicname.replace(/[:\-]/g, "_");
 
+            let topicname=req.body["devicemacaddress"]
+            topicname=topicname.replace(/[:\-]/g, "_")
+            
             //TAKE COPY of the file
             const fileName=topicname+'.js';
             const fileContent=fs.readFileSync('./Copying.js')
             const filePath='copy/'+fileName
-            //write the file
+           // write the file
             fs.writeFileSync(filePath,fileContent);
+            console.log(data)
+
+            let allData=[]
+            allData = JSON.parse(fs.readFileSync('allData.json', 'utf8'));
+            allData.push(data);
+            fs.writeFileSync('allData.json', JSON.stringify(allData));
+
+
         }
 
+        
 
 
         
@@ -56,9 +67,9 @@ app.post("/user",async(req,res)=>{
         const values=[client_id,device_name,device_mac_address,device_firmware_version,mqtt_client_name,mqtt_host,user_name,passowrd,device_model,parameter,datatype,topic_name]
 
         //query to insert into database
-        await pool.query(ins,values).then((res)=>{
-            console.log(res)
-        })
+        // await pool.query(ins,values).then((res)=>{
+        //     console.log(res)
+        // })
     } catch (err) {
         console.log(err)
     }
