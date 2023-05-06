@@ -19,6 +19,20 @@ const Add_device = () => {
     const [datatype, setdatatype] = useState("");
     const [topicname, settopicname] = useState("");
 
+    //error
+    const [clientidError, setclientidError] = useState("");
+    const [devicenameerror,setdevicenameerror]=useState("");
+    const [devicemodelerror,setdevicemodelerror]=useState("");
+    const [devicemacaddresserror,setdevicemacaddresserror]=useState("");
+    const [firmwareversionerror,setfirmwareversionerror]=useState("");
+    const [clientnameerror,setclientnameerror]=useState("");
+    const [hosterror,sethosterror]=useState("");
+    const [usernameerror,setusernameerror]=useState("");
+    const [passworderror,setpassworderror]=useState("");
+    const [parametererror,setparametererror]=useState("");
+    const [datatypeerror,setdatatypeerror]=useState("");
+    const [topicnameerror,settopicnameerror]=useState("");
+
     //enable services checking state
     const [isChecked, setisChecked] = useState(true);
     const [checking, setchecking] = useState("true")
@@ -28,40 +42,137 @@ const Add_device = () => {
     //function to set the value to state
 
     function handleclientid(event) {
-        setclientid(event.target.value)
+        const value = event.target.value;
+        setclientid(value);
+
+        const isValid = /^[0-9]+$/.test(value);
+        if (!isValid) {
+          setclientidError("*Enter valid client ID");
+        } else {
+          setclientidError("");
+        }
     }
     function handledevicename(event) {
-        setdevicename(event.target.value)
+        const value=event.target.value
+        setdevicename(value)
+        const isValiddevicename = /^[a-zA-Z0-9]+$/.test(value)
+        if(!isValiddevicename){
+            setdevicenameerror("*Enter valid device name")
+        }
+        else{
+            setdevicenameerror("");
+        }
+
     }
     function handledevicemodel(event) {
-        setdevicemodel(event.target.value)
+        const value = event.target.value;
+        setdevicemodel(value)
+        const isValiddevicemodel = /^[a-zA-Z0-9]+$/.test(value)
+        if(!isValiddevicemodel){
+            setdevicemodelerror("*Enter Valid Model")
+        }
+        else{
+            setdevicemodelerror("")
+        }
+        
     }
     function handledevicemacaddress(event) {
-        setdevicemacaddress(event.target.value);
+        const value = event.target.value;
+        setdevicemacaddress(value);
+        const isValidmacaddress = /^[0-9a-zA-Z]{2}([-:_])[0-9a-zA-Z]{2}(\1[0-9a-zA-Z]{2}){4}$/.test(value)
+        if(!isValidmacaddress){
+            setdevicemacaddresserror("*Enter Valid MacAddress")
+        }else{
+            setdevicemacaddresserror("");
+        }
+        
     }    
     function handlefirmwareversion(event) {
-        setfirmwareversion(event.target.value)
+        const value = event.target.value;
+        setfirmwareversion(value)
+        const isValidfirmwareversion = /^[a-zA-Z0-9]+$/.test(value)
+        if(!isValidfirmwareversion){
+            setfirmwareversionerror("*Enter valid firmware version")
+        }else{
+            setfirmwareversionerror("")
+        }
     }
     function handleclientname(event) {
-        setclientname(event.target.value)
+        const value = event.target.value;
+        setclientname(value)
+        const isValidclientname = /^[a-zA-Z0-9]+$/.test(value)
+        if(!isValidclientname){
+            setclientnameerror("*Enter valid clientname")
+        }else{
+            setclientnameerror("")
+        }
+
     }
     function handlehost(event) {
-        sethost(event.target.value)
+        const value = event.target.value;
+        sethost(value)
+        const isValidhost = /^[0-9a-zA-Z./,:\\-]+$/.test(value)
+        if(!isValidhost){
+            sethosterror("*Enter valid host")
+        }else{
+            sethosterror("")
+        }
     }
     function handleusername(event) {
-        setusername(event.target.value)
+        const value = event.target.value;
+        setusername(value)
+        const isValidusername = /^[a-zA-Z0-9]+$/.test(value)
+        if(!isValidusername){
+            setusernameerror("*Enter valid username")
+        }else{
+            setusernameerror("")
+        }
+
+
     }
     function handlepassword(event) {
-        setpassword(event.target.value)
+        const value = event.target.value;
+        setpassword(value)
+        const isValidpassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(value);
+        if(!isValidpassword){
+            setpassworderror("*Enter valid password")
+        }else{
+            setpassworderror("")
+        }
     }
     function handletopicname(event) {
-        settopicname(event.target.value)
+        const value = event.target.value;
+        settopicname(value)
+        const isValidtopicname = /^[0-9a-zA-Z]+$/.test(value)
+        if(!isValidtopicname){
+            settopicnameerror("*Enter valid topicname")
+        }else{
+            settopicnameerror("")
+        }
+
+
     }
     function handleparameter(event) {
-        setparameter(event.target.value)
+        const value = event.target.value;
+        setparameter(value)
+        const isValidparameter = /^[0-9a-zA-Z]+$/.test(value)
+        if(!isValidparameter){
+            setparametererror("*Enter valid parameter")
+        }else{
+            setparametererror("")
+        }
+
     }
     function handledatatype(event) {
-        setdatatype(event.target.value)
+        const value = event.target.value;
+        setdatatype(value)
+        const isValiddatatype = /^[a-zA-Z]+$/.test(value)
+        if(!isValiddatatype){
+            setdatatypeerror("*Enter valid datatype")
+        }else{
+            setdatatypeerror("")
+        }
+
     }
 
 
@@ -117,41 +228,9 @@ const Add_device = () => {
 
 
         //check if valid or not
-        if (!isValidclientid) {
-            alert("Enter Valid Client ID")
-        }
-        else if (!isValiddevicename) {
-            alert("Enter Valid DeviceName")
-        }
-        else if (!isValiddevicemodel) {
-            alert("Enter Valid Device Model")
-        }
-        else if (!isValidmacaddress) {
-            alert("Enter Valid MAC Address")
-        }
-        else if (!isValidfirmwareversion) {
-            alert("Enter Valid Firmware Version")
-        }
-        else if (!isValidclientname) {
-            alert("Enter Valid ClientID")
-        }
-        else if (!isValidhost) {
-            alert("Enter Valid Host")
-        }
-        else if (!isValidusername) {
-            alert("Enter valid Username")
-        }
-        else if (!isValidpassword) {
-            alert("Enter Valid Password..your password must contain upper,lower,number and special case")
-        }
-        else if (!isValidtopicname) {
-            alert("Enter Valid Topic Name ")
-        }
-        else if (!isValidparameter) {
-            alert("Enter Valid Parameter")
-        }
-        else if (!isValiddatatype) {
-            alert("Enter Valid Datatype")
+
+        if (!isValidclientid  && !isValiddevicename && !isValiddevicemodel && !isValidmacaddress && !isValidfirmwareversion && !isValidclientname && !isValidhost && !isValidusername && !isValidpassword && !isValidtopicname && !isValidparameter && !isValiddatatype) {
+            alert("not valid")
         }
         else {
             const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, topicname, parameter, datatype, checking }
@@ -172,10 +251,12 @@ const Add_device = () => {
                 <div className="inputbox">
                     <label htmlFor="">Parameter</label>
                     <input type="text" onChange={handleparameter} />
+                    <div className="error-message"><span className={parametererror ? "error" : ""}>{parametererror}</span></div>
                 </div>
                 <div className="inputbox">
                     <label htmlFor="">Datatype</label>
                     <input type="text" onChange={handledatatype} />
+                    <div className="error-message"><span className={datatypeerror ? "error" : ""}>{datatypeerror}</span></div>
                 </div>
                 <div className="inputbox">
                     <label htmlFor="">Is Null</label>
@@ -214,6 +295,7 @@ const Add_device = () => {
                         <div className="client_id">
                             <label htmlFor="device_id">Client ID</label>
                             <input type="text" id="device_id" value={clientid} onChange={handleclientid} />
+                            <div className="error-message"><span className={clientidError ? "error" : ""}>{clientidError}</span></div>
                         </div>
                     </div>
                     <div className="row_two padding-loc">
@@ -224,18 +306,22 @@ const Add_device = () => {
                             <div className="inputbox input">
                                 <label htmlFor="">Device Name (<span className="required_star">*</span>)</label>
                                 <input type="text" value={devicename} onChange={handledevicename} />
+                                <div className="error-message"><span className={devicenameerror ? "error" : ""}>{devicenameerror}</span></div>
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Device Model(<span className="required_star">*</span>)</label>
                                 <input type="text" value={devicemodel} onChange={handledevicemodel} />
+                                <div className="error-message"><span className={devicemodelerror ? "error" : ""}>{devicemodelerror}</span></div>
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Device MAC address(<span className="required_star">*</span>)</label>
                                 <input type="text" value={devicemacaddress} onChange={handledevicemacaddress} />
+                                <div className="error-message"><span className={devicemacaddresserror ? "error" : ""}>{devicemacaddresserror}</span></div>
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Firmware Version(<span className="required_star">*</span>)</label>
                                 <input type="text" value={firmwareversion} onChange={handlefirmwareversion} />
+                                <div className="error-message"><span className={firmwareversionerror ? "error" : ""}>{firmwareversionerror}</span></div>
                             </div>
                         </div>
                     </div>
@@ -255,22 +341,27 @@ const Add_device = () => {
                             <div className="inputbox display-flex">
                                 <label htmlFor="">MQTT Client ID (<span className="required_star">*</span>)</label>
                                 <input type="text" value={clientname} onChange={handleclientname} />
+                                <div className="error-message"><span className={clientnameerror ? "error" : ""}>{clientnameerror}</span></div>
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Host IP Address(<span className="required_star">*</span>)</label>
                                 <input type="text" value={host} onChange={handlehost} />
+                                <div className="error-message"><span className={hosterror ? "error" : ""}>{hosterror}</span></div>
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Username(<span className="required_star">*</span>)</label>
                                 <input type="text" value={username} onChange={handleusername} />
+                                <div className="error-message"><span className={usernameerror ? "error" : ""}>{usernameerror}</span></div>
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Password(<span className="required_star">*</span>)</label>
                                 <input type="text" value={password} onChange={handlepassword} />
+                                <div className="error-message"><span className={passworderror ? "error" : ""}>{passworderror}</span></div>
                             </div>
                             <div className="inputbox">
                                 <label htmlFor="">Topic Name(<span className="required_star">*</span>)</label>
                                 <input type="text" value={topicname} onChange={handletopicname} />
+                                <div className="error-message"><span className={topicnameerror ? "error" : ""}>{topicnameerror}</span></div>
                             </div>
                         </div>
                     </div>
@@ -282,10 +373,12 @@ const Add_device = () => {
                         <div className="inputbox">
                             <label htmlFor="">Parameter</label>
                             <input type="text" onChange={handleparameter} />
+                            <div className="error-message"><span className={parametererror ? "error" : ""}>{parametererror}</span></div>
                         </div>
                         <div className="inputbox">
                             <label htmlFor="">Datatype</label>
                             <input type="text" onChange={handledatatype} />
+                            <div className="error-message"><span className={datatypeerror ? "error" : ""}>{datatypeerror}</span></div>
                         </div>
                         <div className="inputbox">
                             <label htmlFor="">Is Null</label>

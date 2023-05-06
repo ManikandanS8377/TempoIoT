@@ -532,6 +532,7 @@ main {
     margin-left: 3rem;
     border: 0.1px solid rgba(143, 137, 137, 0.342);
     border-radius: 0.5rem;
+    padding: 1rem;
 }
 .inputbox .del_btn{
     margin-left: -2rem;
@@ -545,6 +546,7 @@ main {
 .inputbox {
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 input {
@@ -584,12 +586,9 @@ input[type="checkbox"] {
 .client_id {
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
-/* .add_button {
-    background-color: var(--THEME_SEC_COLOR);
-    color: var(--INNER_COLOUR);
-} */
 
 .row_four {
     /* justify-content: center; */
@@ -599,6 +598,7 @@ input[type="checkbox"] {
 .Add_device {
     height: 90vh;
     overflow-x: hidden;
+    
 }
 
 .add_device_container {
@@ -661,3 +661,26 @@ input[type="checkbox"] {
     background-color: #2c30af;
     color: white;
 }
+
+.error-message {
+    position: absolute;
+    top: 85%;
+    left: 0;
+    font-size: small;
+    color: rgb(255, 6, 6);
+    padding: 5px;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s;
+  }
+
+  .client_id .error-message {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .inputbox .error-message{
+    visibility: visible;
+    opacity: 1;
+  }
