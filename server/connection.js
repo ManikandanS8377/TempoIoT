@@ -19,22 +19,33 @@ app.post("/user", async (req, res) => {
     try {
 
         //getting data for enabled srevice
+        const data=req.body
+        const enables=req.body["checking"]
 
-        const enables = req.body["checking"]
-        let topicname = req.body["devicemacaddress"]
 
-        // mqtt connection
-        if (enables === "true") {
-            topicname = topicname.replace(/[:\-]/g, "_");
+       // mqtt connection
+        if(enables==="true"){
 
+            let topicname=req.body["devicemacaddress"]
+            topicname=topicname.replace(/[:\-]/g, "_")
+            
             //TAKE COPY of the file
-            const fileName = topicname + '.js';
-            const fileContent = fs.readFileSync('./Copying.js')
-            const filePath = 'copy/' + fileName
-            //write the file
-            fs.writeFileSync(filePath, fileContent);
+            const fileName=topicname+'.js';
+            const fileContent=fs.readFileSync('./Copying.js')
+            const filePath='copy/'+fileName
+           // write the file
+            fs.writeFileSync(filePath,fileContent);
+            console.log(data)
+
+            let allData=[]
+            allData = JSON.parse(fs.readFileSync('allData.json', 'utf8'));
+            allData.push(data);
+            fs.writeFileSync('allData.json', JSON.stringify(allData));
+
+
         }
 
+        
 
 
 

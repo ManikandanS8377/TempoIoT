@@ -40,8 +40,8 @@ const Add_device = () => {
         setdevicemodel(event.target.value)
     }
     function handledevicemacaddress(event) {
-        setdevicemacaddress(event.target.value)
-    }
+        setdevicemacaddress(event.target.value);
+    }    
     function handlefirmwareversion(event) {
         setfirmwareversion(event.target.value)
     }
@@ -108,10 +108,10 @@ const Add_device = () => {
         const isValidclientid = /^[0-9]+$/.test(clientid)
         const isValiddevicename = /^[a-zA-Z0-9]+$/.test(devicename)
         const isValiddevicemodel = /^[a-zA-Z0-9]+$/.test(devicemodel)
-        const isValidmacaddress = /^[0-9a-fA-F]{2}([-:])[0-9a-fA-F]{2}(\1[0-9a-fA-F]{2}){4}$/.test(devicemacaddress)
+        const isValidmacaddress = /^[0-9a-zA-Z]{2}([-:_])[0-9a-zA-Z]{2}(\1[0-9a-zA-Z]{2}){4}$/.test(devicemacaddress)
         const isValidfirmwareversion = /^[a-zA-Z0-9]+$/.test(firmwareversion)
         const isValidclientname = /^[a-zA-Z0-9]+$/.test(clientname)
-        const isValidhost = /^[a-zA-Z0-9]+$/.test(host)
+        const isValidhost = /^[0-9a-zA-Z./,:\\-]+$/.test(host)
         const isValidusername = /^[a-zA-Z0-9]+$/.test(username)
         const isValidtopicname = /^[0-9a-zA-Z]+$/.test(topicname)
         const isValidpassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(password);
@@ -190,7 +190,6 @@ const Add_device = () => {
     }
 
 
-
     //push input box to the page
     const handleButtonClick = (e) => {
         e.preventDefault();
@@ -212,22 +211,26 @@ const Add_device = () => {
                     <input type="checkbox" />
                 </div>
                 <div className="inputbox">
-                    <input className="btn-loc add_button btn btn-blue" type="button" value="Add" />
+                    <input className="btn-loc add_button btn btn-blue del_btn" type="button" value="Add" />
                 </div>
                 <div className="inputbox">
                     <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete" onClick={() => handleDeleteInput(newDivs.length - 1)} />
                 </div>
             </div>
-
         );
         setDivs(newDivs);
     };
-    const handleDeleteInput = (id) => {
-        console.log(id)
-        setDivs(divs.filter(input => input.id !== id));
-        setInputCount(inputCount - 1);
 
-    };
+
+
+
+    const handleDelete = (index) => {
+        const newDivs = [...divs];
+        newDivs.splice(index, 1);
+        setDivs(newDivs);
+      };      
+
+
     return (
         <div className='Add_device'>
             <div className="new_device box-shadow">
@@ -238,7 +241,7 @@ const Add_device = () => {
                     <div className="row_one">
                         <div className="adding_new_device uppercase bold">Add Device Detials </div>
                         <div className="client_id">
-                            <label htmlFor="device_id">Client Id</label>
+                            <label htmlFor="device_id">Client ID</label>
                             <input type="text" id="device_id" value={clientid} onChange={handleclientid} />
                         </div>
                     </div>
@@ -260,7 +263,7 @@ const Add_device = () => {
                                 <input type="text" value={devicemacaddress} onChange={handledevicemacaddress} />
                             </div>
                             <div className="inputbox">
-                                <label htmlFor="">Firmware version(<span className="required_star">*</span>)</label>
+                                <label htmlFor="">Firmware Version(<span className="required_star">*</span>)</label>
                                 <input type="text" value={firmwareversion} onChange={handlefirmwareversion} />
                             </div>
                         </div>
@@ -283,7 +286,7 @@ const Add_device = () => {
                                 <input type="text" value={clientname} onChange={handleclientname} />
                             </div>
                             <div className="inputbox">
-                                <label htmlFor="">Host(<span className="required_star">*</span>)</label>
+                                <label htmlFor="">Host IP Address(<span className="required_star">*</span>)</label>
                                 <input type="text" value={host} onChange={handlehost} />
                             </div>
                             <div className="inputbox">
@@ -339,9 +342,10 @@ const Add_device = () => {
 
                         </div>
                     </div>
+
                 </div>
             </div>
-
+            {/* {rows} */}
         </div>
     );
 };
