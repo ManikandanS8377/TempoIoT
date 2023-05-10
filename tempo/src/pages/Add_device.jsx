@@ -1,10 +1,13 @@
 import React from "react";
 import { useState } from "react";
+import $ from 'jquery';
 // import add_new_div from "../Functions/Add_new_div";
 import { RiAddCircleLine } from "react-icons/ri";
 const Add_device = () => {
     const [divs, setDivs] = useState([]);
-
+    const [inputCount, setInputCount] = useState(1);
+    const [inputList, setInputList] = useState([]);
+    let concatenatedValues = '';
     //states to use their values and validate
     const [clientid, setclientid] = useState("");
     const [devicename, setdevicename] = useState("");
@@ -17,11 +20,11 @@ const Add_device = () => {
     const [password, setpassword] = useState("");
     const [parameter, setparameter] = useState("");
     const [datatype, setdatatype] = useState("");
-    const [topicname,settopicname]=useState("");
+    const [topicname, settopicname] = useState("");
 
     //enable services checking state
-    const [isChecked,setisChecked]=useState(true);
-    const [checking,setchecking]=useState("true")
+    const [isChecked, setisChecked] = useState(true);
+    const [checking, setchecking] = useState("true")
 
 
 
@@ -44,17 +47,17 @@ const Add_device = () => {
     }
     function handleclientname(event) {
         setclientname(event.target.value)
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-    function handlehost(event) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-        sethost(event.target.value)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-    function handleusername(event) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-        setusername(event.target.value)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-    function handlepassword(event) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-        setpassword(event.target.value)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-    function handletopicname(event){
+    }
+    function handlehost(event) {
+        sethost(event.target.value)
+    }
+    function handleusername(event) {
+        setusername(event.target.value)
+    }
+    function handlepassword(event) {
+        setpassword(event.target.value)
+    }
+    function handletopicname(event) {
         settopicname(event.target.value)
     }
     function handleparameter(event) {
@@ -69,7 +72,7 @@ const Add_device = () => {
 
     function handleCancel() {
         const result = window.confirm("Are you sure you want to delete this item?");
-        if(result){
+        if (result) {
             setclientid("");
             setdevicename("");
             setdevicemodel("");
@@ -83,19 +86,19 @@ const Add_device = () => {
             setparameter("");
             setdatatype("");
         }
-        
+
     }
 
     //check is they enable services
-    function handleChange(){
-            setisChecked(!isChecked);
-            if(isChecked){
-                setchecking("")
-            }
-            else{
-                setchecking("true")
-            }
-            
+    function handleChange() {
+        setisChecked(!isChecked);
+        if (isChecked) {
+            setchecking("")
+        }
+        else {
+            setchecking("true")
+        }
+
     }
 
     //function to validate
@@ -110,16 +113,38 @@ const Add_device = () => {
         const isValidclientname = /^[a-zA-Z0-9]+$/.test(clientname)
         const isValidhost = /^[a-zA-Z0-9]+$/.test(host)
         const isValidusername = /^[a-zA-Z0-9]+$/.test(username)
-        const isValidtopicname=/^[0-9a-zA-Z]+$/.test(topicname)
+        const isValidtopicname = /^[0-9a-zA-Z]+$/.test(topicname)
         const isValidpassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(password);
         const isValidparameter = /^[0-9a-zA-Z]+$/.test(parameter)
         const isValiddatatype = /^[a-zA-Z]+$/.test(datatype)
 
+  
+            const inputs = document.querySelectorAll('.example, .typee');
+            if (inputs.length === 0) {
+              alert('No input elements found!');
+              return;
+            }
+            const values = Array.from(inputs).map(input => input.value);
+            if (values.some(value => value == null || value === '')) {
+              alert('Some input values are empty!');
+              return;
+            }
+            const concatenatedValues = values.reduce((acc, curr, index) => {
+              if (index % 2 === 0) {
+                return `${acc}${curr}&`;
+              } else if (index === values.length - 1) {
+                return `${acc}${curr}`;
+              } else {
+                return `${acc}${curr}&&`;
+              }
+            }, '');
+            alert(concatenatedValues);
+          
 
         //check if valid or not
         if (!isValidclientid) {
             alert("Enter Valid Client ID")
-        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+        }
         else if (!isValiddevicename) {
             alert("Enter Valid DeviceName")
         }
@@ -144,7 +169,7 @@ const Add_device = () => {
         else if (!isValidpassword) {
             alert("Enter Valid Password..your password must contain upper,lower,number and special case")
         }
-        else if(!isValidtopicname){
+        else if (!isValidtopicname) {
             alert("Enter Valid Topic Name ")
         }
         else if (!isValidparameter) {
@@ -154,7 +179,8 @@ const Add_device = () => {
             alert("Enter Valid Datatype")
         }
         else {
-            const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password,topicname, parameter, datatype,checking}
+            console.log(concatenatedValues)
+            const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, topicname, concatenatedValues, checking }
             await fetch('http://127.0.0.1:4000/user', {
                 method: "POST",
                 headers: { "content-Type": "application/json" },
@@ -162,21 +188,24 @@ const Add_device = () => {
             })
         }
     }
-    
+
+
 
     //push input box to the page
     const handleButtonClick = (e) => {
         e.preventDefault();
         const newDivs = [...divs];
+        setInputCount(inputCount + 1);
+
         newDivs.push(
-            <div className="row_five padding-loc display-flex mb-loc-5">
+            <div className="row_five padding-loc display-flex mb-loc-5" key={newDivs.length}>
                 <div className="inputbox">
                     <label htmlFor="">Parameter</label>
-                    <input type="text" onChange={handleparameter} />
+                    <input type="text" onChange={handleparameter} className="example" />
                 </div>
                 <div className="inputbox">
                     <label htmlFor="">Datatype</label>
-                    <input type="text" onChange={handledatatype} />
+                    <input type="text" onChange={handledatatype} className="typee" />
                 </div>
                 <div className="inputbox">
                     <label htmlFor="">Is Null</label>
@@ -186,17 +215,18 @@ const Add_device = () => {
                     <input className="btn-loc add_button btn btn-blue" type="button" value="Add" />
                 </div>
                 <div className="inputbox">
-                    <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete" onClick={() => handleDelete(newDivs.length - 1)} />
+                    <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete" onClick={() => handleDeleteInput(newDivs.length - 1)} />
                 </div>
             </div>
 
         );
         setDivs(newDivs);
     };
-    const handleDelete = (index) => {
-        const newDivs = [...divs];
-        newDivs.splice(index, 1);
-        setDivs(newDivs);
+    const handleDeleteInput = (id) => {
+        console.log(id)
+        setDivs(divs.filter(input => input.id !== id));
+        setInputCount(inputCount - 1);
+
     };
     return (
         <div className='Add_device'>
@@ -240,7 +270,7 @@ const Add_device = () => {
                             <div className="network_protocol light-grey uppercase mb-loc-5 mt-loc-3">Network Protocol</div>
                             <div className="mqtt_type display-flex uppercase gap-loc-4">
                                 <div className="radio_mqtt">
-                                    <input type="radio" className="radio_check" defaultChecked/>
+                                    <input type="radio" className="radio_check" defaultChecked />
                                 </div>
                                 <div className="mqtt_txt">
                                     Mqtt
@@ -274,14 +304,14 @@ const Add_device = () => {
                         <div className="device_data light-grey uppercase">Device Data</div>
                         <div className="icon"><RiAddCircleLine className="Add-icon light-grey" onClick={handleButtonClick} /></div>
                     </div>
-                    <div className="row_five padding-loc display-flex mb-loc-5">
-                        <div className="inputbox">
+                    <div className="row_five padding-loc display-flex mb-loc-5 ">
+                        <div className="inputbox ">
                             <label htmlFor="">Parameter</label>
-                            <input type="text" onChange={handleparameter} />
+                            <input type="text" onChange={handleparameter} className="example" />
                         </div>
                         <div className="inputbox">
                             <label htmlFor="">Datatype</label>
-                            <input type="text" onChange={handledatatype} />
+                            <input type="text" onChange={handledatatype} className="example" />
                         </div>
                         <div className="inputbox">
                             <label htmlFor="">Is Null</label>
@@ -291,7 +321,7 @@ const Add_device = () => {
                             <input className="btn-loc add_button btn btn-blue del_btn" type="button" value="Add" />
                         </div>
                         <div className="inputbox add_del_gap">
-                            <input className="btn-loc add_button  btn btn-danger del_btn" type="button" value="Delete"/>
+                            <input className="btn-loc add_button  btn btn-danger del_btn" type="button" value="Delete" />
                         </div>
                     </div>
                     {divs}
