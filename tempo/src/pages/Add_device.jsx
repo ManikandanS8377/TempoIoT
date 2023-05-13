@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import $ from 'jquery';
 // import add_new_div from "../Functions/Add_new_div";
 import { RiAddCircleLine } from "react-icons/ri";
 const Add_device = () => {
@@ -277,7 +276,6 @@ const Add_device = () => {
         e.preventDefault();
         const newDivs = [...divs];
         setInputCount(inputCount + 1);
-
         newDivs.push(
             <div className="row_five padding-loc display-flex mb-loc-5" key={newDivs.length}>
                 <div className="inputbox">
@@ -298,7 +296,7 @@ const Add_device = () => {
                     <input className="btn-loc add_button btn btn-blue del_btn" type="button" value="Add" />
                 </div>
                 <div className="inputbox">
-                    <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete" onClick={() => handleDeleteInput(newDivs.length - 1)} />
+                    <input className="btn-loc add_button  btn btn-danger del_btn" type="button" value="Delete" onClick={() => handleDelete(newDivs.length - 1)} />
                 </div>
             </div>
         );
