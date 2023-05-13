@@ -1,10 +1,13 @@
 import React from "react";
 import { useState } from "react";
+import $ from 'jquery';
 // import add_new_div from "../Functions/Add_new_div";
 import { RiAddCircleLine } from "react-icons/ri";
 const Add_device = () => {
     const [divs, setDivs] = useState([]);
-
+    const [inputCount, setInputCount] = useState(1);
+    const [inputList, setInputList] = useState([]);
+    let concatenatedValues = '';
     //states to use their values and validate
     const [clientid, setclientid] = useState("");
     const [devicename, setdevicename] = useState("");
@@ -250,6 +253,28 @@ const Add_device = () => {
         }, '');
         alert(concatenatedValues);
 
+  
+            const inputs = document.querySelectorAll('.example, .typee');
+            if (inputs.length === 0) {
+              alert('No input elements found!');
+              return;
+            }
+            const values = Array.from(inputs).map(input => input.value);
+            if (values.some(value => value == null || value === '')) {
+              alert('Some input values are empty!');
+              return;
+            }
+            const concatenatedValues = values.reduce((acc, curr, index) => {
+              if (index % 2 === 0) {
+                return `${acc}${curr}&`;
+              } else if (index === values.length - 1) {
+                return `${acc}${curr}`;
+              } else {
+                return `${acc}${curr}&&`;
+              }
+            }, '');
+            alert(concatenatedValues);
+          
 
         //check if valid or not
 
@@ -257,7 +282,12 @@ const Add_device = () => {
             alert("not valid")
         }
         else {
+<<<<<<< HEAD
             const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, topicname,concatenatedValues, checking }
+=======
+            console.log(concatenatedValues)
+            const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, topicname, concatenatedValues, checking }
+>>>>>>> 47a46b42b6cc36f4d3bbf4bcf6a80766cb190ad5
             await fetch('http://127.0.0.1:4000/user', {
                 method: "POST",
                 headers: { "content-Type": "application/json" },
@@ -270,10 +300,14 @@ const Add_device = () => {
     //push input box to the page
     const handleButtonClick = (e) => {
         e.preventDefault();
-        const newDivs = divs.concat(
-            <div className="row_five padding-loc display-flex mb-loc-5">
+        const newDivs = [...divs];
+        setInputCount(inputCount + 1);
+
+        newDivs.push(
+            <div className="row_five padding-loc display-flex mb-loc-5" key={newDivs.length}>
                 <div className="inputbox">
                     <label htmlFor="">Parameter</label>
+<<<<<<< HEAD
                     <input type="text" onChange={handleparameter} className="example"/>
                     <div className="error-message"><span className={parametererror ? "error" : ""}>{parametererror}</span></div>
                 </div>
@@ -281,6 +315,13 @@ const Add_device = () => {
                     <label htmlFor="">Datatype</label>
                     <input type="text" onChange={handledatatype} className="example"/>
                     <div className="error-message"><span className={datatypeerror ? "error" : ""}>{datatypeerror}</span></div>
+=======
+                    <input type="text" onChange={handleparameter} className="example" />
+                </div>
+                <div className="inputbox">
+                    <label htmlFor="">Datatype</label>
+                    <input type="text" onChange={handledatatype} className="typee" />
+>>>>>>> 47a46b42b6cc36f4d3bbf4bcf6a80766cb190ad5
                 </div>
                 <div className="inputbox">
                     <label htmlFor="">Is Null</label>
@@ -290,7 +331,7 @@ const Add_device = () => {
                     <input className="btn-loc add_button btn btn-blue del_btn" type="button" value="Add" />
                 </div>
                 <div className="inputbox">
-                    <input className="btn-loc add_button btn btn-danger del_btn" type="button" value="Delete" onClick={() => handleDelete(newDivs.length)} />
+                    <input className="btn-loc add_button  btn btn-danger" type="button" value="Delete" onClick={() => handleDeleteInput(newDivs.length - 1)} />
                 </div>
             </div>
         );
@@ -393,9 +434,10 @@ const Add_device = () => {
                         <div className="device_data light-grey uppercase">Device Data</div>
                         <div className="icon"><RiAddCircleLine className="Add-icon light-grey" onClick={handleButtonClick} /></div>
                     </div>
-                    <div className="row_five padding-loc display-flex mb-loc-5">
-                        <div className="inputbox">
+                    <div className="row_five padding-loc display-flex mb-loc-5 ">
+                        <div className="inputbox ">
                             <label htmlFor="">Parameter</label>
+<<<<<<< HEAD
                             <input type="text" onChange={handleparameter} className="example"/>
                             <div className="error-message"><span className={parametererror ? "error" : ""}>{parametererror}</span></div>
                         </div>
@@ -403,6 +445,13 @@ const Add_device = () => {
                             <label htmlFor="">Datatype</label>
                             <input type="text" onChange={handledatatype} className="example"/>
                             <div className="error-message"><span className={datatypeerror ? "error" : ""}>{datatypeerror}</span></div>
+=======
+                            <input type="text" onChange={handleparameter} className="example" />
+                        </div>
+                        <div className="inputbox">
+                            <label htmlFor="">Datatype</label>
+                            <input type="text" onChange={handledatatype} className="example" />
+>>>>>>> 47a46b42b6cc36f4d3bbf4bcf6a80766cb190ad5
                         </div>
                         <div className="inputbox">
                             <label htmlFor="">Is Null</label>
