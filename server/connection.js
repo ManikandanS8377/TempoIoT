@@ -42,7 +42,6 @@ app.post("/user",async(req,res)=>{
             allData.push(data);
             fs.writeFileSync('allData.json', JSON.stringify(allData));
 
-
         }
 
         
@@ -61,15 +60,25 @@ app.post("/user",async(req,res)=>{
         const passowrd=req.body["password"]
         const device_model=req.body["devicemodel"]
         const topic_name=req.body["topicname"]
-        const parameter=req.body["parameter"]
-        const datatype=req.body["datatype"]
-        const ins='INSERT INTO demo_manage(client_id, device_name, device_mac_address, device_firmware_version, mqtt_client_name, mqtt_host, user_name, password, device_model,parameter,datatype,topic_name)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12);'
-        const values=[client_id,device_name,device_mac_address,device_firmware_version,mqtt_client_name,mqtt_host,user_name,passowrd,device_model,parameter,datatype,topic_name]
+        const concatenatedValues=req.body["concatenatedValues"]
+        const is_service_enabled=req.body["checking"];
+        const ins='INSERT INTO device_management(device_name, device_mac_address, device_firmware_version,device_model,is_service_enabled)VALUES($1,$2,$3,$4,$5);'
+        const values=[device_name,device_mac_address,device_firmware_version,device_model,is_service_enabled]
+        const ins1='INSERT INTO network_protocol(client_id,username,password,host) VALUES ($1,$2,$3,$3)';
+        const values1=[client_id,user_name,passowrd,mqtt_host];
+        const ins2='INSERT INTO device_data_collection(device_parameters) VALUES ($1)';
+        const values2=[concatenatedValues]
 
         //query to insert into database
-        // await pool.query(ins,values).then((res)=>{
-        //     console.log(res)
-        // })
+        await pool.query(ins,values).then((res)=>{
+            console.log(res)
+        })
+        await pool.query(ins1,values1).then((res)=>{
+            console.log(res)
+        })
+        await pool.query(ins2,values2).then((res)=>{
+            console.log(res)
+        })
     } catch (err) {
         console.log(err)
     }

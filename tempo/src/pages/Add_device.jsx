@@ -37,6 +37,8 @@ const Add_device = () => {
     const [isChecked, setisChecked] = useState(true);
     const [checking, setchecking] = useState("true")
 
+    let concatenatedValues = '';
+
 
 
     //function to set the value to state
@@ -223,17 +225,39 @@ const Add_device = () => {
         const isValidusername = /^[a-zA-Z0-9]+$/.test(username)
         const isValidtopicname = /^[0-9a-zA-Z]+$/.test(topicname)
         const isValidpassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(password);
-        const isValidparameter = /^[0-9a-zA-Z]+$/.test(parameter)
-        const isValiddatatype = /^[a-zA-Z]+$/.test(datatype)
+
+
+        //parameter and datatypr adding
+
+        const inputs = document.querySelectorAll('.example, .typee');
+        if (inputs.length === 0) {
+          alert('No input elements found!');
+          return;
+        }
+        const values = Array.from(inputs).map(input => input.value);
+        if (values.some(value => value == null || value === '')) {
+          alert('Some input values are empty!');
+          return;
+        }
+        const concatenatedValues = values.reduce((acc, curr, index) => {
+          if (index % 2 === 0) {
+            return `${acc}${curr}&`;
+          } else if (index === values.length - 1) {
+            return `${acc}${curr}`;
+          } else {
+            return `${acc}${curr}&&`;
+          }
+        }, '');
+        alert(concatenatedValues);
 
 
         //check if valid or not
 
-        if (!isValidclientid  && !isValiddevicename && !isValiddevicemodel && !isValidmacaddress && !isValidfirmwareversion && !isValidclientname && !isValidhost && !isValidusername && !isValidpassword && !isValidtopicname && !isValidparameter && !isValiddatatype) {
+        if (!isValidclientid  && !isValiddevicename && !isValiddevicemodel && !isValidmacaddress && !isValidfirmwareversion && !isValidclientname && !isValidhost && !isValidusername && !isValidpassword && !isValidtopicname) {
             alert("not valid")
         }
         else {
-            const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, topicname, parameter, datatype, checking }
+            const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, topicname,concatenatedValues, checking }
             await fetch('http://127.0.0.1:4000/user', {
                 method: "POST",
                 headers: { "content-Type": "application/json" },
@@ -250,12 +274,12 @@ const Add_device = () => {
             <div className="row_five padding-loc display-flex mb-loc-5">
                 <div className="inputbox">
                     <label htmlFor="">Parameter</label>
-                    <input type="text" onChange={handleparameter} />
+                    <input type="text" onChange={handleparameter} className="example"/>
                     <div className="error-message"><span className={parametererror ? "error" : ""}>{parametererror}</span></div>
                 </div>
                 <div className="inputbox">
                     <label htmlFor="">Datatype</label>
-                    <input type="text" onChange={handledatatype} />
+                    <input type="text" onChange={handledatatype} className="example"/>
                     <div className="error-message"><span className={datatypeerror ? "error" : ""}>{datatypeerror}</span></div>
                 </div>
                 <div className="inputbox">
@@ -372,12 +396,12 @@ const Add_device = () => {
                     <div className="row_five padding-loc display-flex mb-loc-5">
                         <div className="inputbox">
                             <label htmlFor="">Parameter</label>
-                            <input type="text" onChange={handleparameter} />
+                            <input type="text" onChange={handleparameter} className="example"/>
                             <div className="error-message"><span className={parametererror ? "error" : ""}>{parametererror}</span></div>
                         </div>
                         <div className="inputbox">
                             <label htmlFor="">Datatype</label>
-                            <input type="text" onChange={handledatatype} />
+                            <input type="text" onChange={handledatatype} className="example"/>
                             <div className="error-message"><span className={datatypeerror ? "error" : ""}>{datatypeerror}</span></div>
                         </div>
                         <div className="inputbox">
