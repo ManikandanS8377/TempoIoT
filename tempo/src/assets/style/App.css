@@ -708,7 +708,7 @@ h1{
     font-size: large;
     width: 170px;
     color: rgb(50, 12, 175);
-    font-family: Roboto;
+    font-family: revert;
     margin-left: 7px;
     margin-top: 7px;
     height: 40px;
@@ -723,9 +723,19 @@ h1{
     height: 40px;
     color: rgb(138, 134, 134);
     font-weight: 600;
-    border: 2px solid rgb(198, 196, 196);
+    border: 2px solid #E7E6E6;
     border-radius: 7px;
 }
+.legend-top {
+    position: absolute;
+    justify-content: baseline;
+    align-items: baseline;
+    left: 8px;
+    font-size: 15px;
+    color: #000000;
+    width: fit-content;
+}
+
 
 .dashboard_dropdown-menu {
     position: absolute;
@@ -767,7 +777,7 @@ h1{
 }
 
 .border_arrow {
-    border: 2px solid lightskyblue;
+    border: 2px solid #B5FBFD;
     display: flex;
     width: fit-content;
     border-radius: 8px;
@@ -799,11 +809,11 @@ h1{
 }
 
 .riarrow1 {
-    color: #3413c7;
+    color: #00B0F0;
 }
 
 .riarrow2 {
-    color: rgb(204, 204, 204);
+    color: #D9D9D9;
 }
 
 /* grap css */
@@ -816,14 +826,14 @@ h1{
 .graph_first {
     margin-top: 3vh;
     display: flex;
-    height: 32vh;
+    height: 33.5vh;
     padding-left: 50px;
 }
 
 .graph_second {
-    margin-top: 3vh;
+    margin-top: 2vh;
     display: flex;
-    height: 32vh;
+    height: 33.5vh;
     padding-left: 50px;
 }
 
@@ -831,8 +841,8 @@ h1{
 .graph_first .second_box,
 .graph_second .third_box,
 .graph_second .fourth_box {
-    width: 46%;
-    border: 2px solid rgb(173, 173, 173);
+    width: 47%;
+    border: 2px solid #E7E6E6;
     border-radius: 5px;
     margin-left: 15px;
     display: flex;
@@ -841,9 +851,44 @@ h1{
 }
 
 .line_container {
-    width: 94%;
-    height: 30vh;
-    margin-left: 10px;
+    width: 100%;
+    height: 100%;
+}
+.graphs{
+    height: 90%;
+}
+
+/* drop down in graph*/
+
+.label_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+  
+.dropdown_toggle1 {
+    margin-top: 1px;
+    width: fit-content;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+.dropdown_menu1 {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 3px;
+    margin-top: 5px;
+}
+  
+.dropdown_menu1 a {
+    display: block;
+    padding: 3px;
+    text-decoration: none;
+    color: #333;
 }
 
 /* dashboard bottom css  */
@@ -851,32 +896,36 @@ h1{
 .dasboard_bottom {
     display: flex;
     justify-content: space-between;
-    height: auto;
-    padding-top: 10px;
+    height:fit-content;
 }
 
 .export {
     margin-left: 15px;
     background-color: rgb(234, 234, 234);
     border-radius: 15px;
-    height: 5vh;
-    margin-top: 20px;
+    height: fit-content;
+    margin-top: 10px;
     width: 105px;
 }
 
 .arrow {
     margin-right: 60px;
-    margin-top: 6px;
     display: flex;
+    height: fit-content;
 }
 
 .exports {
     font-family: 'Times New Roman';
     font-weight: 100;
     font-size: 1.3rem;
-    color: #27098a;
+    color: #2E317D;
 }
-
+.arrows {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
 .arrows1 {
     margin-left: 10px;
     position: relative;
@@ -887,7 +936,7 @@ h1{
 }
 
 .arrow-img1 {
-    color: rgb(164, 162, 162);
+    color: #A6A6A6;
 }
 
 .circle-img1 {
@@ -895,19 +944,14 @@ h1{
 }
 
 .arrow-img2 {
-    color: rgb(164, 162, 162);
+    color: #A6A6A6;
 }
 
 .circle-img2 {
     color: rgb(235, 229, 229);
 }
 
-.arrows {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-}
+
 
 .leftcircle,
 .rightcircle {
@@ -923,10 +967,5 @@ h1{
 .dropdown-filter{
     position: relative;
 }
-.legend-top {
-    position: absolute;
-    left: 13px;
-    font-size: 15px;
-    color: #000000;
-    width: fit-content;
-  }
+
+  

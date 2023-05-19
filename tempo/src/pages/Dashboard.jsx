@@ -18,7 +18,7 @@ const Dashboard = () => {
     const [userData, setUserData] = useState({
         labels: [],
         datasets: [{
-            label: "Temperature 1 - Assert 1",
+            label: "Temperature  - Assert 1",
             data: [],
         }]
     });
@@ -42,7 +42,7 @@ const Dashboard = () => {
             setUserData({
                 labels: latestData.map(data => data.name),
                 datasets: [{
-                    label: "Temperature 1 - Assert1",
+                    label: "Temperature  - Assert1",
                     data: latestData.map(data => data.age),
                     backgroundColor: 'lightpink',
                     borderColor: 'blue',
