@@ -153,10 +153,12 @@ main {
 }
 
 .page {
+    /* display: flex; */
     text-align: center;
-    height: 50px;
-    font-size: 40px;
-    font-weight: 900;
+    justify-content: start;
+    /* height: 50px; */
+    /* font-size: 40px;
+    font-weight: 900; */
 }
 
 /* top navbar */
@@ -340,7 +342,7 @@ main {
     position: absolute;
     z-index: 1;
     display: block;
-    /* display: none; */
+
     min-width: 160px;
 }
 
@@ -445,29 +447,10 @@ main {
 
 }
 
-/* .form-control-loc {
-    display: block;
-    width: 100%;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: 0.25rem;
-    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
-} */
 
 /* Add Device */
 .new_device {
-    /* display: flex; */
-    /* justify-content: end; */
     text-align: end;
 }
 
@@ -534,7 +517,8 @@ main {
     border-radius: 0.5rem;
     padding: 1rem;
 }
-.inputbox .del_btn{
+
+.inputbox .del_btn {
     margin-left: -2rem;
 }
 
@@ -598,7 +582,7 @@ input[type="checkbox"] {
 .Add_device {
     height: 90vh;
     overflow-x: hidden;
-    
+
 }
 
 .add_device_container {
@@ -616,10 +600,7 @@ input[type="checkbox"] {
     color: var(--ADD_DEVICE_DETIAL_CLR);
 }
 
-/* .add_device_container{
-    border: 1px solid;
-    padding: 1rem;
-} */
+
 
 .Add-icon {
     display: flex;
@@ -651,10 +632,10 @@ input[type="checkbox"] {
 
 /* add button */
 
-.btn.btn-blue{
+.btn.btn-blue {
     color: #ffffff;
     background-color: var(--THEME_SEC_COLOR);
-    
+
 }
 
 .btn.btn-blue:hover {
@@ -673,14 +654,279 @@ input[type="checkbox"] {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.5s;
-  }
+}
 
-  .client_id .error-message {
+.client_id .error-message {
     visibility: visible;
     opacity: 1;
-  }
+}
 
-  .inputbox .error-message{
+.inputbox .error-message {
     visibility: visible;
     opacity: 1;
+}
+
+
+/* Dashboard Page design*/
+.dashboard_live {
+    text-align: start;
+    padding: 0px;
+    display: flex;
+    justify-content: space-between;
+}
+.row1{
+    display: flex;
+}
+h1{
+    color: #FB350D;
+    height: 100%;
+    width: 100%;
+}
+.dashboard_live_width {
+    margin-left: 20px;
+    width: 180px;
+}
+
+.dashboard_inputs {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    gap: 15px;
+}
+
+.dashboard_inputs1 {
+    display: flex;
+    justify-content: start;
+    gap: 15px;
+    align-items: start;
+}
+
+.dashboard_p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    width: 170px;
+    color: rgb(50, 12, 175);
+    font-family: Roboto;
+    margin-left: 7px;
+    margin-top: 7px;
+    height: 40px;
+}
+
+.dashboard_live_filter {
+    background-color: white;
+    font-size: 15px;
+    text-align: start;
+    width: 190px;
+    margin-left: 0px;
+    height: 40px;
+    color: rgb(138, 134, 134);
+    font-weight: 600;
+    border: 2px solid rgb(198, 196, 196);
+    border-radius: 7px;
+}
+
+.dashboard_dropdown-menu {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    font-size: 15px;
+    color: #4609fd;
+    background-color: #1b0264;
+    width: 180px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.dashboard_dropdown-menu a {
+    padding: 5px 5px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-filter .dashboard_dropdown-menu {
+    display: block;
+}
+
+.checks {
+    margin-right: 10px;
+}
+
+.lists {
+    margin-left: 20px;
+}
+
+.hrs {
+    height: auto;
+    background-color: #ffffff;
+    margin-top: -3px;
+    margin-bottom: 1px;
+    opacity: 100%;
+    border-style: solid;
+}
+
+.border_arrow {
+    border: 2px solid lightskyblue;
+    display: flex;
+    width: fit-content;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    height: 40px;
+    margin-top: 9px;
+}
+
+.icon1 {
+    background-color: #FB350D;
+    height: auto;
+    width: 50px;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon2 {
+    background-color: rgb(248, 245, 245);
+    height: auto;
+    width: 50px;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.riarrow1 {
+    color: #3413c7;
+}
+
+.riarrow2 {
+    color: rgb(204, 204, 204);
+}
+
+/* grap css */
+
+.graph {
+    width: auto;
+    height: auto;
+}
+
+.graph_first {
+    margin-top: 3vh;
+    display: flex;
+    height: 32vh;
+    padding-left: 50px;
+}
+
+.graph_second {
+    margin-top: 3vh;
+    display: flex;
+    height: 32vh;
+    padding-left: 50px;
+}
+
+.graph_first .first_box,
+.graph_first .second_box,
+.graph_second .third_box,
+.graph_second .fourth_box {
+    width: 46%;
+    border: 2px solid rgb(173, 173, 173);
+    border-radius: 5px;
+    margin-left: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.line_container {
+    width: 94%;
+    height: 30vh;
+    margin-left: 10px;
+}
+
+/* dashboard bottom css  */
+
+.dasboard_bottom {
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    padding-top: 10px;
+}
+
+.export {
+    margin-left: 15px;
+    background-color: rgb(234, 234, 234);
+    border-radius: 15px;
+    height: 5vh;
+    margin-top: 20px;
+    width: 105px;
+}
+
+.arrow {
+    margin-right: 60px;
+    margin-top: 6px;
+    display: flex;
+}
+
+.exports {
+    font-family: 'Times New Roman';
+    font-weight: 100;
+    font-size: 1.3rem;
+    color: #27098a;
+}
+
+.arrows1 {
+    margin-left: 10px;
+    position: relative;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow-img1 {
+    color: rgb(164, 162, 162);
+}
+
+.circle-img1 {
+    color: rgb(235, 229, 229);
+}
+
+.arrow-img2 {
+    color: rgb(164, 162, 162);
+}
+
+.circle-img2 {
+    color: rgb(235, 229, 229);
+}
+
+.arrows {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.leftcircle,
+.rightcircle {
+    position: relative;
+    font-size: 40px;
+}
+
+.leftarrow,
+.rightarrow {
+    position: absolute;
+    font-size: 30px;
+}
+.dropdown-filter{
+    position: relative;
+}
+.legend-top {
+    position: absolute;
+    left: 13px;
+    font-size: 15px;
+    color: #000000;
+    width: fit-content;
   }

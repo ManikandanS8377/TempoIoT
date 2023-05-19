@@ -22,7 +22,7 @@ const App = () => {
       <Sidebar>
         <Routes>
           <Route path="/" exact element={<MainContent />} />
-          <Route path="/dashboard" element={<MainContent />} />
+          <Route path="/dashboard" element={<Dashboard/>} />
           <Route path="/about" element={<About />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/comment" element={<Comment />} />
