@@ -1,9 +1,12 @@
 import React, { useState} from 'react';
+// import line chart
 import Linechart from '../charts/Linechart';
+//import icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLeftLong, faCircle, faRightLong } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from 'react-icons-kit';
 import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
+//import bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
@@ -114,7 +117,7 @@ const Dashboard = () => {
             </div>
             <Linechart />
                 <div className='dasboard_bottom display-flex'>
-                    <div className='export'>
+                    <div className='export cursor-pointer'>
                         <div className='exports' data-bs-toggle="modal" data-bs-target="#exampleModal">Export</div>
                     </div>
                     <div className='arrow display-flex'>

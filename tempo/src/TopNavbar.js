@@ -10,7 +10,7 @@ const TopNavbar = () => {
                 <img src={tempiot} alt="TempoIoT Logo" width="140" height="45" />
             </div>
             {/* Site Dropdown */}
-            <div className='site-dropdown mar-right flex-class align-center justify-center'>
+            <div className='site-dropdown mar-right flex-class align-center justify-center cursor-pointer'>
                 <p className='rm-pd-mr'>Select Site</p>
                 <FaShoppingBag className='dropdown-arrow'/>
             </div>

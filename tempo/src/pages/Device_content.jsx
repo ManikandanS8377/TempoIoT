@@ -167,7 +167,7 @@ const Device_content = () => {
                     </div>
                 ))}
                 <div className='device_bottom'>
-                    <div className='device_export'>
+                    <div className='device_export cursor-pointer'>
                         <div className='device_exports'>Export</div>
                     </div>
                 </div>

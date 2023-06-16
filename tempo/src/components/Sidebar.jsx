@@ -10,31 +10,26 @@ const Sidebar = ({ children }) => {
 
     const menuItem = [
         {
-            path: "#",
             name: "Dashboard",
             icon: <FaTh />,
             links: ['Dashboard']
         },
         {
-            path: "#",
             name: "About",
             icon: <FaUserAlt />,
             links: ['Management', 'Assert Management', 'Alert Management', 'Device Management', 'Site Management', 'User Management']
         },
         {
-            path: "#",
             name: "Analytics",
             icon: <FaRegChartBar />,
             links: ['Configuration', 'Alert', 'Modbus Slave', 'Modbus Master']
         },
         {
-            path: "#",
             name: "Comment",
             icon: <FaCommentAlt />,
             links: ['Upgradation', 'Firmware']
         },
         {
-            path: "#",
             name: "Product",
             icon: <FaShoppingBag />,
             links: ['Log Maintenance', 'Event', 'Device Connection', 'Real Data']
