@@ -1,8 +1,10 @@
 import React from 'react';
 // import tempiot from './assets/tempiot.jpg';.
-import '../assets/style/App.css'
+import '../assets/style/App.css';
 import { Icon } from 'react-icons-kit';
 import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDiamond } from '@fortawesome/free-solid-svg-icons';
 // import { Button, Navbar, Nav, Form, FormControl } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
@@ -53,7 +55,7 @@ const Device_content = () => {
                 return { ...item, last_updated_on: formattedDate };
               });
         
-              setalldata(modifiedData);
+            setalldata(modifiedData);
         } catch (error) {
           console.log(error);
         }
@@ -61,6 +63,10 @@ const Device_content = () => {
 
     useEffect(() => {
         fetchData();
+        const interval = setInterval(fetchData, 1000);
+        return () => {
+        clearInterval(interval);
+        };
     }, []);
     
     
@@ -156,10 +162,15 @@ const Device_content = () => {
                         <div className="col-head" key={index}>{data.device_model}</div>
                         <div className="col-head" key={index}>{data.last_updated_on}</div>
                         <div className="col-head">ritchard</div>
-                        <div className="col-head">Active</div>
+                        <div className="col-head display-flex"><FontAwesomeIcon icon={faDiamond} style={{color: "green",paddingTop:"7px"}} size='xs'/><div  className='device_active'>Active</div></div>
                         <div className="col-head"><Icon icon={ic_label_important} className='riarrow2' size={30} /></div>
                     </div>
                 ))}
+                <div className='device_bottom'>
+                    <div className='device_export'>
+                        <div className='device_exports'>Export</div>
+                    </div>
+                </div>
             </div>
         </div>
     );
