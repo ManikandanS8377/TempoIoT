@@ -1,0 +1,145 @@
+import React, { useState} from 'react';
+import Linechart from '../charts/Linechart';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLeftLong, faCircle, faRightLong } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from 'react-icons-kit';
+import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+
+
+const Dashboard = () => {
+    const [isOpen1, setIsOpen1] = useState(false);
+    const dropdown1 = () => {
+        setIsOpen1(!isOpen1);
+    };
+    const [isOpen2, setIsOpen2] = useState(false);
+    const dropdown2 = () => {
+        setIsOpen2(!isOpen2);
+    };
+    
+
+    const [selectedOption1, setSelectedOption1] = useState('Device - Assert');
+    const handleOptionClick1 = (option) => {
+        setSelectedOption1(option);
+        setIsOpen1(false);
+    };
+    const [selectedOption2,setselectedOption2]=useState('Output Model');
+    const handleOptionClick2=(option)=>{
+        setselectedOption2(option);
+        setIsOpen2(false);
+    }
+
+    return (
+        <div>
+            <div class="modal fade boot-modals" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">EXPORT DATA</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="col-5">
+                                <label for="input1">Choose File Type</label>
+                                <div className="inputs-group">
+                                    <span class="input-group-loc"><Icon icon={ic_label_important}  size={20} style={{color:"lightgray"}} /></span>
+                                    <input type="text" class="form-control-loc" id="input1" />
+                                </div>
+                                <label for="input1">File Name</label>
+                                <div className="inputs-group">
+                                    <span class="input-group-loc"><Icon icon={ic_label_important}  size={20} style={{color:"lightgray"}} /></span>
+                                    <input type="text" class="form-control-loc" id="input1" />
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn-loc active-loc">Export</button>
+                            <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div className='page'>
+            <div className="dashboard_live page_top_box box-shadow">
+                <div className="dashboard_live_width">
+                    <p className="dashboard_p display-flex">Dashboard Live</p>
+                </div>
+                <div className='dashboard_inputs display-flex'>
+                        <div >
+                            <button class="dropdown-toggle dashboard_live_filter" onClick={dropdown1} >{selectedOption1}</button>
+                            {isOpen1 && (
+                                <div class="dashboard_dropdown-menu dropdown_menu dropdown-colors">
+                                    <a className="a-a" onClick={() => handleOptionClick1('ALL')}><input type='checkbox' className='checks'></input>ALL</a>
+                                    <hr className='hrs'></hr>
+                                    <a className="a-a" onClick={() => handleOptionClick1('Device 1-Assert 1')}><input type='checkbox' className='checks'></input>Device 1-Assert 1</a>
+                                    <hr className='hrs'></hr>
+                                    <a className="a-a" onClick={() => handleOptionClick1('Device 2-Assert 2')}><input type='checkbox' className='checks'></input>Device 2-Assert 2</a>
+                                </div>
+                            )}
+                        </div>
+
+                        <div>
+                            <button class="dropdown-toggle  dashboard_live_filter" onClick={dropdown2}>{selectedOption2}</button>
+                            {isOpen2 && (
+                                <div class="dashboard_dropdown-menu dropdown_menu dropdown-colors">
+                                    <a className='lists a-a' onClick={() => handleOptionClick2('Temperature')}>Temperature</a>
+                                    <hr className='hrs ' ></hr>
+                                    <a className='lists a-a' onClick={() => handleOptionClick2('pressure')}>pressure</a>
+                                    <hr className='hrs ' ></hr>
+                                    <a className='lists a-a' onClick={() => handleOptionClick2('Flow')}>Flow</a>
+                                </div>
+                            )}
+                        </div>
+                    <div class="dropdown-filter">
+                        <fieldset>
+                            <legend class="legend-top">From</legend>
+                            <input type='date' class="dropdown-toggle dashboard_live_filter" ></input>
+                        </fieldset>
+                    </div>
+                    <div class="dropdown-filter">
+                        <fieldset>
+                            <legend class="legend-top">To</legend>
+                            <input type='date' class="dropdown-toggle dashboard_live_filter" ></input>
+                        </fieldset>  
+                    </div>
+                    <div className='border_arrow display-flex justify-align'>
+                        <div className='icon1 display-flex justify-align'>
+                            <Icon icon={ic_label_important} className='riarrow1' size={35} style={{ transform: 'rotate(90deg)' }}/>
+                        </div>
+                        <div className='icon2 display-flex justify-align'>
+                            <Icon icon={ic_label_important} className='riarrow2' size={35} />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <Linechart />
+                <div className='dasboard_bottom display-flex'>
+                    <div className='export'>
+                        <div className='exports' data-bs-toggle="modal" data-bs-target="#exampleModal">Export</div>
+                    </div>
+                    <div className='arrow display-flex'>
+                        <div className='arrows display-flex justify-align'>
+                            <div className='leftcircle'>
+                                <FontAwesomeIcon icon={faCircle} className="circle-img1" />
+                            </div>
+                            <div className="leftarrow">
+                                <FontAwesomeIcon icon={faLeftLong} className="arrow-img1" />
+                            </div>
+                        </div>
+                        <div className='arrows1 display-flex justify-align'>
+                            <div className='rightcircle'> 
+                                <FontAwesomeIcon icon={faCircle} className="circle-img2" />
+                            </div>
+                            <div className='rightarrow'>
+                                <FontAwesomeIcon icon={faRightLong} className="arrow-img2" />
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+        </div>
+    );
+};
+
+export default Dashboard;
