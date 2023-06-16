@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { FaTh, FaBars, FaUserAlt, FaRegChartBar, FaCommentAlt, FaShoppingBag, FaThList } from "react-icons/fa";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Link, BrowserRouter as Router } from 'react-router-dom';
 
 const Sidebar = ({ children }) => {
@@ -18,25 +20,25 @@ const Sidebar = ({ children }) => {
         {
             name: "About",
             icon: <FaUserAlt />,
-            head : ['Management'],
+            head: ['Management'],
             links: ['Assert Management', 'Alert Management', 'Device Management', 'Site Management', 'User Management']
         },
         {
             name: "Analytics",
             icon: <FaRegChartBar />,
-            head :['Configuration'],
+            head: ['Configuration'],
             links: ['Alert', 'Modbus Slave', 'Modbus Master']
         },
         {
             name: "Comment",
             icon: <FaCommentAlt />,
-            head : ['Upgradation'],
+            head: ['Upgradation'],
             links: ['Firmware']
         },
         {
             name: "Product",
             icon: <FaShoppingBag />,
-            head : ['Log Maintenance'],
+            head: ['Log Maintenance'],
             links: ['Event', 'Device Connection', 'Real Data']
         },
     ];
@@ -93,33 +95,38 @@ const Sidebar = ({ children }) => {
 
         <div className="container-slidebar">
             <div className="sidebar">
-                {menuItem.map((item, index) => (
-                    <NavLink
-                        to={item.path}
-                        className="link"
-                        activeClassName="active"
-                        onMouseEnter={() => {
-                            const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
-                            dropdownContent.style.display = 'block';
-                        }}
-                        onMouseLeave={() => {
-                            const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
-                            dropdownContent.style.display = 'none';
-                        }}
-                    >
-                        <div className="icon">{item.icon}</div>
-                        <div className="dropdown-content" style={{ display: 'none' }}>
-                            <div className='sidebar_head'>{item.head}</div>
-                            {item.links.map((link, i) => (
-                                <React.Fragment key={i}>
-                                    <Link to={link.url}>{link.text}</Link>
-                                    {i !== item.links.length - 1 && <hr className='dropdown-hr' />}
-                                </React.Fragment>
-                            ))}
+                <div className='all_icon'>
+                    {menuItem.map((item, index) => (
+                        <NavLink
+                            to={item.path}
+                            className="link"
+                            activeClassName="active"
+                            onMouseEnter={() => {
+                                const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
+                                dropdownContent.style.display = 'block';
+                            }}
+                            onMouseLeave={() => {
+                                const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
+                                dropdownContent.style.display = 'none';
+                            }}
+                        >
+                            <div className="icon">{item.icon}</div>
+                            <div className="dropdown-content" style={{ display: 'none' }}>
+                                <div className='sidebar_head'>{item.head}</div>
+                                {item.links.map((link, i) => (
+                                    <React.Fragment key={i}>
+                                        <Link to={link.url}>{link.text}</Link>
+                                        {i !== item.links.length - 1 && <hr className='dropdown-hr' />}
+                                    </React.Fragment>
+                                ))}
 
-                        </div>
-                    </NavLink>
-                ))}
+                            </div>
+                        </NavLink>
+                    ))}
+                </div>
+                <div>
+                    <FontAwesomeIcon className='profile_pic' icon={faCircleUser} style={{ "--fa-primary-color": "#ffffff", "--fa-secondary-color": "#797a7c", }} />
+                </div>
             </div>
             <main>{children}</main>
         </div>

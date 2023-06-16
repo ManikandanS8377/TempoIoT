@@ -74,7 +74,8 @@ main {
 }
 
 
-.sidebar {
+.sidebar{
+    display: flex;
     background: var(--THEME_COLOUR);
     color: var(--INNER_COLOUR);
     width: 3%;
@@ -82,10 +83,14 @@ main {
     height: auto;
     transition: all 0.5s;
     z-index: 2;
-    display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     font-family: var(--FONT_FAMILY);
+}
+
+.profile_pic{
+    font-size:200%;
 }
 
 
