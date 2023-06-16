@@ -33,7 +33,7 @@ const App = () => {
           <Route path="/product" element={<Product />} />
           <Route path="/Device" element={<Device />} />
           <Route path="/Add_device" element={<Add_device/>} /> 
-          <Route path="*" element={<NotFound />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Sidebar>
     </BrowserRouter>
