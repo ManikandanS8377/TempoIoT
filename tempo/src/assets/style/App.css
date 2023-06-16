@@ -14,7 +14,8 @@
     font-family: var(--FONT_FAMILY);
     z-index: 1;
     box-shadow: var(--BOX-SHADOW);
-    height: 100%;
+    min-height: 90vh;
+    height: auto;
 }
 
 .device_management {
