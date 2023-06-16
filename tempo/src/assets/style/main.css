@@ -130,6 +130,13 @@ main {
     display: block;
 }
 
+.sidebar_head{
+    background-color: var(--THEME_COLOUR);
+    color: var(--COLOR_BEFORE_HOVER);
+    font-weight: 700;
+    /* margin-left: 1rem; */
+    padding-left: 10px;
+}
 
 .top_section {
     display: flex;

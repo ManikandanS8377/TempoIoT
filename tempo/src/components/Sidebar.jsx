@@ -12,27 +12,32 @@ const Sidebar = ({ children }) => {
         {
             name: "Dashboard",
             icon: <FaTh />,
-            links: ['Dashboard']
+            links: ['Dashboard'],
+            // head:['Dashboard']
         },
         {
             name: "About",
             icon: <FaUserAlt />,
-            links: ['Management', 'Assert Management', 'Alert Management', 'Device Management', 'Site Management', 'User Management']
+            head : ['Management'],
+            links: ['Assert Management', 'Alert Management', 'Device Management', 'Site Management', 'User Management']
         },
         {
             name: "Analytics",
             icon: <FaRegChartBar />,
-            links: ['Configuration', 'Alert', 'Modbus Slave', 'Modbus Master']
+            head :['Configuration'],
+            links: ['Alert', 'Modbus Slave', 'Modbus Master']
         },
         {
             name: "Comment",
             icon: <FaCommentAlt />,
-            links: ['Upgradation', 'Firmware']
+            head : ['Upgradation'],
+            links: ['Firmware']
         },
         {
             name: "Product",
             icon: <FaShoppingBag />,
-            links: ['Log Maintenance', 'Event', 'Device Connection', 'Real Data']
+            head : ['Log Maintenance'],
+            links: ['Event', 'Device Connection', 'Real Data']
         },
     ];
 
@@ -85,39 +90,40 @@ const Sidebar = ({ children }) => {
     });
 
     return (
-        
-            <div className="container-slidebar">
-                <div className="sidebar">
-                    {menuItem.map((item, index) => (
-                        <NavLink
-                            to={item.path}
-                            className="link"
-                            activeClassName="active"
-                            onMouseEnter={() => {
-                                const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
-                                dropdownContent.style.display = 'block';
-                            }}
-                            onMouseLeave={() => {
-                                const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
-                                dropdownContent.style.display = 'none';
-                            }}
-                        >
-                            <div className="icon">{item.icon}</div>
-                            <div className="dropdown-content" style={{ display: 'none' }}>
-                                {item.links.map((link, i) => (
-                                    <React.Fragment key={i}>
+
+        <div className="container-slidebar">
+            <div className="sidebar">
+                {menuItem.map((item, index) => (
+                    <NavLink
+                        to={item.path}
+                        className="link"
+                        activeClassName="active"
+                        onMouseEnter={() => {
+                            const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
+                            dropdownContent.style.display = 'block';
+                        }}
+                        onMouseLeave={() => {
+                            const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
+                            dropdownContent.style.display = 'none';
+                        }}
+                    >
+                        <div className="icon">{item.icon}</div>
+                        <div className="dropdown-content" style={{ display: 'none' }}>
+                            <div className='sidebar_head'>{item.head}</div>
+                            {item.links.map((link, i) => (
+                                <React.Fragment key={i}>
                                     <Link to={link.url}>{link.text}</Link>
-                                    {i !== item.links.length - 1 && <hr className='dropdown-hr'/>} 
-                                    </React.Fragment>
-                                ))}
-                                
-                            </div>
-                        </NavLink>
-                    ))}
-                </div>
-                <main>{children}</main>
+                                    {i !== item.links.length - 1 && <hr className='dropdown-hr' />}
+                                </React.Fragment>
+                            ))}
+
+                        </div>
+                    </NavLink>
+                ))}
             </div>
-        
+            <main>{children}</main>
+        </div>
+
     );
 };
 
