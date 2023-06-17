@@ -785,7 +785,9 @@ input[type="checkbox"] {
 }
 
 /* Assert Management */
-
+.device_management{
+    user-select: none;
+}
 .active-loc1 {
     color: rgb(11, 127, 169);
     border-color: rgb(86, 223, 236);
@@ -805,6 +807,7 @@ input[type="checkbox"] {
     height: 70px;
     justify-content: start;
     gap: 3rem;
+    /* user-select: none; */
 }
 
 .fonts {
