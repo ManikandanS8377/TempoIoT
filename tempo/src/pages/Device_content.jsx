@@ -1,10 +1,12 @@
 import React from 'react';
-// import tempiot from './assets/tempiot.jpg';.
 import '../assets/style/App.css';
+
+//import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
 import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
+
 // import { Button, Navbar, Nav, Form, FormControl } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
@@ -17,23 +19,19 @@ const Device_content = () => {
     const [isOpen1, setIsOpen1] = useState(false);
     const dropdown1 = () => {
         setIsOpen1(!isOpen1);
-        // alert("ahi");
     };
     const [isOpen2, setIsOpen2] = useState(false);
     const dropdown2 = () => {
         setIsOpen2(!isOpen2);
-        // alert("ahi");
     };
 
     const [isOpen3, setIsOpen3] = useState(false);
     const dropdown3 = () => {
         setIsOpen3(!isOpen3);
-        // alert("ahi");
     };
     const [isOpen4, setIsOpen4] = useState(false);
     const dropdown4 = () => {
         setIsOpen4(!isOpen4);
-        // alert("ahi");
     };
 
     const navigate=useNavigate();
@@ -69,14 +67,16 @@ const Device_content = () => {
         };
     }, []);
     
+    //rotate the arrow in the device action
     const [rotatedIndex, setRotatedIndex] = useState(null);
-
     const handleIconClick = (index) => {
-      setRotatedIndex(index);
-    };
-    const alerting=()=>{
-        alert("hi")
-    }
+        if (rotatedIndex === index) {
+          setRotatedIndex(null);
+        } else {
+          setRotatedIndex(index);
+        }
+      };
+      
 
     
     return (
