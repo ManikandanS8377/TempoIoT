@@ -154,6 +154,26 @@
     display: block;
 } */
 
+.device_dropdown{
+    padding-left: 15px;
+    padding-top: 5px;
+}
+
+.heights{
+    max-height: 300px;
+    overflow-y: auto;
+}
+.heights::-webkit-scrollbar{
+    width: 8px;
+    
+}
+.heights::-webkit-scrollbar-track{
+    background-color: rgb(255, 255, 255);
+}
+.heights::-webkit-scrollbar-thumb{
+    background-color: rgb(188, 188, 188);
+    border-radius: 25px;
+}
 
 
 
