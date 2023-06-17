@@ -25,16 +25,16 @@ const Dashboard = () => {
     const [selectedOption1, setSelectedOption1] = useState('Device - Assert');
     const handleOptionClick1 = (option) => {
         setSelectedOption1(option);
-        setIsOpen1(false);
+        // setIsOpen1(false);
     };
     const [selectedOption2,setselectedOption2]=useState('Output Model');
     const handleOptionClick2=(option)=>{
         setselectedOption2(option);
-        setIsOpen2(false);
+        // setIsOpen2(false);
     }
 
     return (
-        <div>
+        <div className='dashboard_page'>
             <div class="modal fade boot-modals" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
@@ -67,6 +67,8 @@ const Dashboard = () => {
                     <p className="dashboard_p display-flex">Dashboard Live</p>
                 </div>
                 <div className='dashboard_inputs display-flex'>
+
+                    
                         <div >
                             <button class="dropdown-toggle dashboard_live_filter" onClick={dropdown1} >{selectedOption1}</button>
                             {isOpen1 && (
@@ -79,6 +81,8 @@ const Dashboard = () => {
                                 </div>
                             )}
                         </div>
+
+
 
                         <div>
                             <button class="dropdown-toggle  dashboard_live_filter" onClick={dropdown2}>{selectedOption2}</button>
@@ -94,13 +98,13 @@ const Dashboard = () => {
                         </div>
                     <div class="dropdown-filter">
                         <fieldset>
-                            <legend class="legend-top">From</legend>
+                            <legend class="legend-top-form">From</legend>
                             <input type='date' class="dropdown-toggle dashboard_live_filter" ></input>
                         </fieldset>
                     </div>
                     <div class="dropdown-filter">
                         <fieldset>
-                            <legend class="legend-top">To</legend>
+                            <legend class="legend-top-to">To</legend>
                             <input type='date' class="dropdown-toggle dashboard_live_filter" ></input>
                         </fieldset>  
                     </div>
