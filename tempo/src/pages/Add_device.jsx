@@ -3,9 +3,11 @@ import { useState } from "react";
 // import add_new_div from "../Functions/Add_new_div";
 import { RiAddCircleLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 const Add_device = () => {
 
-    const [adddevice,setadddevice]=useState(false);
+    const [adddevice, setadddevice] = useState(false);
     const [divs, setDivs] = useState([]);
     const [inputCount, setInputCount] = useState(1);
     const [inputList, setInputList] = useState([]);
@@ -25,17 +27,17 @@ const Add_device = () => {
 
     //error
     const [clientidError, setclientidError] = useState("");
-    const [devicenameerror,setdevicenameerror]=useState("");
-    const [devicemodelerror,setdevicemodelerror]=useState("");
-    const [devicemacaddresserror,setdevicemacaddresserror]=useState("");
-    const [firmwareversionerror,setfirmwareversionerror]=useState("");
-    const [clientnameerror,setclientnameerror]=useState("");
-    const [hosterror,sethosterror]=useState("");
-    const [usernameerror,setusernameerror]=useState("");
-    const [passworderror,setpassworderror]=useState("");
-    const [parametererror,setparametererror]=useState("");
-    const [datatypeerror,setdatatypeerror]=useState("");
-    const [topicnameerror,settopicnameerror]=useState("");
+    const [devicenameerror, setdevicenameerror] = useState("");
+    const [devicemodelerror, setdevicemodelerror] = useState("");
+    const [devicemacaddresserror, setdevicemacaddresserror] = useState("");
+    const [firmwareversionerror, setfirmwareversionerror] = useState("");
+    const [clientnameerror, setclientnameerror] = useState("");
+    const [hosterror, sethosterror] = useState("");
+    const [usernameerror, setusernameerror] = useState("");
+    const [passworderror, setpassworderror] = useState("");
+    const [parametererror, setparametererror] = useState("");
+    const [datatypeerror, setdatatypeerror] = useState("");
+    const [topicnameerror, settopicnameerror] = useState("");
 
     //enable services checking state
     const [isChecked, setisChecked] = useState(true);
@@ -44,7 +46,7 @@ const Add_device = () => {
     let concatenatedValues = '';
 
     //redirect to device content page
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     //function to set the value to state
 
@@ -54,19 +56,19 @@ const Add_device = () => {
 
         const isValid = /^[0-9]+$/.test(value);
         if (!isValid) {
-          setclientidError("*Enter valid client ID");
+            setclientidError("*Enter valid client ID");
         } else {
-          setclientidError("");
+            setclientidError("");
         }
     }
     function handledevicename(event) {
-        const value=event.target.value
+        const value = event.target.value
         setdevicename(value)
         const isValiddevicename = /^[a-zA-Z0-9]+$/.test(value)
-        if(!isValiddevicename){
+        if (!isValiddevicename) {
             setdevicenameerror("*Enter valid device name")
         }
-        else{
+        else {
             setdevicenameerror("");
         }
 
@@ -75,32 +77,32 @@ const Add_device = () => {
         const value = event.target.value;
         setdevicemodel(value)
         const isValiddevicemodel = /^[a-zA-Z0-9]+$/.test(value)
-        if(!isValiddevicemodel){
+        if (!isValiddevicemodel) {
             setdevicemodelerror("*Enter Valid Model")
         }
-        else{
+        else {
             setdevicemodelerror("")
         }
-        
+
     }
     function handledevicemacaddress(event) {
         const value = event.target.value;
         setdevicemacaddress(value);
         const isValidmacaddress = /^[0-9a-zA-Z]{2}([-:_])[0-9a-zA-Z]{2}(\1[0-9a-zA-Z]{2}){4}$/.test(value)
-        if(!isValidmacaddress){
+        if (!isValidmacaddress) {
             setdevicemacaddresserror("*Enter Valid MacAddress")
-        }else{
+        } else {
             setdevicemacaddresserror("");
         }
-        
-    }    
+
+    }
     function handlefirmwareversion(event) {
         const value = event.target.value;
         setfirmwareversion(value)
         const isValidfirmwareversion = /^[a-zA-Z0-9]+$/.test(value)
-        if(!isValidfirmwareversion){
+        if (!isValidfirmwareversion) {
             setfirmwareversionerror("*Enter valid firmware version")
-        }else{
+        } else {
             setfirmwareversionerror("")
         }
     }
@@ -108,9 +110,9 @@ const Add_device = () => {
         const value = event.target.value;
         setclientname(value)
         const isValidclientname = /^[a-zA-Z0-9]+$/.test(value)
-        if(!isValidclientname){
+        if (!isValidclientname) {
             setclientnameerror("*Enter valid clientname")
-        }else{
+        } else {
             setclientnameerror("")
         }
 
@@ -119,9 +121,9 @@ const Add_device = () => {
         const value = event.target.value;
         sethost(value)
         const isValidhost = /^[0-9a-zA-Z./,:\\-]+$/.test(value)
-        if(!isValidhost){
+        if (!isValidhost) {
             sethosterror("*Enter valid host")
-        }else{
+        } else {
             sethosterror("")
         }
     }
@@ -129,9 +131,9 @@ const Add_device = () => {
         const value = event.target.value;
         setusername(value)
         const isValidusername = /^[a-zA-Z0-9]+$/.test(value)
-        if(!isValidusername){
+        if (!isValidusername) {
             setusernameerror("*Enter valid username")
-        }else{
+        } else {
             setusernameerror("")
         }
 
@@ -141,9 +143,9 @@ const Add_device = () => {
         const value = event.target.value;
         setpassword(value)
         const isValidpassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(value);
-        if(!isValidpassword){
+        if (!isValidpassword) {
             setpassworderror("*Enter valid password")
-        }else{
+        } else {
             setpassworderror("")
         }
     }
@@ -151,9 +153,9 @@ const Add_device = () => {
         const value = event.target.value;
         settopicname(value)
         const isValidtopicname = /^[0-9a-zA-Z]+$/.test(value)
-        if(!isValidtopicname){
+        if (!isValidtopicname) {
             settopicnameerror("*Enter valid topicname")
-        }else{
+        } else {
             settopicnameerror("")
         }
 
@@ -163,9 +165,9 @@ const Add_device = () => {
         const value = event.target.value;
         setparameter(value)
         const isValidparameter = /^[0-9a-zA-Z]+$/.test(value)
-        if(!isValidparameter){
+        if (!isValidparameter) {
             setparametererror("*Enter valid parameter")
-        }else{
+        } else {
             setparametererror("")
         }
 
@@ -174,9 +176,9 @@ const Add_device = () => {
         const value = event.target.value;
         setdatatype(value)
         const isValiddatatype = /^[a-zA-Z]+$/.test(value)
-        if(!isValiddatatype){
+        if (!isValiddatatype) {
             setdatatypeerror("*Enter valid datatype")
-        }else{
+        } else {
             setdatatypeerror("")
         }
 
@@ -186,23 +188,19 @@ const Add_device = () => {
     //on click cancel
 
     function handleCancel() {
-        const result = window.confirm("Are you sure you want to delete this item?");
-        if (result) {
-            setclientid("");
-            setdevicename("");
-            setdevicemodel("");
-            setdevicemacaddress("");
-            setfirmwareversion("");
-            setclientname("");
-            sethost("");
-            setusername("");
-            setpassword("");
-            settopicname("");
-            setparameter("");
-            setdatatype("");
-            navigate('/Device');
-        }
-
+        setclientid("");
+        setdevicename("");
+        setdevicemodel("");
+        setdevicemacaddress("");
+        setfirmwareversion("");
+        setclientname("");
+        sethost("");
+        setusername("");
+        setpassword("");
+        settopicname("");
+        setparameter("");
+        setdatatype("");
+        navigate('/Device');
     }
 
     //check is they enable services
@@ -219,7 +217,7 @@ const Add_device = () => {
 
     //function to validate
     const handleClick = async () => {
-        
+
         //conditions to validate
         const isValidclientid = /^[0-9]+$/.test(clientid)
         const isValiddevicename = /^[a-zA-Z0-9]+$/.test(devicename)
@@ -237,18 +235,18 @@ const Add_device = () => {
         const inputs = document.querySelectorAll('.example, .typee');
         const values = Array.from(inputs).map(input => input.value);
         const concatenatedValues = values.reduce((acc, curr, index) => {
-          if (index % 2 === 0) {
-            return `${acc}${curr}&`;
-          } else if (index === values.length - 1) {
-            return `${acc}${curr}`;
-          } else {
-            return `${acc}${curr}&&`;
-          }
+            if (index % 2 === 0) {
+                return `${acc}${curr}&`;
+            } else if (index === values.length - 1) {
+                return `${acc}${curr}`;
+            } else {
+                return `${acc}${curr}&&`;
+            }
         }, '');
 
-  
-          
-          
+
+
+
 
         //check if valid or not
 
@@ -257,14 +255,14 @@ const Add_device = () => {
         }
         else {
             navigate('/Device');
-            const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, topicname,concatenatedValues, checking }
+            const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, topicname, concatenatedValues, checking }
             await fetch('http://127.0.0.1:4000/user', {
                 method: "POST",
                 headers: { "content-Type": "application/json" },
                 body: JSON.stringify(body)
             })
         }
-        
+
     }
 
 
@@ -277,12 +275,12 @@ const Add_device = () => {
             <div className="row_five padding-loc display-flex mb-loc-5" key={newDivs.length}>
                 <div className="inputbox display-flex">
                     <label htmlFor="">Parameter</label>
-                    <input type="text" onChange={handleparameter} className="example"/>
+                    <input type="text" onChange={handleparameter} className="example" />
                     <div className="error-message"><span className={parametererror ? "error" : ""}>{parametererror}</span></div>
                 </div>
                 <div className="inputbox display-flex">
                     <label htmlFor="">Datatype</label>
-                    <input type="text" onChange={handledatatype} className="example"/>
+                    <input type="text" onChange={handledatatype} className="example" />
                     <div className="error-message"><span className={datatypeerror ? "error" : ""}>{datatypeerror}</span></div>
                 </div>
                 <div className="inputbox display-flex">
@@ -300,7 +298,7 @@ const Add_device = () => {
         setDivs(newDivs);
     };
 
-    const opennewdevice=()=>{
+    const opennewdevice = () => {
         setadddevice(true);
     }
 
@@ -309,16 +307,33 @@ const Add_device = () => {
         const newDivs = [...divs];
         newDivs.splice(index, 1);
         setDivs(newDivs);
-      };      
+    };
 
 
     return (
         <div className='Add_device'>
+            <div class="modal fade boot-modals" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">CANCEL</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-header">
+                            <h5 class="modal-title">Do You want to cancel?</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-loc active-loc" data-bs-dismiss="modal">NO</button>
+                            <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal" onClick={handleCancel}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="page_top_box new_device box-shadow">
                 {/* <button className="btn-loc theme-btn new_device_btn" >New Device</button> */}
             </div>
-          
-                <div className="add_device_container">
+
+            <div className="add_device_container">
                 <div className="new_device_content">
                     <div className="row_one display-flex">
                         <div className="adding_new_device uppercase bold">Add Device Detials </div>
@@ -402,12 +417,12 @@ const Add_device = () => {
                     <div className="row_five padding-loc display-flex mb-loc-5 ">
                         <div className="inputbox display-flex">
                             <label htmlFor="">Parameter</label>
-                            <input type="text" onChange={handleparameter} className="example"/>
+                            <input type="text" onChange={handleparameter} className="example" />
                             <div className="error-message"><span className={parametererror ? "error" : ""}>{parametererror}</span></div>
                         </div>
                         <div className="inputbox display-flex">
                             <label htmlFor="">Datatype</label>
-                            <input type="text" onChange={handledatatype} className="example"/>
+                            <input type="text" onChange={handledatatype} className="example" />
                             <div className="error-message"><span className={datatypeerror ? "error" : ""}>{datatypeerror}</span></div>
                         </div>
                         <div className="inputbox display-flex">
@@ -432,15 +447,15 @@ const Add_device = () => {
                         </div>
                         <div className="save_cancel_btn display-flex">
                             <button className="btn-loc active-loc btn btn-outline-success" onClick={() => handleClick()}>Save</button>
-                            <button className="btn-loc inactive-loc btn btn-outline-danger" onClick={handleCancel}>cancel</button>
+                            <button className="btn-loc inactive-loc btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
 
                         </div>
                     </div>
 
                 </div>
             </div>
-            
-            
+
+
             {/* {rows} */}
         </div>
     );
