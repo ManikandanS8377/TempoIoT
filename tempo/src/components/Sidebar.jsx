@@ -110,7 +110,10 @@ const Sidebar = ({ children }) => {
                                 dropdownContent.style.display = 'none';
                             }}
                         >
-                            <div className="icon">{item.icon}</div>
+                            <div className='individual_icon'>
+                                <div className="icon">{item.icon}</div>
+                            </div>
+
                             <div className="dropdown-content" style={{ display: 'none' }}>
                                 <div className='sidebar_head'>{item.head}</div>
                                 {item.links.map((link, i) => (

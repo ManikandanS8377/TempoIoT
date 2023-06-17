@@ -5,6 +5,10 @@
     padding: 0;
     text-decoration: none;
 }
+/* top nav bar */
+.rm-pd-mr{
+    user-select: none;
+}
 
 /* Device Content design*/
 
@@ -36,8 +40,8 @@
 
 
 .module_tittle {
-    margin-left:25px;
-    padding-top:17px ;
+    margin-left: 25px;
+    padding-top: 17px;
     align-items: center;
     justify-content: center;
     font-size: 1.1rem;
@@ -91,10 +95,12 @@
     gap: 10px;
     margin-left: 20px;
 }
-.filters1{
+
+.filters1 {
     margin-left: -150px;
 }
-.filters2{
+
+.filters2 {
     margin-right: 10px;
     background-color: #2E3191;
     border-radius: 8px;
@@ -107,7 +113,8 @@
     color: var(--FONT_COLOR);
 
 }
-.upcomming-pages{
+
+.upcomming-pages {
     color: #acaaaa;
 }
 
@@ -132,7 +139,7 @@
     margin: 10px;
 }
 
-.dropdown_menu2{
+.dropdown_menu2 {
     width: 170px;
     margin-left: 8px;
 }
@@ -181,17 +188,20 @@
     height: 50px;
     color: var(--FONT_COLOR);
 }
-.device_active{
+
+.device_active {
     margin-left: 5px;
     font-weight: 600;
     color: darkgreen;
 }
+
 /* device_management export design */
-.device_bottom{
+.device_bottom {
     box-shadow: none;
     height: auto;
 }
-.device_export{
+
+.device_export {
     margin-left: 15px;
     background-color: rgb(234, 234, 234);
     border-radius: 15px;
@@ -199,8 +209,9 @@
     margin-top: 10px;
     width: 105px;
 }
-.device_exports{
-    font-weight:var(--FONT_WEIGHT);
+
+.device_exports {
+    font-weight: var(--FONT_WEIGHT);
     font-size: 1.3rem;
     color: #2E317D;
     padding-bottom: 2px;
@@ -248,7 +259,7 @@
 .form-control-loc {
     border: var(--BORDER_COLOUR_1PX);
     border-radius: 0.25rem 0 0 0.25rem;
-    width: var( --WIDTH);
+    width: var(--WIDTH);
 
 }
 
@@ -257,9 +268,10 @@
 /* Add Device */
 
 .Add_device {
-    height: 90vh;
+    height: auto;
     overflow-x: hidden;
     font-family: var(--FONT_FAMILY);
+
 }
 
 .new_device {
@@ -299,7 +311,7 @@
 
 .input-boxes,
 .sub_row_three {
-    width: var( --WIDTH);
+    width: var(--WIDTH);
     gap: 2rem;
     margin-left: 3rem;
 }
@@ -383,6 +395,7 @@ input[type="checkbox"] {
 
 .add_device_container {
     padding: 1rem;
+    overflow: hidden;
 }
 
 .new_device_content {
@@ -392,7 +405,7 @@ input[type="checkbox"] {
 
 .adding_new_device {
     color: var(--ADD_DEVICE_DETIAL_CLR);
-    
+
 }
 
 .Add-icon {
@@ -430,7 +443,8 @@ input[type="checkbox"] {
     background-color: var(--THEME_SEC_COLOR);
 
 }
-.btn.btn-fill{
+
+.btn.btn-fill {
     color: white;
     font-weight: var(--FONT_WEIGHT);
 }
@@ -465,11 +479,13 @@ input[type="checkbox"] {
 
 
 /* Dashboard Page design*/
-
-.page{
+.dashboard_page{
+    user-select: none;
+}
+.page {
     font-family: var(--FONT_FAMILY);
     text-align: center;
-    justify-content: start; 
+    justify-content: start;
 }
 
 .dashboard_live {
@@ -485,7 +501,7 @@ input[type="checkbox"] {
 
 .dashboard_inputs {
     justify-content: end;
-    width: var( --WIDTH);
+    width: var(--WIDTH);
     gap: 15px;
 }
 
@@ -499,11 +515,12 @@ input[type="checkbox"] {
     margin-left: 7px;
     margin-top: 7px;
     height: 40px;
+    user-select: none;
 }
 
 .dashboard_live_filter {
     background-color: white;
-    font-size:1rem;
+    font-size: 1rem;
     text-align: start;
     width: 190px;
     margin-left: 2px;
@@ -512,19 +529,37 @@ input[type="checkbox"] {
     font-weight: var(--FONT_WEIGHT);
     border: var(--BORDER_COLOUR_1PX);
     border-radius: 7px;
+    user-select: none;
 }
-.legend-top {
+
+.legend-top-form,
+.legend-top-to {
     position: absolute;
     justify-content: baseline;
     align-items: baseline;
-    left: 8px;
+    left: 16px;
     font-size: var(--FONT_SIZE);
     color: #000000;
     width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 20px;
+
 }
 
-.dropdown_menu{
+.legend-top-form {
+    width: 30%;
+}
+
+.legend-top-to {
+    width: 20%;
+}
+
+.dropdown_menu {
     width: 190px;
+    user-select: none;
 }
 
 .dashboard_dropdown-menu {
@@ -568,7 +603,7 @@ input[type="checkbox"] {
     height: auto;
     width: 50px;
     border-radius: 7px;
-  
+
 }
 
 .icon2 {
@@ -616,10 +651,11 @@ input[type="checkbox"] {
 }
 
 .line_container {
-    width: var( --WIDTH);
+    width: var(--WIDTH);
     height: 100%;
 }
-.graphs{
+
+.graphs {
     height: 90%;
 }
 
@@ -629,7 +665,7 @@ input[type="checkbox"] {
     gap: 2rem;
     font-family: var(--FONT_FAMILY);
 }
-  
+
 .dropdown_toggle1 {
     margin-top: 1px;
     width: 90px;
@@ -639,11 +675,11 @@ input[type="checkbox"] {
     cursor: pointer;
     font-family: var(--FONT_FAMILY);
 }
-  
-.dropdown_menu1 { 
+
+.dropdown_menu1 {
     width: 90px;
 }
-  
+
 .dropdown_menu1 a {
     display: block;
     padding: 3px;
@@ -654,7 +690,7 @@ input[type="checkbox"] {
 
 .dasboard_bottom {
     justify-content: space-between;
-    height:fit-content;
+    height: fit-content;
 }
 
 /* .boot-modals{
@@ -678,14 +714,17 @@ input[type="checkbox"] {
 }
 
 .exports {
-    font-weight:var(--FONT_WEIGHT);
+    font-weight: var(--FONT_WEIGHT);
     font-size: 1.3rem;
     color: #2E317D;
     padding-bottom: 2px;
+    user-select: none;
 }
+
 .arrows {
     position: relative;
 }
+
 .arrows1 {
     margin-left: 10px;
     position: relative;
@@ -720,7 +759,8 @@ input[type="checkbox"] {
     position: absolute;
     font-size: 30px;
 }
-.dropdown-filter{
+
+.dropdown-filter {
     position: relative;
 }
 
@@ -733,12 +773,12 @@ input[type="checkbox"] {
     font-weight: 700;
 }
 
-.status-btns1{
-    gap:5px;
+.status-btns1 {
+    gap: 5px;
     margin-right: 10px;
     height: 60px;
 }
-  
+
 
 .assert_filters {
     align-items: center;
@@ -746,7 +786,8 @@ input[type="checkbox"] {
     justify-content: start;
     gap: 3rem;
 }
-.fonts{
+
+.fonts {
     color: #707070;
     font-weight: 600;
 }
@@ -767,9 +808,10 @@ input[type="checkbox"] {
     width: 150px;
     height: auto;
 }
+
 .dashboard_live_filter1 {
     background-color: white;
-    font-size:1rem;
+    font-size: 1rem;
     text-align: start;
     width: 250px;
     margin-left: 40px;
@@ -780,6 +822,7 @@ input[type="checkbox"] {
     border: var(--BORDER_COLOUR_1PX);
     border-radius: 7px;
 }
+
 .alert-legend-top {
     position: absolute;
     justify-content: baseline;
@@ -789,7 +832,8 @@ input[type="checkbox"] {
     color: #000000;
     width: fit-content;
 }
-.alert-page-button{
+
+.alert-page-button {
     border: 1px solid red;
     border-radius: 25px;
     width: 90px;
