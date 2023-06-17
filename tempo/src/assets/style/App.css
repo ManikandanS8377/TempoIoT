@@ -36,7 +36,7 @@
 
 
 .module_tittle {
-    margin-left:25px;
+    margin-left:10px;
     padding-top:17px ;
     align-items: center;
     justify-content: center;
@@ -74,6 +74,41 @@
     color: green;
     border-color: green;
 }
+.device_content_arrow{
+    position: relative;
+}
+
+
+.device_action_dropdown {
+    margin-left: -240px;
+    position: absolute;
+    border-radius: 5px;
+    color: var( --COLOR_BEFORE_HOVER);
+    background-color: var(--THEME_COLOUR);
+    height: 80px;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
+   
+}
+.device_content_dropdown{
+    position: relative;
+    align-items: center;
+    justify-content: start;
+    padding:0.4rem;
+}
+.device_content_arrows{
+    padding-top: 9px;
+    padding-left: 5px;
+    color: var(#154fdf);
+}
+.device_action_dropdown1:hover{
+    color: white;
+}
+.device_action_dropdown2:hover{
+    color: white;
+}
+
 
 /* dropdown filter */
 .filters {
@@ -89,10 +124,10 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 .filters1{
-    margin-left: -150px;
+    margin-left: -250px;
 }
 .filters2{
     margin-right: 10px;
@@ -128,12 +163,12 @@
     font-style: 600;
     border-radius: 7px;
     cursor: pointer;
-    width: 170px;
+    width: 190px;
     margin: 10px;
 }
 
 .dropdown_menu2{
-    width: 170px;
+    width: 190px;
     margin-left: 8px;
 }
 
@@ -142,10 +177,6 @@
 .dropdown-filter .dropdown-menu {
     display: block;
 }
-
-/* .dropdown-filter-2 .dropdown-menu {
-    display: block;
-} */
 
 .device_dropdown{
     padding-left: 15px;
@@ -172,9 +203,9 @@
 
 /* col-heading */
 .col-headings {
-    width: 95%;
+    width: 98.4%;
     font-weight: 500;
-    margin-left: 30px;
+    margin-left: 14px;
     border: var(--BORDER_COLOUR_1PX);
     border-radius: 8px;
     box-shadow: var(--BOX-SHADOW);
@@ -192,8 +223,8 @@
 
 /* datas */
 .datas {
-    width: 95%;
-    margin-left: 30px;
+    width: 98.4%;
+    margin-left: 14px;
     border: var(--BORDER_COLOUR_1PX);
     border-radius: 8px;
     margin-bottom: 5px;

@@ -6,6 +6,7 @@ import { Icon } from 'react-icons-kit';
 import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
+import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 
 // import { Button, Navbar, Nav, Form, FormControl } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -73,12 +74,11 @@ const Device_content = () => {
 
     //rotate the arrow in the device action
     const [rotatedIndex, setRotatedIndex] = useState(null);
-    const [dropdowns, setdropdowns] = useState([]);
     const handleIconClick = (index) => {
         if (rotatedIndex === index) {
             setRotatedIndex(null);
         } else {
-            setRotatedIndex(index);  
+            setRotatedIndex(index);
         }
     };
 
@@ -176,8 +176,25 @@ const Device_content = () => {
                         <div className="col-head" key={index}>{data.device_model}</div>
                         <div className="col-head" key={index}>{data.last_updated_on}</div>
                         <div className="col-head">ritchard</div>
-                        <div className="col-head display-flex"><FontAwesomeIcon icon={faDiamond} style={{ color: "green", paddingTop: "7px" }} size='xs' /><div className='device_active'>Active</div></div>
-                        <div className="col-head"><Icon onClick={() => handleIconClick(index)} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#62faff' : 'lightgray', }} icon={ic_label_important} className='riarrow2' size={30} /></div>
+                        <div className="col-head display-flex">
+                            <FontAwesomeIcon icon={faDiamond} style={{ color: "green", paddingTop: "7px" }} size='xs' />
+                            <div className='device_active'>Active</div>
+                        </div>
+                        <div className="col-head display-flex">
+                            <Icon icon={ic_label_important} onClick={() => handleIconClick(index)} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }}  className='device_content_arrow' size={30} />
+                            <div key={index}>{rotatedIndex === index &&
+                                <div className='device_action_dropdown'>
+                                    <div className='display-flex device_action_dropdown1'>
+                                        <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown}  size='lg' />
+                                        <div className='device_content_dropdown display-flex'>Device Details</div>
+                                    </div>
+                                    <div className='display-flex device_action_dropdown2'>
+                                        <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows'  size='lg' />
+                                        <div className='device_content_dropdown display-flex'>Activate Device</div>
+                                    </div>
+                                </div>}
+                            </div>
+                        </div>
                     </div>
                 ))}
                 <div className='device_bottom'>
