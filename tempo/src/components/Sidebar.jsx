@@ -1,6 +1,6 @@
-
-
 import React, { useState } from 'react';
+
+//import react icons
 import { FaTh, FaBars, FaUserAlt, FaRegChartBar, FaCommentAlt, FaShoppingBag, FaThList } from "react-icons/fa";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
@@ -89,7 +89,9 @@ const Sidebar = ({ children }) => {
                 url: getLinkUrl(link, item.path)
             };
         });
+        
     });
+    
 
     return (
 
