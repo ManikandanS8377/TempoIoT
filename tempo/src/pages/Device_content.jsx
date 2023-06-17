@@ -69,7 +69,14 @@ const Device_content = () => {
         };
     }, []);
     
-    
+    const [rotatedIndex, setRotatedIndex] = useState(null);
+
+    const handleIconClick = (index) => {
+      setRotatedIndex(index);
+    };
+    const alerting=()=>{
+        alert("hi")
+    }
 
     
     return (
@@ -163,7 +170,7 @@ const Device_content = () => {
                         <div className="col-head" key={index}>{data.last_updated_on}</div>
                         <div className="col-head">ritchard</div>
                         <div className="col-head display-flex"><FontAwesomeIcon icon={faDiamond} style={{color: "green",paddingTop:"7px"}} size='xs'/><div  className='device_active'>Active</div></div>
-                        <div className="col-head"><Icon icon={ic_label_important} className='riarrow2' size={30} /></div>
+                        <div className="col-head"><Icon  onClick={() => handleIconClick(index)} style={{transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)',color:rotatedIndex===index ? '#62faff':'lightgray',}} icon={ic_label_important} className='riarrow2' size={30} /></div>
                     </div>
                 ))}
                 <div className='device_bottom'>
