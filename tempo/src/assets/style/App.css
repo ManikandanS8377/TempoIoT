@@ -123,12 +123,17 @@
 
 .pagination {
     border-radius: 5px;
-    padding: 0.5rem;
-    width: 150px;
+    /* padding: 0.5rem; */
+    /* width: 150px; */
     justify-content: center;
     align-items: center;
     gap: 10px;
     margin-left: 10px;
+}
+.editable_input_box{
+    width: 30px;
+    outline: none;
+    border: none;
 }
 .filters1{
     margin-left: -150px;
@@ -145,11 +150,13 @@
     border-radius: 5px;
     padding: 0.5rem 1rem 0.5rem 1rem;
     color: var(--FONT_COLOR);
+    /*  */
 
 }
 
 .upcomming-pages {
     color: #acaaaa;
+    user-select: none;
 }
 
 .dropdown-filters {
@@ -219,6 +226,7 @@
     height: 50px;
     margin-bottom: 5px;
     color: grey;
+    user-select: none;
 }
 
 .col-head {
@@ -237,6 +245,7 @@
     display: flex;
     height: 50px;
     color: var(--FONT_COLOR);
+    user-select: none;
 }
 
 .device_active {
@@ -258,6 +267,7 @@
     height: fit-content;
     margin-top: 10px;
     width: 105px;
+    user-select: none;
 }
 
 .device_exports {
