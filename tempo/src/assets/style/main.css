@@ -112,6 +112,7 @@ main {
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    
 }
 
 /* .dropdown-content a:first-child {
@@ -214,6 +215,7 @@ a.link.active:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+   
 }
 
 
