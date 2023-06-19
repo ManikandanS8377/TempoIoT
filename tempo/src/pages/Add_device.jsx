@@ -314,17 +314,18 @@ const Add_device = () => {
         <div className='Add_device'>
             <div class="modal fade boot-modals" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">CANCEL</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-content width_of_model">
+                        <div class="modal-header-confirm">
+                            <h5 class="modal-title" id="exampleModalLabel">CONFIRMATION</h5>
+                            {/* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
                         </div>
-                        <div class="modal-header">
-                            <h5 class="modal-title">Do You want to cancel?</h5>
+                        <div class="modal-main-confirm">
+                            <h5 class="modal-title confirm-tittle">Are you sure you want Exit ?
+                            </h5>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn-loc active-loc" data-bs-dismiss="modal">NO</button>
-                            <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal" onClick={handleCancel}>Cancel</button>
+                        <div class="modal-footer-confirm">
+                            <button type="button" class="btn-loc active-loc" data-bs-dismiss="modal" onClick={handleCancel}>YES</button>
+                            <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">NO</button>
                         </div>
                     </div>
                 </div>

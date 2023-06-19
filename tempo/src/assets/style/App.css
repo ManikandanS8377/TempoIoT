@@ -5,8 +5,9 @@
     padding: 0;
     text-decoration: none;
 }
+
 /* top nav bar */
-.rm-pd-mr{
+.rm-pd-mr {
     user-select: none;
 }
 
@@ -20,6 +21,9 @@
     box-shadow: var(--BOX-SHADOW);
     min-height: 90vh;
     height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .device_management {
@@ -40,8 +44,8 @@
 
 
 .module_tittle {
-    margin-left:10px;
-    padding-top:17px ;
+    margin-left: 10px;
+    padding-top: 17px;
     align-items: center;
     justify-content: center;
     font-size: 1.1rem;
@@ -78,7 +82,8 @@
     color: green;
     border-color: green;
 }
-.device_content_arrow{
+
+.device_content_arrow {
     position: relative;
 }
 
@@ -87,29 +92,33 @@
     margin-left: -240px;
     position: absolute;
     border-radius: 5px;
-    color: var( --COLOR_BEFORE_HOVER);
+    color: var(--COLOR_BEFORE_HOVER);
     background-color: var(--THEME_COLOUR);
     height: 80px;
     width: 200px;
     justify-content: center;
     align-items: center;
-   
+
 }
-.device_content_dropdown{
+
+.device_content_dropdown {
     position: relative;
     align-items: center;
     justify-content: start;
-    padding:0.4rem;
+    padding: 0.4rem;
 }
-.device_content_arrows{
+
+.device_content_arrows {
     padding-top: 9px;
     padding-left: 5px;
     color: var(#154fdf);
 }
-.device_action_dropdown1:hover{
+
+.device_action_dropdown1:hover {
     color: white;
 }
-.device_action_dropdown2:hover{
+
+.device_action_dropdown2:hover {
     color: white;
 }
 
@@ -130,12 +139,14 @@
     gap: 10px;
     margin-left: 10px;
 }
-.editable_input_box{
+
+.editable_input_box {
     width: 30px;
     outline: none;
     border: none;
 }
-.filters1{
+
+.filters1 {
     margin-left: -150px;
 }
 
@@ -163,6 +174,7 @@
     position: relative;
 }
 
+
 .dropdown-toggle {
     background-color: #ffffff;
     border: var(--BORDER_COLOUR_1PX);
@@ -178,9 +190,10 @@
     cursor: pointer;
     width: 190px;
     margin: 10px;
+    user-select: none;
 }
 
-.dropdown_menu2{
+.dropdown_menu2 {
     width: 190px;
     margin-left: 8px;
 }
@@ -191,23 +204,32 @@
     display: block;
 }
 
-.device_dropdown{
+.device_dropdown {
     padding-left: 15px;
     padding-top: 5px;
+    /* margin-left: 1rem; */
+    display: flex;
 }
 
-.heights{
+.div_sts {
+    margin-left: 0.5rem;
+}
+
+.heights {
     max-height: 300px;
     overflow-y: auto;
 }
-.heights::-webkit-scrollbar{
+
+.heights::-webkit-scrollbar {
     width: 8px;
-    
+
 }
-.heights::-webkit-scrollbar-track{
+
+.heights::-webkit-scrollbar-track {
     background-color: rgb(255, 255, 255);
 }
-.heights::-webkit-scrollbar-thumb{
+
+.heights::-webkit-scrollbar-thumb {
     background-color: rgb(188, 188, 188);
     border-radius: 25px;
 }
@@ -258,6 +280,8 @@
 .device_bottom {
     box-shadow: none;
     height: auto;
+    margin-bottom: 2%;
+    /* position: sticky; */
 }
 
 .device_export {
@@ -278,16 +302,22 @@
     text-align: center;
 }
 
+
 /* models */
+.Add_device .width_of_model {
+    width: 85%;
+}
+
 .modal-content {
     max-width: 1000px;
     padding: 1rem;
     /* height: 80vh; */
     margin: 1.75rem auto;
+    width: 5%;
 }
 
 .model-inputs {
-    /* width: 100%; */
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     height: auto;
@@ -323,6 +353,23 @@
 
 }
 
+/* confirmation */
+.modal-content {
+    gap: 1rem;
+}
+
+.modal-header-confirm {
+    color: var(--THEME_SEC_COLOR);
+}
+
+.confirm-tittle {
+    font-size: small;
+}
+
+.modal-footer-confirm {
+    display: flex;
+    justify-content: end;
+}
 
 
 /* Add Device */
@@ -539,9 +586,10 @@ input[type="checkbox"] {
 
 
 /* Dashboard Page design*/
-.dashboard_page{
+.dashboard_page {
     user-select: none;
 }
+
 .page {
     font-family: var(--FONT_FAMILY);
     text-align: center;
@@ -822,9 +870,10 @@ input[type="checkbox"] {
 }
 
 /* Assert Management */
-.device_management{
+.device_management {
     user-select: none;
 }
+
 .active-loc1 {
     color: rgb(11, 127, 169);
     border-color: rgb(86, 223, 236);
