@@ -215,12 +215,13 @@ const Device_content = () => {
                             <div class="dropdown-filter" ref={dropdownRef3}>
                                 <button class="dropdown-toggle" onClick={dropdown3}>Device Status</button>
                                 {isOpen3 && (
-                                    <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
-                                        {alldata.map((data, index) => (
-                                            <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">Active</div></div>
-                                                {index !== alldata.length - 1 && <hr className='hrs'></hr>}
-                                            </div>
-                                        ))}
+                                    <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
+                                        <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">All</div></div>
+                                            <hr className='hrs'></hr>
+                                            <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">Active</div></div>
+                                            <hr className='hrs'></hr>
+                                            <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">InActive</div></div>
+                                        </div>
                                     </div>
                                 )}
                             </div>

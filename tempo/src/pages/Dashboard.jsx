@@ -73,11 +73,11 @@ const Dashboard = () => {
                             <button class="dropdown-toggle dashboard_live_filter" onClick={dropdown1} >{selectedOption1}</button>
                             {isOpen1 && (
                                 <div class="dashboard_dropdown-menu dropdown_menu dropdown-colors">
-                                    <a className="a-a" onClick={() => handleOptionClick1('ALL')}><input type='checkbox' className='checks'></input>ALL</a>
+                                    <a className="a-a" ><input type='checkbox' className='checks' onClick={() => handleOptionClick1('ALL')}></input>ALL</a>
                                     <hr className='hrs'></hr>
-                                    <a className="a-a" onClick={() => handleOptionClick1('Device 1-Assert 1')}><input type='checkbox' className='checks'></input>Device 1-Assert 1</a>
+                                    <a className="a-a" ><input type='checkbox' className='checks' onClick={() => handleOptionClick1('Device 1-Assert 1')}></input>Device 1-Assert 1</a>
                                     <hr className='hrs'></hr>
-                                    <a className="a-a" onClick={() => handleOptionClick1('Device 2-Assert 2')}><input type='checkbox' className='checks'></input>Device 2-Assert 2</a>
+                                    <a className="a-a" ><input type='checkbox' className='checks' onClick={() => handleOptionClick1('Device 2-Assert 2')}></input>Device 2-Assert 2</a>
                                 </div>
                             )}
                         </div>
