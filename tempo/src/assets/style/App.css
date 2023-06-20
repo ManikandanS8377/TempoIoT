@@ -85,20 +85,24 @@
 
 .device_content_arrow {
     position: relative;
+    /* height: 10px;
+    width: 10px; */
+    /* background-color: #000000; */
 }
 
+.device_action_dropdown_parent{
+    position: relative;
+}
 
 .device_action_dropdown {
-    margin-left: -240px;
+    margin-left: -250px;
     position: absolute;
     border-radius: 5px;
     color: var(--COLOR_BEFORE_HOVER);
     background-color: var(--THEME_COLOUR);
     height: 80px;
     width: 200px;
-    justify-content: center;
-    align-items: center;
-
+    cursor: pointer;
 }
 
 .device_content_dropdown {
@@ -310,6 +314,14 @@
     width: 100%;
     padding: 10px;
     margin-left: 20px;
+}
+
+.sts_icon{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    /* margin-left: -10%; */
 }
 
 /* datas */
