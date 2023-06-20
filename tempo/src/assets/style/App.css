@@ -64,7 +64,7 @@
     font-weight: 600;
     user-select: none;
     border: 1px solid transparent;
-    padding: 0.2rem 0.8rem 0.2rem 0.8rem;
+    padding: 0.5rem 0rem 0rem 1.1rem;
     font-size: var(--FONT_SIZE);
     border-radius: 0.25rem;
     border-radius: 0.5rem;
@@ -824,20 +824,25 @@ input[type="checkbox"] {
 .graph_first .second_box,
 .graph_second .third_box,
 .graph_second .fourth_box {
-    width: 47%;
+    width: 48%;
     border: var(--BORDER_COLOUR_1PX);
     border-radius: 5px;
     margin-left: 15px;
+    overflow-y: hidden;
 }
 
 .line_container {
     width: var(--WIDTH);
     height: 100%;
+    overflow-y: hidden;
 }
 
 .graphs {
     height: 90%;
+    max-width: 100%;
+    overflow-x: auto;
 }
+
 
 /* drop down in graph*/
 
@@ -848,7 +853,7 @@ input[type="checkbox"] {
 
 .dropdown_toggle1 {
     margin-top: 1px;
-    width: 90px;
+    width: 110px;
     background-color: #ffffff;
     border: var(--BORDER_COLOUR_1PX);
     border-radius: 5px;
@@ -857,7 +862,8 @@ input[type="checkbox"] {
 }
 
 .dropdown_menu1 {
-    width: 90px;
+    width: 110px;
+    text-align: start;
 }
 
 .dropdown_menu1 a {
