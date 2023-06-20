@@ -215,12 +215,13 @@ const Device_content = () => {
                             <div class="dropdown-filter" ref={dropdownRef3}>
                                 <button class="dropdown-toggle" onClick={dropdown3}>Device Status</button>
                                 {isOpen3 && (
-                                    <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
-                                        {alldata.map((data, index) => (
-                                            <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">Active</div></div>
-                                                {index !== alldata.length - 1 && <hr className='hrs'></hr>}
-                                            </div>
-                                        ))}
+                                    <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
+                                        <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">All</div></div>
+                                            <hr className='hrs'></hr>
+                                            <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">Active</div></div>
+                                            <hr className='hrs'></hr>
+                                            <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">InActive</div></div>
+                                        </div>
                                     </div>
                                 )}
                             </div>
@@ -265,13 +266,13 @@ const Device_content = () => {
                                 <Icon icon={ic_label_important} onClick={() => handleIconClick(index)} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={30} />
                                 <div key={index}>{rotatedIndex === index &&
                                     <div className='device_action_dropdown'>
-                                        <div className='display-flex device_action_dropdown1'>
+                                        <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
                                             <div className='device_content_dropdown display-flex'>Device Details</div>
                                         </div>
-                                        <div className='display-flex device_action_dropdown2'>
+                                        <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                            <div className='device_content_dropdown display-flex'>Activate Device</div>
+                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Activate Device</div>
                                         </div>
                                     </div>}
                                 </div>
@@ -285,6 +286,86 @@ const Device_content = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Edit Device detials */}
+            <div class="modal fade device_status_action" id="device_status_action" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="device_status_header">
+                            <h5 class="modal-title" id="exampleModalLabel">EDIT DEVICE DETAILS
+                            </h5>
+                            {/* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
+                        </div>
+                        <div class="device_status_body">
+                            <div className="dsa_row1">
+                                <div className="dsa_1st_input">
+                                    <label for="input1">Choose File Type</label>
+                                    <div className="inputs-group">
+                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                        <input type="text" class="form-control-loc" id="input1" />
+                                    </div>
+                                </div>
+                                <div className="dsa_1st_input">
+                                    <label for="input1">Choose File Type</label>
+                                    <div className="inputs-group">
+                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                        <input type="text" class="form-control-loc" id="input1" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="dsa_row2">
+                                <div className="dsa_2nd_input">
+                                    <label for="input1">Choose File Type</label>
+                                    <div className="inputs-group">
+                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                        <input type="text" class="form-control-loc" id="input1" />
+                                    </div>
+                                </div>
+                                <div className="dsa_2nd_input">
+                                    <label for="input1">Choose File Type</label>
+                                    <div className="inputs-group">
+                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                        <input type="text" class="form-control-loc" id="input1" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="dsa_row3">
+                                <div className="dsa_3rd_input">
+                                    <label for="input1">Choose File Type</label>
+                                    <div className="inputs-group">
+                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                        <input type="text" class="form-control-loc" id="input1" />
+                                    </div>
+                                </div>
+                                <div className="dsa_3rd_input">
+                                    <div className="dsa_updates">
+                                        <div className="updated_by">
+                                            <label htmlFor="updated_by_name" className='dsa_updates_heading'>Last Updated By
+                                            </label>
+                                            <div id="updated_by_name">Manikandan S</div>
+                                        </div>
+                                        <div className="updated_on">
+                                            <label htmlFor="updated_by_date" className='dsa_updates_heading'>Last Updated On
+                                            </label>
+                                            <div id="updated_by_date">20 march 2023, 12:57</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="device_status_footer">
+                            <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
+                            <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
         </div >
     );
 };
