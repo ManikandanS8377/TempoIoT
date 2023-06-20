@@ -150,13 +150,17 @@ const Device_content = () => {
         setIsEditing(false);
     };
 
-
+    const inputRef = useRef(null);
+    useEffect(() => {
+        inputRef.current.blur();
+    }, []);
 
 
     return (
         <div className='bar'>
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
+
                     <div className="device_management display-flex page_top_box box-shadow">
                         <span className='module_tittle '>Device Management</span>
                         <div className='status-btns display-flex'>
@@ -164,27 +168,30 @@ const Device_content = () => {
                             <button className='btn-loc inactive-loc'>0 Inactive</button>
                         </div>
                     </div>
+
                     <div className='filters display-flex' >
+                        
                         <div class="pagination display-flex" onClick={handleDivClick}>
                             <div className="focus-page">
-                                {isEditing ? (     
-                                    <input
-                                        type="text"
-                                        value={text}
-                                        onChange={handleInputChange}
-                                        onBlur={handleInputBlur}
-                                        autoFocus
-                                        className='editable_input_box'
-                                    />
+                                <input
+                                    ref={inputRef}
+                                    type="number"
+                                    value={text}
+                                    onChange={handleInputChange}
+                                    onBlur={handleInputBlur}
+                                    autoFocus
+                                    className='editable_input_box'
+                                />
+                                {/* {isEditing ? (
                                 ) : (
                                     <div>{text}</div>
-                                )}
+                                )} */}
                             </div>
                             <div className="upcomming-pages">
                                 of 20 pages
                             </div>
-
                         </div>
+
                         <div className='filters1 display-flex'>
                             <div class="dropdown-filter" ref={dropdownRef1}>
                                 <button class="dropdown-toggle" onClick={dropdown1}>Device Name</button>
@@ -200,8 +207,6 @@ const Device_content = () => {
                                     </div>
                                 )}
                             </div>
-
-
                             <div class="dropdown-filter" ref={dropdownRef2}>
                                 <button class="dropdown-toggle" onClick={dropdown2}>Device Model</button>
                                 {isOpen2 && (
@@ -244,10 +249,13 @@ const Device_content = () => {
                                 )}
                             </div>
                         </div>
+
                         <div className='filters2 display-flex'>
                             <button className='btn btn-fill' onClick={handleclick} >Add Device</button>
                         </div>
+
                     </div>
+
                     <div className='col-headings'>
                         <div className="col-head">Device Id</div>
                         <div className="col-head">Device Name</div>
@@ -257,6 +265,7 @@ const Device_content = () => {
                         <div className="col-head">Device status</div>
                         <div className="col-head">Device action</div>
                     </div>
+
                     {alldata.map((data, index) => (
                         <div className="datas">
                             <div className="col-head" key={index}>{data.device_id}</div>
