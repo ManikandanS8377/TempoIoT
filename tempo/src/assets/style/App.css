@@ -261,10 +261,13 @@
     padding-top: 5px;
     /* margin-left: 1rem; */
     display: flex;
+    height: 40px;
+    width: 200px;
 }
 
 .div_sts {
     margin-left: 0.5rem;
+    margin-top: 6px;
 }
 
 .heights {
@@ -1002,3 +1005,5 @@ input[type="checkbox"] {
     background-color: #ffffff;
     font-weight: 500;
 }
+
+  

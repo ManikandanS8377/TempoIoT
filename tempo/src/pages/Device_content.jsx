@@ -189,24 +189,28 @@ const Device_content = () => {
                             <div class="dropdown-filter" ref={dropdownRef1}>
                                 <button class="dropdown-toggle" onClick={dropdown1}>Device Name</button>
                                 {isOpen1 && (
-
-                                    <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
+                                    <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors ">
                                         {alldata.map((data, index) => (
-                                            <div className='device_scroll'><div className='device_dropdown'>{data.device_name}</div>
-                                                {index !== alldata.length - 1 && <hr className='hrs'></hr>}
+                                            <div className='device_scroll' key={index}>
+                                                <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts"> {data.device_name}</div></div>
+                                                    {index !== alldata.length - 1 && <hr className='hrs'></hr>}
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
-
                                 )}
                             </div>
+
+
                             <div class="dropdown-filter" ref={dropdownRef2}>
                                 <button class="dropdown-toggle" onClick={dropdown2}>Device Model</button>
                                 {isOpen2 && (
                                     <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
                                         {alldata.map((data, index) => (
-                                            <div><div className='device_dropdown'>{data.device_model}</div>
-                                                {index !== alldata.length - 1 && <hr className='hrs'></hr>}
+                                            <div className='device_scroll' key={index}>
+                                                <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">{data.device_model}</div></div>
+                                                    {index !== alldata.length - 1 && <hr className='hrs'></hr>}
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
@@ -230,8 +234,10 @@ const Device_content = () => {
                                 {isOpen4 && (
                                     <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
                                         {alldata.map((data, index) => (
-                                            <div><div className='device_dropdown'>{data.last_updated_on}</div>
-                                                {index !== alldata.length - 1 && <hr className='hrs'></hr>}
+                                            <div className='device_scroll' key={index}>
+                                                <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">{data.last_updated_on}</div></div>
+                                                    {index !== alldata.length - 1 && <hr className='hrs'></hr>}
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
@@ -259,8 +265,8 @@ const Device_content = () => {
                             <div className="col-head" key={index}>{data.last_updated_on}</div>
                             <div className="col-head">ritchard</div>
                             <div className="col-head display-flex">
-                                <FontAwesomeIcon icon={faDiamond} style={{ color: "green", paddingTop: "7px" }} size='xs' />
-                                <div className='device_active'>Active</div>
+                                <FontAwesomeIcon icon={faDiamond} style={{ color: index % 2 === 0 ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
+                                <div className={`device_active`} style={{ color: index % 2 === 0 ? 'green' : 'red' }}>{index % 2 === 0 ? 'Active' : 'Inactive'}</div>
                             </div>
                             <div className="col-head display-flex">
                                 <Icon icon={ic_label_important} onClick={() => handleIconClick(index)} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={30} />
