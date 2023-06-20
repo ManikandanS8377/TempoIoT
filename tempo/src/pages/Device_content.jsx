@@ -167,7 +167,7 @@ const Device_content = () => {
                     <div className='filters display-flex' >
                         <div class="pagination display-flex" onClick={handleDivClick}>
                             <div className="focus-page">
-                                {isEditing ? (
+                                {isEditing ? (     
                                     <input
                                         type="text"
                                         value={text}
