@@ -107,19 +107,71 @@
     justify-content: start;
     padding: 0.4rem;
 }
-
-.device_content_arrows {
-    padding-top: 9px;
-    padding-left: 5px;
-    color: var(#154fdf);
+.device_status_action{
+    margin-top: 80px;
 }
 
+.modal-dialog .modal-content{
+    padding: 3rem;
+}
+.device_status_action .modal-content{
+    width: 130%;
+    margin-left: -15%;
+}
+
+.device_status_body{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.device_status_footer{
+    display: flex;
+    justify-content: end;
+}
+.dsa_save_btn{
+    width: auto;
+}
+.dsa_row1 , .dsa_row2 , .dsa_row3{
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+.dsa_1st_input , .dsa_2nd_input , .dsa_3rd_input{
+    display: flex;
+    flex-direction: column;
+}
+.dsa_updates{
+    display: flex;
+    gap: 1rem;
+}
+.dsa_updates_heading{
+    font-size: small;
+    font-weight: 100;
+}
+
+.device_action_dropdown{
+    padding: 0.2rem;
+}
 .device_action_dropdown1:hover {
     color: white;
 }
 
 .device_action_dropdown2:hover {
     color: white;
+}
+.dropdown_action:hover{
+    color: #000000;
+    background-color: #6bd7ff33;
+    border-radius: 2px;
+}
+.device_content_arrows {
+    padding-top: 9px;
+    padding-left: 5px;
+    color: var(#154fdf);
+}
+.dropdown_action .device_content_arrows{
+    color: #154fdf;
 }
 
 
