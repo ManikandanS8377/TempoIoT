@@ -26,12 +26,6 @@ for (let i = 0; i < allData.length; i++) {
         console.log("MongoDB connection successful");
       });
 
-    const dataSchema = new mongoose.Schema({
-      name:String,
-      age:Number,
-      city:String
-    },{versionKey:false});
-    const Datas = mongoose.model('Datas', dataSchema);
 
     // MQTT code
 
@@ -51,21 +45,25 @@ for (let i = 0; i < allData.length; i++) {
         var data = message.toString();   
         var users = JSON.parse(data);
         var valueArray = new Array();
-      
+    
         for(var idx in users) {
           var item = users[idx];
           valueArray.push(item);
         }
       
         var myobj = { name: valueArray[0], age: valueArray[1], city: valueArray[2] };
-        const Data = new Datas(myobj);
-        try {
-          await Data.save();
-          console.log("1 document inserted");
-        } catch (err) {
-          console.error(err);
-        }
+        console.log(myobj);
+
+        db.collection('datas').insertOne(myobj, function (err, result) {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log("1 document inserted");
+          }
+
+
       });
+    });
 
 
     break;
