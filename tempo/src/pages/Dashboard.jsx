@@ -66,9 +66,7 @@ const Dashboard = () => {
                 <div className="dashboard_live_width">
                     <p className="dashboard_p display-flex">Dashboard Live</p>
                 </div>
-                <div className='dashboard_inputs display-flex'>
-
-                    
+                <div className='dashboard_inputs display-flex'>      
                         <div >
                             <button class="dropdown-toggle dashboard_live_filter" onClick={dropdown1} >{selectedOption1}</button>
                             {isOpen1 && (
@@ -119,7 +117,7 @@ const Dashboard = () => {
 
                 </div>
             </div>
-            <Linechart />
+            <Linechart/>
                 <div className='dasboard_bottom display-flex'>
                     <div className='export cursor-pointer'>
                         <div className='exports' data-bs-toggle="modal" data-bs-target="#exampleModal">Export</div>
