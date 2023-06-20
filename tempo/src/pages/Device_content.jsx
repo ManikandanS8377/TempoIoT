@@ -268,8 +268,10 @@ const Device_content = () => {
                                 <FontAwesomeIcon icon={faDiamond} style={{ color: index % 2 === 0 ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
                                 <div className={`device_active`} style={{ color: index % 2 === 0 ? 'green' : 'red' }}>{index % 2 === 0 ? 'Active' : 'Inactive'}</div>
                             </div>
-                            <div className="col-head display-flex">
-                                <Icon icon={ic_label_important} onClick={() => handleIconClick(index)} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={30} />
+                            <div className="col-head display-flex device_action_dropdown_parent">
+                                <div className="sts_icon" onClick={() => handleIconClick(index)}>
+                                    <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
+                                </div>
                                 <div key={index}>{rotatedIndex === index &&
                                     <div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
