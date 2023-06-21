@@ -1,5 +1,6 @@
 import React from 'react';
 import '../assets/style/App.css';
+import $ from 'jquery';
 
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
@@ -13,8 +14,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
 import { json, useNavigate } from 'react-router-dom';
-
-
 
 
 const Device_content = () => {
@@ -112,24 +111,31 @@ const Device_content = () => {
                 const formattedDate = `${day}-${month}-${year}`;
                 return { ...item, last_updated_on: formattedDate };
             });
-
             setalldata(modifiedData);
         } catch (error) {
             console.log(error);
         }
     }
-
     useEffect(() => {
         fetchData();
-        const interval = setInterval(fetchData, 1000);
-        return () => {
-            clearInterval(interval);
-        };
+        // const interval = setInterval(fetchData, 1000);
+        // return () => {
+        //     clearInterval(interval);
+        // };
     }, []);
 
     //rotate the arrow in the device action
     const [rotatedIndex, setRotatedIndex] = useState(null);
+    const [device_active, setdevice_active] = useState("");
+
     const handleIconClick = (index) => {
+        const sts = document.getElementsByClassName('device_active')[index].innerHTML;
+        if (sts === 'Active') {
+            setdevice_active('Active')
+        }
+        if (sts === 'Inactive') {
+            setdevice_active('Inactive')
+        }
         if (rotatedIndex === index) {
             setRotatedIndex(null);
         } else {
@@ -157,36 +163,42 @@ const Device_content = () => {
 
     return (
         <div className='bar'>
+            {/* <div>Active Count: {activeCount}</div>
+            <div>Inactive Count: {inactiveCount}</div> */}
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
+
                     <div className="device_management display-flex page_top_box box-shadow">
-                        <span className='module_tittle '>Device Management</span>
+                        <span className='module_tittle'>Device Management</span>
                         <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex'><div style={{fontSize:"20px",marginTop:"-5px"}}>0 </div>Active</div>
-                            <div className='btn-loc inactive-loc display-flex'><div style={{fontSize:"20px",marginTop:"-5px"}}>0</div> Inactive</div>
+                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>0 </div>Active</div>
+                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>0</div> Inactive</div>
                         </div>
                     </div>
+
                     <div className='filters display-flex' >
+
                         <div class="pagination display-flex" onClick={handleDivClick}>
                             <div className="focus-page">
-                                {isEditing ? (     
-                                    <input
-                                        type="text"
-                                        value={text}
-                                        onChange={handleInputChange}
-                                        onBlur={handleInputBlur}
-                                        autoFocus
-                                        className='editable_input_box'
-                                    />
+                                <input
+                                    // ref={inputRef}
+                                    type="number"
+                                    value={text}
+                                    onChange={handleInputChange}
+                                    onBlur={handleInputBlur}
+                                    autoFocus
+                                    className='editable_input_box'
+                                />
+                                {/* {isEditing ? (
                                 ) : (
                                     <div>{text}</div>
-                                )}
+                                )} */}
                             </div>
                             <div className="upcomming-pages">
                                 of 20 pages
                             </div>
-
                         </div>
+
                         <div className='filters1 display-flex'>
                             <div class="dropdown-filter" ref={dropdownRef1}>
                                 <button class="dropdown-toggle" onClick={dropdown1}>Device Name</button>
@@ -202,8 +214,6 @@ const Device_content = () => {
                                     </div>
                                 )}
                             </div>
-
-
                             <div class="dropdown-filter" ref={dropdownRef2}>
                                 <button class="dropdown-toggle" onClick={dropdown2}>Device Model</button>
                                 {isOpen2 && (
@@ -246,10 +256,13 @@ const Device_content = () => {
                                 )}
                             </div>
                         </div>
+
                         <div className='filters2 display-flex'>
                             <button className='btn btn-fill' onClick={handleclick} >Add Device</button>
                         </div>
+
                     </div>
+
                     <div className='col-headings'>
                         <div className="col-head">Device Id</div>
                         <div className="col-head">Device Name</div>
@@ -259,6 +272,7 @@ const Device_content = () => {
                         <div className="col-head">Device status</div>
                         <div className="col-head">Device action</div>
                     </div>
+
                     {alldata.map((data, index) => (
                         <div className="datas">
                             <div className="col-head" key={index}>{data.device_id}</div>
@@ -274,8 +288,20 @@ const Device_content = () => {
                                 <div className="sts_icon" onClick={() => handleIconClick(index)}>
                                     <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
                                 </div>
-                                <div key={index}>{rotatedIndex === index &&
-                                    <div className='device_action_dropdown'>
+                                <div key={index}>{(rotatedIndex === index && device_active == 'Active') &&
+                                    (<div className='device_action_dropdown'>
+                                        <div className='display-flex device_action_dropdown1 dropdown_action'>
+                                            <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
+                                            <div className='device_content_dropdown display-flex'>Edit Detials</div>
+                                        </div>
+                                        <div className='display-flex device_action_dropdown2 dropdown_action'>
+                                            <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
+                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Inactivate Device</div>
+                                        </div>
+                                    </div>)}
+                                </div>
+                                <div key={index}>{(rotatedIndex === index && device_active == 'Inactive') &&
+                                    (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
                                             <div className='device_content_dropdown display-flex'>Device Details</div>
@@ -284,10 +310,11 @@ const Device_content = () => {
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
                                             <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Activate Device</div>
                                         </div>
-                                    </div>}
+                                    </div>)}
                                 </div>
                             </div>
                         </div>
+                        
                     ))}
                 </div>
                 <div className='device_bottom'>
@@ -372,10 +399,6 @@ const Device_content = () => {
                     </div>
                 </div>
             </div>
-
-
-
-
         </div >
     );
 };

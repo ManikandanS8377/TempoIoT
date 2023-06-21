@@ -11,6 +11,7 @@ import Comment from './pages/Comment.jsx';
 import Product from './pages/Product.jsx';
 import ProductList from './pages/ProductList.jsx';
 import Device from './pages/Device.jsx';
+import Site from './pages/Site.jsx';
 import NotFound from './pages/NotFound';
 import Add_device from './pages/Add_device';
 import Assert_Management from './pages/Assert_Management.js'
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/comment" element={<Comment />} />
           <Route path="/product" element={<Product />} />
           <Route path="/Device" element={<Device />} />
+          <Route path="/Site" element={<Site />} />
           <Route path="/Add_device" element={<Add_device/>} /> 
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>

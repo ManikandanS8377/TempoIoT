@@ -11,8 +11,27 @@
     user-select: none;
 }
 
-/* Device Content design*/
+/* // const graph1 = document.querySelector('.graph1');
+  // const graphRef = useRef(null);
+  // useEffect(() => {
+  //   if (latestData.length > 15) {
+  //     graphRef.current.style.width = '1000px';
+  //     console.log("hai")
+  //   }
+  // }, [latestData]); */
 
+/* Device Content design*/
+/* .lineChart_body{
+    width: 500px;
+    max-width: 1500px;
+    overflow-x: scroll;
+}
+.graph1{
+    width :1000px;
+}
+.all_graph{
+    width: 1000px;
+} */
 .status-bar {
     min-width: -webkit-fill-available;
     color: var(--COLOR_BEFORE_HOVER);
@@ -25,6 +44,7 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
 
 .device_management {
     justify-content: space-between;
@@ -63,7 +83,7 @@
     font-weight: 600;
     user-select: none;
     border: 1px solid transparent;
-    padding: 0.5rem 0rem 0rem 1.1rem;
+    padding: 0.2rem 0.8rem 0.2rem 0.8rem;
     font-size: var(--FONT_SIZE);
     border-radius: 0.25rem;
     border-radius: 0.5rem;
@@ -74,12 +94,18 @@
 
 
 .inactive-loc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: var(--CANCEL_BTN_CLR);
     border-color: var(--CANCEL_BTN_CLR);
 
 }
 
 .active-loc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: green;
     border-color: green;
 }
@@ -185,27 +211,33 @@
     align-items: center;
     height: 70px;
     justify-content: space-between;
+    /* min-width: 100px; */
 }
 
 .pagination {
     border-radius: 5px;
     /* padding: 0.5rem; */
     /* width: 150px; */
+    display: flex;
+
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    /* gap: 10px; */
     margin-left: 10px;
 }
 
 .editable_input_box {
-    width: 30px;
+    width: 40px;
+    text-align: center;
+}
+.editable_input_box[type="number"]::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+.editable_input_box[type="number"]:focus{
     outline: none;
-    border: none;
 }
 
-.filters1 {
-    margin-left: -150px;
-}
+
 
 .filters2 {
     margin-right: 10px;
@@ -214,10 +246,11 @@
 }
 
 .focus-page {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-radius: 5px;
     padding: 0.5rem 1rem 0.5rem 1rem;
     color: var(--FONT_COLOR);
+    user-select: none;
     /*  */
 
 }

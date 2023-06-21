@@ -41,6 +41,7 @@ const Sidebar = ({ children }) => {
             head: ['Log Maintenance'],
             links: ['Event', 'Device Connection', 'Real Data']
         },
+
     ];
 
     const getLinkUrl = (link, path) => {
@@ -54,7 +55,7 @@ const Sidebar = ({ children }) => {
             case 'Device Management':
                 return `/Device`;   //`/Add_device`
             case 'Site Management':
-                return `${path}/sites`;
+                return `/site`;
             case 'User Management':
                 return `${path}/users`;
             case 'Configuration':

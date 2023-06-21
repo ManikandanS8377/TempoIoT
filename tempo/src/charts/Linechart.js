@@ -610,11 +610,3 @@ function Linechart({ fromdate, todate ,handlelive}) {
 
 
 export default Linechart;
-
-
-
-
-
-
-
-
