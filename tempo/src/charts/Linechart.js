@@ -86,7 +86,7 @@ function Linechart() {
       const years=year%100;
       const Month=String(today.getMonth() + 1).padStart(2, '0');
       const dates=today.getDate()
-      const formatteddate=`${years}-${dates}-${Month}`;
+      const formatteddate=`${years}-${Month}-${dates}`;
     
       const latestData = data.filter(values => {
           const itemDate = values.Timestamp.split(" ")[0];
@@ -94,7 +94,6 @@ function Linechart() {
             return data;
           }
       })
-      console.log(latestData)
       setLatestData(latestData);
       getChartData1(selectedOption1, latestData)
       getChartData2(selectedOption2, latestData)
@@ -105,7 +104,6 @@ function Linechart() {
     }
   };
  
-  console.log(latestData)
   const getChartData1 = (selectedOption1, latestData) => {
     if (selectedOption1 === "Temperature") {
       setUserData1((prevState) => ({
