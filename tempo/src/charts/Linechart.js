@@ -3,22 +3,11 @@ import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
 
-function Linechart() {
+function Linechart({ fromdate, todate }) {
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
   const [isOpen4, setIsOpen4] = useState(false);
-
-  // const [fdate, setfdate] = useState("");
-  // useEffect(() => {
-  //   if (fromdate) {
-  //     setfdate(fromdate);
-  //   }
-  // }, [fromdate]);
-  
- 
-
-
 
   const dropdown1 = () => {
     setIsOpen1(!isOpen1);
@@ -415,7 +404,7 @@ function Linechart() {
   }
 
   useEffect(() => {
-    fetchData();
+    fetchData(fromdate);
     const interval = setInterval(fetchData, 1000);
     return () => {
       clearInterval(interval);
@@ -424,7 +413,7 @@ function Linechart() {
 
 
   const options = {
-    responsive: true,
+    responsive:true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
