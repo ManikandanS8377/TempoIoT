@@ -181,7 +181,7 @@ const Device_content = () => {
                         <div class="pagination display-flex" onClick={handleDivClick}>
                             <div className="focus-page">
                                 <input
-                                    ref={inputRef}
+                                    // ref={inputRef}
                                     type="number"
                                     value={text}
                                     onChange={handleInputChange}
