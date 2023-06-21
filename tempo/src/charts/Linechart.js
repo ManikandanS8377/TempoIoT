@@ -3,22 +3,22 @@ import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
 
-function Linechart({ fromdate, todate }) {
+function Linechart({ fromdate, todate ,handlelive}) {
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
   const [isOpen4, setIsOpen4] = useState(false);
 
-  const [fdate, setfdate] = useState("");
+
   useEffect(() => {
-    if (fromdate) {
-      setfdate(fromdate);
+    if (fromdate && todate) {
+      fetchData(fromdate,todate)
     }
-  }, [fromdate]);
+    if(handlelive){
+      fetchData(fromdate,todate,handlelive)
+    }
+  }, [fromdate,todate,handlelive]);
   
- 
-
-
 
   const dropdown1 = () => {
     setIsOpen1(!isOpen1);
@@ -86,24 +86,44 @@ function Linechart({ fromdate, todate }) {
   const [latestData, setLatestData] = useState([]);
 
 
-  const fetchData = async () => {
+  const fetchData = async (fromdate,todate,handlelive) => {
     try {
       const response = await fetch("http://localhost:5000/api/sendData");
       const data = await response.json();
-      // const latestData = data.slice(-6);
       const today = new Date();
-
       const year = today.getFullYear();
       const Month = String(today.getMonth() + 1).padStart(2, '0');
       const dates = today.getDate()
       const formatteddate = `${year}-${Month}-${dates}`;
 
-      const latestData = data.filter(values => {
-        const itemDate = values.Timestamp.split(" ")[0];
-        if (itemDate === formatteddate) {
-          return data;
-        }
-      })
+      //filters based on data
+      var latestData;
+      if(fromdate!=="" && todate!==""){
+         latestData=data.filter(values=>{
+          const itemDate=values.Timestamp.split(" ")[0];
+          if(fromdate<=itemDate && todate>=itemDate){
+            return data;
+          }
+        })
+      
+      }else if(handlelive===true && fromdate!=="" && todate===""){
+        latestData=data.filter(values=>{
+          const itemDate=values.Timestamp.split(" ")[0];
+          if(fromdate<=itemDate){
+            console.log(true)
+            return data;
+          }
+        })
+        
+      }
+      else{
+        latestData = data.filter(values => {
+          const itemDate = values.Timestamp.split(" ")[0];
+          if (itemDate === formatteddate) {
+            return data;
+          }
+        })
+      }
       setLatestData(latestData);
       getChartData1(selectedOption1, latestData)
       getChartData2(selectedOption2, latestData)
@@ -116,12 +136,12 @@ function Linechart({ fromdate, todate }) {
 
   const getChartData1 = (selectedOption1, latestData) => {
     if (selectedOption1 === "Temperature") {
-      setUserData1((prevState) => ({
-        ...prevState,
+      setUserData1(() => ({
+        
         labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
         datasets: [
           {
-            ...prevState.datasets[0],
+            
             label: "Temperature - Assert1",
             data: latestData.map((data) => data.Temperature),
             borderColor: "blue",
@@ -415,12 +435,15 @@ function Linechart({ fromdate, todate }) {
   }
 
   useEffect(() => {
-    fetchData(fromdate);
-    const interval = setInterval(fetchData, 1000);
+    fetchData(fromdate,todate,handlelive);
+    const intervalId = setInterval(() => {
+      fetchData(fromdate,todate,handlelive);
+    }, 1000);
+
     return () => {
-      clearInterval(interval);
+      clearInterval(intervalId);
     };
-  }, [selectedOption1, selectedOption2, selectedOption3, selectedOption4]);
+  }, [selectedOption1, selectedOption2, selectedOption3, selectedOption4,fromdate,todate,handlelive]);
 
 
   const options = {

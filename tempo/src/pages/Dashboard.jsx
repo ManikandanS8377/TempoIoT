@@ -33,6 +33,27 @@ const Dashboard = () => {
         // setIsOpen2(false);
     }
 
+    //filters based on date
+    const [fromdate,setfromdate]=useState("");
+    const handlefrom=((event)=>{
+        setfromdate(event.target.value)
+        
+    })
+
+    const [todate,settodate]=useState("");
+    const handleto=((event)=>{
+        settodate(event.target.value)
+    })
+
+    const [handlelive,sethandlelive]=useState(false);
+    const handleliveclick=((fromdate)=>{
+        if(fromdate!==""){
+            sethandlelive(!handlelive)
+        }else{
+            sethandlelive(false)
+        }
+    })
+
     return (
         <div className='dashboard_page'>
             <div class="modal fade boot-modals" id="export_data" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -99,14 +120,17 @@ const Dashboard = () => {
                         <div class="dropdown-filter">
                             <fieldset>
                                 <legend class="legend-top-form">From</legend>
-                                <input type='date' class="dropdown-toggle dashboard_live_filter" ></input>
+                                <input type='date' class="dropdown-toggle dashboard_live_filter" onChange={handlefrom}></input>
                             </fieldset>
                         </div>
                         <div class="dropdown-filter">
                             <fieldset>
                                 <legend class="legend-top-to">To</legend>
-                                <input type='date' class="dropdown-toggle dashboard_live_filter" ></input>
+                                <input type='date' class="dropdown-toggle dashboard_live_filter" onChange={handleto}></input>
                             </fieldset>
+                        </div>
+                        <div className='dropdown-filter'>
+                            <button className='btn-loc2 border-radius' style={{fontSize:"20px",textAlign:"center"}} onClick={()=>{handleliveclick(fromdate)}}>Live</button>
                         </div>
                         <div className='border_arrow display-flex justify-align'>
                             <div className='icon1 display-flex justify-align'>
@@ -119,7 +143,7 @@ const Dashboard = () => {
 
                     </div>
                 </div>
-                <Linechart />
+                <Linechart  fromdate={fromdate} todate={todate} handlelive={handlelive}/>
                 <div className='dasboard_bottom display-flex'>
                     <div className='export cursor-pointer'>
                         <div className='exports' data-bs-toggle="modal" data-bs-target="#export_data">Export</div>

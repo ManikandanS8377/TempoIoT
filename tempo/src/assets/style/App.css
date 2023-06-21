@@ -72,6 +72,7 @@
     height: 40px;
 }
 
+
 .inactive-loc {
     color: var(--CANCEL_BTN_CLR);
     border-color: var(--CANCEL_BTN_CLR);
@@ -615,7 +616,6 @@ input[type="checkbox"] {
 .btn.btn-blue {
     color: #ffffff;
     background-color: var(--THEME_SEC_COLOR);
-
 }
 
 .btn.btn-fill {
@@ -707,6 +707,7 @@ input[type="checkbox"] {
     user-select: none;
 }
 
+
 .legend-top-form,
 .legend-top-to {
     position: absolute;
@@ -750,6 +751,20 @@ input[type="checkbox"] {
     display: block;
 }
 
+.btn-loc2 {
+    cursor: pointer;
+    background-color: transparent;
+    text-align: center;
+    font-weight: 600;
+    user-select: none;
+    border: 1px solid black;
+    font-size: var(--FONT_SIZE);
+    border-radius: 0.25rem;
+    border-radius: 0.5rem;
+    margin: 0.5rem;
+    width: 110px;
+    height: 40px;
+}
 
 
 .checks {
@@ -820,7 +835,6 @@ input[type="checkbox"] {
     border: var(--BORDER_COLOUR_1PX);
     border-radius: 5px;
     margin-left: 15px;
-    overflow-y: hidden;
 }
 
 .line_container {
@@ -831,8 +845,6 @@ input[type="checkbox"] {
 
 .graphs {
     height: 90%;
-    max-width: 100%;
-    overflow-x: auto;
 }
 
 
