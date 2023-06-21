@@ -16,8 +16,6 @@ import { useState, useEffect, useRef } from "react";
 import { json, useNavigate } from 'react-router-dom';
 
 
-
-
 const Device_content = () => {
     const [alldata, setalldata] = useState([]);
     const [isOpen1, setIsOpen1] = useState(false);
@@ -160,28 +158,7 @@ const Device_content = () => {
         setIsEditing(false);
     };
 
-    const inputRef = useRef(null);
-    useEffect(() => {
-        inputRef.current.blur();
-    }, []);
-    // const activeCount = 0;
-    // const inactiveCount = 0;
-    // useEffect(() => {
-    //     const divValue = document.querySelector('.device_active').innerHTML;
-    //     // console.log(divValue);
 
-    //     alldata.forEach((divValue, index) => {
-    //         console.log(divValue)
-
-    //         // if (divValue  === 'Active') {
-    //         //     activeCount++;
-    //         // } else {
-    //         //     inactiveCount++;
-    //         // }
-    //     });
-    // })
-    // console.log(document.querySelector('.device_active').innerHTML);
-    // const device_status = rotatedIndex === index && device_active;
 
 
     return (
@@ -337,6 +314,7 @@ const Device_content = () => {
                                 </div>
                             </div>
                         </div>
+                        
                     ))}
                 </div>
                 <div className='device_bottom'>
@@ -421,10 +399,6 @@ const Device_content = () => {
                     </div>
                 </div>
             </div>
-
-
-
-
         </div >
     );
 };
