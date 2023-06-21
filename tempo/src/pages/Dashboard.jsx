@@ -119,7 +119,9 @@ const Dashboard = () => {
 
                     </div>
                 </div>
-                <Linechart />
+                <div className="lineChart_body">
+                    <Linechart className="all_graph"/>
+                </div>
                 <div className='dasboard_bottom display-flex'>
                     <div className='export cursor-pointer'>
                         <div className='exports' data-bs-toggle="modal" data-bs-target="#export_data">Export</div>

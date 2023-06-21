@@ -1,5 +1,6 @@
 import React from 'react';
 import '../assets/style/App.css';
+import $ from 'jquery';
 
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
@@ -112,24 +113,31 @@ const Device_content = () => {
                 const formattedDate = `${day}-${month}-${year}`;
                 return { ...item, last_updated_on: formattedDate };
             });
-
             setalldata(modifiedData);
         } catch (error) {
             console.log(error);
         }
     }
-
     useEffect(() => {
         fetchData();
-        const interval = setInterval(fetchData, 1000);
-        return () => {
-            clearInterval(interval);
-        };
+        // const interval = setInterval(fetchData, 1000);
+        // return () => {
+        //     clearInterval(interval);
+        // };
     }, []);
 
     //rotate the arrow in the device action
     const [rotatedIndex, setRotatedIndex] = useState(null);
+    const [device_active, setdevice_active] = useState("");
+
     const handleIconClick = (index) => {
+        const sts = document.getElementsByClassName('device_active')[index].innerHTML;
+        if (sts === 'Active') {
+            setdevice_active('Active')
+        }
+        if (sts === 'Inactive') {
+            setdevice_active('Inactive')
+        }
         if (rotatedIndex === index) {
             setRotatedIndex(null);
         } else {
@@ -156,23 +164,43 @@ const Device_content = () => {
     useEffect(() => {
         inputRef.current.blur();
     }, []);
+    // const activeCount = 0;
+    // const inactiveCount = 0;
+    // useEffect(() => {
+    //     const divValue = document.querySelector('.device_active').innerHTML;
+    //     // console.log(divValue);
+
+    //     alldata.forEach((divValue, index) => {
+    //         console.log(divValue)
+
+    //         // if (divValue  === 'Active') {
+    //         //     activeCount++;
+    //         // } else {
+    //         //     inactiveCount++;
+    //         // }
+    //     });
+    // })
+    // console.log(document.querySelector('.device_active').innerHTML);
+    // const device_status = rotatedIndex === index && device_active;
 
 
     return (
         <div className='bar'>
+            {/* <div>Active Count: {activeCount}</div>
+            <div>Inactive Count: {inactiveCount}</div> */}
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
 
                     <div className="device_management display-flex page_top_box box-shadow">
-                        <span className='module_tittle '>Device Management</span>
+                        <span className='module_tittle'>Device Management</span>
                         <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex'><div style={{fontSize:"20px",marginTop:"-5px"}}>0 </div>Active</div>
-                            <div className='btn-loc inactive-loc display-flex'><div style={{fontSize:"20px",marginTop:"-5px"}}>0</div> Inactive</div>
+                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>0 </div>Active</div>
+                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>0</div> Inactive</div>
                         </div>
                     </div>
 
                     <div className='filters display-flex' >
-                        
+
                         <div class="pagination display-flex" onClick={handleDivClick}>
                             <div className="focus-page">
                                 <input
@@ -283,8 +311,20 @@ const Device_content = () => {
                                 <div className="sts_icon" onClick={() => handleIconClick(index)}>
                                     <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
                                 </div>
-                                <div key={index}>{rotatedIndex === index &&
-                                    <div className='device_action_dropdown'>
+                                <div key={index}>{(rotatedIndex === index && device_active == 'Active') &&
+                                    (<div className='device_action_dropdown'>
+                                        <div className='display-flex device_action_dropdown1 dropdown_action'>
+                                            <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
+                                            <div className='device_content_dropdown display-flex'>Edit Detials</div>
+                                        </div>
+                                        <div className='display-flex device_action_dropdown2 dropdown_action'>
+                                            <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
+                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Inactivate Device</div>
+                                        </div>
+                                    </div>)}
+                                </div>
+                                <div key={index}>{(rotatedIndex === index && device_active == 'Inactive') &&
+                                    (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
                                             <div className='device_content_dropdown display-flex'>Device Details</div>
@@ -293,7 +333,7 @@ const Device_content = () => {
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
                                             <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Activate Device</div>
                                         </div>
-                                    </div>}
+                                    </div>)}
                                 </div>
                             </div>
                         </div>

@@ -9,6 +9,17 @@ function Linechart() {
   const [isOpen3, setIsOpen3] = useState(false);
   const [isOpen4, setIsOpen4] = useState(false);
 
+  // const [fdate, setfdate] = useState("");
+  // useEffect(() => {
+  //   if (fromdate) {
+  //     setfdate(fromdate);
+  //   }
+  // }, [fromdate]);
+  
+ 
+
+
+
   const dropdown1 = () => {
     setIsOpen1(!isOpen1);
   };
@@ -82,17 +93,16 @@ function Linechart() {
       // const latestData = data.slice(-6);
       const today = new Date();
 
-      const year=today.getFullYear();
-      const years=year%100;
-      const Month=String(today.getMonth() + 1).padStart(2, '0');
-      const dates=today.getDate()
-      const formatteddate=`${years}-${Month}-${dates}`;
-    
+      const year = today.getFullYear();
+      const Month = String(today.getMonth() + 1).padStart(2, '0');
+      const dates = today.getDate()
+      const formatteddate = `${year}-${Month}-${dates}`;
+
       const latestData = data.filter(values => {
-          const itemDate = values.Timestamp.split(" ")[0];
-          if(itemDate === formatteddate){
-            return data;
-          }
+        const itemDate = values.Timestamp.split(" ")[0];
+        if (itemDate === formatteddate) {
+          return data;
+        }
       })
       setLatestData(latestData);
       getChartData1(selectedOption1, latestData)
@@ -103,7 +113,7 @@ function Linechart() {
       console.error(error);
     }
   };
- 
+
   const getChartData1 = (selectedOption1, latestData) => {
     if (selectedOption1 === "Temperature") {
       setUserData1((prevState) => ({
@@ -204,7 +214,7 @@ function Linechart() {
           {
             ...prevState.datasets[0],
             label: "Temperature - Assert12",
-            data:latestData.map((data) => data.Pressure),
+            data: latestData.map((data) => data.Pressure),
             borderColor: "red",
             borderWidth: 1,
             pointRadius: 6,
@@ -414,7 +424,7 @@ function Linechart() {
 
 
   const options = {
-    responsive:true,
+    responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
@@ -461,7 +471,7 @@ function Linechart() {
     setIsOpen4(!isOpen4);
     getChartData4(option, latestData);
   };
- 
+
 
   return (
     <div className='graph'>
@@ -488,7 +498,7 @@ function Linechart() {
               </div>
             </div>
             <div className="graphs" >
-              <Line data={userData1} options={options}  />
+              <Line data={userData1} options={options} />
             </div>
 
           </div>
@@ -577,11 +587,3 @@ function Linechart() {
 
 
 export default Linechart;
-
-
-
-
-
-
-
-

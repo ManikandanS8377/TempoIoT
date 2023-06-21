@@ -11,8 +11,27 @@
     user-select: none;
 }
 
-/* Device Content design*/
+/* // const graph1 = document.querySelector('.graph1');
+  // const graphRef = useRef(null);
+  // useEffect(() => {
+  //   if (latestData.length > 15) {
+  //     graphRef.current.style.width = '1000px';
+  //     console.log("hai")
+  //   }
+  // }, [latestData]); */
 
+/* Device Content design*/
+/* .lineChart_body{
+    width: 500px;
+    max-width: 1500px;
+    overflow-x: scroll;
+}
+.graph1{
+    width :1000px;
+}
+.all_graph{
+    width: 1000px;
+} */
 .status-bar {
     min-width: -webkit-fill-available;
     color: var(--COLOR_BEFORE_HOVER);
@@ -64,7 +83,7 @@
     font-weight: 600;
     user-select: none;
     border: 1px solid transparent;
-    padding: 0.5rem 0rem 0rem 1.1rem;
+    padding: 0.2rem 0.8rem 0.2rem 0.8rem;
     font-size: var(--FONT_SIZE);
     border-radius: 0.25rem;
     border-radius: 0.5rem;
@@ -74,12 +93,18 @@
 }
 
 .inactive-loc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: var(--CANCEL_BTN_CLR);
     border-color: var(--CANCEL_BTN_CLR);
 
 }
 
 .active-loc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: green;
     border-color: green;
 }
