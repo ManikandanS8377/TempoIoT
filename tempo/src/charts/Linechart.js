@@ -413,7 +413,7 @@ function Linechart({ fromdate, todate }) {
 
 
   const options = {
-    responsive:true,
+    responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
