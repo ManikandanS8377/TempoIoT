@@ -15,8 +15,6 @@ import { useState, useEffect, useRef } from "react";
 import { json, useNavigate } from 'react-router-dom';
 
 
-
-
 const Device_content = () => {
     const [alldata, setalldata] = useState([]);
     const [isOpen1, setIsOpen1] = useState(false);
@@ -152,9 +150,6 @@ const Device_content = () => {
         setIsEditing(false);
     };
 
-
-
-
     return (
         <div className='bar'>
             <div className='status-bar'>
@@ -162,14 +157,14 @@ const Device_content = () => {
                     <div className="device_management display-flex page_top_box box-shadow">
                         <span className='module_tittle '>Device Management</span>
                         <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex'><div style={{fontSize:"20px",marginTop:"-5px"}}>0 </div>Active</div>
-                            <div className='btn-loc inactive-loc display-flex'><div style={{fontSize:"20px",marginTop:"-5px"}}>0</div> Inactive</div>
+                            <div className='btn-loc active-loc display-flex'><div style={{ fontSize: "20px", marginTop: "-5px" }}>0 </div>Active</div>
+                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px", marginTop: "-5px" }}>0</div> Inactive</div>
                         </div>
                     </div>
                     <div className='filters display-flex' >
                         <div class="pagination display-flex" onClick={handleDivClick}>
                             <div className="focus-page">
-                                {isEditing ? (     
+                                {isEditing ? (
                                     <input
                                         type="text"
                                         value={text}
@@ -288,6 +283,7 @@ const Device_content = () => {
                                 </div>
                             </div>
                         </div>
+                        
                     ))}
                 </div>
                 <div className='device_bottom'>
@@ -372,10 +368,6 @@ const Device_content = () => {
                     </div>
                 </div>
             </div>
-
-
-
-
         </div >
     );
 };
