@@ -7,21 +7,22 @@ import { Icon } from 'react-icons-kit';
 import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
-import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
-
+import { faAnglesDown, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 // import { Button, Navbar, Nav, Form, FormControl } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
 import { json, useNavigate } from 'react-router-dom';
 
-
 const Device_content = () => {
     const [alldata, setalldata] = useState([]);
     const [isOpen1, setIsOpen1] = useState(false);
     const dropdownRef1 = useRef(null);
+
+    const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
     const dropdown1 = () => {
         setIsOpen1(!isOpen1);
+        setIsDropdownOpen1(!isDropdownOpen1);
     };
     const empty_space_down1 = (event) => {
         if (!dropdownRef1.current.contains(event.target)) {
@@ -36,9 +37,12 @@ const Device_content = () => {
     }, []);
 
     const [isOpen2, setIsOpen2] = useState(false);
+    const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
     const dropdownRef2 = useRef(null);
     const dropdown2 = () => {
         setIsOpen2(!isOpen2);
+        setIsDropdownOpen2(!isDropdownOpen2);
+
     };
     const empty_space_down2 = (event) => {
         if (!dropdownRef2.current.contains(event.target)) {
@@ -54,9 +58,11 @@ const Device_content = () => {
 
 
     const [isOpen3, setIsOpen3] = useState(false);
+    const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
     const dropdownRef3 = useRef(null);
     const dropdown3 = () => {
         setIsOpen3(!isOpen3);
+        setIsDropdownOpen3(!isDropdownOpen3)
 
     };
     const empty_space_down3 = (event) => {
@@ -73,9 +79,11 @@ const Device_content = () => {
     }, []);
 
     const [isOpen4, setIsOpen4] = useState(false);
+    const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
     const dropdownRef4 = useRef(null);
     const dropdown4 = () => {
         setIsOpen4(!isOpen4);
+        setIsDropdownOpen4(!isDropdownOpen4);
     };
     const empty_space_down4 = (event) => {
         if (!dropdownRef4.current.contains(event.target)) {
@@ -95,12 +103,15 @@ const Device_content = () => {
         navigate('/Add_device');
     }
 
-
+    const [activeCount, setactiveCount] = useState(0)
+    const [inactiveCount, setinactiveCount] = useState(0)
     //Fetch data from node js
     async function fetchData() {
         try {
             const response = await fetch('http://127.0.0.1:4000/user')
             const data = await response.json();
+            setactiveCount("ji");
+            setinactiveCount("jao")
             //modify the last updated date in a format
             const modifiedData = data.map((item) => {
                 const date = new Date(item.last_updated_on);
@@ -182,7 +193,6 @@ const Device_content = () => {
 
 
 
-
     return (
         <div className='bar'>
             {/* <div>Active Count: {activeCount}</div>
@@ -193,8 +203,8 @@ const Device_content = () => {
                     <div className="device_management display-flex page_top_box box-shadow">
                         <span className='module_tittle'>Device Management</span>
                         <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>0 </div>Active</div>
-                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>0</div> Inactive</div>
+                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{activeCount}</div>Active</div>
+                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{inactiveCount}</div> Inactive</div>
                         </div>
                     </div>
 
@@ -223,7 +233,17 @@ const Device_content = () => {
 
                         <div className='filters1 display-flex'>
                             <div class="dropdown-filter" ref={dropdownRef1}>
-                                <button class="dropdown-toggle" onClick={dropdown1}>Device Name</button>
+                                <div class="device_filters" onClick={dropdown1}>
+                                    <div className="device_name">
+                                        Device Name
+                                    </div>
+                                    <div className="dropdown_icon">
+                                        <FontAwesomeIcon
+                                            icon={isDropdownOpen1 ? faChevronDown : faChevronUp}
+                                            className="dropdown-icon"
+                                        />
+                                    </div>
+                                </div>
                                 {isOpen1 && (
                                     <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors ">
                                         {alldata.map((data, index) => (
@@ -237,7 +257,17 @@ const Device_content = () => {
                                 )}
                             </div>
                             <div class="dropdown-filter" ref={dropdownRef2}>
-                                <button class="dropdown-toggle" onClick={dropdown2}>Device Model</button>
+                                <div class="device_filters" onClick={dropdown2}>
+                                    <div className="device_name">
+                                        Device Model
+                                    </div>
+                                    <div className="dropdown_icon">
+                                        <FontAwesomeIcon
+                                            icon={isDropdownOpen2 ? faChevronDown : faChevronUp}
+                                            className="dropdown-icon"
+                                        />
+                                    </div>
+                                </div>
                                 {isOpen2 && (
                                     <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
                                         {alldata.map((data, index) => (
@@ -251,7 +281,17 @@ const Device_content = () => {
                                 )}
                             </div>
                             <div class="dropdown-filter" ref={dropdownRef3}>
-                                <button class="dropdown-toggle" onClick={dropdown3}>Device Status</button>
+                                <div class="device_filters" onClick={dropdown3}>
+                                    <div className="device_name">
+                                        Device Status
+                                    </div>
+                                    <div className="dropdown_icon">
+                                        <FontAwesomeIcon
+                                            icon={isDropdownOpen3 ? faChevronDown : faChevronUp}
+                                            className="dropdown-icon"
+                                        />
+                                    </div>
+                                </div>
                                 {isOpen3 && (
                                     <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
                                         <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">All</div></div>
@@ -264,7 +304,17 @@ const Device_content = () => {
                                 )}
                             </div>
                             <div class="dropdown-filter" ref={dropdownRef4}>
-                                <button class="dropdown-toggle" onClick={dropdown4}>Device Installed On</button>
+                                <div class="device_filters" onClick={dropdown4}>
+                                    <div className="device_name">
+                                        Device Installed On
+                                    </div>
+                                    <div className="dropdown_icon">
+                                        <FontAwesomeIcon
+                                            icon={isDropdownOpen4 ? faChevronDown : faChevronUp}
+                                            className="dropdown-icon"
+                                        />
+                                    </div>
+                                </div>
                                 {isOpen4 && (
                                     <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
                                         {alldata.map((data, index) => (
@@ -336,7 +386,7 @@ const Device_content = () => {
                                 </div>
                             </div>
                         </div>
-                        
+
                     ))}
                 </div>
                 <div className='device_bottom'>
@@ -421,7 +471,7 @@ const Device_content = () => {
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 
