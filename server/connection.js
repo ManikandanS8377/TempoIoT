@@ -74,9 +74,6 @@ app.post("/user", async (req, res) => {
         }
 
         
-
-
-        
         //getting data from client side
         
         const client_id=req.body["clientid"]

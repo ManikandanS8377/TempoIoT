@@ -85,8 +85,6 @@ function Linechart({ fromdate, todate ,handlelive}) {
   });
 
 
-  
-
 
   const fetchData = async (fromdate,todate,handlelive) => {
     try {
