@@ -41,7 +41,7 @@ const Device_content = () => {
     const dropdownRef2 = useRef(null);
     const dropdown2 = () => {
         setIsOpen2(!isOpen2);
-        setIsDropdownOpen2(!isDropdownOpen2);
+        setIsDropdownOpen2(!isDropdownOpen2)
 
     };
     const empty_space_down2 = (event) => {
@@ -49,12 +49,14 @@ const Device_content = () => {
             setIsOpen2(false);
         }
     };
+
     useEffect(() => {
         document.addEventListener('click', empty_space_down2);
         return () => {
             document.removeEventListener('click', empty_space_down2);
         };
     }, []);
+
 
 
     const [isOpen3, setIsOpen3] = useState(false);
