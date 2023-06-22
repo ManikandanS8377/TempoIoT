@@ -12,7 +12,7 @@ import { faAnglesDown, faChevronDown, faChevronUp } from '@fortawesome/free-soli
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
-import { json, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 const Device_content = () => {
 
@@ -119,7 +119,7 @@ const Device_content = () => {
         navigate('/Add_device');
     }
 
- 
+
     
     // Fetch data from node js
     async function fetchData() {
@@ -153,7 +153,6 @@ const Device_content = () => {
 
     //functions to set the device status avtive and inactive
     const  Editinactivedata=async(data)=>{
-        alert("inactivated")
         const devicestatus="0";
         const body={devicestatus};
         await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`,{
@@ -164,7 +163,7 @@ const Device_content = () => {
     }
 
     const Editactivedata=async(data)=>{
-        alert("activated")
+
         const devicestatus="1";
         const body={devicestatus};
         await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`,{
