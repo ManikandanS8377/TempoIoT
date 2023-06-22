@@ -95,30 +95,41 @@ const Device_content = () => {
         navigate('/Add_device');
     }
 
-    const [activeCount,setactiveCount] = useState(0)
-    const [inactiveCount,setinactiveCount] = useState(0)
-    //Fetch data from node js
+    const [activeCount, setactiveCount] = useState(0);
+    const [inactiveCount, setinactiveCount] = useState(0);
+    
+    // Fetch data from node js
     async function fetchData() {
         try {
-            const response = await fetch('http://127.0.0.1:4000/user')
+            const response = await fetch('http://127.0.0.1:4000/user');
             const data = await response.json();
-            setactiveCount("ji");
-            setinactiveCount("jao")
-            //modify the last updated date in a format
+    
+            // Modify the last updated date in a format
             const modifiedData = data.map((item) => {
                 const date = new Date(item.last_updated_on);
                 const year = date.getFullYear();
                 const month = date.getMonth() + 1;
                 const day = date.getDate();
-
                 const formattedDate = `${day}-${month}-${year}`;
                 return { ...item, last_updated_on: formattedDate };
             });
+    
+            // Update active and inactive counts
+            const activeCount = data.filter(item => item.device_status === 1).length;
+            // const inactiveCount = data.filter(item => item.device_status === 0).length;
+            const inactiveCount = data.filter(item => item.device_status !== 1).length;
+
+            setactiveCount(activeCount);
+            setinactiveCount(inactiveCount);
+    
             setalldata(modifiedData);
+            console.log('Active count:', activeCount);
+            console.log('Inactive count:', inactiveCount);
         } catch (error) {
             console.log(error);
         }
     }
+    
     useEffect(() => {
         fetchData();
         // const interval = setInterval(fetchData, 1000);
@@ -126,7 +137,7 @@ const Device_content = () => {
         //     clearInterval(interval);
         // };
     }, []);
-
+    
     //rotate the arrow in the device action
     const [rotatedIndex, setRotatedIndex] = useState(null);
     const [device_active, setdevice_active] = useState("");
@@ -146,6 +157,8 @@ const Device_content = () => {
         }
     };
 
+
+
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState('1');
 
@@ -160,6 +173,10 @@ const Device_content = () => {
     const handleInputBlur = () => {
         setIsEditing(false);
     };
+
+
+      
+
 
 
 
@@ -282,10 +299,12 @@ const Device_content = () => {
                             <div className="col-head" key={index}>{data.device_model}</div>
                             <div className="col-head" key={index}>{data.last_updated_on}</div>
                             <div className="col-head">ritchard</div>
+
                             <div className="col-head display-flex">
                                 <FontAwesomeIcon icon={faDiamond} style={{ color: data.device_status === 1 ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
                                 <div className={`device_active`} style={{ color: data.device_status === 1 ? 'green' : 'red' }}>{data.device_status === 1 ? 'Active' : 'Inactive'}</div>
                             </div>
+
                             <div className="col-head display-flex device_action_dropdown_parent">
                                 <div className="sts_icon" onClick={() => handleIconClick(index)}>
                                     <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
