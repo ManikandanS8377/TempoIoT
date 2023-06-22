@@ -140,7 +140,7 @@ const Device_content = () => {
         alert("inactivated")
         const devicestatus="0";
         const body={devicestatus};
-        await fetch(`http://127.0.0.1:4000/user/${data.r_no}`,{
+        await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`,{
             method:"PUT",
             headers: { "content-Type": "application/json" },
             body:JSON.stringify(body)
@@ -151,7 +151,7 @@ const Device_content = () => {
         alert("activated")
         const devicestatus="1";
         const body={devicestatus};
-        await fetch(`http://127.0.0.1:4000/user/${data.r_no}`,{
+        await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`,{
             method:"PUT",
             headers: { "content-Type": "application/json" },
             body:JSON.stringify(body)
@@ -217,8 +217,8 @@ const Device_content = () => {
                     <div className="device_management display-flex page_top_box box-shadow">
                         <span className='module_tittle'>Device Management</span>
                         <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{activeCount}</div>Active</div>
-                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{inactiveCount}</div> Inactive</div>
+                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{activeCount}&nbsp;</div>Active</div>
+                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{inactiveCount}&nbsp;</div> Inactive</div>
                         </div>
                     </div>
 

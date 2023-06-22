@@ -20,7 +20,7 @@ app.get("/user", async (req, res) => {
 
 
 //PUT REQUEST TO UPDATE THE DATA IN DB
-app.put("/user/:id",async(req,res)=>{
+app.put("/userdata/:id",async(req,res)=>{
     try {
         const {id}=req.params;
         const {devicestatus}=req.body;
