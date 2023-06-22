@@ -898,7 +898,7 @@ input[type="checkbox"] {
 }
 
 .dropdown_toggle1 {
-    margin-top: 1px;
+    margin-top: 2px;
     width: 110px;
     background-color: #ffffff;
     border: var(--BORDER_COLOUR_1PX);
