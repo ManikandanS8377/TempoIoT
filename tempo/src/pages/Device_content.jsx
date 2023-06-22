@@ -131,8 +131,6 @@ const Device_content = () => {
             setinactiveCount(inactiveCount);
     
             setalldata(modifiedData);
-            console.log('Active count:', activeCount);
-            console.log('Inactive count:', inactiveCount);
         } catch (error) {
             console.log(error);
         }
