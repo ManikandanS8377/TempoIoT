@@ -123,8 +123,8 @@ const Device_content = () => {
         navigate('/Add_device');
     }
 
-    const [activeCount, setactiveCount] = useState(0);
-    const [inactiveCount, setinactiveCount] = useState(0);
+    // const [activeCount, setactiveCount] = useState(0);
+    // const [inactiveCount, setinactiveCount] = useState(0);
 
     // Fetch data from node js
     async function fetchData() {
