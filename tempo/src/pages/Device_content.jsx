@@ -15,11 +15,26 @@ import { useState, useEffect, useRef } from "react";
 import { json, useNavigate } from 'react-router-dom';
 
 const Device_content = () => {
+
+    //states
     const [alldata, setalldata] = useState([]);
     const [isOpen1, setIsOpen1] = useState(false);
-    const dropdownRef1 = useRef(null);
-
+    const [isOpen2, setIsOpen2] = useState(false);
+    const [isOpen3, setIsOpen3] = useState(false);
+    const [isOpen4, setIsOpen4] = useState(false);
     const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
+    const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
+    const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
+    const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
+    const [rotatedIndex, setRotatedIndex] = useState(null);
+    const [device_active, setdevice_active] = useState("");
+    const [isEditing, setIsEditing] = useState(false);
+    const [text, setText] = useState('1');
+    const [activeCount, setactiveCount] = useState(0);
+    const [inactiveCount, setinactiveCount] = useState(0);
+
+
+    const dropdownRef1 = useRef(null);
     const dropdown1 = () => {
         setIsOpen1(!isOpen1);
         setIsDropdownOpen1(!isDropdownOpen1);
@@ -37,8 +52,8 @@ const Device_content = () => {
         };
     }, []);
 
-    const [isOpen2, setIsOpen2] = useState(false);
-    const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
+    
+    
     const dropdownRef2 = useRef(null);
     const dropdown2 = () => {
         setIsOpen2(!isOpen2);
@@ -59,8 +74,8 @@ const Device_content = () => {
     }, []);
 
 
-    const [isOpen3, setIsOpen3] = useState(false);
-    const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
+    
+    
     const dropdownRef3 = useRef(null);
     const dropdown3 = () => {
         setIsOpen3(!isOpen3);
@@ -81,8 +96,8 @@ const Device_content = () => {
         };
     }, []);
 
-    const [isOpen4, setIsOpen4] = useState(false);
-    const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
+    
+    
     const dropdownRef4 = useRef(null);
     const dropdown4 = () => {
         setIsOpen4(!isOpen4);
@@ -100,6 +115,7 @@ const Device_content = () => {
             document.removeEventListener("click", empty_space_down4);
         }
     }, [])
+
 
     //Navigate to Add Device Page
     const navigate = useNavigate();
@@ -128,7 +144,6 @@ const Device_content = () => {
 
             // Update active and inactive counts
             const activeCount = data.filter(item => item.device_status === 1).length;
-            // const inactiveCount = data.filter(item => item.device_status === 0).length;
             const inactiveCount = data.filter(item => item.device_status !== 1).length;
 
             setactiveCount(activeCount);
@@ -161,6 +176,8 @@ const Device_content = () => {
             body: JSON.stringify(body)
         })
     }
+
+    //useeffect
     useEffect(() => {
         fetchData();
         const interval = setInterval(fetchData, 1000);
@@ -170,9 +187,6 @@ const Device_content = () => {
     }, []);
 
     //rotate the arrow in the device action
-    const [rotatedIndex, setRotatedIndex] = useState(null);
-    const [device_active, setdevice_active] = useState("");
-
     const handleIconClick = (index) => {
         const sts = document.getElementsByClassName('device_active')[index].innerHTML;
         if (sts === 'Active') {
@@ -189,9 +203,6 @@ const Device_content = () => {
     };
 
 
-
-    const [isEditing, setIsEditing] = useState(false);
-    const [text, setText] = useState('1');
 
     const handleDivClick = () => {
         setIsEditing(true);
@@ -213,8 +224,6 @@ const Device_content = () => {
 
     return (
         <div className='bar'>
-            {/* <div>Active Count: {activeCount}</div>
-            <div>Inactive Count: {inactiveCount}</div> */}
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
 

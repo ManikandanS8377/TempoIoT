@@ -331,7 +331,7 @@ const Add_device = () => {
                 </div>
             </div>
             <div className="page_top_box new_device box-shadow">
-                {/* <button className="btn-loc theme-btn new_device_btn" >New Device</button> */}
+                <div className='module_tittle' style={{textAlign:"start"}}>Device Management</div>
             </div>
 
             <div className="add_device_container">
