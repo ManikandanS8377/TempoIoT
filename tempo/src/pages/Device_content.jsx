@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/style/App.css';
-import $ from 'jquery';
+
 
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
@@ -103,38 +103,68 @@ const Device_content = () => {
         navigate('/Add_device');
     }
 
-    const [activeCount, setactiveCount] = useState(0)
-    const [inactiveCount, setinactiveCount] = useState(0)
-    //Fetch data from node js
+    const [activeCount, setactiveCount] = useState(0);
+    const [inactiveCount, setinactiveCount] = useState(0);
+    
+    // Fetch data from node js
     async function fetchData() {
         try {
-            const response = await fetch('http://127.0.0.1:4000/user')
+            const response = await fetch('http://127.0.0.1:4000/user');
             const data = await response.json();
-            setactiveCount("ji");
-            setinactiveCount("jao")
-            //modify the last updated date in a format
+    
+            // Modify the last updated date in a format
             const modifiedData = data.map((item) => {
                 const date = new Date(item.last_updated_on);
                 const year = date.getFullYear();
                 const month = date.getMonth() + 1;
                 const day = date.getDate();
-
                 const formattedDate = `${day}-${month}-${year}`;
                 return { ...item, last_updated_on: formattedDate };
             });
+    
+            // Update active and inactive counts
+            const activeCount = data.filter(item => item.device_status === 1).length;
+            // const inactiveCount = data.filter(item => item.device_status === 0).length;
+            const inactiveCount = data.filter(item => item.device_status !== 1).length;
+
+            setactiveCount(activeCount);
+            setinactiveCount(inactiveCount);
+    
             setalldata(modifiedData);
         } catch (error) {
             console.log(error);
         }
     }
+
+    const  Editinactivedata=async(data)=>{
+        alert("inactivated")
+        const devicestatus="0";
+        const body={devicestatus};
+        await fetch(`http://127.0.0.1:4000/user/${data.r_no}`,{
+            method:"PUT",
+            headers: { "content-Type": "application/json" },
+            body:JSON.stringify(body)
+        })
+    }
+
+    const Editactivedata=async(data)=>{
+        alert("activated")
+        const devicestatus="1";
+        const body={devicestatus};
+        await fetch(`http://127.0.0.1:4000/user/${data.r_no}`,{
+            method:"PUT",
+            headers: { "content-Type": "application/json" },
+            body:JSON.stringify(body)
+        })
+    }
     useEffect(() => {
         fetchData();
-        // const interval = setInterval(fetchData, 1000);
-        // return () => {
-        //     clearInterval(interval);
-        // };
+        const interval = setInterval(fetchData, 1000);
+        return () => {
+            clearInterval(interval);
+        };
     }, []);
-
+    
     //rotate the arrow in the device action
     const [rotatedIndex, setRotatedIndex] = useState(null);
     const [device_active, setdevice_active] = useState("");
@@ -154,6 +184,8 @@ const Device_content = () => {
         }
     };
 
+
+
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState('1');
 
@@ -168,6 +200,10 @@ const Device_content = () => {
     const handleInputBlur = () => {
         setIsEditing(false);
     };
+
+
+      
+
 
 
 
@@ -330,10 +366,12 @@ const Device_content = () => {
                             <div className="col-head" key={index}>{data.device_model}</div>
                             <div className="col-head" key={index}>{data.last_updated_on}</div>
                             <div className="col-head">ritchard</div>
+
                             <div className="col-head display-flex">
-                                <FontAwesomeIcon icon={faDiamond} style={{ color: data.device_status === 1 ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
-                                <div className={`device_active`} style={{ color: data.device_status === 1 ? 'green' : 'red' }}>{data.device_status === 1 ? 'Active' : 'Inactive'}</div>
+                                <FontAwesomeIcon icon={faDiamond} style={{ color: data.device_status === 1  ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
+                                <div className={`device_active`} style={{ color: data.device_status === 1  ? 'green' : 'red' }}>{data.device_status === 1 ? 'Active' : 'Inactive'}</div>
                             </div>
+
                             <div className="col-head display-flex device_action_dropdown_parent">
                                 <div className="sts_icon" onClick={() => handleIconClick(index)}>
                                     <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
@@ -342,11 +380,11 @@ const Device_content = () => {
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex'>Edit Detials</div>
+                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Edit Detials</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Inactivate Device</div>
+                                            <div className='device_content_dropdown display-flex'  onClick={()=>{Editinactivedata(data)}}>Inactivate Device</div>
                                         </div>
                                     </div>)}
                                 </div>
@@ -354,11 +392,11 @@ const Device_content = () => {
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex'>Device Details</div>
+                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Device Details</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Activate Device</div>
+                                            <div className='device_content_dropdown display-flex' onClick={()=>{Editactivedata(data)}}>Activate Device</div>
                                         </div>
                                     </div>)}
                                 </div>
