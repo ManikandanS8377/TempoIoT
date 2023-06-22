@@ -11,7 +11,7 @@ app.use(express.json())
 //GET REQUEST TO SHOW ALL THE DATA IN REACT PAGE
 app.get("/user", async (req, res) => {
     try {
-       const datas= await pool.query('SELECT * FROM device_management')
+       const datas= await pool.query('SELECT * FROM device_management ORDER BY r_no')
         res.json(datas.rows);
     } catch (err) {
         console.log(err)
@@ -20,7 +20,7 @@ app.get("/user", async (req, res) => {
 
 
 //PUT REQUEST TO UPDATE THE DATA IN DB
-app.put("/user/:id",async(req,res)=>{
+app.put("/userdata/:id",async(req,res)=>{
     try {
         const {id}=req.params;
         const {devicestatus}=req.body;
