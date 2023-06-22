@@ -4,10 +4,18 @@ import { Chart as ChartJS } from "chart.js/auto";
 
 
 function Linechart({ fromdate, todate ,handlelive}) {
+  //dropdown state
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
   const [isOpen4, setIsOpen4] = useState(false);
+  //graph option select state
+  const [selectedOption1, setSelectedOption1] = useState("ALL");
+  const [selectedOption2, setSelectedOption2] = useState("ALL");
+  const [selectedOption3, setSelectedOption3] = useState("ALL");
+  const [selectedOption4, setSelectedOption4] = useState("ALL");
+  //data handling state
+  const [latestData, setLatestData] = useState([]);
 
 
   useEffect(() => {
@@ -36,14 +44,8 @@ function Linechart({ fromdate, todate ,handlelive}) {
     setIsOpen4(!isOpen4);
   };
 
-  const [selectedOption1, setSelectedOption1] = useState("ALL");
-  const [selectedOption2, setSelectedOption2] = useState("ALL");
-  const [selectedOption3, setSelectedOption3] = useState("ALL");
-  const [selectedOption4, setSelectedOption4] = useState("ALL");
 
-
-
-
+//states for graph
   const [userData1, setUserData1] = useState({
     labels: [],
     datasets: [
@@ -83,7 +85,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
   });
 
 
-  const [latestData, setLatestData] = useState([]);
+  
 
 
   const fetchData = async (fromdate,todate,handlelive) => {
@@ -110,7 +112,6 @@ function Linechart({ fromdate, todate ,handlelive}) {
         latestData=data.filter(values=>{
           const itemDate=values.Timestamp.split(" ")[0];
           if(fromdate<=itemDate){
-            console.log(true)
             return data;
           }
         })
@@ -146,7 +147,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Temperature),
             borderColor: "blue",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
             pointBackgroundColor: "white",
           },
         ],
@@ -162,7 +163,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Pressure),
             borderColor: "red",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
           },
         ],
       }));
@@ -177,7 +178,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Temperature),
             borderColor: "blue",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
             pointBackgroundColor: "white",
           },
         ],
@@ -193,7 +194,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Temperature),
             borderColor: "blue",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
             pointBackgroundColor: "white",
           },
           {
@@ -202,7 +203,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Pressure),
             borderColor: "red",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
           },
         ],
       }));
@@ -221,7 +222,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Temperature),
             borderColor: "blue",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
             pointBackgroundColor: "white",
           },
         ],
@@ -237,7 +238,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Pressure),
             borderColor: "red",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
           },
         ],
       }));
@@ -252,7 +253,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Temperature),
             borderColor: "blue",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
             pointBackgroundColor: "white",
           },
         ],
@@ -268,7 +269,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Temperature),
             borderColor: "blue",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
             pointBackgroundColor: "white",
           },
           {
@@ -277,7 +278,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Pressure),
             borderColor: "red",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
           },
         ],
       }));
@@ -296,7 +297,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Temperature.split(" ")[1]),
             borderColor: "blue",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
             pointBackgroundColor: "white",
           },
         ],
@@ -312,7 +313,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Pressure),
             borderColor: "red",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
           },
         ],
       }));
@@ -327,7 +328,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Temperature),
             borderColor: "blue",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
             pointBackgroundColor: "white",
           },
         ],
@@ -343,7 +344,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Temperature),
             borderColor: "blue",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
             pointBackgroundColor: "white",
           },
           {
@@ -352,7 +353,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Pressure),
             borderColor: "red",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
           },
         ],
       }));
@@ -371,7 +372,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Temperature),
             borderColor: "blue",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
             pointBackgroundColor: "white",
           },
         ],
@@ -387,7 +388,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Pressure),
             borderColor: "red",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
           },
         ],
       }));
@@ -402,7 +403,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Temperature),
             borderColor: "blue",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
             pointBackgroundColor: "white",
           },
         ],
@@ -418,7 +419,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Temperature),
             borderColor: "blue",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
             pointBackgroundColor: "white",
           },
           {
@@ -427,7 +428,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
             data: latestData.map((data) => data.Pressure),
             borderColor: "red",
             borderWidth: 1,
-            pointRadius: 6,
+            pointRadius: 4,
           },
         ],
       }));
@@ -508,7 +509,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
                   {selectedOption1}
                 </button>
                 {isOpen1 && (
-                  <div className="dropdown_menu1 dashboard_dropdown-menu dropdown-colors">
+                  <div className="dropdown_menu1 dashboard_dropdown-menu dropdown-colors" >
                     <a className="a-a" onClick={() => handleDropdown1('Temperature')}>Temperature</a>
                     <hr className='hrs ' ></hr>
                     <a className="a-a" onClick={() => handleDropdown1('Pressure')}>Pressure</a>
