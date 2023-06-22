@@ -95,12 +95,15 @@ const Device_content = () => {
         navigate('/Add_device');
     }
 
-
+    const [activeCount,setactiveCount] = useState(0)
+    const [inactiveCount,setinactiveCount] = useState(0)
     //Fetch data from node js
     async function fetchData() {
         try {
             const response = await fetch('http://127.0.0.1:4000/user')
             const data = await response.json();
+            setactiveCount("ji");
+            setinactiveCount("jao")
             //modify the last updated date in a format
             const modifiedData = data.map((item) => {
                 const date = new Date(item.last_updated_on);
@@ -160,7 +163,6 @@ const Device_content = () => {
 
 
 
-
     return (
         <div className='bar'>
             {/* <div>Active Count: {activeCount}</div>
@@ -171,8 +173,8 @@ const Device_content = () => {
                     <div className="device_management display-flex page_top_box box-shadow">
                         <span className='module_tittle'>Device Management</span>
                         <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>0 </div>Active</div>
-                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>0</div> Inactive</div>
+                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{activeCount}</div>Active</div>
+                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{inactiveCount}</div> Inactive</div>
                         </div>
                     </div>
 
@@ -281,8 +283,8 @@ const Device_content = () => {
                             <div className="col-head" key={index}>{data.last_updated_on}</div>
                             <div className="col-head">ritchard</div>
                             <div className="col-head display-flex">
-                                <FontAwesomeIcon icon={faDiamond} style={{ color: index % 2 === 0 ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
-                                <div className={`device_active`} style={{ color: index % 2 === 0 ? 'green' : 'red' }}>{index % 2 === 0 ? 'Active' : 'Inactive'}</div>
+                                <FontAwesomeIcon icon={faDiamond} style={{ color: data.device_status === 1 ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
+                                <div className={`device_active`} style={{ color: data.device_status === 1 ? 'green' : 'red' }}>{data.device_status === 1 ? 'Active' : 'Inactive'}</div>
                             </div>
                             <div className="col-head display-flex device_action_dropdown_parent">
                                 <div className="sts_icon" onClick={() => handleIconClick(index)}>
@@ -314,7 +316,7 @@ const Device_content = () => {
                                 </div>
                             </div>
                         </div>
-                        
+
                     ))}
                 </div>
                 <div className='device_bottom'>
