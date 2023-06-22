@@ -223,8 +223,8 @@ const Device_content = () => {
                     <div className="device_management display-flex page_top_box box-shadow">
                         <span className='module_tittle'>Device Management</span>
                         <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{activeCount}</div>Active</div>
-                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{inactiveCount}</div> Inactive</div>
+                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{activeCount}&nbsp;</div>Active</div>
+                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{inactiveCount}&nbsp;</div> Inactive</div>
                         </div>
                     </div>
 

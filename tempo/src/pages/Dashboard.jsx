@@ -9,16 +9,22 @@ import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
 //import bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
-
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Dashboard = () => {
     const [isOpen1, setIsOpen1] = useState(false);
+    const [isDropdownOpen1_dashboard, setIsDropdownOpen1_dashboard] = useState(false);
     const dropdown1 = () => {
         setIsOpen1(!isOpen1);
+        setIsDropdownOpen1_dashboard(!isDropdownOpen1_dashboard);
     };
+
     const [isOpen2, setIsOpen2] = useState(false);
+    const [isDropdownOpen2_dashboard, setIsDropdownOpen2_dashboard] = useState(false);
     const dropdown2 = () => {
         setIsOpen2(!isOpen2);
+        setIsDropdownOpen2_dashboard(!isDropdownOpen2_dashboard)
     };
 
 
@@ -34,25 +40,27 @@ const Dashboard = () => {
     }
 
     //filters based on date
-    const [fromdate,setfromdate]=useState("");
-    const handlefrom=((event)=>{
+    const [fromdate, setfromdate] = useState("");
+    const handlefrom = ((event) => {
         setfromdate(event.target.value)
-        
+
     })
 
-    const [todate,settodate]=useState("");
-    const handleto=((event)=>{
+    const [todate, settodate] = useState("");
+    const handleto = ((event) => {
         settodate(event.target.value)
     })
 
-    const [handlelive,sethandlelive]=useState(false);
-    const handleliveclick=((fromdate)=>{
-        if(fromdate!==""){
+    const [handlelive, sethandlelive] = useState(false);
+    const handleliveclick = ((fromdate) => {
+        if (fromdate !== "") {
             sethandlelive(!handlelive)
-        }else{
+        } else {
             sethandlelive(false)
         }
     })
+
+
 
     return (
         <div className='dashboard_page'>
@@ -91,7 +99,17 @@ const Dashboard = () => {
 
 
                         <div >
-                            <button class="dropdown-toggle dashboard_live_filter" onClick={dropdown1} >{selectedOption1}</button>
+                            <button class="device_filters" onClick={dropdown1} >
+                                <div className="device_name">
+                                    {selectedOption1}
+                                </div>
+                                <div className="dropdown_icon">
+                                    <FontAwesomeIcon
+                                        icon={isDropdownOpen1_dashboard ? faChevronDown : faChevronUp}
+                                        className="dropdown-icon"
+                                    />
+                                </div>
+                            </button>
                             {isOpen1 && (
                                 <div class="dashboard_dropdown-menu dropdown_menu dropdown-colors">
                                     <a className="a-a" ><input type='checkbox' className='checks' onClick={() => handleOptionClick1('ALL')}></input>ALL</a>
@@ -106,7 +124,17 @@ const Dashboard = () => {
 
 
                         <div>
-                            <button class="dropdown-toggle  dashboard_live_filter" onClick={dropdown2}>{selectedOption2}</button>
+                            <button class="device_filters" onClick={dropdown2}>
+                                <div className="device_name">
+                                    {selectedOption2}
+                                </div>
+                                <div className="dropdown_icon">
+                                    <FontAwesomeIcon
+                                        icon={isDropdownOpen2_dashboard ? faChevronDown : faChevronUp}
+                                        className="dropdown-icon"
+                                    />
+                                </div>
+                            </button>
                             {isOpen2 && (
                                 <div class="dashboard_dropdown-menu dropdown_menu dropdown-colors">
                                     <a className='lists a-a' onClick={() => handleOptionClick2('Temperature')}>Temperature</a>
@@ -120,17 +148,17 @@ const Dashboard = () => {
                         <div class="dropdown-filter">
                             <fieldset>
                                 <legend class="legend-top-form">From</legend>
-                                <input type='date' class="dropdown-toggle dashboard_live_filter" onChange={handlefrom}></input>
+                                <input type='date' class="dropdown-toggle device_filters" onChange={handlefrom}></input>
                             </fieldset>
                         </div>
                         <div class="dropdown-filter">
                             <fieldset>
                                 <legend class="legend-top-to">To</legend>
-                                <input type='date' class="dropdown-toggle dashboard_live_filter" onChange={handleto}></input>
+                                <input type='date' class="dropdown-toggle device_filters" onChange={handleto}></input>
                             </fieldset>
                         </div>
                         <div className='dropdown-filter'>
-                            <button className='btn-loc2 border-radius' style={{fontSize:"20px",textAlign:"center"}} onClick={()=>{handleliveclick(fromdate)}}>Live</button>
+                            <button className='btn-loc2 border-radius' style={{ fontSize: "20px", textAlign: "center" }} onClick={() => { handleliveclick(fromdate) }}>Live</button>
                         </div>
                         <div className='border_arrow display-flex justify-align'>
                             <div className='icon1 display-flex justify-align'>
@@ -144,7 +172,7 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <div className="lineChart_body">
-                    <Linechart  fromdate={fromdate} todate={todate} handlelive={handlelive}className="all_graph"/>
+                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} className="all_graph" />
                 </div>
                 <div className='dasboard_bottom display-flex'>
                     <div className='export cursor-pointer'>
