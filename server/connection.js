@@ -81,6 +81,7 @@ app.post("/user", async (req, res) => {
         
         const client_id=req.body["clientid"]
         const device_name=req.body["devicename"]
+        const device_status=req.body["devicestatus"]
         const device_mac_address=req.body["devicemacaddress"]
         const device_firmware_version=req.body["firmwareversion"]
         const mqtt_client_name=req.body["clientname"]
@@ -93,8 +94,8 @@ app.post("/user", async (req, res) => {
         const is_service_enabled=req.body["checking"];
 
         //connection to device_management
-        const ins='INSERT INTO device_management(device_name, device_mac_address, device_firmware_version,device_model,is_service_enabled)VALUES($1,$2,$3,$4,$5);'
-        const values=[device_name,device_mac_address,device_firmware_version,device_model,is_service_enabled]
+        const ins='INSERT INTO device_management(device_status,device_name, device_mac_address, device_firmware_version,device_model,is_service_enabled)VALUES($1,$2,$3,$4,$5);'
+        const values=[device_status,device_name,device_mac_address,device_firmware_version,device_model,is_service_enabled]
 
         //connection to network_protocol
         const ins1='INSERT INTO network_protocol(client_id,username,password,host) VALUES ($1,$2,$3,$3)';
