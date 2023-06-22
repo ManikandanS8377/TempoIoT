@@ -401,7 +401,7 @@ const Device_content = () => {
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 
