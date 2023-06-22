@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/style/App.css';
-import $ from 'jquery';
+
 
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
@@ -116,12 +116,34 @@ const Device_content = () => {
             console.log(error);
         }
     }
+
+    const  Editinactivedata=async(data)=>{
+        alert("inactivated")
+        const devicestatus="0";
+        const body={devicestatus};
+        await fetch(`http://127.0.0.1:4000/user/${data.r_no}`,{
+            method:"PUT",
+            headers: { "content-Type": "application/json" },
+            body:JSON.stringify(body)
+        })
+    }
+
+    const Editactivedata=async(data)=>{
+        alert("activated")
+        const devicestatus="1";
+        const body={devicestatus};
+        await fetch(`http://127.0.0.1:4000/user/${data.r_no}`,{
+            method:"PUT",
+            headers: { "content-Type": "application/json" },
+            body:JSON.stringify(body)
+        })
+    }
     useEffect(() => {
         fetchData();
-        // const interval = setInterval(fetchData, 1000);
-        // return () => {
-        //     clearInterval(interval);
-        // };
+        const interval = setInterval(fetchData, 1000);
+        return () => {
+            clearInterval(interval);
+        };
     }, []);
 
     //rotate the arrow in the device action
@@ -281,8 +303,8 @@ const Device_content = () => {
                             <div className="col-head" key={index}>{data.last_updated_on}</div>
                             <div className="col-head">ritchard</div>
                             <div className="col-head display-flex">
-                                <FontAwesomeIcon icon={faDiamond} style={{ color: index % 2 === 0 ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
-                                <div className={`device_active`} style={{ color: index % 2 === 0 ? 'green' : 'red' }}>{index % 2 === 0 ? 'Active' : 'Inactive'}</div>
+                                <FontAwesomeIcon icon={faDiamond} style={{ color: data.device_status === 1  ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
+                                <div className={`device_active`} style={{ color: data.device_status === 1  ? 'green' : 'red' }}>{data.device_status === 1 ? 'Active' : 'Inactive'}</div>
                             </div>
                             <div className="col-head display-flex device_action_dropdown_parent">
                                 <div className="sts_icon" onClick={() => handleIconClick(index)}>
@@ -292,11 +314,11 @@ const Device_content = () => {
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex'>Edit Detials</div>
+                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Edit Detials</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Inactivate Device</div>
+                                            <div className='device_content_dropdown display-flex'  onClick={()=>{Editinactivedata(data)}}>Inactivate Device</div>
                                         </div>
                                     </div>)}
                                 </div>
@@ -304,11 +326,11 @@ const Device_content = () => {
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex'>Device Details</div>
+                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Device Details</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Activate Device</div>
+                                            <div className='device_content_dropdown display-flex' onClick={()=>{Editactivedata(data)}}>Activate Device</div>
                                         </div>
                                     </div>)}
                                 </div>

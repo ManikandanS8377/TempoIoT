@@ -18,11 +18,14 @@ app.get("/user", async (req, res) => {
     }
 })
 
+
 //PUT REQUEST TO UPDATE THE DATA IN DB
-app.put("/user",async(req,res)=>{
+app.put("/user/:id",async(req,res)=>{
     try {
-        const datas=await pool.query('UPDATE device_management SET device_id=$1, device_model=$2, device_mac_address=$3, device_firmware_version=$4, description=$5, last_updated_by=$6, device_name=$7 WHERE r_no=$8',[device_id,device_model,device_mac_address,device_firmware_version,description,last_updated_by,device_name,r_no])
-        res.json("data updated")
+        const {id}=req.params;
+        const {devicestatus}=req.body;
+        console.log("ih")
+        await pool.query('UPDATE device_management SET  device_status=$1 WHERE r_no=$2',[devicestatus,id])
     } catch (err) {
         console.log(err)
     }
