@@ -361,7 +361,10 @@
 
 .sts_icon {
     width: 40%;
+    border-radius: 50%;
+    height: 140%;
     display: flex;
+    align-items: center;
     justify-content: center;
     cursor: pointer;
     /* margin-left: -10%; */
