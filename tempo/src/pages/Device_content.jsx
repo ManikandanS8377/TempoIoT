@@ -12,14 +12,29 @@ import { faAnglesDown, faChevronDown, faChevronUp } from '@fortawesome/free-soli
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
-import { json, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 const Device_content = () => {
+
+    //states
     const [alldata, setalldata] = useState([]);
     const [isOpen1, setIsOpen1] = useState(false);
-    const dropdownRef1 = useRef(null);
-
+    const [isOpen2, setIsOpen2] = useState(false);
+    const [isOpen3, setIsOpen3] = useState(false);
+    const [isOpen4, setIsOpen4] = useState(false);
     const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
+    const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
+    const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
+    const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
+    const [rotatedIndex, setRotatedIndex] = useState(null);
+    const [device_active, setdevice_active] = useState("");
+    const [isEditing, setIsEditing] = useState(false);
+    const [text, setText] = useState('1');
+    const [activeCount, setactiveCount] = useState(0);
+    const [inactiveCount, setinactiveCount] = useState(0);
+
+
+    const dropdownRef1 = useRef(null);
     const dropdown1 = () => {
         setIsOpen1(!isOpen1);
         setIsDropdownOpen1(!isDropdownOpen1);
@@ -27,6 +42,7 @@ const Device_content = () => {
     const empty_space_down1 = (event) => {
         if (!dropdownRef1.current.contains(event.target)) {
             setIsOpen1(false);
+            setIsDropdownOpen1(false)
         }
     };
     useEffect(() => {
@@ -36,8 +52,8 @@ const Device_content = () => {
         };
     }, []);
 
-    const [isOpen2, setIsOpen2] = useState(false);
-    const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
+    
+    
     const dropdownRef2 = useRef(null);
     const dropdown2 = () => {
         setIsOpen2(!isOpen2);
@@ -47,6 +63,7 @@ const Device_content = () => {
     const empty_space_down2 = (event) => {
         if (!dropdownRef2.current.contains(event.target)) {
             setIsOpen2(false);
+            setIsDropdownOpen2(false)
         }
     };
 
@@ -64,12 +81,13 @@ const Device_content = () => {
     const dropdownRef3 = useRef(null);
     const dropdown3 = () => {
         setIsOpen3(!isOpen3);
-        setIsDropdownOpen3(!isDropdownOpen3)
-
+        setIsDropdownOpen3(!isDropdownOpen3);
     };
     const empty_space_down3 = (event) => {
         if (!dropdownRef3.current.contains(event.target)) {
             setIsOpen3(false);
+            setIsDropdownOpen3(false)
+
         }
     };
 
@@ -80,8 +98,8 @@ const Device_content = () => {
         };
     }, []);
 
-    const [isOpen4, setIsOpen4] = useState(false);
-    const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
+    
+    
     const dropdownRef4 = useRef(null);
     const dropdown4 = () => {
         setIsOpen4(!isOpen4);
@@ -90,6 +108,7 @@ const Device_content = () => {
     const empty_space_down4 = (event) => {
         if (!dropdownRef4.current.contains(event.target)) {
             setIsOpen4(false);
+            setIsDropdownOpen4(false)
         }
     }
     useEffect(() => {
@@ -99,21 +118,21 @@ const Device_content = () => {
         }
     }, [])
 
+
     //Navigate to Add Device Page
     const navigate = useNavigate();
     const handleclick = () => {
         navigate('/Add_device');
     }
 
-    const [activeCount, setactiveCount] = useState(0);
-    const [inactiveCount, setinactiveCount] = useState(0);
+
     
     // Fetch data from node js
     async function fetchData() {
         try {
             const response = await fetch('http://127.0.0.1:4000/user');
             const data = await response.json();
-    
+
             // Modify the last updated date in a format
             const modifiedData = data.map((item) => {
                 const date = new Date(item.last_updated_on);
@@ -123,42 +142,44 @@ const Device_content = () => {
                 const formattedDate = `${day}-${month}-${year}`;
                 return { ...item, last_updated_on: formattedDate };
             });
-    
+
             // Update active and inactive counts
             const activeCount = data.filter(item => item.device_status === 1).length;
-            // const inactiveCount = data.filter(item => item.device_status === 0).length;
             const inactiveCount = data.filter(item => item.device_status !== 1).length;
 
             setactiveCount(activeCount);
             setinactiveCount(inactiveCount);
-    
+
             setalldata(modifiedData);
         } catch (error) {
             console.log(error);
         }
     }
 
+
+    //functions to set the device status avtive and inactive
     const  Editinactivedata=async(data)=>{
-        alert("inactivated")
         const devicestatus="0";
         const body={devicestatus};
-        await fetch(`http://127.0.0.1:4000/user/${data.r_no}`,{
+        await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`,{
             method:"PUT",
             headers: { "content-Type": "application/json" },
-            body:JSON.stringify(body)
+            body: JSON.stringify(body)
         })
     }
 
     const Editactivedata=async(data)=>{
-        alert("activated")
+
         const devicestatus="1";
         const body={devicestatus};
-        await fetch(`http://127.0.0.1:4000/user/${data.r_no}`,{
+        await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`,{
             method:"PUT",
             headers: { "content-Type": "application/json" },
-            body:JSON.stringify(body)
+            body: JSON.stringify(body)
         })
     }
+
+    //useeffect
     useEffect(() => {
         fetchData();
         const interval = setInterval(fetchData, 1000);
@@ -166,11 +187,8 @@ const Device_content = () => {
             clearInterval(interval);
         };
     }, []);
-    
-    //rotate the arrow in the device action
-    const [rotatedIndex, setRotatedIndex] = useState(null);
-    const [device_active, setdevice_active] = useState("");
 
+    //rotate the arrow in the device action
     const handleIconClick = (index) => {
         const sts = document.getElementsByClassName('device_active')[index].innerHTML;
         if (sts === 'Active') {
@@ -188,9 +206,6 @@ const Device_content = () => {
 
 
 
-    const [isEditing, setIsEditing] = useState(false);
-    const [text, setText] = useState('1');
-
     const handleDivClick = () => {
         setIsEditing(true);
     };
@@ -204,23 +219,21 @@ const Device_content = () => {
     };
 
 
-      
+
 
 
 
 
     return (
         <div className='bar'>
-            {/* <div>Active Count: {activeCount}</div>
-            <div>Inactive Count: {inactiveCount}</div> */}
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
 
                     <div className="device_management display-flex page_top_box box-shadow">
                         <span className='module_tittle'>Device Management</span>
                         <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{activeCount}</div>Active</div>
-                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{inactiveCount}</div> Inactive</div>
+                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{activeCount}&nbsp;</div>Active</div>
+                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{inactiveCount}&nbsp;</div> Inactive</div>
                         </div>
                     </div>
 
@@ -370,8 +383,8 @@ const Device_content = () => {
                             <div className="col-head">ritchard</div>
 
                             <div className="col-head display-flex">
-                                <FontAwesomeIcon icon={faDiamond} style={{ color: data.device_status === 1  ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
-                                <div className={`device_active`} style={{ color: data.device_status === 1  ? 'green' : 'red' }}>{data.device_status === 1 ? 'Active' : 'Inactive'}</div>
+                                <FontAwesomeIcon icon={faDiamond} style={{ color: data.device_status === 1 ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
+                                <div className={`device_active`} style={{ color: data.device_status === 1 ? 'green' : 'red' }}>{data.device_status === 1 ? 'Active' : 'Inactive'}</div>
                             </div>
 
                             <div className="col-head display-flex device_action_dropdown_parent">
@@ -386,7 +399,7 @@ const Device_content = () => {
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                            <div className='device_content_dropdown display-flex'  onClick={()=>{Editinactivedata(data)}}>Inactivate Device</div>
+                                            <div className='device_content_dropdown display-flex' onClick={() => { Editinactivedata(data) }}>Inactivate Device</div>
                                         </div>
                                     </div>)}
                                 </div>
@@ -398,7 +411,7 @@ const Device_content = () => {
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                            <div className='device_content_dropdown display-flex' onClick={()=>{Editactivedata(data)}}>Activate Device</div>
+                                            <div className='device_content_dropdown display-flex' onClick={() => { Editactivedata(data) }}>Activate Device</div>
                                         </div>
                                     </div>)}
                                 </div>
