@@ -10,6 +10,9 @@
 .rm-pd-mr {
     user-select: none;
 }
+.top-nav{
+    user-select: none;
+}
 
 
 .status-bar {
@@ -717,7 +720,7 @@ input[type="checkbox"] {
 
 .dashboard_live_width {
     margin-left: 20px;
-    width: 180px;
+    width: 0px;
 }
 
 .dashboard_inputs {
