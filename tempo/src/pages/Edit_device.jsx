@@ -369,14 +369,14 @@ const Edit_device = () => {
             <div className="add_device_container">
                 <div className="new_device_content">
                     <div className="row_one display-flex">
-                        <div className="adding_new_device uppercase bold">Add Device Detials </div>
-                        <div className="client_id display-flex">
+                        <div className="adding_new_device uppercase bold us-none">Add Device Detials </div>
+                        <div className="client_id display-flex us-none">
                             <label htmlFor="device_id">Client ID</label>
                             <input type="text" id="device_id" value={clientid} onChange={handleclientid} />
                             <div className="error-message"><span className={clientidError ? "error" : ""}>{clientidError}</span></div>
                         </div>
                     </div>
-                    <div className="row_two display-flex padding-loc">
+                    <div className="row_two display-flex padding-loc us-none">
                         <div className="device_info uppercase light-grey mb-loc-5">
                             device info
                         </div>
@@ -393,17 +393,17 @@ const Edit_device = () => {
                             </div>
                             <div className="inputbox display-flex">
                                 <label htmlFor="">Device MAC address(<span className="required_star">*</span>)</label>
-                                <input type="text" value={devicemacaddress} onChange={handledevicemacaddress} />
+                                <input type="text" value={devicemacaddress} onChange={handledevicemacaddress} readOnly/>
                                 <div className="error-message"><span className={devicemacaddresserror ? "error" : ""}>{devicemacaddresserror}</span></div>
                             </div>
                             <div className="inputbox display-flex">
                                 <label htmlFor="">Firmware Version(<span className="required_star">*</span>)</label>
-                                <input type="text" value={firmwareversion} onChange={handlefirmwareversion} />
+                                <input type="text" value={firmwareversion} onChange={handlefirmwareversion} readOnly/>
                                 <div className="error-message"><span className={firmwareversionerror ? "error" : ""}>{firmwareversionerror}</span></div>
                             </div>
                         </div>
                     </div>
-                    <div className="row_three display-flex padding-loc">
+                    <div className="row_three display-flex padding-loc us-none">
                         <div className="mqtt_protocol display-flex">
                             <div className="network_protocol light-grey uppercase mb-loc-5 mt-loc-3">Network Protocol</div>
                             <div className="mqtt_type display-flex uppercase gap-loc-4">
@@ -418,7 +418,7 @@ const Edit_device = () => {
                         <div className="sub_row_three display-flex">
                             <div className="inputbox display-flex">
                                 <label htmlFor="">MQTT Client ID (<span className="required_star">*</span>)</label>
-                                <input type="text" value={clientname} onChange={handleclientname} />
+                                <input type="text" value={clientname} onChange={handleclientname} readOnly/>
                                 <div className="error-message"><span className={clientnameerror ? "error" : ""}>{clientnameerror}</span></div>
                             </div>
                             <div className="inputbox display-flex">
@@ -443,11 +443,11 @@ const Edit_device = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="row_four padding-loc display-flex gap-2">
+                    <div className="row_four padding-loc display-flex gap-2 us-none">
                         <div className="device_data light-grey uppercase">Device Data</div>
                         <div className="icon"><RiAddCircleLine className="Add-icon light-grey" onClick={handleButtonClick} /></div>
                     </div>
-                    <div className="row_five padding-loc display-flex mb-loc-5 ">
+                    <div className="row_five padding-loc display-flex mb-loc-5 us-none">
                         <div className="inputbox display-flex">
                             <label htmlFor="">Parameter</label>
                             <input type="text" onChange={handleparameter} className="example" />
@@ -471,7 +471,7 @@ const Edit_device = () => {
                     </div>
                     {divs}
 
-                    <div className="operating_buttons display-flex padding-loc">
+                    <div className="operating_buttons display-flex padding-loc us-none">
                         <div className="check_boxses justify-align display-flex padding-loc">
                             <div className="check_box_div">
                                 <input type="checkbox" checked={isChecked} onChange={handleChange} className="check_box_input" />

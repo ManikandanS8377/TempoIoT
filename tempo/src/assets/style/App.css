@@ -13,7 +13,9 @@
 .top-nav{
     user-select: none;
 }
-
+.us-none{
+    user-select: none;
+}
 
 .status-bar {
     min-width: -webkit-fill-available;
@@ -184,10 +186,12 @@
 height: 100%;
 font-family: var(--FONT_FAMILY);
 padding: 1rem;
-
 }
 
-
+/* edit device page */
+.page_top_box{
+    user-select: none;
+}
 
 .dsa_1st_input,
 .dsa_2nd_input,
