@@ -130,11 +130,6 @@
     padding: 3rem;
 }
 
-.device_status_action .modal-content {
-    width: 130%;
-    margin-left: -15%;
-}
-
 .device_status_body {
     display: flex;
     flex-direction: column;
@@ -157,6 +152,42 @@
     gap: 1rem;
     justify-content: space-between;
 }
+
+.dsa_row_1,
+.dsa_row_2,
+.dsa_row_3 {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+
+.relative-loc {
+    position: relative;
+}
+
+.down_arrow {
+    position: absolute;
+    top: 13px;
+    margin-left: 88%;
+    height: 20px;
+    color: lightgray;
+}
+
+/* sitebutton (cancel_save) */
+.site_button{
+    margin-left: 80%;
+}
+
+/* Add device container */
+.add_device_container1{
+height: 100%;
+font-family: var(--FONT_FAMILY);
+padding: 1rem;
+
+}
+
+
 
 .dsa_1st_input,
 .dsa_2nd_input,
@@ -264,7 +295,7 @@
     position: relative;
 }
 
-.device_filters{
+.device_filters {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -280,11 +311,14 @@
     margin: 10px;
     user-select: none;
 }
-.device_name , .dropdown_icon{
+
+.device_name,
+.dropdown_icon {
     color: #000000;
     margin: 10px;
 
 }
+
 /* .dropdown-toggle {
     display: inline-block;
     height: 40px;
@@ -494,6 +528,12 @@
     height: auto;
     overflow-x: hidden;
     font-family: var(--FONT_FAMILY);
+
+}
+.Add_device1 {
+    height: 80%;
+    font-family: var(--FONT_FAMILY);
+    overflow: hidden;
 
 }
 
