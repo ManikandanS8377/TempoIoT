@@ -13,7 +13,7 @@ import { faAnglesDown, faChevronDown, faChevronUp } from '@fortawesome/free-soli
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Device_content = () => {
 
@@ -21,11 +21,11 @@ const Device_content = () => {
     const [alldata, setalldata] = useState([]);
     const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
-    const [isOpen3, setIsOpen3] = useState(false);
+    // const [isOpen3, setIsOpen3] = useState(false);
     const [isOpen4, setIsOpen4] = useState(false);
     const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
     const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
-    const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
+    // const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
     const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
     const [rotatedIndex, setRotatedIndex] = useState(null);
     const [device_active, setdevice_active] = useState("");
@@ -53,12 +53,12 @@ const Device_content = () => {
         };
     }, []);
 
-    
-    
+
+
     const dropdownRef2 = useRef(null);
     const dropdown2 = () => {
         setIsOpen2(!isOpen2);
-        setIsDropdownOpen2(!isDropdownOpen2);
+        setIsDropdownOpen2(!isDropdownOpen2)
 
     };
     const empty_space_down2 = (event) => {
@@ -67,6 +67,7 @@ const Device_content = () => {
             setIsDropdownOpen2(false)
         }
     };
+
     useEffect(() => {
         document.addEventListener('click', empty_space_down2);
         return () => {
@@ -75,8 +76,9 @@ const Device_content = () => {
     }, []);
 
 
-    
-    
+
+    const [isOpen3, setIsOpen3] = useState(false);
+    const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
     const dropdownRef3 = useRef(null);
     const dropdown3 = () => {
         setIsOpen3(!isOpen3);
@@ -97,8 +99,8 @@ const Device_content = () => {
         };
     }, []);
 
-    
-    
+
+
     const dropdownRef4 = useRef(null);
     const dropdown4 = () => {
         setIsOpen4(!isOpen4);
@@ -125,7 +127,7 @@ const Device_content = () => {
     }
 
 
-    
+
     // Fetch data from node js
     async function fetchData() {
         try {
@@ -157,11 +159,11 @@ const Device_content = () => {
 
 
     //functions to set the device status avtive and inactive
-    const  Editinactivedata=async(data)=>{
-        const devicestatus="0";
-        const body={devicestatus};
-        await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`,{
-            method:"PUT",
+    const Editinactivedata = async (data) => {
+        const devicestatus = "0";
+        const body = { devicestatus };
+        await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`, {
+            method: "PUT",
             headers: { "content-Type": "application/json" },
             body: JSON.stringify(body)
         })
@@ -215,23 +217,49 @@ const Device_content = () => {
     const handleInputBlur = () => {
         setIsEditing(false);
     };
-
-
-
-
+    const [isless_than_10_active, setisless_than_10_active] = useState(false)
+    const [isgreater_than_10_inactive, setisgreater_than_10_inactive] = useState(false)
+    console.log(inactiveCount);
+    useEffect(() => {
+        if (activeCount < 10) {
+            setisless_than_10_active(true)
+        }
+        else {
+            setisless_than_10_active(false);
+        }
+        if (inactiveCount < 10) {
+            setisgreater_than_10_inactive(true)
+        }
+        else {
+            setisgreater_than_10_inactive(false);
+        }
+    })
+    // if (activeCount>5) {
+    //     setisgreater_than_10(true)
+    // }
+    const Device_edit_page = async (data) => {
+        // alert("hai");
+        navigate(`/edit_device/${data.r_no}`);
+    }
+    // const response = await fetch(`http://127.0.0.1:4000/edit_device/${data.r_no}`);
+    // const datas = await response.json();
+    // const { param1 } = datas;
+    // window.location.href = `http://127.0.0.1:4000/edit_device?param1=${param1}`;
+    
 
 
 
     return (
         <div className='bar'>
+           
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
 
                     <div className="device_management display-flex page_top_box box-shadow">
                         <span className='module_tittle'>Device Management</span>
                         <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{activeCount}&nbsp;</div>Active</div>
-                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{inactiveCount}&nbsp;</div> Inactive</div>
+                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{setisless_than_10_active ? `0${activeCount}` : `${activeCount}`}&nbsp;</div>Active</div>
+                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{isgreater_than_10_inactive ? `0${inactiveCount}` : `${inactiveCount}`}&nbsp;</div> Inactive</div>
                         </div>
                     </div>
 
@@ -393,7 +421,7 @@ const Device_content = () => {
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Edit Detials</div>
+                                            <div className='device_content_dropdown display-flex' onClick={() => Device_edit_page(data)}>Edit Detials</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />

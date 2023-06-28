@@ -23,7 +23,7 @@ const Assert_Management=()=>{
 
                     </div>
                     <div className="display-flex">
-                         <button class="dropdown-toggle fonts ">Assert Category</button>
+                         <button class="device_filters fonts ">Assert Category</button>
                     </div>
                 </div>
                 <div className='col-headings'>
