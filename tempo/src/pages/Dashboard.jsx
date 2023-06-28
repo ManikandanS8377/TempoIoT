@@ -230,6 +230,8 @@ const Dashboard =() => {
                                     <a className='lists a-a' onClick={() => handleOptionClick2('Flow')}>Flow</a>
                                     <hr className='hrs ' ></hr>
                                     <a className='lists a-a' onClick={() => handleOptionClick2('ALL')}>ALL</a>
+                                    <hr className='hrs ' ></hr>
+                                    <a className='lists a-a' onClick={() => handleOptionClick2('Output Model')}>Output Model</a>
                                 </div>
                             )}
                         </div>

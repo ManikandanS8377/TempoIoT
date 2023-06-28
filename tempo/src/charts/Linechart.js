@@ -4,11 +4,10 @@ import { Chart as ChartJS } from "chart.js/auto";
 
 
 function Linechart({ fromdate, todate, handlelive, globalfilter }) {
-
+  let flag = true;
   //data handling state
   const [latestData, setLatestData] = useState([]);
   const [devicedata, setdevicedata] = useState([]);
-  const [globaldata, setglobaldata] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedOption2, setSelectedOption2] = useState(Array(100).fill('ALL'));
   const [isOpen2, setIsOpen2] = useState([]);
@@ -37,12 +36,9 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
     if (handlelive) {
       fetchData(fromdate, todate, handlelive)
     }
-    if (globalfilter) {
-      setglobaldata(globalfilter)
-    }
-  }, [fromdate, todate, handlelive, globalfilter]);
+  }, [fromdate, todate, handlelive]);
 
-  const fetchData = async (fromdate, todate, handlelive) => {
+  const fetchData = async (fromdate, todate, handlelive, globalfilter) => {
     try {
       const response1 = await fetch('http://127.0.0.1:4000/user');
       const data1 = await response1.json();
@@ -81,97 +77,170 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
         })
       }
       setLatestData(latestData);
-      if (globaldata !== 'ALL' && globaldata !== 'Output Model') {
-        getChartData1(globaldata, latestData)
-      } else {
-        getChartData1(latestData)
+      if (globalfilter !== 'Output Model' && globalfilter !== "") {
+        getChartData1(globalfilter, latestData)
       }
     } catch (error) {
       console.error(error);
     }
-
   };
 
   const getChartData1 = (selectedOption2, latestData, index) => {
-    setUserData1(prevState => {
-      const updatedData = [...prevState];
-      if (selectedOption2 === "Temperature") {
-        updatedData[index] = {
-          ...updatedData[index],
-          labels: latestData.map(data => data.Timestamp.split(" ")[1]),
-          datasets: [
-            {
-              label: "Temperature",
-              data: latestData.map(data => data.Temperature),
-              borderColor: "red",
-              pointBackgroundColor: "white",
-              borderWidth: 1,
-            },
-          ],
-        };
-      } else if (selectedOption2 === "Pressure") {
-        updatedData[index] = {
-          ...updatedData[index],
-          labels: latestData.map(data => data.Timestamp.split(" ")[1]),
-          datasets: [
-            {
-              label: "Pressure",
-              data: latestData.map(data => data.Pressure),
-              borderColor: "blue",
-              pointBackgroundColor: "white",
-              borderWidth: 1,
-            },
-          ],
-        };
-      } else if (selectedOption2 === "Flow") {
-        updatedData[index] = {
-          ...updatedData[index],
-          labels: latestData.map(data => data.Timestamp.split(" ")[1]),
-          datasets: [
-            {
-              label: "Flow",
-              data: latestData.map(data => data.Temperature),
-              borderColor: "green",
-              pointBackgroundColor: "white",
-              borderWidth: 1,
-            },
-          ],
-        };
-      } else {
-        updatedData[index] = {
-          ...updatedData[index],
-          labels: latestData.map(data => data.Timestamp.split(" ")[1]),
-          datasets: [
-            {
-              label: "Flow",
-              data: latestData.map(data => data.Temperature),
-              borderColor: "green",
-              pointBackgroundColor: "white",
-              borderWidth: 1,
-            },
-            {
-              label: "Flow",
-              data: latestData.map(data => data.Pressure),
-              borderColor: "green",
-              pointBackgroundColor: "white",
-              borderWidth: 1,
-            },
-          ],
-        };
+    if (index >= 0) {
+      setUserData1(prevState => {
+        const updatedData = [...prevState];
+        if (selectedOption2 === "Temperature") {
+          updatedData[index] = {
+            ...updatedData[index],
+            labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+            datasets: [
+              {
+                label: "Temperature",
+                data: latestData.map(data => data.Temperature),
+                borderColor: "red",
+                pointBackgroundColor: "white",
+                borderWidth: 1,
+              },
+            ],
+          };
+        } else if (selectedOption2 === "Pressure") {
+          updatedData[index] = {
+            ...updatedData[index],
+            labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+            datasets: [
+              {
+                label: "Pressure",
+                data: latestData.map(data => data.Pressure),
+                borderColor: "blue",
+                pointBackgroundColor: "white",
+                borderWidth: 1,
+              },
+            ],
+          };
+        } else if (selectedOption2 === "Flow") {
+
+          updatedData[index] = {
+            ...updatedData[index],
+            labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+            datasets: [
+              {
+                label: "Flow",
+                data: latestData.map(data => data.Temperature),
+                borderColor: "green",
+                pointBackgroundColor: "white",
+                borderWidth: 1,
+              },
+            ],
+          };
+        } else {
+          updatedData[index] = {
+            ...updatedData[index],
+            labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+            datasets: [
+              {
+                label: "Temperature",
+                data: latestData.map(data => data.Temperature),
+                borderColor: "yellow",
+                pointBackgroundColor: "white",
+                borderWidth: 1,
+              },
+              {
+                label: "Pressure",
+                data: latestData.map(data => data.Pressure),
+                borderColor: "green",
+                pointBackgroundColor: "white",
+                borderWidth: 1,
+              },
+            ],
+          };
+        }
+        return updatedData;
+      });
+    }
+    else {
+      console.log("varuthu")
+      for (var i = 0; i < devicedata.length; i++) {
+        setUserData1(prevState => {
+          const updatedData = [...prevState];
+          if (selectedOption2 === "Temperature") {
+            updatedData[i] = {
+              ...updatedData[i],
+              labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+              datasets: [
+                {
+                  label: "Temperature",
+                  data: latestData.map(data => data.Temperature),
+                  borderColor: "red",
+                  pointBackgroundColor: "white",
+                  borderWidth: 1,
+                },
+              ],
+            };
+          } else if (selectedOption2 === "Pressure") {
+            updatedData[i] = {
+              ...updatedData[i],
+              labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+              datasets: [
+                {
+                  label: "Pressure",
+                  data: latestData.map(data => data.Pressure),
+                  borderColor: "blue",
+                  pointBackgroundColor: "white",
+                  borderWidth: 1,
+                },
+              ],
+            };
+          } else if (selectedOption2 === "Flow") {
+            updatedData[i] = {
+              ...updatedData[i],
+              labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+              datasets: [
+                {
+                  label: "Flow",
+                  data: latestData.map(data => data.Temperature),
+                  borderColor: "green",
+                  pointBackgroundColor: "white",
+                  borderWidth: 1,
+                },
+              ],
+            };
+          } else {
+            updatedData[i] = {
+              ...updatedData[i],
+              labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+              datasets: [
+                {
+                  label: "Temperature",
+                  data: latestData.map(data => data.Temperature),
+                  borderColor: "red",
+                  pointBackgroundColor: "white",
+                  borderWidth: 1,
+                },
+                {
+                  label: "Pressure",
+                  data: latestData.map(data => data.Pressure),
+                  borderColor: "green",
+                  pointBackgroundColor: "white",
+                  borderWidth: 1,
+                },
+              ],
+            };
+          }
+          return updatedData;
+        });
       }
-      return updatedData;
-    });
+    }
   };
 
   useEffect(() => {
-    fetchData(fromdate, todate, handlelive);
+    fetchData(fromdate, todate, handlelive, globalfilter);
     const interval = setInterval(() => {
-      fetchData(fromdate, todate, handlelive);
+      fetchData(fromdate, todate, handlelive, globalfilter);
     }, 1000);
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [globalfilter, selectedOption2]);
 
 
   const options = {

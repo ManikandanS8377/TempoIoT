@@ -12,16 +12,10 @@ app.get('/edit_device_detials/:id', async (req, res) => {
     try {
         const {id} = req.params 
         const datas = await pool.query('SELECT * FROM device_management WHERE r_no = $1', [id]);
-        // const datas = await pool.query('SELECT * FROM device_management where r_no = $1',[id])
         res.json(datas.rows);
     } catch (err) {
         console.log(err)
     }
-    // const param1 = req.params.param1;
-    // // const param2 = req.params.param2;
-    // console.log(param1);
-    // res.redirect(`/edit_device?param1=${param1}`);
-    // res.redirect(`http://localhost:3001/edit_device?param1=${param1}`);
 });
 
 
