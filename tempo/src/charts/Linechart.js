@@ -27,6 +27,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
     ],
   });
   const [userData1, setUserData1] = useState(initialData);
+  
 
   useEffect(() => {
 
