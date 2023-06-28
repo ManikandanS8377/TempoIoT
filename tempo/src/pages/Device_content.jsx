@@ -20,11 +20,11 @@ const Device_content = () => {
     const [alldata, setalldata] = useState([]);
     const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
-    const [isOpen3, setIsOpen3] = useState(false);
+    // const [isOpen3, setIsOpen3] = useState(false);
     const [isOpen4, setIsOpen4] = useState(false);
     const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
     const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
-    const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
+    // const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
     const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
     const [rotatedIndex, setRotatedIndex] = useState(null);
     const [device_active, setdevice_active] = useState("");

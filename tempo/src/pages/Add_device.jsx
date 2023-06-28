@@ -61,6 +61,7 @@ const Add_device = () => {
             setclientidError("");
         }
     }
+    
     function handledevicename(event) {
         const value = event.target.value
         setdevicename(value)
@@ -243,9 +244,6 @@ const Add_device = () => {
                 return `${acc}${curr}&&`;
             }
         }, '');
-
-
-
 
 
         //check if valid or not
