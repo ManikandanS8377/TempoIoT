@@ -162,6 +162,7 @@ app.post("/site", async (req, res) => {
     // Data for site_management
     const company_name = req.body["company_name"];
     const site_name = req.body["site_name"];
+    const site_status = req.body["site_status"]
     const site_admin_email = req.body["site_admin_email"];
     const site_location = req.body["site_location"];
     const site_address = req.body["site_address"];
@@ -172,8 +173,8 @@ app.post("/site", async (req, res) => {
     // console.log(company_name);
     
     // Connection to Site_management
-    const ins3 = 'INSERT INTO site_management(company_name, site_name, site_admin_email, site_location, site_address, site_admin_name, new_site_admin_name, industry) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
-    const values3 = [company_name, site_name, site_admin_email, site_location, site_address, site_admin_name, new_site_admin_name, industry];
+    const ins3 = 'INSERT INTO site_management(site_status,company_name, site_name, site_admin_email, site_location, site_address, site_admin_name, new_site_admin_name, industry) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+    const values3 = [site_status,company_name, site_name, site_admin_email, site_location, site_address, site_admin_name, new_site_admin_name, industry];
 
     // Query to insert into database
     try {

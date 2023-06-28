@@ -32,4 +32,3 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     });
   })
   .catch(err => console.error(err));
-
