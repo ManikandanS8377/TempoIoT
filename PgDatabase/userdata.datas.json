@@ -1,0 +1,224 @@
+[{
+  "_id": {
+    "$oid": "64928813ff8fd2db6c989f9f"
+  },
+  "Timestamp": "2023-06-21 10:48:11",
+  "Temperature": 36,
+  "Pressure": 47
+},
+{
+  "_id": {
+    "$oid": "64928815ff8fd2db6c989fa1"
+  },
+  "Timestamp": "2023-06-21 10:48:13",
+  "Temperature": 19,
+  "Pressure": 40
+},
+{
+  "_id": {
+    "$oid": "64928817ff8fd2db6c989fa3"
+  },
+  "Timestamp": "2023-06-21 10:48:15",
+  "Temperature": 11,
+  "Pressure": 49
+},
+{
+  "_id": {
+    "$oid": "64928819ff8fd2db6c989fa5"
+  },
+  "Timestamp": "2023-06-21 10:48:17",
+  "Temperature": 30,
+  "Pressure": 36
+},
+{
+  "_id": {
+    "$oid": "6492881bff8fd2db6c989fa7"
+  },
+  "Timestamp": "2023-06-21 10:48:19",
+  "Temperature": 35,
+  "Pressure": 25
+},
+{
+  "_id": {
+    "$oid": "6492881dff8fd2db6c989fa9"
+  },
+  "Timestamp": "2023-06-21 10:48:21",
+  "Temperature": 17,
+  "Pressure": 35
+},
+{
+  "_id": {
+    "$oid": "6492881fff8fd2db6c989fab"
+  },
+  "Timestamp": "2023-06-21 10:48:23",
+  "Temperature": 17,
+  "Pressure": 38
+},
+{
+  "_id": {
+    "$oid": "64928821ff8fd2db6c989fad"
+  },
+  "Timestamp": "2023-06-21 10:48:25",
+  "Temperature": 32,
+  "Pressure": 37
+},
+{
+  "_id": {
+    "$oid": "64928823ff8fd2db6c989faf"
+  },
+  "Timestamp": "2023-06-21 10:48:27",
+  "Temperature": 15,
+  "Pressure": 50
+},
+{
+  "_id": {
+    "$oid": "64928825ff8fd2db6c989fb1"
+  },
+  "Timestamp": "2023-06-21 10:48:29",
+  "Temperature": 40,
+  "Pressure": 22
+},
+{
+  "_id": {
+    "$oid": "6492994c7acac0d78ec0abf0"
+  },
+  "Timestamp": "2023-06-21 12:01:40",
+  "Temperature": 39,
+  "Pressure": 37
+},
+{
+  "_id": {
+    "$oid": "6492994e7acac0d78ec0abf2"
+  },
+  "Timestamp": "2023-06-21 12:01:42",
+  "Temperature": 35,
+  "Pressure": 35
+},
+{
+  "_id": {
+    "$oid": "649299507acac0d78ec0abf4"
+  },
+  "Timestamp": "2023-06-21 12:01:44",
+  "Temperature": 17,
+  "Pressure": 47
+},
+{
+  "_id": {
+    "$oid": "649299527acac0d78ec0abf6"
+  },
+  "Timestamp": "2023-06-21 12:01:46",
+  "Temperature": 33,
+  "Pressure": 40
+},
+{
+  "_id": {
+    "$oid": "649299547acac0d78ec0abf8"
+  },
+  "Timestamp": "2023-06-21 12:01:48",
+  "Temperature": 28,
+  "Pressure": 20
+},
+{
+  "_id": {
+    "$oid": "6492b82b1e95faceb25e7042"
+  },
+  "Timestamp": "2023-06-21 14:13:23",
+  "Temperature": 23,
+  "Pressure": 47
+},
+{
+  "_id": {
+    "$oid": "6492b82d1e95faceb25e7044"
+  },
+  "Timestamp": "2023-06-21 14:13:25",
+  "Temperature": 32,
+  "Pressure": 34
+},
+{
+  "_id": {
+    "$oid": "6492b8301e95faceb25e7046"
+  },
+  "Timestamp": "2023-06-21 14:13:27",
+  "Temperature": 39,
+  "Pressure": 30
+},
+{
+  "_id": {
+    "$oid": "6492b8311e95faceb25e7048"
+  },
+  "Timestamp": "2023-06-21 14:13:29",
+  "Temperature": 35,
+  "Pressure": 47
+},
+{
+  "_id": {
+    "$oid": "6492c09d4bf89b1105f0642c"
+  },
+  "Timestamp": "2023-06-21 14:49:24",
+  "Temperature": 35,
+  "Pressure": 30
+},
+{
+  "_id": {
+    "$oid": "6492c09f4bf89b1105f0642e"
+  },
+  "Timestamp": "2023-06-21 14:49:26",
+  "Temperature": 15,
+  "Pressure": 41
+},
+{
+  "_id": {
+    "$oid": "6492c0d57b9349541fc4325c"
+  },
+  "Timestamp": "2023-06-21 14:50:21",
+  "Temperature": 27,
+  "Pressure": 33
+},
+{
+  "_id": {
+    "$oid": "6492c0d77b9349541fc4325e"
+  },
+  "Timestamp": "2023-06-21 14:50:23",
+  "Temperature": 34,
+  "Pressure": 35
+},
+{
+  "_id": {
+    "$oid": "6492d90a77288d646603c7ce"
+  },
+  "Timestamp": "2023-06-21 16:33:38",
+  "Temperature": 24,
+  "Pressure": 40
+},
+{
+  "_id": {
+    "$oid": "6492d90f77288d646603c7d0"
+  },
+  "Timestamp": "2023-06-21 16:33:43",
+  "Temperature": 21,
+  "Pressure": 23
+},
+{
+  "_id": {
+    "$oid": "6492d91477288d646603c7d2"
+  },
+  "Timestamp": "2023-06-21 16:33:48",
+  "Temperature": 32,
+  "Pressure": 22
+},
+{
+  "_id": {
+    "$oid": "6492d9808b9d8c751425a692"
+  },
+  "Timestamp": "2023-06-22 00:01:00",
+  "Temperature": 50,
+  "Pressure": 40
+},
+{
+  "_id": {
+    "$oid": "6492d9bc8b9d8c751425a694"
+  },
+  "Timestamp": "2023-06-22 01:12:25",
+  "Temperature": 34,
+  "Pressure": 10
+}]

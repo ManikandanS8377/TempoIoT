@@ -14,6 +14,7 @@ import Device from './pages/Device.jsx';
 import Site from './pages/Site.jsx';
 import NotFound from './pages/NotFound';
 import Add_device from './pages/Add_device';
+import Edit_device from './pages/Edit_device';
 import Add_site from './pages/Add_site';
 import Assert_Management from './pages/Assert_Management.js'
 import Alert_Management from './pages/Alert_Management';
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/Device" element={<Device />} />
           <Route path="/Site" element={<Site />} />
           <Route path="/Add_device" element={<Add_device/>} /> 
+          <Route path="/edit_device/:r_no" element={<Edit_device/>} /> 
           <Route path="/Add_site" element={<Add_site/>} /> 
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>

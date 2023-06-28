@@ -85,7 +85,7 @@ const Alert_Management=()=>{
                     </div> */}
                     <div className=' display-flex'>
                     <div class="dropdown-filter">
-                        <button class="dropdown-toggle" onClick={dropdown1}>Dropdown 1</button>
+                        <button class="device_filters" onClick={dropdown1}>Dropdown 1</button>
                         {isOpen1 && (
                             <div className="dropdown_menu2 dashboard_dropdown-menu dropdown-colors">
                                 <a href="#" className="a-a"><input type='checkbox' className='checks'></input>Option 1</a>
@@ -97,7 +97,7 @@ const Alert_Management=()=>{
                         )}
                     </div>
                     <div class="dropdown-filter">
-                        <button class="dropdown-toggle" onClick={dropdown2}>Dropdown 2</button>
+                        <button class="device_filters" onClick={dropdown2}>Dropdown 2</button>
                         {isOpen2 && (
                             <div className="dropdown_menu2 dashboard_dropdown-menu dropdown-colors">
                                 <a href="#" className="a-a"><input type='checkbox' className='checks'></input>All</a>
@@ -109,7 +109,7 @@ const Alert_Management=()=>{
                         )}
                     </div>
                     <div class="dropdown-filter">
-                        <button class="dropdown-toggle" onClick={dropdown3}>Dropdown 1</button>
+                        <button class="device_filters" onClick={dropdown3}>Dropdown 1</button>
                         {isOpen3 && (
                            <div className="dropdown_menu2 dashboard_dropdown-menu dropdown-colors">
                                 <a href="#" className="a-a"><input type='checkbox' className='checks'></input>ALL</a>
@@ -127,13 +127,13 @@ const Alert_Management=()=>{
                         <div class="dropdown-filter">
                             <fieldset>
                                 <legend class="alert-legend-top">From</legend>
-                                <input type='date' class="dropdown-toggle dashboard_live_filter1" ></input>
+                                <input type='date' class="device_filters dashboard_live_filter1" ></input>
                             </fieldset>
                         </div>
                         <div class="dropdown-filter">
                         <fieldset>
                             <legend class="alert-legend-top">To</legend>
-                            <input type='date' class="dropdown-toggle dashboard_live_filter1" ></input>
+                            <input type='date' class="device_filters dashboard_live_filter1" ></input>
                         </fieldset>  
                     </div>
                     </div>

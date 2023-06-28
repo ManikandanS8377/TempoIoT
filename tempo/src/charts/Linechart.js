@@ -100,6 +100,7 @@ function Linechart({ fromdate, todate ,handlelive}) {
       var latestData;
       if(fromdate!=="" && todate!==""){
          latestData=data.filter(values=>{
+          console.log(values.Timestamp)
           const itemDate=values.Timestamp.split(" ")[0];
           if(fromdate<=itemDate && todate>=itemDate){
             return data;
