@@ -12,9 +12,9 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to database!');
     const dataCollection = mongoose.connection.collection('datas');
-
+    const ggg="sendData";
      // Define an API endpoint to fetch and send data
-    app.get('/api/sendData',async (req, res) => {
+    app.get(`/api/${ggg}`,async (req, res) => {
 
      await dataCollection.find({}).toArray((err, documents) => {
         if (err) {

@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const mqtt = require('mqtt');
 const path = require('path');
 const {name} = path.parse(__filename);
+const app=require('./route')
+
 
 
 const allData = JSON.parse(fs.readFileSync('../allData.json'));
@@ -19,7 +21,26 @@ for (let i = 0; i < allData.length; i++) {
 
     //MONGO DB CONNECTION
 
-      mongoose.connect("mongodb://127.0.0.1:27017/userdata", { useNewUrlParser: true, useUnifiedTopology: true });
+      mongoose.connect("mongodb://127.0.0.1:27017/userdata", { useNewUrlParser: true, useUnifiedTopology: true })
+      // .then(() => {
+      //   console.log('Connected to database!');
+      //   const dataCollection = mongoose.connection.collection(`${name}`);
+      //    // Define an API endpoint to fetch and send data
+      //   app.get(`/api/${name}`,async (req, res) => {
+    
+      //    await dataCollection.find({}).toArray((err, documents) => {
+      //       if (err) {
+      //         console.error(err);
+      //         mongoose.connection.close();
+      //         return res.status(500).json({ error: 'Internal server error' });
+      //       }
+      //     }).then((data)=>{res.json(data)})
+          
+      //   });
+    
+        
+      // })
+      .catch(err => console.error(err));;
       const db = mongoose.connection;
       db.on('error', console.error.bind(console, 'connection error:'));
       db.once('open', function() {
@@ -27,8 +48,8 @@ for (let i = 0; i < allData.length; i++) {
       });
 
 
-    // MQTT code
 
+    // MQTT code
     //MQTT CONNECTION
 
     const mqttClient = mqtt.connect(host);
@@ -54,7 +75,7 @@ for (let i = 0; i < allData.length; i++) {
         var myobj = { Timestamp: valueArray[0], Temperature: valueArray[1], Pressure: valueArray[2] };
         console.log(myobj);
 
-        db.collection('datas').insertOne(myobj, function (err, result) {
+        db.collection(`datas`).insertOne(myobj, function (err, result) {
           if (err) {
             console.error(err);
           } else {

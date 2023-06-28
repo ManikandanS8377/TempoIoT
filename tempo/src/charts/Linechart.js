@@ -3,92 +3,50 @@ import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
 
-function Linechart({ fromdate, todate ,handlelive}) {
-  //dropdown state
-  const [isOpen1, setIsOpen1] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
-  const [isOpen3, setIsOpen3] = useState(false);
-  const [isOpen4, setIsOpen4] = useState(false);
-  //graph option select state
-  const [selectedOption1, setSelectedOption1] = useState("ALL");
-  const [selectedOption2, setSelectedOption2] = useState("ALL");
-  const [selectedOption3, setSelectedOption3] = useState("ALL");
-  const [selectedOption4, setSelectedOption4] = useState("ALL");
+function Linechart({ fromdate, todate, handlelive, globalfilter }) {
+
   //data handling state
   const [latestData, setLatestData] = useState([]);
+  const [devicedata, setdevicedata] = useState([]);
+  const [globaldata, setglobaldata] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
+  const [selectedOption2, setSelectedOption2] = useState(Array(100).fill('ALL'));
+  const [isOpen2, setIsOpen2] = useState([]);
 
+
+  const graphsPerFrame = 4;
+  const totalPages = Math.ceil(devicedata.length / graphsPerFrame);
+
+  const initialData = Array(100).fill({
+    labels: [],
+    datasets: [
+      {
+        label: "Temperature - Assert 1",
+        data: [],
+      },
+    ],
+  });
+  const [userData1, setUserData1] = useState(initialData);
 
   useEffect(() => {
+
     if (fromdate && todate) {
-      fetchData(fromdate,todate)
+      fetchData(fromdate, todate)
     }
-    if(handlelive){
-      fetchData(fromdate,todate,handlelive)
+    if (handlelive) {
+      fetchData(fromdate, todate, handlelive)
     }
-  }, [fromdate,todate,handlelive]);
-  
+    if (globalfilter) {
+      setglobaldata(globalfilter)
+    }
+  }, [fromdate, todate, handlelive, globalfilter]);
 
-  const dropdown1 = () => {
-    setIsOpen1(!isOpen1);
-  };
-
-  const dropdown2 = () => {
-    setIsOpen2(!isOpen2);
-  };
-
-  const dropdown3 = () => {
-    setIsOpen3(!isOpen3);
-  };
-
-  const dropdown4 = () => {
-    setIsOpen4(!isOpen4);
-  };
-
-
-//states for graph
-  const [userData1, setUserData1] = useState({
-    labels: [],
-    datasets: [
-      {
-        label: "Temperature - Assert 1",
-        data: [],
-      },
-    ],
-  });
-
-  const [userData2, setUserData2] = useState({
-    labels: [],
-    datasets: [
-      {
-        label: "Temperature - Assert 1",
-        data: [],
-      },
-    ],
-  });
-  const [userData3, setUserData3] = useState({
-    labels: [],
-    datasets: [
-      {
-        label: "Temperature - Assert 1",
-        data: [],
-      },
-    ],
-  });
-  const [userData4, setUserData4] = useState({
-    labels: [],
-    datasets: [
-      {
-        label: "Temperature - Assert 1",
-        data: [],
-      },
-    ],
-  });
-
-
-
-  const fetchData = async (fromdate,todate,handlelive) => {
+  const fetchData = async (fromdate, todate, handlelive) => {
     try {
-      const response = await fetch("http://localhost:5000/api/sendData");
+      const response1 = await fetch('http://127.0.0.1:4000/user');
+      const data1 = await response1.json();
+      setdevicedata(data1)
+      const response = await fetch(`http://localhost:5000/api/sendData`);
       const data = await response.json();
       const today = new Date();
       const year = today.getFullYear();
@@ -98,24 +56,22 @@ function Linechart({ fromdate, todate ,handlelive}) {
 
       //filters based on data
       var latestData;
-      if(fromdate!=="" && todate!==""){
-         latestData=data.filter(values=>{
-          const itemDate=values.Timestamp.split(" ")[0];
-          if(fromdate<=itemDate && todate>=itemDate){
+      if (fromdate !== "" && todate !== "") {
+        latestData = data.filter(values => {
+          const itemDate = values.Timestamp;
+          if (fromdate <= itemDate && todate >= itemDate) {
             return data;
           }
         })
-      
-      }else if(handlelive===true && fromdate!=="" && todate===""){
-        latestData=data.filter(values=>{
-          const itemDate=values.Timestamp.split(" ")[0];
-          if(fromdate<=itemDate){
+      } else if (handlelive === true && fromdate !== "" && todate === "") {
+        latestData = data.filter(values => {
+          const itemDate = values.Timestamp;
+          if (fromdate <= itemDate) {
             return data;
           }
         })
-        
       }
-      else{
+      else {
         latestData = data.filter(values => {
           const itemDate = values.Timestamp.split(" ")[0];
           if (itemDate === formatteddate) {
@@ -124,325 +80,97 @@ function Linechart({ fromdate, todate ,handlelive}) {
         })
       }
       setLatestData(latestData);
-      getChartData1(selectedOption1, latestData)
-      getChartData2(selectedOption2, latestData)
-      getChartData3(selectedOption3, latestData)
-      getChartData4(selectedOption4, latestData)
+      if (globaldata !== 'ALL' && globaldata !== 'Output Model') {
+        getChartData1(globaldata, latestData)
+      } else {
+        getChartData1(latestData)
+      }
     } catch (error) {
       console.error(error);
     }
+
   };
 
-  const getChartData1 = (selectedOption1, latestData) => {
-    if (selectedOption1 === "Temperature") {
-      setUserData1(() => ({
-        
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            
-            label: "Temperature - Assert1",
-            data: latestData.map((data) => data.Temperature),
-            borderColor: "blue",
-            borderWidth: 1,
-            pointRadius: 4,
-            pointBackgroundColor: "white",
-          },
-        ],
-      }));
-    } else if (selectedOption1 === "Pressure") {
-      setUserData1((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert12",
-            data: latestData.map((data) => data.Pressure),
-            borderColor: "red",
-            borderWidth: 1,
-            pointRadius: 4,
-          },
-        ],
-      }));
-    } else if (selectedOption1 === "Flow") {
-      setUserData1((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert1",
-            data: latestData.map((data) => data.Temperature),
-            borderColor: "blue",
-            borderWidth: 1,
-            pointRadius: 4,
-            pointBackgroundColor: "white",
-          },
-        ],
-      }));
-    } else {
-      setUserData1((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert1",
-            data: latestData.map((data) => data.Temperature),
-            borderColor: "blue",
-            borderWidth: 1,
-            pointRadius: 4,
-            pointBackgroundColor: "white",
-          },
-          {
-            ...prevState.datasets[1],
-            label: "Temperature - Assert12",
-            data: latestData.map((data) => data.Pressure),
-            borderColor: "red",
-            borderWidth: 1,
-            pointRadius: 4,
-          },
-        ],
-      }));
-    }
-  }
-
-  const getChartData2 = (selectedOption2, latestData) => {
-    if (selectedOption2 === "Temperature") {
-      setUserData2((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert1",
-            data: latestData.map((data) => data.Temperature),
-            borderColor: "blue",
-            borderWidth: 1,
-            pointRadius: 4,
-            pointBackgroundColor: "white",
-          },
-        ],
-      }));
-    } else if (selectedOption2 === "Pressure") {
-      setUserData2((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert12",
-            data: latestData.map((data) => data.Pressure),
-            borderColor: "red",
-            borderWidth: 1,
-            pointRadius: 4,
-          },
-        ],
-      }));
-    } else if (selectedOption2 === "Flow") {
-      setUserData2((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert1",
-            data: latestData.map((data) => data.Temperature),
-            borderColor: "blue",
-            borderWidth: 1,
-            pointRadius: 4,
-            pointBackgroundColor: "white",
-          },
-        ],
-      }));
-    } else {
-      setUserData2((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert1",
-            data: latestData.map((data) => data.Temperature),
-            borderColor: "blue",
-            borderWidth: 1,
-            pointRadius: 4,
-            pointBackgroundColor: "white",
-          },
-          {
-            ...prevState.datasets[1],
-            label: "Temperature - Assert12",
-            data: latestData.map((data) => data.Pressure),
-            borderColor: "red",
-            borderWidth: 1,
-            pointRadius: 4,
-          },
-        ],
-      }));
-    }
-  }
-
-  const getChartData3 = (selectedOption3, latestData) => {
-    if (selectedOption3 === "Temperature") {
-      setUserData3((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert1",
-            data: latestData.map((data) => data.Temperature.split(" ")[1]),
-            borderColor: "blue",
-            borderWidth: 1,
-            pointRadius: 4,
-            pointBackgroundColor: "white",
-          },
-        ],
-      }));
-    } else if (selectedOption3 === "Pressure") {
-      setUserData3((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert12",
-            data: latestData.map((data) => data.Pressure),
-            borderColor: "red",
-            borderWidth: 1,
-            pointRadius: 4,
-          },
-        ],
-      }));
-    } else if (selectedOption3 === "Flow") {
-      setUserData3((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert1",
-            data: latestData.map((data) => data.Temperature),
-            borderColor: "blue",
-            borderWidth: 1,
-            pointRadius: 4,
-            pointBackgroundColor: "white",
-          },
-        ],
-      }));
-    } else {
-      setUserData3((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert1",
-            data: latestData.map((data) => data.Temperature),
-            borderColor: "blue",
-            borderWidth: 1,
-            pointRadius: 4,
-            pointBackgroundColor: "white",
-          },
-          {
-            ...prevState.datasets[1],
-            label: "Temperature - Assert12",
-            data: latestData.map((data) => data.Pressure),
-            borderColor: "red",
-            borderWidth: 1,
-            pointRadius: 4,
-          },
-        ],
-      }));
-    }
-  }
-
-  const getChartData4 = (selectedOption4, latestData) => {
-    if (selectedOption4 === "Temperature") {
-      setUserData4((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert1",
-            data: latestData.map((data) => data.Temperature),
-            borderColor: "blue",
-            borderWidth: 1,
-            pointRadius: 4,
-            pointBackgroundColor: "white",
-          },
-        ],
-      }));
-    } else if (selectedOption4 === "Pressure") {
-      setUserData4((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert12",
-            data: latestData.map((data) => data.Pressure),
-            borderColor: "red",
-            borderWidth: 1,
-            pointRadius: 4,
-          },
-        ],
-      }));
-    } else if (selectedOption4 === "Flow") {
-      setUserData4((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert1",
-            data: latestData.map((data) => data.Temperature),
-            borderColor: "blue",
-            borderWidth: 1,
-            pointRadius: 4,
-            pointBackgroundColor: "white",
-          },
-        ],
-      }));
-    } else {
-      setUserData4((prevState) => ({
-        ...prevState,
-        labels: latestData.map((data) => data.Timestamp.split(" ")[1]),
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            label: "Temperature - Assert1",
-            data: latestData.map((data) => data.Temperature),
-            borderColor: "blue",
-            borderWidth: 1,
-            pointRadius: 4,
-            pointBackgroundColor: "white",
-          },
-          {
-            ...prevState.datasets[1],
-            label: "Temperature - Assert12",
-            data: latestData.map((data) => data.Pressure),
-            borderColor: "red",
-            borderWidth: 1,
-            pointRadius: 4,
-          },
-        ],
-      }));
-    }
-  }
+  const getChartData1 = (selectedOption2, latestData, index) => {
+    setUserData1(prevState => {
+      const updatedData = [...prevState];
+      if (selectedOption2 === "Temperature") {
+        updatedData[index] = {
+          ...updatedData[index],
+          labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+          datasets: [
+            {
+              label: "Temperature",
+              data: latestData.map(data => data.Temperature),
+              borderColor: "red",
+              pointBackgroundColor: "white",
+              borderWidth: 1,
+            },
+          ],
+        };
+      } else if (selectedOption2 === "Pressure") {
+        updatedData[index] = {
+          ...updatedData[index],
+          labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+          datasets: [
+            {
+              label: "Pressure",
+              data: latestData.map(data => data.Pressure),
+              borderColor: "blue",
+              pointBackgroundColor: "white",
+              borderWidth: 1,
+            },
+          ],
+        };
+      } else if (selectedOption2 === "Flow") {
+        updatedData[index] = {
+          ...updatedData[index],
+          labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+          datasets: [
+            {
+              label: "Flow",
+              data: latestData.map(data => data.Temperature),
+              borderColor: "green",
+              pointBackgroundColor: "white",
+              borderWidth: 1,
+            },
+          ],
+        };
+      } else {
+        updatedData[index] = {
+          ...updatedData[index],
+          labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+          datasets: [
+            {
+              label: "Flow",
+              data: latestData.map(data => data.Temperature),
+              borderColor: "green",
+              pointBackgroundColor: "white",
+              borderWidth: 1,
+            },
+            {
+              label: "Flow",
+              data: latestData.map(data => data.Pressure),
+              borderColor: "green",
+              pointBackgroundColor: "white",
+              borderWidth: 1,
+            },
+          ],
+        };
+      }
+      return updatedData;
+    });
+  };
 
   useEffect(() => {
-    fetchData(fromdate,todate,handlelive);
-    const intervalId = setInterval(() => {
-      fetchData(fromdate,todate,handlelive);
+    fetchData(fromdate, todate, handlelive);
+    const interval = setInterval(() => {
+      fetchData(fromdate, todate, handlelive);
     }, 1000);
-
     return () => {
-      clearInterval(intervalId);
+      clearInterval(interval);
     };
-  }, [selectedOption1, selectedOption2, selectedOption3, selectedOption4,fromdate,todate,handlelive]);
+  }, []);
 
 
   const options = {
@@ -470,139 +198,85 @@ function Linechart({ fromdate, todate ,handlelive}) {
     },
 
   };
-  const handleDropdown1 = (option) => {
-    setSelectedOption1(option);
-    setIsOpen1(!isOpen1);
-    getChartData1(option, latestData);
-    fetch(option);
-  };
-  const handleDropdown2 = (option) => {
-    setSelectedOption2(option);
-    setIsOpen2(!isOpen2);
-    getChartData2(option, latestData);
+
+
+  const dropdown2 = (index) => {
+    const updatedIsOpen2 = [...isOpen2];
+    updatedIsOpen2[index] = !updatedIsOpen2[index];
+    setIsOpen2(updatedIsOpen2);
   };
 
-  const handleDropdown3 = (option) => {
-    setSelectedOption3(option);
-    setIsOpen3(!isOpen3);
-    getChartData3(option, latestData);
+  const handleDropdown2 = (option, index) => {
+    const updatedSelectedOption2 = [...selectedOption2];
+    updatedSelectedOption2[index] = option;
+    setSelectedOption2(updatedSelectedOption2);
+    getChartData1(option, latestData, index);
   };
 
-  const handleDropdown4 = (option) => {
-    setSelectedOption4(option);
-    setIsOpen4(!isOpen4);
-    getChartData4(option, latestData);
+
+
+
+
+  const handlePreviousSlide = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
   };
+
+  const handleNextSlide = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const slideStartIndex = currentPage * graphsPerFrame;
+  let slideEndIndex = slideStartIndex + graphsPerFrame;
+  if (currentPage === totalPages - 1) {
+    slideEndIndex = devicedata.length;
+  }
+  const displayedItems = [...Array(slideEndIndex - slideStartIndex)].map(
+    (_, index) => index + slideStartIndex
+  );
+
 
 
   return (
-    <div className='graph'>
-      <div className='graph_first display-flex'>
-        <div className='first_box display-flex justify-align'>
-          <div className='line_container' >
-            <div className="label_container display-flex justify-align">
+    <div>
+      <div className="grid-container">
+        {displayedItems.map((item) => (
+          <div key={item} className="grid-item">
+            <div className="graph-header display-flex" style={{ justifyContent: "center", alignItems: "center" }}>
               <label>Temperature - Assert1</label>
-              <div className="dropdown_container1">
-                <button className=" dropdown_toggle1" onClick={dropdown1}>
-                  {selectedOption1}
+              <div className="dropdown_container2">
+                <button className="dropdown_toggle2 btn btn-loc" style={{ border: "1px solid black" }} onClick={() => dropdown2(item)} >
+                  {selectedOption2[item]}
                 </button>
-                {isOpen1 && (
-                  <div className="dropdown_menu1 dashboard_dropdown-menu dropdown-colors" >
-                    <a className="a-a" onClick={() => handleDropdown1('Temperature')}>Temperature</a>
-                    <hr className='hrs ' ></hr>
-                    <a className="a-a" onClick={() => handleDropdown1('Pressure')}>Pressure</a>
-                    <hr className='hrs ' ></hr>
-                    <a className="a-a" onClick={() => handleDropdown1('Flow')}>Flow</a>
-                    <hr className='hrs ' ></hr>
-                    <a className="a-a" onClick={() => handleDropdown1('ALL')}>ALL</a>
+                {isOpen2[item] && (
+                  <div className="dropdown_menu2 dashboard_dropdown-menu dropdown-colors">
+                    <a className="a-a" href="#Temperature" onClick={() => handleDropdown2('Temperature', item)}>Temperature</a>
+                    <hr className='hrs'></hr>
+                    <a className="a-a" href="#Pressure" onClick={() => handleDropdown2('Pressure', item)}>Pressure</a>
+                    <hr className='hrs'></hr>
+                    <a className="a-a" href="#Flow" onClick={() => handleDropdown2('Flow', item)}>Flow</a>
+                    <hr className='hrs'></hr>
+                    <a className="a-a" href="#All" onClick={() => handleDropdown2('All', item)}>All</a>
                   </div>
                 )}
               </div>
             </div>
-            <div className="graphs" >
-              <Line data={userData1} options={options} />
-            </div>
-
+            <Line data={userData1[item]} options={options} />
           </div>
-
-        </div>
-        <div className='second_box display-flex justify-align'>
-          <div className='line_container'>
-            <div className="label_container display-flex justify-align">
-              <label>Temperature - Assert2</label>
-              <div className="dropdown_container1">
-                <button className=" dropdown_toggle1" onClick={dropdown2}>
-                  {selectedOption2}
-                </button>
-                {isOpen2 && (
-                  <div className="dropdown_menu1 dashboard_dropdown-menu dropdown-colors">
-                    <a className="a-a" onClick={() => handleDropdown2('Temperature')}>Temperature</a>
-                    <hr className='hrs ' ></hr>
-                    <a className="a-a" onClick={() => handleDropdown2('Pressure')}>Pressure</a>
-                    <hr className='hrs ' ></hr>
-                    <a className="a-a" onClick={() => handleDropdown2('Flow')}>Flow</a>
-                    <hr className='hrs ' ></hr>
-                    <a className="a-a" onClick={() => handleDropdown2('ALL')}>ALL</a>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="graphs" ><Line data={userData2} options={options} /></div>
-          </div>
-        </div>
+        ))}
       </div>
-      <div className='graph_second display-flex'>
-        <div className='third_box display-flex justify-align'>
-          <div className='line_container'>
-            <div className="label_container display-flex justify-align">
-              <label>Temperature - Assert1</label>
-              <div className="dropdown_container1">
-                <button className=" dropdown_toggle1" onClick={dropdown3}>
-                  {selectedOption3}
-                </button>
-                {isOpen3 && (
-                  <div className="dropdown_menu1 dashboard_dropdown-menu dropdown-colors">
-                    <a className="a-a" onClick={() => handleDropdown3('Temperature')}>Temperature</a>
-                    <hr className='hrs ' ></hr>
-                    <a className="a-a" onClick={() => handleDropdown3('Pressure')}>Pressure</a>
-                    <hr className='hrs ' ></hr>
-                    <a className="a-a" onClick={() => handleDropdown3('Flow')}>Flow</a>
-                    <hr className='hrs ' ></hr>
-                    <a className="a-a" onClick={() => handleDropdown3('ALL')}>ALL</a>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="graphs"><Line data={userData3} options={options} /></div>
-          </div>
-        </div>
-        <div className='fourth_box display-flex justify-align'>
-          <div className='line_container'>
-            <div className="label_container display-flex justify-align">
-              <label>Temperature - Assert2</label>
-              <div className="dropdown_container1">
-                <button className=" dropdown_toggle1" onClick={dropdown4}>
-                  {selectedOption4}
-                </button>
-                {isOpen4 && (
-                  <div className="dropdown_menu1 dashboard_dropdown-menu dropdown-colors">
-                    <a className="a-a" onClick={() => handleDropdown4('Temperature')}>Temperature</a>
-                    <hr className='hrs ' ></hr>
-                    <a className="a-a" onClick={() => handleDropdown4(' Pressure')}> Pressure</a>
-                    <hr className='hrs ' ></hr>
-                    <a className="a-a" onClick={() => handleDropdown4('Flow')}> Flow</a>
-                    <hr className='hrs ' ></hr>
-                    <a className="a-a" onClick={() => handleDropdown4('ALL')}>ALL</a>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="graphs"><Line data={userData4} options={options} /></div>
-          </div>
-        </div>
+      <div style={{ marginTop: "20px" }}>
+        <button onClick={handlePreviousSlide} disabled={currentPage === 0} className="btn btn-loc" style={{ border: "2px solid black" }}>
+          Previous
+        </button>
+        <button
+          onClick={handleNextSlide}
+          disabled={currentPage === totalPages - 1}
+          className="btn btn-loc" style={{ border: "2px solid black" }}
+        >
+          Next
+        </button>
       </div>
     </div>
-
   )
 }
 

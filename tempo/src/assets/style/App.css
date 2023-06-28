@@ -1086,3 +1086,20 @@ input[type="checkbox"] {
     background-color: #ffffff;
     font-weight: 500;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+  
+.grid-item {
+    border: 1px solid #ccc;
+    width: 700px;
+    margin-left: 70px;
+    margin-top: 10px;
+    height: 230px;
+}
+
+.grid-item:nth-child(even) {
+    margin-left: 15px;
+}

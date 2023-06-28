@@ -28,7 +28,6 @@ for (let i = 0; i < allData.length; i++) {
 
 
     // MQTT code
-
     //MQTT CONNECTION
 
     const mqttClient = mqtt.connect(host);
