@@ -16,54 +16,89 @@ import { json, useNavigate } from 'react-router-dom';
 
 const Site_content = () => {
 
-     //functions to set the device status avtive and inactive
-     const  Editinactivedata=async(data)=>{
-        const site_status="0";
-        const body={site_status};
-        await fetch(`http://127.0.0.1:4000/sitedata/${data.r_no}`,{
-            method:"PUT",
+    //functions to set the device status avtive and inactive
+    const Editinactivedata = async (data) => {
+        const site_status = "0";
+        const body = { site_status };
+        await fetch(`http://127.0.0.1:4000/sitedata/${data.r_no}`, {
+            method: "PUT",
             headers: { "content-Type": "application/json" },
             body: JSON.stringify(body)
         })
     }
 
-    const Editactivedata=async(data)=>{
+    const Editactivedata = async (data) => {
 
-        const site_status="1";
-        const body={site_status};
-        await fetch(`http://127.0.0.1:4000/sitedata/${data.r_no}`,{
-            method:"PUT",
+        const site_status = "1";
+        const body = { site_status };
+        await fetch(`http://127.0.0.1:4000/sitedata/${data.r_no}`, {
+            method: "PUT",
             headers: { "content-Type": "application/json" },
             body: JSON.stringify(body)
-           
+
         })
-        
+
     }
-       useEffect(() => {
+    useEffect(() => {
         fetchData();
-        const interval = setInterval(fetchData, 1000);
+        const interval = setInterval(fetchData, 10000);
         return () => {
             clearInterval(interval);
         };
     }, []);
+    const [alldata, setalldata] = useState([]);
+    const [activeCount, setactiveCount] = useState(0);
+    const [inactiveCount, setinactiveCount] = useState(0);
 
-    const [responseData_state,set_responseData_state] = useState([])
-    // data fetching in site db 
-    useEffect(() => {
-        const fetchData = async () => {
+        // Fetch data from node js
+        async function fetchData() {
             try {
-                const sites = await fetch('http://127.0.0.1:4000/site');
-                const responseData = await sites.json();
-                set_responseData_state(responseData)
-                console.log(responseData);
+                const response = await fetch('http://127.0.0.1:4000/site');
+                const data = await response.json();
+    
+                // Modify the last updated date in a format
+                const modifiedData = data.map((item) => {
+                    const date = new Date(item.site_created_on);
+                    const year = date.getFullYear();
+                    const month = date.getMonth() + 1;
+                    const day = date.getDate();
+                    const formattedDate = `${day}-${month}-${year}`;
+                    return { ...item, site_created_on: formattedDate };
+                });
+                
+                // Update active and inactive counts
+                const activeCount = data.filter(item => item.site_status === 1).length;
+                const inactiveCount = data.filter(item => item.site_status !== 1).length;
+    
+                setactiveCount(activeCount);
+                setinactiveCount(inactiveCount);
+    
+                setalldata(modifiedData);
+                console.log(data)
             } catch (error) {
-                // Error handling code removed
+                console.log(error);
             }
-        };
+            
+        }
+    
 
-        fetchData();
-    }, []);
-
+        const [isless_than_10_active, setisless_than_10_active] = useState(false)
+        const [isgreater_than_10_inactive, setisgreater_than_10_inactive] = useState(false)
+        console.log(inactiveCount);
+        useEffect(() => {
+            if (activeCount < 10) {
+                setisless_than_10_active(true)
+            }
+            else {
+                setisless_than_10_active(false);
+            }
+            if (inactiveCount < 10) {
+                setisgreater_than_10_inactive(true)
+            }
+            else {
+                setisgreater_than_10_inactive(false);
+            }
+        })
 
 
 
@@ -89,7 +124,7 @@ const Site_content = () => {
     }, []);
 
 
-// company
+    // company
     const [isOpen3, setIsOpen3] = useState(false);
     const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
     const dropdownRef3 = useRef(null);
@@ -130,29 +165,10 @@ const Site_content = () => {
         };
     }, []);
 
-    const [activeCount, setactiveCount] = useState(0);
-    const [inactiveCount, setinactiveCount] = useState(0);
 
 
-    // Fetch data from node js 
-    async function fetchData() {
-        try {
-            const response = await fetch('http://127.0.0.1:4000/site');
-            const data = await response.json();
 
-            // Update active and inactive counts
 
-            const activeCount = data.filter(item => item.site_status === 1).length;
-            const inactiveCount = data.filter(item => item.device_status === 0).length;
-            // const inactiveCount = data.filter(item => item.site_status !== 1).length;
-
-            setactiveCount(activeCount);
-            setinactiveCount(inactiveCount);
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
 
     //rotate the arrow in the device action
@@ -197,7 +213,7 @@ const Site_content = () => {
     const [showInput, setShowInput] = useState(false);
 
 
-  //Navigate to Add Site Page
+    //Navigate to Add Site Page
     const navigate = useNavigate();
     const handleclick = () => {
         navigate('/Add_site');
@@ -215,8 +231,8 @@ const Site_content = () => {
                     <div className="device_management display-flex page_top_box box-shadow">
                         <span className='module_tittle '>Site Management</span>
                         <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{activeCount}&nbsp;</div>Active</div>
-                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{inactiveCount}&nbsp;</div> Inactive</div>
+                        <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{setisless_than_10_active ? `0${activeCount}` : `${activeCount}`}&nbsp;</div>Active</div>
+                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{isgreater_than_10_inactive ? `0${inactiveCount}` : `${inactiveCount}`}&nbsp;</div> Inactive</div>
                         </div>
                     </div>
                     <div className='filters display-flex' >
@@ -239,11 +255,11 @@ const Site_content = () => {
                         </div>
                         <div className='move_head' style={{ marginRight: '35%' }}>
                             <div className='filters1 display-flex'>
-                               
+
                                 <div class="dropdown-filter" ref={dropdownRef2}>
                                     <div class="device_filters" onClick={dropdown2}>
                                         <div className="device_name">
-                                           Industry
+                                            Industry
                                         </div>
                                         <div className="dropdown_icon">
                                             <FontAwesomeIcon
@@ -277,19 +293,19 @@ const Site_content = () => {
                                     </div>
                                     {isOpen3 && (
                                         <div className="dropdown_menu2 dashboard_dropdown-menu heights  dropdown-colors">
-                                            {responseData_state.map((item,index) => (
-                                            <div className='device_scroll' key={index}>
-                                                <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts"> {item.company_name}</div></div>
-                                                    {index !== item.length - 1 && <hr className='hrs'></hr>}
+                                            {alldata.map((item, index) => (
+                                                <div className='device_scroll' key={index}>
+                                                    <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts"> {item.company_name}</div></div>
+                                                        {index !== item.length - 1 && <hr className='hrs'></hr>}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            ))}
                                         </div>
                                     )}
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div className='filters2 display-flex'>
                             <button className='btn btn-fill' onClick={handleclick} >Add Site</button>
                         </div>
@@ -303,7 +319,7 @@ const Site_content = () => {
                         <div className="col-head">SITE STATUS</div>
                         <div className="col-head">ACTION</div>
                     </div>
-                    {responseData_state.map((data, index) => (
+                    {alldata.map((data, index) => (
                         <div className="datas">
                             <div className="col-head" >Site ID</div>
                             <div className="col-head" key={index}>{data.site_name}</div>
@@ -312,7 +328,7 @@ const Site_content = () => {
                             <div className="col-head" key={index}>{data.new_site_admin_name}</div>
 
                             <div className="col-head display-flex">
-                                <FontAwesomeIcon icon={faDiamond} style={{ color: data.site_status === 1 ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
+                            <FontAwesomeIcon icon={faDiamond} style={{ color: data.site_status === 1 ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
                                 <div className={`device_active`} style={{ color: data.site_status === 1 ? 'green' : 'red' }}>{data.site_status === 1 ? 'Active' : 'Inactive'}</div>
                             </div>
 
