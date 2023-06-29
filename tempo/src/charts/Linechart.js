@@ -4,7 +4,6 @@ import { Chart as ChartJS } from "chart.js/auto";
 
 
 function Linechart({ fromdate, todate, handlelive, globalfilter }) {
-  let flag = true;
   //data handling state
   const [latestData, setLatestData] = useState([]);
   const [devicedata, setdevicedata] = useState([]);
@@ -29,14 +28,13 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
 
 
   useEffect(() => {
-
     if (fromdate && todate) {
-      fetchData(fromdate, todate)
+      fetchData(fromdate, todate,globalfilter)
     }
     if (handlelive) {
-      fetchData(fromdate, todate, handlelive)
+      fetchData(fromdate, todate, handlelive,globalfilter)
     }
-  }, [fromdate, todate, handlelive]);
+  }, [fromdate, todate, handlelive,globalfilter]);
 
   const fetchData = async (fromdate, todate, handlelive, globalfilter) => {
     try {
@@ -77,8 +75,16 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
         })
       }
       setLatestData(latestData);
-      if (globalfilter !== 'Output Model' && globalfilter !== "") {
+      if (globalfilter !== 'Output Model' && globalfilter !== null) {
         getChartData1(globalfilter, latestData)
+      }
+      else{
+        if(handlelive===true && fromdate !== "" && todate === ""){
+          getChartData1(selectedOption2,latestData)
+        }
+        if(fromdate !== "" && todate !== ""){
+          getChartData1(selectedOption2,latestData)
+        }
       }
     } catch (error) {
       console.error(error);
@@ -158,7 +164,6 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
       });
     }
     else {
-      console.log("varuthu")
       for (var i = 0; i < devicedata.length; i++) {
         setUserData1(prevState => {
           const updatedData = [...prevState];
@@ -234,13 +239,13 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
 
   useEffect(() => {
     fetchData(fromdate, todate, handlelive, globalfilter);
-    const interval = setInterval(() => {
-      fetchData(fromdate, todate, handlelive, globalfilter);
-    }, 1000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [globalfilter, selectedOption2]);
+    // const interval = setInterval(() => {
+    //   fetchData(fromdate, todate, handlelive, globalfilter);
+    // }, 1000);
+    // return () => {
+    //   clearInterval(interval);
+    // };
+  }, [globalfilter,handlelive,fromdate,todate]);
 
 
   const options = {

@@ -10,7 +10,6 @@ import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 //import 24 hrs time format flatpickr
 import 'flatpickr/dist/flatpickr.min.css';
 import flatpickr from 'flatpickr';
@@ -34,7 +33,6 @@ const Dashboard =() => {
             defaultDate: currentDate,
             onChange: handlefrom
         });
-
         return () => {
             dateTimePicker1.destroy();
         };
@@ -136,17 +134,6 @@ const Dashboard =() => {
             sethandlelive(false)
         }
     })
-    const [handledata1,sethandledata1]=useState(100);
-    useEffect(()=>{
-        const handledata=async()=>{
-            const res1=await fetch('http://127.0.0.1:4000/user');
-            const deviceData=await res1.json();
-            sethandledata1(deviceData.length)
-        }
-       handledata();
-    })
-    
-    
 
     return (
         <div className='dashboard_page'>
@@ -264,7 +251,7 @@ const Dashboard =() => {
                     </div>
                 </div>
                 <div className="lineChart_body">
-                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter} handledata1={handledata1} className="all_graph"  />
+                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter}  className="all_graph"  />
                 </div>
                 <div className='dasboard_bottom display-flex'>
                     <div className='export cursor-pointer'>
