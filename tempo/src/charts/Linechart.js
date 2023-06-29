@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLeftLong, faCircle, faRightLong } from '@fortawesome/free-solid-svg-icons';
 
 
 function Linechart({ fromdate, todate, handlelive, globalfilter }) {
@@ -29,12 +31,12 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
 
   useEffect(() => {
     if (fromdate && todate) {
-      fetchData(fromdate, todate,globalfilter)
+      fetchData(fromdate, todate, globalfilter)
     }
     if (handlelive) {
-      fetchData(fromdate, todate, handlelive,globalfilter)
+      fetchData(fromdate, todate, handlelive, globalfilter)
     }
-  }, [fromdate, todate, handlelive,globalfilter]);
+  }, [fromdate, todate, handlelive, globalfilter]);
 
   const fetchData = async (fromdate, todate, handlelive, globalfilter) => {
     try {
@@ -51,14 +53,14 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
 
       //filters based on data
       var latestData;
-      if (fromdate !== "" && todate !== "") {
+      if (fromdate !== "" && todate !== "" && handlelive === false) {
         latestData = data.filter(values => {
           const itemDate = values.Timestamp;
           if (fromdate <= itemDate && todate >= itemDate) {
             return data;
           }
         })
-      } else if (handlelive === true && fromdate !== "" && todate === "") {
+      } else if (handlelive === true && fromdate !== "") {
         latestData = data.filter(values => {
           const itemDate = values.Timestamp;
           if (fromdate <= itemDate) {
@@ -78,12 +80,12 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
       if (globalfilter !== 'Output Model' && globalfilter !== null) {
         getChartData1(globalfilter, latestData)
       }
-      else{
-        if(handlelive===true && fromdate !== "" && todate === ""){
-          getChartData1(selectedOption2,latestData)
+      else {
+        if (handlelive === true && fromdate !== "" && todate === "") {
+          getChartData1(selectedOption2, latestData)
         }
-        if(fromdate !== "" && todate !== ""){
-          getChartData1(selectedOption2,latestData)
+        if (fromdate !== "" && todate !== "") {
+          getChartData1(selectedOption2, latestData)
         }
       }
     } catch (error) {
@@ -245,7 +247,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
     // return () => {
     //   clearInterval(interval);
     // };
-  }, [globalfilter,handlelive,fromdate,todate]);
+  }, [globalfilter, handlelive, fromdate, todate]);
 
 
   const options = {
@@ -339,17 +341,23 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
           </div>
         ))}
       </div>
-      <div style={{ marginTop: "20px" }}>
-        <button onClick={handlePreviousSlide} disabled={currentPage === 0} className="btn btn-loc" style={{ border: "2px solid black" }}>
-          Previous
-        </button>
-        <button
-          onClick={handleNextSlide}
-          disabled={currentPage === totalPages - 1}
-          className="btn btn-loc" style={{ border: "2px solid black" }}
-        >
-          Next
-        </button>
+      <div className='arrow display-flex'>
+        <div className='arrows display-flex justify-align'  onClick={handlePreviousSlide} disabled={currentPage === 0}  >
+          <div className='leftcircle'>
+            <FontAwesomeIcon icon={faCircle} className="circle-img1" />
+          </div>
+          <div className="leftarrow">
+            <FontAwesomeIcon icon={faLeftLong} className="arrow-img1" />
+          </div>
+        </div>
+        <div className='arrows1 display-flex justify-align' onClick={handleNextSlide} disabled={currentPage === totalPages - 1} >
+          <div className='rightcircle'>
+            <FontAwesomeIcon icon={faCircle} className="circle-img2" />
+          </div>
+          <div className='rightarrow'>
+            <FontAwesomeIcon icon={faRightLong} className="arrow-img2" />
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -358,3 +366,19 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
 
 
 export default Linechart;
+
+
+
+{/* <button 
+        onClick={handlePreviousSlide}
+         disabled={currentPage === 0} 
+         className="btn btn-loc" style={{ border: "2px solid black" }}>
+          Previous
+        </button>
+        <button
+          onClick={handleNextSlide}
+          disabled={currentPage === totalPages - 1}
+          className="btn btn-loc" style={{ border: "2px solid black" }}
+        >
+          Next
+        </button> */}

@@ -54,14 +54,6 @@ const Dashboard =() => {
         const minutes = String(dateTime.getMinutes()).padStart(2, '0');
         return `${year}-${month}-${day} ${hours}:${minutes}:00`;
     };
-    const handleClearfromDate = () => {
-        if (dateTimePickerRef1.current && dateTimePickerRef1.current._flatpickr) {
-          dateTimePickerRef1.current._flatpickr.clear();
-          setfromdate("")
-          sethandlelive(false);
-        }
-    };
-
 
     //to date useeffect
     useEffect(() => {
@@ -79,6 +71,7 @@ const Dashboard =() => {
         if (selectedDates.length > 0) {
             const formattedDateTime = formattoDateTime(selectedDates[0]);
             settodate(formattedDateTime);
+            sethandlelive(false);
         }
     }
     const formattoDateTime = (dateTime) => {
@@ -89,13 +82,7 @@ const Dashboard =() => {
         const minutes = String(dateTime.getMinutes()).padStart(2, '0');
         return `${year}-${month}-${day} ${hours}:${minutes}:00`;
     };
-    const handleClearToDate = () => {
-        if (dateTimePickerRef2.current && dateTimePickerRef2.current._flatpickr) {
-          dateTimePickerRef2.current._flatpickr.clear();
-          settodate("")
-          sethandlelive(false);
-        }
-    };
+  
       
 
     const [isOpen1, setIsOpen1] = useState(false);
@@ -226,14 +213,12 @@ const Dashboard =() => {
                             <fieldset className='display-flex'>
                                 <legend class="legend-top-form">From</legend>
                                 <input type="text" ref={dateTimePickerRef1} class="dropdown-toggle device_filters" onChange={handlefrom} placeholder='yyyy-mm-dd 00:00:00'></input>
-                                <button onClick={handleClearfromDate} style={{height:"40px",marginTop:"10px",marginLeft:"-20px",backgroundColor:"white",border:"1px solid lightgray",borderRadius:"0px 3px 3px 0px"}}>x</button>
                             </fieldset>
                         </div>
                         <div class="dropdown-filter">
                             <fieldset className='display-flex'>
                                 <legend class="legend-top-to">To</legend>
                                 <input type="text" ref={dateTimePickerRef2} class="dropdown-toggle device_filters" onChange={handleto} placeholder='yyyy-mm-dd 00:00:00'></input>
-                                <button style={{height:"40px",marginTop:"10px",marginLeft:"-20px",backgroundColor:"white",border:"1px solid lightgray",borderRadius:"0px 3px 3px 0px"}} onClick={handleClearToDate}>x</button>
                             </fieldset>
                         </div>
                         <div className='dropdown-filter'>
@@ -257,24 +242,7 @@ const Dashboard =() => {
                     <div className='export cursor-pointer'>
                         <div className='exports' data-bs-toggle="modal" data-bs-target="#export_data">Export</div>
                     </div>
-                    <div className='arrow display-flex'>
-                        <div className='arrows display-flex justify-align'>
-                            <div className='leftcircle'>
-                                <FontAwesomeIcon icon={faCircle} className="circle-img1" />
-                            </div>
-                            <div className="leftarrow">
-                                <FontAwesomeIcon icon={faLeftLong} className="arrow-img1" />
-                            </div>
-                        </div>
-                        <div className='arrows1 display-flex justify-align'>
-                            <div className='rightcircle'>
-                                <FontAwesomeIcon icon={faCircle} className="circle-img2" />
-                            </div>
-                            <div className='rightarrow'>
-                                <FontAwesomeIcon icon={faRightLong} className="arrow-img2" />
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
 
             </div>

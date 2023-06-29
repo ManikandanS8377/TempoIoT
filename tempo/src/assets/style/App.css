@@ -997,8 +997,10 @@ input[type="checkbox"] {
 }
 
 .arrow {
-    margin-right: 60px;
+    margin-right: 30px;
     height: fit-content;
+    align-items: end;
+    justify-content: end;
 }
 
 .exports {
@@ -1011,11 +1013,13 @@ input[type="checkbox"] {
 
 .arrows {
     position: relative;
+   
 }
 
 .arrows1 {
     margin-left: 10px;
     position: relative;
+   
 }
 
 .arrow-img1 {
