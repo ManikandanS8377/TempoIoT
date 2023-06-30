@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 // import line chart
 import Linechart from '../charts/Linechart';
 //import icons
@@ -10,9 +10,81 @@ import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+//import 24 hrs time format flatpickr
+import 'flatpickr/dist/flatpickr.min.css';
+import flatpickr from 'flatpickr';
 
-const Dashboard = () => {
+const Dashboard =() => {
+    const dateTimePickerRef1 = useRef(null);
+    const dateTimePickerRef2 = useRef(null);
+
+    const [fromdate, setfromdate] = useState("");
+    const [todate, settodate] = useState("");
+
+
+    //fromdate useeffect
+    useEffect(() => {
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+        const dateTimePicker1 = flatpickr(dateTimePickerRef1.current, {
+            enableTime: true,
+            time_24hr: true,
+            dateFormat: "Y-m-d H:i:S",
+            defaultDate: currentDate,
+            onChange: handlefrom
+        });
+        return () => {
+            dateTimePicker1.destroy();
+        };
+    }, []);
+    const handlefrom = (selectedDates) => {
+        if (selectedDates.length > 0) {
+            const formattedDateTime = formatDateTime(selectedDates[0]);
+            setfromdate(formattedDateTime);
+            if (fromdate === "") {
+                sethandlelive(false);
+            }
+        }
+    };
+    const formatDateTime = (dateTime) => {
+        const year = dateTime.getFullYear();
+        const month = String(dateTime.getMonth() + 1).padStart(2, '0');
+        const day = String(dateTime.getDate()).padStart(2, '0');
+        const hours = String(dateTime.getHours()).padStart(2, '0');
+        const minutes = String(dateTime.getMinutes()).padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}:${minutes}:00`;
+    };
+
+    //to date useeffect
+    useEffect(() => {
+        const dateTimePicker2 = flatpickr(dateTimePickerRef2.current, {
+            enableTime: true,
+            time_24hr: true,
+            dateFormat: "Y-m-d H:i:S",
+            onChange:handleto
+        });
+        return () => {
+            dateTimePicker2.destroy();
+        };
+    }, []);
+    const handleto = (selectedDates) => {
+        if (selectedDates.length > 0) {
+            const formattedDateTime = formattoDateTime(selectedDates[0]);
+            settodate(formattedDateTime);
+            sethandlelive(false);
+        }
+    }
+    const formattoDateTime = (dateTime) => {
+        const year = dateTime.getFullYear();
+        const month = String(dateTime.getMonth() + 1).padStart(2, '0');
+        const day = String(dateTime.getDate()).padStart(2, '0');
+        const hours = String(dateTime.getHours()).padStart(2, '0');
+        const minutes = String(dateTime.getMinutes()).padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}:${minutes}:00`;
+    };
+  
+      
+
     const [isOpen1, setIsOpen1] = useState(false);
     const [isDropdownOpen1_dashboard, setIsDropdownOpen1_dashboard] = useState(false);
     const dropdown1 = () => {
@@ -31,36 +103,24 @@ const Dashboard = () => {
     const [selectedOption1, setSelectedOption1] = useState('Device - Assert');
     const handleOptionClick1 = (option) => {
         setSelectedOption1(option);
-        // setIsOpen1(false);
+        setIsOpen1(false);
     };
-    const [selectedOption2, setselectedOption2] = useState('Output Model');
+    const [globalfilter, setglobalfilter] = useState('Output Model');
     const handleOptionClick2 = (option) => {
-        setselectedOption2(option);
-        // setIsOpen2(false);
+        setglobalfilter(option);
+        setIsOpen2(false);
     }
 
+
     //filters based on date
-    const [fromdate, setfromdate] = useState("");
-    const handlefrom = ((event) => {
-        setfromdate(event.target.value)
-
-    })
-
-    const [todate, settodate] = useState("");
-    const handleto = ((event) => {
-        settodate(event.target.value)
-    })
-
     const [handlelive, sethandlelive] = useState(false);
     const handleliveclick = ((fromdate) => {
         if (fromdate !== "") {
-            sethandlelive(!handlelive)
+            sethandlelive(true)
         } else {
             sethandlelive(false)
         }
     })
-
-
 
     return (
         <div className='dashboard_page'>
@@ -126,7 +186,7 @@ const Dashboard = () => {
                         <div>
                             <button class="device_filters" onClick={dropdown2}>
                                 <div className="device_name">
-                                    {selectedOption2}
+                                    {globalfilter}
                                 </div>
                                 <div className="dropdown_icon">
                                     <FontAwesomeIcon
@@ -139,22 +199,26 @@ const Dashboard = () => {
                                 <div class="dashboard_dropdown-menu dropdown_menu dropdown-colors">
                                     <a className='lists a-a' onClick={() => handleOptionClick2('Temperature')}>Temperature</a>
                                     <hr className='hrs ' ></hr>
-                                    <a className='lists a-a' onClick={() => handleOptionClick2('pressure')}>pressure</a>
+                                    <a className='lists a-a' onClick={() => handleOptionClick2('Pressure')}>pressure</a>
                                     <hr className='hrs ' ></hr>
                                     <a className='lists a-a' onClick={() => handleOptionClick2('Flow')}>Flow</a>
+                                    <hr className='hrs ' ></hr>
+                                    <a className='lists a-a' onClick={() => handleOptionClick2('ALL')}>ALL</a>
+                                    <hr className='hrs ' ></hr>
+                                    <a className='lists a-a' onClick={() => handleOptionClick2('Output Model')}>Output Model</a>
                                 </div>
                             )}
                         </div>
                         <div class="dropdown-filter">
-                            <fieldset>
+                            <fieldset className='display-flex'>
                                 <legend class="legend-top-form">From</legend>
-                                <input type='date' class="dropdown-toggle device_filters" onChange={handlefrom}></input>
+                                <input type="text" ref={dateTimePickerRef1} class="dropdown-toggle device_filters" onChange={handlefrom} placeholder='yyyy-mm-dd 00:00:00'></input>
                             </fieldset>
                         </div>
                         <div class="dropdown-filter">
-                            <fieldset>
+                            <fieldset className='display-flex'>
                                 <legend class="legend-top-to">To</legend>
-                                <input type='date' class="dropdown-toggle device_filters" onChange={handleto}></input>
+                                <input type="text" ref={dateTimePickerRef2} class="dropdown-toggle device_filters" onChange={handleto} placeholder='yyyy-mm-dd 00:00:00'></input>
                             </fieldset>
                         </div>
                         <div className='dropdown-filter'>
@@ -172,30 +236,13 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <div className="lineChart_body">
-                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} className="all_graph" />
+                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter}  className="all_graph"  />
                 </div>
                 <div className='dasboard_bottom display-flex'>
                     <div className='export cursor-pointer'>
                         <div className='exports' data-bs-toggle="modal" data-bs-target="#export_data">Export</div>
                     </div>
-                    <div className='arrow display-flex'>
-                        <div className='arrows display-flex justify-align'>
-                            <div className='leftcircle'>
-                                <FontAwesomeIcon icon={faCircle} className="circle-img1" />
-                            </div>
-                            <div className="leftarrow">
-                                <FontAwesomeIcon icon={faLeftLong} className="arrow-img1" />
-                            </div>
-                        </div>
-                        <div className='arrows1 display-flex justify-align'>
-                            <div className='rightcircle'>
-                                <FontAwesomeIcon icon={faCircle} className="circle-img2" />
-                            </div>
-                            <div className='rightarrow'>
-                                <FontAwesomeIcon icon={faRightLong} className="arrow-img2" />
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
 
             </div>

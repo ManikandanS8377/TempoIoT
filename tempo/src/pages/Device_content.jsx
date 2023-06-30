@@ -1,5 +1,6 @@
 import React from 'react';
 import '../assets/style/App.css';
+import Linechart from '../charts/Linechart';
 
 
 //import icons from fontawesome and react icon kit
@@ -168,12 +169,11 @@ const Device_content = () => {
         })
     }
 
-    const Editactivedata = async (data) => {
-
-        const devicestatus = "1";
-        const body = { devicestatus };
-        await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`, {
-            method: "PUT",
+    const Editactivedata=async(data)=>{
+        const devicestatus="1";
+        const body={devicestatus};
+        await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`,{
+            method:"PUT",
             headers: { "content-Type": "application/json" },
             body: JSON.stringify(body)
         })
