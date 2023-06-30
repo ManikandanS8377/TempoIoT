@@ -18,8 +18,6 @@ const Site_content = () => {
 
 
     // const
-
-  
     const [alldata, setalldata] = useState([]);
     const [activeCount, setactiveCount] = useState(0);
     const [inactiveCount, setinactiveCount] = useState(0);
@@ -115,7 +113,10 @@ const Site_content = () => {
     })
 
 
-
+    const site_edit_page = async (data) => {
+        // alert("hai");
+        navigate(`/edit_site/${data.r_no}`);
+    }
 
 
     // industry
@@ -232,6 +233,8 @@ const Site_content = () => {
 
 
 
+
+
     return (
         <div className='bar'>
             <div className='status-bar'>
@@ -334,7 +337,7 @@ const Site_content = () => {
                             <div className="col-head" key={index}>{data.site_name}</div>
                             <div className="col-head">Industry</div>
                             <div className="col-head" key={index}>{data.site_created_on}</div>
-                          
+
                             <div className="col-head" key={index}>{data.new_site_admin_name}</div>
 
                             <div className="col-head display-flex">
@@ -357,7 +360,7 @@ const Site_content = () => {
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Edit Detials</div>
+                                            <div className='device_content_dropdown display-flex'onClick={() => site_edit_page(data)}>Edit Detials</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
@@ -369,7 +372,7 @@ const Site_content = () => {
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">site Details</div>
+                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Site Details</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
@@ -385,6 +388,40 @@ const Site_content = () => {
                 <div className='device_bottom'>
                     <div className='device_export cursor-pointer'>
                         <div className='device_exports'>Export</div>
+                    </div>
+                </div>
+            </div>
+            {/* Edit Device detials */}
+            <div class="modal fade device_status_action" id="device_status_action" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="device_status_header">
+                            <h5 class="modal-title" id="exampleModalLabel">SITE DETAILS
+                            </h5>
+                            {/* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
+                        </div>
+                        <div class="device_status_body">
+                            <div className="dsa_row1">
+                                <div className="dsa_1st_input">
+                                    <label for="input1">Choose File Type</label>
+                                    <div className="inputs-group">
+                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                        <input type="text" class="form-control-loc" id="input1" />
+                                    </div>
+                                </div>
+                                <div className="dsa_1st_input">
+                                    <label for="input1">Choose File Type</label>
+                                    <div className="inputs-group">
+                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                        <input type="text" class="form-control-loc" id="input1" />
+                                    </div>
+                                </div>
+                            </div>           
+                        </div>
+                        <div class="device_status_footer">
+                            <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
+                            <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>

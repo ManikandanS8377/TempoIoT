@@ -4,13 +4,13 @@ import '../assets/style/App.css';
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
 import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
-import {person} from 'react-icons-kit/iconic/person'
+import { person } from 'react-icons-kit/iconic/person'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {ic_room} from 'react-icons-kit/md/ic_room'
-import {map} from 'react-icons-kit/fa/map'
-import {ic_mail} from 'react-icons-kit/md/ic_mail'
-import {ic_home_work} from 'react-icons-kit/md/ic_home_work'
-import {ic_domain} from 'react-icons-kit/md/ic_domain'
+import { ic_room } from 'react-icons-kit/md/ic_room'
+import { map } from 'react-icons-kit/fa/map'
+import { ic_mail } from 'react-icons-kit/md/ic_mail'
+import { ic_home_work } from 'react-icons-kit/md/ic_home_work'
+import { ic_domain } from 'react-icons-kit/md/ic_domain'
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
 import { RiAddCircleLine } from "react-icons/ri";
 import { faAnglesDown, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
@@ -19,48 +19,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
 import { json, useNavigate } from 'react-router-dom';
-const Add_site = () => {
-const [responseData_state,set_responseData_state] = useState([])
+import { useParams } from 'react-router-dom';
+const Edit_site = () => {
+    const [responseData_state, set_responseData_state] = useState([]) 
 
 
-
-    // data fetching in site db 
-
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const sites = await fetch('http://127.0.0.1:4000/site');
-                const responseData = await sites.json();
-                 set_responseData_state(responseData)
-                console.log(responseData);
-            } catch (error) {
-                // Error handling code removed
-            }
-        };
-
-        fetchData();
-    }, []);
-
-
-    //push input box to the page
-    const handleButtonClick = () => {
-        setShowInput(true);
-    };
-    const [showInput, setShowInput] = useState(false);
-
-
-    // cancel script
-
-    function handleCancel() {
-        setcompanyname("");
-        setsitename("");
-        setsiteadminemail("");
-        setsitelocation("");
-        setsiteaddress("");
-        setnewsiteadminname("");
-    }
-
+   
     // set var
 
     const [company_name, setcompanyname] = useState("");
@@ -69,6 +33,7 @@ const [responseData_state,set_responseData_state] = useState([])
     const [site_location, setsitelocation] = useState("");
     const [site_address, setsiteaddress] = useState("");
     const [new_site_admin_name, setnewsiteadminname] = useState("");
+    const { r_no } = useParams();
 
     //  error
 
@@ -79,6 +44,71 @@ const [responseData_state,set_responseData_state] = useState([])
     const [site_addresserror, setsiteaddresserror] = useState("");
     const [new_site_admin_nameerror, setnewsiteadminnameerror] = useState("");
 
+ //enable services checking state
+ const [isChecked, setisChecked] = useState(true);
+ const [checking, setchecking] = useState("true");
+ // const [all_data, setall_data] = useState();
+ useEffect(() => {
+     const site_edit_data = async () => {
+         try {
+             const response = await fetch(`http://127.0.0.1:4000/edit_site_detials/${r_no}`);
+             const data = await response.json();
+             console.log(data);
+             // setall_data(data);
+             all_data_fun(data);
+         } catch (error) {
+             console.error(error);
+         }
+     };
+     site_edit_data();
+ }, [r_no]);
+
+ const all_data_fun = (data) => {
+     if (data && data.length > 0) {
+         const item = data[0];
+         setcompanyname(item.company_name);
+         setsitename(item.site_name);
+         setsiteadminemail(item.site_admin_email);
+         setsiteaddress(item.site_address);
+     }
+ };
+
+ // data fetching in site db 
+
+
+ useEffect(() => {
+     const fetchData = async () => {
+         try {
+             const sites = await fetch('http://127.0.0.1:4000/site');
+             const responseData = await sites.json();
+             set_responseData_state(responseData)
+             console.log(responseData);
+         } catch (error) {
+             // Error handling code removed
+         }
+     };
+
+     fetchData();
+ }, []);
+
+
+ //push input box to the page
+ const handleButtonClick = () => {
+     setShowInput(true);
+ };
+ const [showInput, setShowInput] = useState(false);
+
+
+ // cancel script
+
+ function handleCancel() {
+     setcompanyname("");
+     setsitename("");
+     setsiteadminemail("");
+     setsitelocation("");
+     setsiteaddress("");
+     setnewsiteadminname("");
+ }
 
 
     function handlecompanyname(event) {
@@ -252,7 +282,7 @@ const [responseData_state,set_responseData_state] = useState([])
                                     </div>
                                     {isOpen4 && (
                                         <div class="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
-                                            <div  className='device_scroll'>
+                                            <div className='device_scroll'>
                                                 <div class='device_dropdown'>
                                                     <div class="div_sts" onClick={handleButtonClick}>
                                                         Add New Admin
@@ -306,4 +336,4 @@ const [responseData_state,set_responseData_state] = useState([])
 
     );
 };
-export default Add_site;
+export default Edit_site;
