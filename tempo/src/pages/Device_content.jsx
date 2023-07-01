@@ -276,10 +276,7 @@ const Device_content = () => {
                                     autoFocus
                                     className='editable_input_box'
                                 />
-                                {/* {isEditing ? (
-                                ) : (
-                                    <div>{text}</div>
-                                )} */}
+                          
                             </div>
                             <div className="upcomming-pages">
                                 of 20 pages

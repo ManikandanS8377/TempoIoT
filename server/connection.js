@@ -18,6 +18,18 @@ app.get('/edit_device_detials/:id', async (req, res) => {
     }
 });
 
+// get data from device management page to device edit page
+app.get('/edit_site_detials/:id', async (req, res) => {
+    try {
+        const {id} = req.params 
+        const datas = await pool.query('SELECT * FROM site_management WHERE r_no = $1', [id]);
+        res.json(datas.rows);
+        console.log(datas)
+    } catch (err) {
+        console.log(err)
+    }
+});
+
 
 //GET REQUEST TO SHOW ALL THE DATA IN REACT PAGE
 app.get("/user", async (req, res) => {
@@ -57,7 +69,7 @@ app.put("/userdata/:id", async (req, res) => {
 app.put("/sitedata/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const { devicestatus } = req.body;
+        const { site_status } = req.body;
         console.log("ih")
         await pool.query('UPDATE site_management SET  site_status=$1 WHERE r_no=$2', [site_status, id])
     } catch (err) {
@@ -173,8 +185,8 @@ app.post("/site", async (req, res) => {
     // console.log(company_name);
     
     // Connection to Site_management
-    const ins3 = 'INSERT INTO site_management(site_status,company_name, site_name, site_admin_email, site_location, site_address, site_admin_name, new_site_admin_name, industry) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
-    const values3 = [site_status,company_name, site_name, site_admin_email, site_location, site_address, site_admin_name, new_site_admin_name, industry];
+    const ins3 = 'INSERT INTO site_management(company_name, site_name, site_admin_email, site_location, site_address, site_admin_name, new_site_admin_name, industry) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+    const values3 = [company_name, site_name, site_admin_email, site_location, site_address, site_admin_name, new_site_admin_name, industry];
 
     // Query to insert into database
     try {
