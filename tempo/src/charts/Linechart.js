@@ -7,11 +7,12 @@ import { faLeftLong, faCircle, faRightLong } from '@fortawesome/free-solid-svg-i
 
 function Linechart({ fromdate, todate, handlelive, globalfilter }) {
   //data handling state
-  const [latestData, setLatestData] = useState([]);
+  const [LatestData, setLatestData] = useState([]);
   const [devicedata, setdevicedata] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedOption2, setSelectedOption2] = useState(Array(100).fill('ALL'));
   const [isOpen2, setIsOpen2] = useState([]);
+
 
 
   const graphsPerFrame = 4;
@@ -28,16 +29,6 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
   });
   const [userData1, setUserData1] = useState(initialData);
 
-
-  useEffect(() => {
-    if (fromdate && todate) {
-      fetchData(fromdate, todate, globalfilter)
-    }
-    if (handlelive) {
-      fetchData(fromdate, todate, handlelive, globalfilter)
-    }
-  }, [fromdate, todate, handlelive, globalfilter]);
-
   const fetchData = async (fromdate, todate, handlelive, globalfilter) => {
     try {
       const response1 = await fetch('http://127.0.0.1:4000/user');
@@ -48,7 +39,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
       const today = new Date();
       const year = today.getFullYear();
       const Month = String(today.getMonth() + 1).padStart(2, '0');
-      const dates = today.getDate()
+      const dates = String(today.getDate()).padStart(2, '0');
       const formatteddate = `${year}-${Month}-${dates}`;
 
       //filters based on data
@@ -80,12 +71,14 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
       if (globalfilter !== 'Output Model' && globalfilter !== null) {
         getChartData1(globalfilter, latestData)
       }
-      else {
-        if (handlelive === true && fromdate !== "" && todate === "") {
-          getChartData1(selectedOption2, latestData)
+      else if (handlelive === true && fromdate !== "") {
+        for (var i = 0; i < devicedata.length; i++) {
+          getChartData1(selectedOption2[i], latestData, i);
         }
-        if (fromdate !== "" && todate !== "") {
-          getChartData1(selectedOption2, latestData)
+      }
+      else if (fromdate !== "" && todate !== "") {
+        for (var i = 0; i < devicedata.length; i++) {
+          getChartData1(selectedOption2[i], latestData, i);
         }
       }
     } catch (error) {
@@ -94,6 +87,8 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
   };
 
   const getChartData1 = (selectedOption2, latestData, index) => {
+    const fillvalue = latestData.map(data => data.Temperature > 25 ? true : false)
+    const fillvalue1 = latestData.map(data => data.Pressure > 40 ? true : false)
     if (index >= 0) {
       setUserData1(prevState => {
         const updatedData = [...prevState];
@@ -103,12 +98,23 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
             labels: latestData.map(data => data.Timestamp.split(" ")[1]),
             datasets: [
               {
+                label: "Line",
+                data: latestData.map(() => 25),
+                borderColor: "red",
+                borderWidth: 1,
+                pointRadius: 0,
+                tension: 0,
+                fill: fillvalue[fillvalue.length - 1],
+                backgroundColor: "rgb(245, 211, 211,0.5)",
+              },
+              {
                 label: "Temperature",
                 data: latestData.map(data => data.Temperature),
                 borderColor: "red",
                 pointBackgroundColor: "white",
                 borderWidth: 1,
-              },
+              }
+
             ],
           };
         } else if (selectedOption2 === "Pressure") {
@@ -117,27 +123,47 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
             labels: latestData.map(data => data.Timestamp.split(" ")[1]),
             datasets: [
               {
+                label: "Line",
+                data: latestData.map(() => 40),
+                borderColor: "red",
+                borderWidth: 1,
+                pointRadius: 0,
+                fill: fillvalue1[fillvalue1.length - 1],
+                backgroundColor: "rgb(245, 211, 211,0.5)",
+                tension: 0,
+              },
+              {
                 label: "Pressure",
                 data: latestData.map(data => data.Pressure),
                 borderColor: "blue",
                 pointBackgroundColor: "white",
                 borderWidth: 1,
-              },
+              }
             ],
           };
         } else if (selectedOption2 === "Flow") {
-
           updatedData[index] = {
             ...updatedData[index],
             labels: latestData.map(data => data.Timestamp.split(" ")[1]),
             datasets: [
+              {
+                label: "Line",
+                data: latestData.map(() => 25),
+                borderColor: "red",
+                borderWidth: 1,
+                pointRadius: 0,
+                fill: fillvalue[fillvalue.length - 1],
+                backgroundColor: "rgb(245, 211, 211,0.5)",
+                tension: 0,
+              },
               {
                 label: "Flow",
                 data: latestData.map(data => data.Temperature),
                 borderColor: "green",
                 pointBackgroundColor: "white",
                 borderWidth: 1,
-              },
+              }
+
             ],
           };
         } else {
@@ -159,6 +185,15 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
                 pointBackgroundColor: "white",
                 borderWidth: 1,
               },
+              {
+                label: "Line",
+                data: latestData.map(() => 40),
+                borderColor: "red",
+                borderWidth: 1,
+                pointRadius: 0,
+                fill: false,
+                tension: 0,
+              }
             ],
           };
         }
@@ -175,12 +210,22 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
               labels: latestData.map(data => data.Timestamp.split(" ")[1]),
               datasets: [
                 {
+                  label: "Line",
+                  data: latestData.map(() => 25),
+                  borderColor: "red",
+                  borderWidth: 1,
+                  pointRadius: 0,
+                  tension: 0,
+                  fill: fillvalue[fillvalue.length - 1],
+                  backgroundColor: "rgb(245, 211, 211,0.5)",
+                },
+                {
                   label: "Temperature",
                   data: latestData.map(data => data.Temperature),
                   borderColor: "red",
                   pointBackgroundColor: "white",
                   borderWidth: 1,
-                },
+                }
               ],
             };
           } else if (selectedOption2 === "Pressure") {
@@ -189,12 +234,22 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
               labels: latestData.map(data => data.Timestamp.split(" ")[1]),
               datasets: [
                 {
+                  label: "Line",
+                  data: latestData.map(() => 40),
+                  borderColor: "red",
+                  borderWidth: 1,
+                  pointRadius: 0,
+                  fill: fillvalue1[fillvalue1.length - 1],
+                  backgroundColor: "rgb(245, 211, 211,0.5)",
+                  tension: 0,
+                },
+                {
                   label: "Pressure",
                   data: latestData.map(data => data.Pressure),
                   borderColor: "blue",
                   pointBackgroundColor: "white",
                   borderWidth: 1,
-                },
+                }
               ],
             };
           } else if (selectedOption2 === "Flow") {
@@ -203,12 +258,22 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
               labels: latestData.map(data => data.Timestamp.split(" ")[1]),
               datasets: [
                 {
-                  label: "Flow",
+                  label: "Line",
+                  data: latestData.map(() => 25),
+                  borderColor: "red",
+                  borderWidth: 1,
+                  pointRadius: 0,
+                  tension: 0,
+                  fill: fillvalue[fillvalue.length - 1],
+                  backgroundColor: "rgb(245, 211, 211,0.5)",
+                },
+                {
+                  label: "Temperature",
                   data: latestData.map(data => data.Temperature),
-                  borderColor: "green",
+                  borderColor: "red",
                   pointBackgroundColor: "white",
                   borderWidth: 1,
-                },
+                }
               ],
             };
           } else {
@@ -230,6 +295,15 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
                   pointBackgroundColor: "white",
                   borderWidth: 1,
                 },
+                {
+                  label: "Line",
+                  data: latestData.map(() => 40),
+                  borderColor: "red",
+                  borderWidth: 1,
+                  pointRadius: 0,
+                  fill: false,
+                  tension: 0,
+                }
               ],
             };
           }
@@ -240,14 +314,20 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
   };
 
   useEffect(() => {
-    fetchData(fromdate, todate, handlelive, globalfilter);
-    // const interval = setInterval(() => {
-    //   fetchData(fromdate, todate, handlelive, globalfilter);
-    // }, 1000);
-    // return () => {
-    //   clearInterval(interval);
-    // };
+    if (globalfilter) {
+      fetchData(fromdate, todate, handlelive, globalfilter);
+    }
+    if (fromdate && todate) {
+      fetchData(fromdate, todate, globalfilter)
+    }
+    if (handlelive) {
+      fetchData(fromdate, todate, handlelive, globalfilter)
+    }
   }, [globalfilter, handlelive, fromdate, todate]);
+
+
+
+
 
 
   const options = {
@@ -287,11 +367,8 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
     const updatedSelectedOption2 = [...selectedOption2];
     updatedSelectedOption2[index] = option;
     setSelectedOption2(updatedSelectedOption2);
-    getChartData1(option, latestData, index);
+    getChartData1(option, LatestData, index);
   };
-
-
-
 
 
   const handlePreviousSlide = () => {
@@ -314,18 +391,18 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
 
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <div className="grid-container">
         {displayedItems.map((item) => (
           <div key={item} className="grid-item">
             <div className="graph-header display-flex" style={{ justifyContent: "center", alignItems: "center" }}>
               <label>Temperature - Assert1</label>
               <div className="dropdown_container2">
-                <button className="dropdown_toggle2 btn btn-loc" style={{ border: "1px solid black" }} onClick={() => dropdown2(item)} >
+                <button className=" btn-loc4" style={{ border: "1px solid black" }} onClick={() => dropdown2(item)} >
                   {selectedOption2[item]}
                 </button>
                 {isOpen2[item] && (
-                  <div className="dropdown_menu2 dashboard_dropdown-menu dropdown-colors">
+                  <div className="dropdown_menu3 dashboard_dropdown-menu dropdown-colors">
                     <a className="a-a" href="#Temperature" onClick={() => handleDropdown2('Temperature', item)}>Temperature</a>
                     <hr className='hrs'></hr>
                     <a className="a-a" href="#Pressure" onClick={() => handleDropdown2('Pressure', item)}>Pressure</a>
@@ -337,25 +414,30 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
                 )}
               </div>
             </div>
-            <Line data={userData1[item]} options={options} />
+            <div className="graph-size"><Line data={userData1[item]} options={options} /></div>
           </div>
         ))}
       </div>
-      <div className='arrow display-flex'>
-        <div className='arrows display-flex justify-align'  onClick={handlePreviousSlide} disabled={currentPage === 0}  >
-          <div className='leftcircle'>
-            <FontAwesomeIcon icon={faCircle} className="circle-img1" />
-          </div>
-          <div className="leftarrow">
-            <FontAwesomeIcon icon={faLeftLong} className="arrow-img1" />
-          </div>
+      <div className='dashboard_bottom display-flex'>
+        <div className='export cursor-pointer'>
+          <div className='exports' data-bs-toggle="modal" data-bs-target="#export_data">Export</div>
         </div>
-        <div className='arrows1 display-flex justify-align' onClick={handleNextSlide} disabled={currentPage === totalPages - 1} >
-          <div className='rightcircle'>
-            <FontAwesomeIcon icon={faCircle} className="circle-img2" />
+        <div className='arrow display-flex'>
+          <div className='arrows display-flex justify-align' onClick={currentPage !== 0 ? handlePreviousSlide : null} >
+            <div className='leftcircle'>
+              <FontAwesomeIcon icon={faCircle} className="circle-img1" />
+            </div>
+            <div className={`leftarrow ${currentPage !== 0 ? 'arrow_active' : 'arrow_inactive'}`}>
+              <FontAwesomeIcon icon={faLeftLong} />
+            </div>
           </div>
-          <div className='rightarrow'>
-            <FontAwesomeIcon icon={faRightLong} className="arrow-img2" />
+          <div className='arrows1 display-flex justify-align' onClick={currentPage !== totalPages - 1 ? handleNextSlide : null} >
+            <div className='rightcircle'>
+              <FontAwesomeIcon icon={faCircle} className="circle-img2" />
+            </div>
+            <div className={`rightarrow ${currentPage !== totalPages - 1 ? 'arrow_active' : 'arrow_inactive'}`}>
+              <FontAwesomeIcon icon={faRightLong} />
+            </div>
           </div>
         </div>
       </div>
@@ -363,22 +445,5 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
   )
 }
 
-
-
 export default Linechart;
 
-
-
-{/* <button 
-        onClick={handlePreviousSlide}
-         disabled={currentPage === 0} 
-         className="btn btn-loc" style={{ border: "2px solid black" }}>
-          Previous
-        </button>
-        <button
-          onClick={handleNextSlide}
-          disabled={currentPage === totalPages - 1}
-          className="btn btn-loc" style={{ border: "2px solid black" }}
-        >
-          Next
-        </button> */}

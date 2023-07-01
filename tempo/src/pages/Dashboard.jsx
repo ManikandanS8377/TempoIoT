@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import Linechart from '../charts/Linechart';
 //import icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLeftLong, faCircle, faRightLong } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from 'react-icons-kit';
 import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
 //import bootstrap
@@ -41,9 +40,6 @@ const Dashboard =() => {
         if (selectedDates.length > 0) {
             const formattedDateTime = formatDateTime(selectedDates[0]);
             setfromdate(formattedDateTime);
-            if (fromdate === "") {
-                sethandlelive(false);
-            }
         }
     };
     const formatDateTime = (dateTime) => {
@@ -180,9 +176,6 @@ const Dashboard =() => {
                                 </div>
                             )}
                         </div>
-
-
-
                         <div>
                             <button class="device_filters" onClick={dropdown2}>
                                 <div className="device_name">
@@ -232,19 +225,11 @@ const Dashboard =() => {
                                 <Icon icon={ic_label_important} className='riarrow2' size={35} />
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div className="lineChart_body">
-                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter}  className="all_graph"  />
+                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter}    className="all_graph"  />
                 </div>
-                <div className='dasboard_bottom display-flex'>
-                    <div className='export cursor-pointer'>
-                        <div className='exports' data-bs-toggle="modal" data-bs-target="#export_data">Export</div>
-                    </div>
-                   
-                </div>
-
             </div>
         </div>
     );
