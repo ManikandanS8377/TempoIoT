@@ -219,7 +219,6 @@ const Device_content = () => {
     };
     const [isless_than_10_active, setisless_than_10_active] = useState(false)
     const [isgreater_than_10_inactive, setisgreater_than_10_inactive] = useState(false)
-    console.log(inactiveCount);
     useEffect(() => {
         if (activeCount < 10) {
             setisless_than_10_active(true)

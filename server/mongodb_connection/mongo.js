@@ -1,12 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const MongoClient=require('mongodb').MongoClient
 
 const app = express();
 const port = 5000;
 app.use(cors());
 
-const url = 'mongodb://127.0.0.1:27017/userdata';
+const url = 'mongodb://127.0.0.1:27017/userdata?replicaSet=testreplicaset';
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {

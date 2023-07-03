@@ -3,6 +3,7 @@ import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLeftLong, faCircle, faRightLong } from '@fortawesome/free-solid-svg-icons';
+import { io } from "socket.io-client";
 
 
 function Linechart({ fromdate, todate, handlelive, globalfilter }) {
@@ -12,9 +13,16 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedOption2, setSelectedOption2] = useState(Array(100).fill('ALL'));
   const [isOpen2, setIsOpen2] = useState([]);
-
-
-
+  const socket = io('http://localhost:5000/');
+  socket.on('message', (message) => {
+    console.log(message)
+    setLatestData(message)
+    fetchData(fromdate, todate, handlelive, globalfilter);
+  });
+  let data=[];
+  
+  
+  
   const graphsPerFrame = 4;
   const totalPages = Math.ceil(devicedata.length / graphsPerFrame);
 
@@ -29,19 +37,28 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
   });
   const [userData1, setUserData1] = useState(initialData);
 
+  // useEffect(() => {
+  //   if (fromdate && todate) {
+  //     fetchData(fromdate, todate, globalfilter)
+  //   }
+  //   if (handlelive) {
+  //     fetchData(fromdate, todate, handlelive, globalfilter)
+  //   }
+  // }, [fromdate, todate, handlelive, globalfilter]);
+  
   const fetchData = async (fromdate, todate, handlelive, globalfilter) => {
     try {
       const response1 = await fetch('http://127.0.0.1:4000/user');
       const data1 = await response1.json();
       setdevicedata(data1)
-      const response = await fetch(`http://localhost:5000/api/sendData`);
-      const data = await response.json();
       const today = new Date();
       const year = today.getFullYear();
       const Month = String(today.getMonth() + 1).padStart(2, '0');
       const dates = String(today.getDate()).padStart(2, '0');
       const formatteddate = `${year}-${Month}-${dates}`;
-
+      
+      
+      console.log(LatestData)
       //filters based on data
       var latestData;
       if (fromdate !== "" && todate !== "" && handlelive === false) {
@@ -68,7 +85,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
         })
       }
       setLatestData(latestData);
-      if (globalfilter !== 'Output Model' && globalfilter !== null) {
+      if (globalfilter !== 'Output Model' && globalfilter !== null ) {
         getChartData1(globalfilter, latestData)
       }
       else if (handlelive === true && fromdate !== "") {
@@ -77,6 +94,11 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
         }
       }
       else if (fromdate !== "" && todate !== "") {
+        for (var i = 0; i < devicedata.length; i++) {
+          getChartData1(selectedOption2[i], latestData, i);
+        }
+      }
+      else{
         for (var i = 0; i < devicedata.length; i++) {
           getChartData1(selectedOption2[i], latestData, i);
         }
@@ -114,7 +136,6 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
                 pointBackgroundColor: "white",
                 borderWidth: 1,
               }
-
             ],
           };
         } else if (selectedOption2 === "Pressure") {
@@ -174,14 +195,14 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
               {
                 label: "Temperature",
                 data: latestData.map(data => data.Temperature),
-                borderColor: "yellow",
+                borderColor: "red",
                 pointBackgroundColor: "white",
                 borderWidth: 1,
               },
               {
                 label: "Pressure",
                 data: latestData.map(data => data.Pressure),
-                borderColor: "green",
+                borderColor: "blue",
                 pointBackgroundColor: "white",
                 borderWidth: 1,
               },
@@ -270,7 +291,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
                 {
                   label: "Temperature",
                   data: latestData.map(data => data.Temperature),
-                  borderColor: "red",
+                  borderColor: "green",
                   pointBackgroundColor: "white",
                   borderWidth: 1,
                 }
@@ -291,7 +312,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
                 {
                   label: "Pressure",
                   data: latestData.map(data => data.Pressure),
-                  borderColor: "green",
+                  borderColor: "blue",
                   pointBackgroundColor: "white",
                   borderWidth: 1,
                 },
@@ -313,21 +334,18 @@ function Linechart({ fromdate, todate, handlelive, globalfilter }) {
     }
   };
 
+ 
   useEffect(() => {
-    if (globalfilter) {
-      fetchData(fromdate, todate, handlelive, globalfilter);
-    }
     if (fromdate && todate) {
       fetchData(fromdate, todate, globalfilter)
     }
     if (handlelive) {
       fetchData(fromdate, todate, handlelive, globalfilter)
     }
+    if(globalfilter){
+      fetchData(fromdate, todate, handlelive, globalfilter)
+    }
   }, [globalfilter, handlelive, fromdate, todate]);
-
-
-
-
 
 
   const options = {
