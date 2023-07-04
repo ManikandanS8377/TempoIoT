@@ -85,28 +85,31 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
         })
       }
       else {
+        console.log(handlelive)
         latestData = message.filter(values => {
           const itemDate = values.Timestamp.split(" ")[0];
           if (itemDate === formatteddate) {
+            console.log(formatteddate)
             return message;
           }
         })
       }
       setLatestData(latestData);
-      // if (globalfilter !== 'Output Model' && globalfilter !== null) {
-      //   getChartData1(globalfilter, latestData)
+      // console.log(latestData);
+      if (globalfilter !== 'Output Model' && globalfilter !== null ) {
+        getChartData1(globalfilter, latestData)
+      }
+      // else if (handlelive === true && fromdate !== "") {
+      //   for (var i = 0; i < devicedata.length; i++) {
+      //     getChartData1(selectedOption2[i], latestData, i);
+      //   }
       // }
-      if (handlelive === true && fromdate !== "") {
-        for (var i = 0; i < devicedata.length; i++) {
-          getChartData1(selectedOption2[i], latestData, i);
-        }
-      }
-      else if (fromdate !== "" && todate !== "") {
-        for (var i = 0; i < devicedata.length; i++) {
-          getChartData1(selectedOption2[i], latestData, i);
-        }
-      }
-      else {
+      // else if (fromdate !== "" && todate !== "") {
+      //   for (var i = 0; i < devicedata.length; i++) {
+      //     getChartData1(selectedOption2[i], latestData, i);
+      //   }
+      // }
+      else{
         for (var i = 0; i < devicedata.length; i++) {
           getChartData1(selectedOption2[i], latestData, i);
         }

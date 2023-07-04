@@ -173,11 +173,11 @@ const Dashboard = () => {
                             </button>
                             {isOpen1 && (
                                 <div class="dashboard_dropdown-menu dropdown_menu dropdown-colors">
-                                    <a className="a-a" ><input type='checkbox' className='checks' onClick={() => handleOptionClick1('ALL')}></input>ALL</a>
+                                    <a className="a-a" href='#ALL' ><input type='checkbox' className='checks' onClick={() => handleOptionClick1('ALL')}></input>ALL</a>
                                     <hr className='hrs'></hr>
-                                    <a className="a-a" ><input type='checkbox' className='checks' onClick={() => handleOptionClick1('Device 1-Assert 1')}></input>Device 1-Assert 1</a>
+                                    <a className="a-a" href='#Device 1-Assert 1'><input type='checkbox' className='checks' onClick={() => handleOptionClick1('Device 1-Assert 1')}></input>Device 1-Assert 1</a>
                                     <hr className='hrs'></hr>
-                                    <a className="a-a" ><input type='checkbox' className='checks' onClick={() => handleOptionClick1('Device 2-Assert 2')}></input>Device 2-Assert 2</a>
+                                    <a className="a-a" href='#Device 2-Assert 2'><input type='checkbox' className='checks' onClick={() => handleOptionClick1('Device 2-Assert 2')}></input>Device 2-Assert 2</a>
                                 </div>
                             )}
                         </div>
@@ -195,15 +195,15 @@ const Dashboard = () => {
                             </button>
                             {isOpen2 && (
                                 <div class="dashboard_dropdown-menu dropdown_menu dropdown-colors">
-                                    <a className='lists a-a' onClick={() => handleOptionClick2('Temperature')}>Temperature</a>
+                                    <a className='lists a-a' href='#Temperature' onClick={() => handleOptionClick2('Temperature')}>Temperature</a>
                                     <hr className='hrs ' ></hr>
-                                    <a className='lists a-a' onClick={() => handleOptionClick2('Pressure')}>pressure</a>
+                                    <a className='lists a-a' href='#Pressure' onClick={() => handleOptionClick2('Pressure')}>pressure</a>
                                     <hr className='hrs ' ></hr>
-                                    <a className='lists a-a' onClick={() => handleOptionClick2('Flow')}>Flow</a>
+                                    <a className='lists a-a' href='#Temperature' onClick={() => handleOptionClick2('Flow')}>Flow</a>
                                     <hr className='hrs ' ></hr>
-                                    <a className='lists a-a' onClick={() => handleOptionClick2('ALL')}>ALL</a>
+                                    <a className='lists a-a' href='#Flow' onClick={() => handleOptionClick2('ALL')}>ALL</a>
                                     <hr className='hrs ' ></hr>
-                                    <a className='lists a-a' onClick={() => handleOptionClick2('Output Model')}>Output Model</a>
+                                    <a className='lists a-a' href='#Output Model' onClick={() => handleOptionClick2('Output Model')}>Output Model</a>
                                 </div>
                             )}
                         </div>
@@ -232,6 +232,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
+                    {handlefrom}
                 <div className="lineChart_body">
                     <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter} socket={socket} data={data} className="all_graph" />
                 </div>
