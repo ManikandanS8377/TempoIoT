@@ -24,10 +24,6 @@ const Dashboard =() => {
     const socket = io('http://localhost:5000/');
     //fromdate useeffect
     useEffect(() => {
-        // socket.on('message',(msg)=>{
-        //     console.log("Message received:", msg);
-
-        // })
         const currentDate = new Date();
         currentDate.setHours(0, 0, 0, 0);
         const dateTimePicker1 = flatpickr(dateTimePickerRef1.current, {
@@ -230,6 +226,7 @@ const Dashboard =() => {
                         </div>
                     </div>
                 </div>
+                    {handlefrom}
                 <div className="lineChart_body">
                     <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter}  socket={socket}  className="all_graph"  />
                 </div>
