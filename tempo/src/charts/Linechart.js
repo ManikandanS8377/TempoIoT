@@ -7,6 +7,7 @@ import { faLeftLong, faCircle, faRightLong } from '@fortawesome/free-solid-svg-i
 
 
 function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
+function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
   //data handling state
   const [LatestData, setLatestData] = useState([]);
   const [devicedata, setdevicedata] = useState([]);
@@ -14,7 +15,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
   const [selectedOption2, setSelectedOption2] = useState(Array(100).fill('ALL'));
   const [isOpen2, setIsOpen2] = useState([]);
 
-  let data = [];
+
   const graphsPerFrame = 4;
   const totalPages = Math.ceil(devicedata.length / graphsPerFrame);
 
@@ -29,30 +30,36 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
   });
   const [userData1, setUserData1] = useState(initialData);
 
+ 
   useEffect(() => {
-    socket.on('message', (message) => {
+    const handleDataUpdate = (message) => {
       fetchData(fromdate, todate, handlelive, globalfilter, message);
-      // console.log(fromdate)
-    });
+    };
+    socket.on('message', handleDataUpdate);
+
     if (fromdate && todate) {
-      fetchData(fromdate, todate, globalfilter)
-      console.log("msg1")
+      console.log(LatestData)
+      fetchData(fromdate, todate);
     }
+
     if (handlelive) {
-      fetchData(fromdate, todate, handlelive, globalfilter)
-      console.log("msg2")
+      fetchData(fromdate, todate, handlelive);
+    }
+    if(globalfilter){
+      for(var i=0;i<devicedata.length;i++){
+        getChartData1(globalfilter,LatestData,i)
+      }
     }
   }, [fromdate, todate, handlelive, globalfilter])
 
   // useEffect(() => {
-
+    
   // }, [fromdate, todate, handlelive, globalfilter]);
 
 
 
 
   const fetchData = async (fromdate, todate, handlelive, globalfilter, message) => {
-    // console.log(fromdate, todate, handlelive, globalfilter,message);
     try {
       const response1 = await fetch('http://127.0.0.1:4000/user');
       const data1 = await response1.json();
@@ -62,6 +69,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
       const Month = String(today.getMonth() + 1).padStart(2, '0');
       const dates = String(today.getDate()).padStart(2, '0');
       const formatteddate = `${year}-${Month}-${dates}`;
+
 
       var latestData;
       if (fromdate !== "" && todate !== "" && handlelive === false) {
@@ -339,6 +347,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
       }
     }
   };
+
 
 
 
