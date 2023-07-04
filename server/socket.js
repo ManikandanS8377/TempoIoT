@@ -20,14 +20,13 @@ mongoose.connect(mongodbUrl, { useNewUrlParser: true, useUnifiedTopology: true }
         mycollections.find({}).toArray()
           .then((data) => {
             socket.emit('message', data);
-            console.log("Emitted initial data");
           })
           .catch((error) => {
             console.log('Error retrieving initial data:', error);
           });
       
       socket.on('disconnect', () => {
-        console.log('A user disconnected');
+        
       });
     });
 

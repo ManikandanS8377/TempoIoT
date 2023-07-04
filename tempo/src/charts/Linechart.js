@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from "react";
+
+//import Line chart
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
+
+//import font awesome icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLeftLong, faCircle, faRightLong } from '@fortawesome/free-solid-svg-icons';
 
 
 
-function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalfilterstate,globalfilterupdate }) {
+function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalfilterstate, globalfilterupdate }) {
   //data handling state
   const [LatestData, setLatestData] = useState([]);
   const [devicedata, setdevicedata] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [selectedOption2, setSelectedOption2] = useState(Array(100).fill('ALL'));
+  const [selectedOption2, setSelectedOption2] = useState([]);
   const [isOpen2, setIsOpen2] = useState([]);
-  
-
 
   const graphsPerFrame = 4;
   const totalPages = Math.ceil(devicedata.length / graphsPerFrame);
-
+ 
+  //declare state for graph
   const initialData = Array(100).fill({
     labels: [],
     datasets: [
@@ -32,6 +35,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
 
 
   useEffect(() => {
+
     const handleDataUpdate = (message) => {
       fetchData(fromdate, todate, handlelive, globalfilter, message);
     };
@@ -50,7 +54,11 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
     };
   }, [fromdate, todate, handlelive, socket, LatestData]);
 
-
+  const today = new Date();
+  const year = today.getFullYear();
+  const Month = String(today.getMonth() + 1).padStart(2, '0');
+  const dates = String(today.getDate()).padStart(2, '0');
+  const formatteddate = `${year}-${Month}-${dates}`;
 
 
 
@@ -59,11 +67,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
       const response1 = await fetch('http://127.0.0.1:4000/user');
       const data1 = await response1.json();
       setdevicedata(data1)
-      const today = new Date();
-      const year = today.getFullYear();
-      const Month = String(today.getMonth() + 1).padStart(2, '0');
-      const dates = String(today.getDate()).padStart(2, '0');
-      const formatteddate = `${year}-${Month}-${dates}`;
+      
       var latestData;
       if (fromdate !== "" && todate !== "" && handlelive === false) {
         latestData = message.filter(values => {
@@ -90,7 +94,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
       }
       setLatestData(latestData);
 
-      if (globalfilter !== 'Output Model' && globalfilter !== null && globalfilterstate===true) {
+      if (globalfilter !== 'Output Model' && globalfilter !== null && globalfilterstate === true) {
         for (var i = 0; i < devicedata.length; i++) {
           getChartData1(globalfilter, latestData, i);
         }
@@ -106,116 +110,116 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   };
 
   const getChartData1 = (selectedOption2, latestData, index) => {
-      setUserData1(prevState => {
-        const updatedData = [...prevState];
-        if (selectedOption2 === "Temperature") {
-          updatedData[index] = {
-            ...updatedData[index],
-            labels: latestData.map(data => data.Timestamp.split(" ")[1]),
-            datasets: [
-              {
-                label: "Line",
-                data: latestData.map(() => 25),
-                borderColor: "red",
-                borderWidth: 1,
-                pointRadius: 0,
-                tension: 0,
-                fill: true,
-                backgroundColor: "rgb(245, 211, 211,0.5)",
-              },
-              {
-                label: "Temperature",
-                data: latestData.map(data => data.Temperature),
-                borderColor: "red",
-                pointBackgroundColor: "white",
-                borderWidth: 1,
-              }
-            ],
-          };
-        } else if (selectedOption2 === "Pressure") {
-          updatedData[index] = {
-            ...updatedData[index],
-            labels: latestData.map(data => data.Timestamp.split(" ")[1]),
-            datasets: [
-              {
-                label: "Line",
-                data: latestData.map(() => 25),
-                borderColor: "red",
-                borderWidth: 1,
-                pointRadius: 0,
-                fill: true,
-                backgroundColor: "rgb(245, 211, 211,0.5)",
-                tension: 0,
-              },
-              {
-                label: "Pressure",
-                data: latestData.map(data => data.Pressure),
-                borderColor: "blue",
-                pointBackgroundColor: "white",
-                borderWidth: 1,
-              }
-            ],
-          };
-        } else if (selectedOption2 === "Flow") {
-          updatedData[index] = {
-            ...updatedData[index],
-            labels: latestData.map(data => data.Timestamp.split(" ")[1]),
-            datasets: [
-              {
-                label: "Line",
-                data: latestData.map(() => 25),
-                borderColor: "red",
-                borderWidth: 1,
-                pointRadius: 0,
-                fill: true,
-                backgroundColor: "rgb(245, 211, 211,0.5)",
-                tension: 0,
-              },
-              {
-                label: "Flow",
-                data: latestData.map(data => data.Temperature),
-                borderColor: "green",
-                pointBackgroundColor: "white",
-                borderWidth: 1,
-              }
+    setUserData1(prevState => {
+      const updatedData = [...prevState];
+      if (selectedOption2 === "Temperature") {
+        updatedData[index] = {
+          ...updatedData[index],
+          labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+          datasets: [
+            {
+              label: "Line",
+              data: latestData.map(() => 25),
+              borderColor: "red",
+              borderWidth: 1,
+              pointRadius: 0,
+              tension: 0,
+              fill: true,
+              backgroundColor: "rgb(245, 211, 211,0.5)",
+            },
+            {
+              label: "Temperature",
+              data: latestData.map(data => data.Temperature),
+              borderColor: "red",
+              pointBackgroundColor: "white",
+              borderWidth: 1,
+            }
+          ],
+        };
+      } else if (selectedOption2 === "Pressure") {
+        updatedData[index] = {
+          ...updatedData[index],
+          labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+          datasets: [
+            {
+              label: "Line",
+              data: latestData.map(() => 25),
+              borderColor: "red",
+              borderWidth: 1,
+              pointRadius: 0,
+              fill: true,
+              backgroundColor: "rgb(245, 211, 211,0.5)",
+              tension: 0,
+            },
+            {
+              label: "Pressure",
+              data: latestData.map(data => data.Pressure),
+              borderColor: "blue",
+              pointBackgroundColor: "white",
+              borderWidth: 1,
+            }
+          ],
+        };
+      } else if (selectedOption2 === "Flow") {
+        updatedData[index] = {
+          ...updatedData[index],
+          labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+          datasets: [
+            {
+              label: "Line",
+              data: latestData.map(() => 25),
+              borderColor: "red",
+              borderWidth: 1,
+              pointRadius: 0,
+              fill: true,
+              backgroundColor: "rgb(245, 211, 211,0.5)",
+              tension: 0,
+            },
+            {
+              label: "Flow",
+              data: latestData.map(data => data.Temperature),
+              borderColor: "green",
+              pointBackgroundColor: "white",
+              borderWidth: 1,
+            }
 
-            ],
-          };
-        } else {
-          updatedData[index] = {
-            ...updatedData[index],
-            labels: latestData.map(data => data.Timestamp.split(" ")[1]),
-            datasets: [
-              {
-                label: "Line",
-                data: latestData.map(() => 25),
-                borderColor: "red",
-                borderWidth: 1,
-                pointRadius: 0,
-                fill: true,
-                backgroundColor: "rgb(245, 211, 211,0.5)",
-                tension: 0,
-              },
-              {
-                label: "Temperature",
-                data: latestData.map(data => data.Temperature),
-                borderColor: "red",
-                pointBackgroundColor: "white",
-                borderWidth: 1,
-              },
-              {
-                label: "Pressure",
-                data: latestData.map(data => data.Pressure),
-                borderColor: "blue",
-                pointBackgroundColor: "white",
-                borderWidth: 1,
-              }
-              
-            ],
-          };
-        }
-        return updatedData;
-      });
+          ],
+        };
+      } else {
+        updatedData[index] = {
+          ...updatedData[index],
+          labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+          datasets: [
+            {
+              label: "Line",
+              data: latestData.map(() => 25),
+              borderColor: "red",
+              borderWidth: 1,
+              pointRadius: 0,
+              fill: true,
+              backgroundColor: "rgb(245, 211, 211,0.5)",
+              tension: 0,
+            },
+            {
+              label: "Temperature",
+              data: latestData.map(data => data.Temperature),
+              borderColor: "red",
+              pointBackgroundColor: "white",
+              borderWidth: 1,
+            },
+            {
+              label: "Pressure",
+              data: latestData.map(data => data.Pressure),
+              borderColor: "blue",
+              pointBackgroundColor: "white",
+              borderWidth: 1,
+            }
+
+          ],
+        };
+      }
+      return updatedData;
+    });
   };
 
 
@@ -292,7 +296,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
               <label>Temperature - Assert1</label>
               <div className="dropdown_container2">
                 <button className=" btn-loc4" style={{ border: "1px solid black" }} onClick={() => dropdown2(item)} >
-                  {selectedOption2[item]}
+                  {selectedOption2[item] || 'ALL'}
                 </button>
                 {isOpen2[item] && (
                   <div className="dropdown_menu3 dashboard_dropdown-menu dropdown-colors">
