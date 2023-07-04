@@ -158,9 +158,9 @@ const Edit_site = () => {
                 site_address,
                 new_site_admin_name,
             });
-
-            const url = `http://127.0.0.1:4000/site?${queryParams}`;
-
+    
+            const url = `http://127.0.0.1:4000/edit_site_detail?${queryParams}`;
+    
             await fetch(url, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -168,7 +168,8 @@ const Edit_site = () => {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
+    
 
 
 
@@ -346,4 +347,4 @@ const Edit_site = () => {
 
     );
 };
-export default Edit_site;
+export default Edit_site; 

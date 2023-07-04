@@ -29,6 +29,16 @@ app.get('/edit_site_detials/:id', async (req, res) => {
         console.log(err)
     }
 });
+app.get('/edit_site_detial/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const datas = await pool.query('UPDATE site_management SET column_name = $1 WHERE r_no = $2', [new_value, id]);
+        res.json(datas.rows);
+        console.log(datas);
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 
 //GET REQUEST TO SHOW ALL THE DATA IN REACT PAGE
