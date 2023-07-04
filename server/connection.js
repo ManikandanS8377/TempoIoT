@@ -141,11 +141,11 @@ app.post("/user", async (req, res) => {
 
 
         //connection to device_management
-        const ins = 'INSERT INTO device_management(device_status,device_name, device_mac_address, device_firmware_version,device_model,is_service_enabled)VALUES($1,$2,$3,$4,$5);'
-        const values = [device_status, device_name, device_mac_address, device_firmware_version, device_model, is_service_enabled]
+        const ins = 'INSERT INTO device_management(device_name, device_mac_address, device_firmware_version,device_model,is_service_enabled)VALUES($1,$2,$3,$4,$5);'
+        const values = [device_name, device_mac_address, device_firmware_version, device_model, is_service_enabled]
 
         //connection to network_protocol
-        const ins1 = 'INSERT INTO network_protocol(client_id,username,password,host) VALUES ($1,$2,$3,$3)';
+        const ins1 = 'INSERT INTO network_protocol(client_id,username,password,host) VALUES ($1,$2,$3,$4)';
         const values1 = [client_id, user_name, passowrd, mqtt_host];
 
         //connection to device_data_collection

@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import Linechart from '../charts/Linechart';
 //import icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLeftLong, faCircle, faRightLong } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from 'react-icons-kit';
 import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
 //import bootstrap
@@ -13,15 +12,27 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 //import 24 hrs time format flatpickr
 import 'flatpickr/dist/flatpickr.min.css';
 import flatpickr from 'flatpickr';
+import { io } from "socket.io-client";
 
-const Dashboard =() => {
+const Dashboard = () => {
     const dateTimePickerRef1 = useRef(null);
     const dateTimePickerRef2 = useRef(null);
+    const [globalfilterstate,setglobalfilterstate]=useState(true)
 
-    const [fromdate, setfromdate] = useState("");
+    const globalfilterupdate=(newState)=>{
+        setglobalfilterstate(newState);
+    }
+
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day} 00:00:00`;
+    const [fromdate, setfromdate] = useState(formattedDate);
     const [todate, settodate] = useState("");
+    
 
-
+    const socket = io('http://localhost:5000/');
     //fromdate useeffect
     useEffect(() => {
         const currentDate = new Date();
@@ -41,9 +52,6 @@ const Dashboard =() => {
         if (selectedDates.length > 0) {
             const formattedDateTime = formatDateTime(selectedDates[0]);
             setfromdate(formattedDateTime);
-            if (fromdate === "") {
-                sethandlelive(false);
-            }
         }
     };
     const formatDateTime = (dateTime) => {
@@ -61,7 +69,7 @@ const Dashboard =() => {
             enableTime: true,
             time_24hr: true,
             dateFormat: "Y-m-d H:i:S",
-            onChange:handleto
+            onChange: handleto
         });
         return () => {
             dateTimePicker2.destroy();
@@ -82,8 +90,8 @@ const Dashboard =() => {
         const minutes = String(dateTime.getMinutes()).padStart(2, '0');
         return `${year}-${month}-${day} ${hours}:${minutes}:00`;
     };
-  
-      
+
+
 
     const [isOpen1, setIsOpen1] = useState(false);
     const [isDropdownOpen1_dashboard, setIsDropdownOpen1_dashboard] = useState(false);
@@ -107,11 +115,10 @@ const Dashboard =() => {
     };
     const [globalfilter, setglobalfilter] = useState('Output Model');
     const handleOptionClick2 = (option) => {
+        setglobalfilterstate(true)
         setglobalfilter(option);
         setIsOpen2(false);
     }
-
-
     //filters based on date
     const [handlelive, sethandlelive] = useState(false);
     const handleliveclick = ((fromdate) => {
@@ -172,17 +179,14 @@ const Dashboard =() => {
                             </button>
                             {isOpen1 && (
                                 <div class="dashboard_dropdown-menu dropdown_menu dropdown-colors">
-                                    <a className="a-a" ><input type='checkbox' className='checks' onClick={() => handleOptionClick1('ALL')}></input>ALL</a>
+                                    <a className="a-a" href='#ALL' ><input type='checkbox' className='checks' onClick={() => handleOptionClick1('ALL')}></input>ALL</a>
                                     <hr className='hrs'></hr>
-                                    <a className="a-a" ><input type='checkbox' className='checks' onClick={() => handleOptionClick1('Device 1-Assert 1')}></input>Device 1-Assert 1</a>
+                                    <a className="a-a" href='#Device 1-Assert 1'><input type='checkbox' className='checks' onClick={() => handleOptionClick1('Device 1-Assert 1')}></input>Device 1-Assert 1</a>
                                     <hr className='hrs'></hr>
-                                    <a className="a-a" ><input type='checkbox' className='checks' onClick={() => handleOptionClick1('Device 2-Assert 2')}></input>Device 2-Assert 2</a>
+                                    <a className="a-a" href='#Device 2-Assert 2'><input type='checkbox' className='checks' onClick={() => handleOptionClick1('Device 2-Assert 2')}></input>Device 2-Assert 2</a>
                                 </div>
                             )}
                         </div>
-
-
-
                         <div>
                             <button class="device_filters" onClick={dropdown2}>
                                 <div className="device_name">
@@ -197,15 +201,15 @@ const Dashboard =() => {
                             </button>
                             {isOpen2 && (
                                 <div class="dashboard_dropdown-menu dropdown_menu dropdown-colors">
-                                    <a className='lists a-a' onClick={() => handleOptionClick2('Temperature')}>Temperature</a>
+                                    <a className='lists a-a' href='#Temperature' onClick={() => handleOptionClick2('Temperature')}>Temperature</a>
                                     <hr className='hrs ' ></hr>
-                                    <a className='lists a-a' onClick={() => handleOptionClick2('Pressure')}>pressure</a>
+                                    <a className='lists a-a' href='#Pressure' onClick={() => handleOptionClick2('Pressure')}>pressure</a>
                                     <hr className='hrs ' ></hr>
-                                    <a className='lists a-a' onClick={() => handleOptionClick2('Flow')}>Flow</a>
+                                    <a className='lists a-a' href='#Temperature' onClick={() => handleOptionClick2('Flow')}>Flow</a>
                                     <hr className='hrs ' ></hr>
-                                    <a className='lists a-a' onClick={() => handleOptionClick2('ALL')}>ALL</a>
+                                    <a className='lists a-a' href='#Flow' onClick={() => handleOptionClick2('ALL')}>ALL</a>
                                     <hr className='hrs ' ></hr>
-                                    <a className='lists a-a' onClick={() => handleOptionClick2('Output Model')}>Output Model</a>
+                                    <a className='lists a-a' href='#Output Model' onClick={() => handleOptionClick2('Output Model')}>Output Model</a>
                                 </div>
                             )}
                         </div>
@@ -232,19 +236,12 @@ const Dashboard =() => {
                                 <Icon icon={ic_label_important} className='riarrow2' size={35} />
                             </div>
                         </div>
-
                     </div>
                 </div>
+                    {handlefrom}
                 <div className="lineChart_body">
-                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter}  className="all_graph"  />
+                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter} globalfilterstate={globalfilterstate} globalfilterupdate={globalfilterupdate} socket={socket}  className="all_graph" />
                 </div>
-                <div className='dasboard_bottom display-flex'>
-                    <div className='export cursor-pointer'>
-                        <div className='exports' data-bs-toggle="modal" data-bs-target="#export_data">Export</div>
-                    </div>
-                   
-                </div>
-
             </div>
         </div>
     );
