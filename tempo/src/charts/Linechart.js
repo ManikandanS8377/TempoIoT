@@ -32,22 +32,27 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
   useEffect(()=>{
     socket.on('message', (message) => {
       fetchData(fromdate, todate, handlelive, globalfilter,message);
+      // console.log(fromdate)
     });
-  }, [fromdate, todate, handlelive, globalfilter])
-
-  useEffect(() => {
     if (fromdate && todate) {
       fetchData(fromdate, todate, globalfilter)
+      console.log("msg1")
     }
     if (handlelive) {
       fetchData(fromdate, todate, handlelive, globalfilter)
+      console.log("msg2")
     }
-  }, [fromdate, todate, handlelive, globalfilter]);
+  }, [fromdate, todate, handlelive, globalfilter])
+
+  // useEffect(() => {
+    
+  // }, [fromdate, todate, handlelive, globalfilter]);
 
 
   
   
   const fetchData = async (fromdate, todate, handlelive, globalfilter,message) => {
+    // console.log(fromdate, todate, handlelive, globalfilter,message);
     try {
       const response1 = await fetch('http://127.0.0.1:4000/user');
       const data1 = await response1.json();
@@ -75,27 +80,30 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
         })
       }
       else {
+        console.log(handlelive)
         latestData = message.filter(values => {
           const itemDate = values.Timestamp.split(" ")[0];
           if (itemDate === formatteddate) {
+            console.log(formatteddate)
             return message;
           }
         })
       }
       setLatestData(latestData);
+      // console.log(latestData);
       if (globalfilter !== 'Output Model' && globalfilter !== null ) {
         getChartData1(globalfilter, latestData)
       }
-      else if (handlelive === true && fromdate !== "") {
-        for (var i = 0; i < devicedata.length; i++) {
-          getChartData1(selectedOption2[i], latestData, i);
-        }
-      }
-      else if (fromdate !== "" && todate !== "") {
-        for (var i = 0; i < devicedata.length; i++) {
-          getChartData1(selectedOption2[i], latestData, i);
-        }
-      }
+      // else if (handlelive === true && fromdate !== "") {
+      //   for (var i = 0; i < devicedata.length; i++) {
+      //     getChartData1(selectedOption2[i], latestData, i);
+      //   }
+      // }
+      // else if (fromdate !== "" && todate !== "") {
+      //   for (var i = 0; i < devicedata.length; i++) {
+      //     getChartData1(selectedOption2[i], latestData, i);
+      //   }
+      // }
       else{
         for (var i = 0; i < devicedata.length; i++) {
           getChartData1(selectedOption2[i], latestData, i);
