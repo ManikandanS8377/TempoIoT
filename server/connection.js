@@ -75,7 +75,8 @@ app.put("/sitedata/:id", async (req, res) => {
     } catch (err) {
         console.log(err)
     }
-})
+})  
+
 
 
 //DELETE REQUEST TO DELETE THE DATA IN DB

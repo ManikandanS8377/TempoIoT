@@ -149,27 +149,27 @@ const Edit_site = () => {
 
     const handleClick = async () => {
         try {
-            navigate('/Site');
-            const body = {
-                company_name,
-                site_name,
-                site_admin_email,
-                site_location,
-                site_address,
-                new_site_admin_name,
-            };
-            console.log(body);
-
-            await fetch('http://127.0.0.1:4000/site', {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body),
-            });
-            // console.log(body);
+          navigate('/Site');
+          const queryParams = new URLSearchParams({
+            company_name,
+            site_name,
+            site_admin_email,
+            site_location,
+            site_address,
+            new_site_admin_name,
+          });
+      
+          const url = `http://127.0.0.1:4000/site?${queryParams}`;
+      
+          await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          });
         } catch (error) {
-            console.error(error);
+          console.error(error);
         }
-    }
+      }
+      
 
 
 
