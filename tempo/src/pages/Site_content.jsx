@@ -19,6 +19,8 @@ const Site_content = () => {
 
     // const
     const [alldata, setalldata] = useState([]);
+    const [company_value, setcompany] = useState([]);
+  
     const [activeCount, setactiveCount] = useState(0);
     const [inactiveCount, setinactiveCount] = useState(0);
     const [isOpen2, setIsOpen2] = useState(false);
@@ -67,6 +69,10 @@ const Site_content = () => {
     async function fetchData() {
         try {
             const response = await fetch('http://127.0.0.1:4000/site');
+            const response_company = await fetch('http://127.0.0.1:4000/site_company');
+           
+            const data_company = await response_company.json();
+           
             const data = await response.json();
             const modifiedData = data.map((item) => {
                 const date = new Date(item.site_created_on);
@@ -76,6 +82,7 @@ const Site_content = () => {
                 const formattedDate = `${day}-${month}-${year}`;
                 return { ...item, site_created_on: formattedDate };
             });
+
             // Update active and inactive counts
             const activeCount = data.filter(item => item.site_status === 1).length;
             const inactiveCount = data.filter(item => item.site_status !== 1).length;
@@ -83,7 +90,8 @@ const Site_content = () => {
             setalldata(modifiedData);
             setactiveCount(activeCount);
             setinactiveCount(inactiveCount);
-            console.log(modifiedData);
+            setcompany(data_company);
+            
         } catch (error) {
             console.log(error);
         }
@@ -92,6 +100,9 @@ const Site_content = () => {
     useEffect(() => {
         fetchData();
     }, []);
+
+
+
 
 
     const [isless_than_10_active, setisless_than_10_active] = useState(false)
@@ -271,7 +282,7 @@ const Site_content = () => {
                                 <div class="dropdown-filter" ref={dropdownRef2}>
                                     <div class="device_filters" onClick={dropdown2}>
                                         <div className="device_name">
-                                            Industry
+                                            Industry Name
                                         </div>
                                         <div className="dropdown_icon">
                                             <FontAwesomeIcon
@@ -305,8 +316,8 @@ const Site_content = () => {
                                     </div>
                                     {isOpen3 && (
                                         <div className="dropdown_menu2 dashboard_dropdown-menu heights  dropdown-colors">
-                                            {alldata.map((item, index) => (
-                                                <div className='device_scroll' key={index}>
+                                            {company_value.map((item, index) => (
+                                                <div className='device_scroll'>
                                                     <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts"> {item.company_name}</div></div>
                                                         {index !== alldata.length - 1 && <hr className='hrs'></hr>}
                                                     </div>
@@ -403,20 +414,52 @@ const Site_content = () => {
                         <div class="device_status_body">
                             <div className="dsa_row1">
                                 <div className="dsa_1st_input">
-                                    <label for="input1">Choose File Type</label>
+                                    <label for="input1">Company Name</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
                                         <input type="text" class="form-control-loc" id="input1" />
                                     </div>
                                 </div>
                                 <div className="dsa_1st_input">
-                                    <label for="input1">Choose File Type</label>
+                                    <label for="input1">Site Name</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
                                         <input type="text" class="form-control-loc" id="input1" />
                                     </div>
                                 </div>
-                            </div>           
+                            </div>   
+                            <div className="dsa_row2">
+                                <div className="dsa_1st_input">
+                                    <label for="input1">Site Admin Email</label>
+                                    <div className="inputs-group">
+                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                        <input type="text" class="form-control-loc" id="input1" />
+                                    </div>
+                                </div>
+                                <div className="dsa_1st_input">
+                                    <label for="input1">Site location</label>
+                                    <div className="inputs-group">
+                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                        <input type="text" class="form-control-loc" id="input1" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="dsa_row3">
+                                <div className="dsa_1st_input">
+                                    <label for="input1">Site Address</label>
+                                    <div className="inputs-group">
+                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                        <input type="text" class="form-control-loc" id="input1" />
+                                    </div>
+                                </div>
+                                <div className="dsa_1st_input">
+                                    <label for="input1">Site Admin Name</label>
+                                    <div className="inputs-group">
+                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                        <input type="text" class="form-control-loc" id="input1" />
+                                    </div>
+                                </div>
+                            </div>         
                         </div>
                         <div class="device_status_footer">
                             <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>

@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
@@ -9,7 +7,7 @@ const mongodbUrl = 'mongodb://127.0.0.1:27030/userdata?directConnection=true&ser
 const app = express();
 const server = http.createServer(app);
 const io = require('socket.io')(server, { cors: { origin: "*" } });
-let a = 1;
+
 // MongoDB connection and change stream
 mongoose.connect(mongodbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
@@ -18,16 +16,17 @@ mongoose.connect(mongodbUrl, { useNewUrlParser: true, useUnifiedTopology: true }
 
     // Socket.io connection
     io.on('connection', (socket) => {
-      mycollections.find({}).toArray()
-        .then((data) => {
-          socket.emit('message', data);
-          console.log("Emitted initial data");
-        })
-        .catch((error) => {
-          console.log('Error retrieving initial data:', error);
-        });
+      
+        mycollections.find({}).toArray()
+          .then((data) => {
+            socket.emit('message', data);
+          })
+          .catch((error) => {
+            console.log('Error retrieving initial data:', error);
+          });
+      
       socket.on('disconnect', () => {
-        console.log('A user disconnected');
+        
       });
     });
 

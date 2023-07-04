@@ -21,10 +21,10 @@ import { useState, useEffect, useRef } from "react";
 import { json, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 const Edit_site = () => {
-    const [responseData_state, set_responseData_state] = useState([]) 
+    const [responseData_state, set_responseData_state] = useState([])
 
 
-   
+
     // set var
 
     const [company_name, setcompanyname] = useState("");
@@ -44,71 +44,71 @@ const Edit_site = () => {
     const [site_addresserror, setsiteaddresserror] = useState("");
     const [new_site_admin_nameerror, setnewsiteadminnameerror] = useState("");
 
- //enable services checking state
- const [isChecked, setisChecked] = useState(true);
- const [checking, setchecking] = useState("true");
- // const [all_data, setall_data] = useState();
- useEffect(() => {
-     const site_edit_data = async () => {
-         try {
-             const response = await fetch(`http://127.0.0.1:4000/edit_site_detials/${r_no}`);
-             const data = await response.json();
-             console.log(data);
-             // setall_data(data);
-             all_data_fun(data);
-         } catch (error) {
-             console.error(error);
-         }
-     };
-     site_edit_data();
- }, [r_no]);
+    //enable services checking state
+    const [isChecked, setisChecked] = useState(true);
+    const [checking, setchecking] = useState("true");
+    // const [all_data, setall_data] = useState();
+    useEffect(() => {
+        const site_edit_data = async () => {
+            try {
+                const response = await fetch(`http://127.0.0.1:4000/edit_site_detials/${r_no}`);
+                const data = await response.json();
+                console.log(data);
+                // setall_data(data);
+                all_data_fun(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        site_edit_data();
+    }, [r_no]);
 
- const all_data_fun = (data) => {
-     if (data && data.length > 0) {
-         const item = data[0];
-         setcompanyname(item.company_name);
-         setsitename(item.site_name);
-         setsiteadminemail(item.site_admin_email);
-         setsiteaddress(item.site_address);
-     }
- };
+    const all_data_fun = (data) => {
+        if (data && data.length > 0) {
+            const item = data[0];
+            setcompanyname(item.company_name);
+            setsitename(item.site_name);
+            setsiteadminemail(item.site_admin_email);
+            setsiteaddress(item.site_address);
+        }
+    };
 
- // data fetching in site db 
-
-
- useEffect(() => {
-     const fetchData = async () => {
-         try {
-             const sites = await fetch('http://127.0.0.1:4000/site');
-             const responseData = await sites.json();
-             set_responseData_state(responseData)
-             console.log(responseData);
-         } catch (error) {
-             // Error handling code removed
-         }
-     };
-
-     fetchData();
- }, []);
+    // data fetching in site db 
 
 
- //push input box to the page
- const handleButtonClick = () => {
-     setShowInput(true);
- };
- const [showInput, setShowInput] = useState(false);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const sites = await fetch('http://127.0.0.1:4000/site');
+                const responseData = await sites.json();
+                set_responseData_state(responseData)
+                console.log(responseData);
+            } catch (error) {
+                // Error handling code removed
+            }
+        };
+
+        fetchData();
+    }, []);
 
 
- // cancel script
+    //push input box to the page
+    const handleButtonClick = () => {
+        setShowInput(true);
+    };
+    const [showInput, setShowInput] = useState(false);
 
- function handleCancel() {
-     setcompanyname("");
-     setsitename("");
-     setsiteadminemail("");
-     setsitelocation("");
-     setsiteaddress("");
-     setnewsiteadminname("");
- }
+
+    // cancel script
+
+    function handleCancel() {
+        setcompanyname("");
+        setsitename("");
+        setsiteadminemail("");
+        setsitelocation("");
+        setsiteaddress("");
+        setnewsiteadminname("");
+    }
 
 
     function handlecompanyname(event) {
@@ -150,26 +150,26 @@ const Edit_site = () => {
     const handleClick = async () => {
         try {
             navigate('/Site');
-            const body = {
+            const queryParams = new URLSearchParams({
                 company_name,
                 site_name,
                 site_admin_email,
                 site_location,
                 site_address,
                 new_site_admin_name,
-            };
-            console.log(body);
+            });
 
-            await fetch('http://127.0.0.1:4000/site', {
+            const url = `http://127.0.0.1:4000/site?${queryParams}`;
+
+            await fetch(url, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body),
             });
-            // console.log(body);
         } catch (error) {
             console.error(error);
         }
     }
+
 
 
 
@@ -233,12 +233,22 @@ const Edit_site = () => {
                                 </div>
                             </div>
                             <div className="dsa_2nd_input">
-                                <label for="input1">Site Admin Email</label>
+                                <label htmlFor="input1">Site Admin Email</label>
                                 <div className="inputs-group">
-                                    <span class="input-group-loc"><Icon icon={ic_mail} size={20} style={{ color: "lightgray" }} /></span>
-                                    <input type="text" class="form-control-loc" value={site_admin_email} onChange={handlesiteadminemail} id="site_admin_email" />
+                                    <span className="input-group-loc">
+                                        <Icon icon={ic_mail} size={20} style={{ color: "lightgray" }} />
+                                    </span>
+                                    <input
+                                        type="text"
+                                        className="form-control-loc"
+                                        value={site_admin_email}
+                                        onChange={handlesiteadminemail}
+                                        id="site_admin_email"
+                                        readOnly
+                                    />
                                 </div>
                             </div>
+
 
                             <div className="dsa_row_3">
                                 <div className="dsa_3rd_input">
@@ -326,7 +336,7 @@ const Edit_site = () => {
                     <div className="operating_buttons display-flex padding-loc">
                         <div className="save_cancel_btn display-flex site_button">
                             <button className="btn-loc active-loc btn btn-outline-success" onClick={() => handleClick()}>Save</button>
-                            <button className="btn-loc inactive-loc btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
+                            <button className="btn-loc inactive-loc btn btn-outline-danger"onClick={() => handleCancel()} data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
                         </div>
                     </div>
 
