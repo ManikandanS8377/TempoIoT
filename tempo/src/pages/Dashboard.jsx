@@ -17,6 +17,11 @@ import { io } from "socket.io-client";
 const Dashboard = () => {
     const dateTimePickerRef1 = useRef(null);
     const dateTimePickerRef2 = useRef(null);
+    const [globalfilterstate,setglobalfilterstate]=useState(true)
+
+    const globalfilterupdate=(newState)=>{
+        setglobalfilterstate(newState);
+    }
 
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -25,7 +30,7 @@ const Dashboard = () => {
     const formattedDate = `${year}-${month}-${day} 00:00:00`;
     const [fromdate, setfromdate] = useState(formattedDate);
     const [todate, settodate] = useState("");
-    let data = []
+    
 
     const socket = io('http://localhost:5000/');
     //fromdate useeffect
@@ -110,6 +115,7 @@ const Dashboard = () => {
     };
     const [globalfilter, setglobalfilter] = useState('Output Model');
     const handleOptionClick2 = (option) => {
+        setglobalfilterstate(true)
         setglobalfilter(option);
         setIsOpen2(false);
     }
@@ -234,7 +240,7 @@ const Dashboard = () => {
                 </div>
                     {handlefrom}
                 <div className="lineChart_body">
-                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter} socket={socket} data={data} className="all_graph" />
+                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter} globalfilterstate={globalfilterstate} globalfilterupdate={globalfilterupdate} socket={socket}  className="all_graph" />
                 </div>
             </div>
         </div>

@@ -773,6 +773,7 @@ input[type="checkbox"] {
     justify-content: end;
     width: var(--WIDTH);
     gap: 15px;
+    
 }
 
 
