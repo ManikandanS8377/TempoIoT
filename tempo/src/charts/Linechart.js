@@ -6,15 +6,15 @@ import { faLeftLong, faCircle, faRightLong } from '@fortawesome/free-solid-svg-i
 
 
 
-function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
+function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
   //data handling state
   const [LatestData, setLatestData] = useState([]);
   const [devicedata, setdevicedata] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedOption2, setSelectedOption2] = useState(Array(100).fill('ALL'));
   const [isOpen2, setIsOpen2] = useState([]);
-  
-  let data=[];
+
+
   const graphsPerFrame = 4;
   const totalPages = Math.ceil(devicedata.length / graphsPerFrame);
 
@@ -29,25 +29,35 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
   });
   const [userData1, setUserData1] = useState(initialData);
 
-  useEffect(()=>{
-    socket.on('message', (message) => {
-      fetchData(fromdate, todate, handlelive, globalfilter,message);
-    });
-  }, [fromdate, todate, handlelive, globalfilter])
-
+ 
   useEffect(() => {
+    const handleDataUpdate = (message) => {
+      fetchData(fromdate, todate, handlelive, globalfilter, message);
+    };
+    socket.on('message', handleDataUpdate);
+
     if (fromdate && todate) {
-      fetchData(fromdate, todate, globalfilter)
+      console.log(LatestData)
+      fetchData(fromdate, todate);
     }
+
     if (handlelive) {
-      fetchData(fromdate, todate, handlelive, globalfilter)
+      fetchData(fromdate, todate, handlelive);
     }
-  }, [fromdate, todate, handlelive, globalfilter]);
+    if(globalfilter){
+      for(var i=0;i<devicedata.length;i++){
+        getChartData1(globalfilter,LatestData,i)
+      }
+    }
+    return () => {
+      socket.off('message', handleDataUpdate);
+    };
+  }, [fromdate, todate, handlelive, globalfilter, socket,LatestData]);
 
 
-  
-  
-  const fetchData = async (fromdate, todate, handlelive, globalfilter,message) => {
+
+
+  const fetchData = async (fromdate, todate, handlelive, globalfilter, message) => {
     try {
       const response1 = await fetch('http://127.0.0.1:4000/user');
       const data1 = await response1.json();
@@ -57,7 +67,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
       const Month = String(today.getMonth() + 1).padStart(2, '0');
       const dates = String(today.getDate()).padStart(2, '0');
       const formatteddate = `${year}-${Month}-${dates}`;
-      
+
       var latestData;
       if (fromdate !== "" && todate !== "" && handlelive === false) {
         latestData = message.filter(values => {
@@ -83,10 +93,10 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
         })
       }
       setLatestData(latestData);
-      if (globalfilter !== 'Output Model' && globalfilter !== null ) {
-        getChartData1(globalfilter, latestData)
-      }
-      else if (handlelive === true && fromdate !== "") {
+      // if (globalfilter !== 'Output Model' && globalfilter !== null) {
+      //   getChartData1(globalfilter, latestData)
+      // }
+      if (handlelive === true && fromdate !== "") {
         for (var i = 0; i < devicedata.length; i++) {
           getChartData1(selectedOption2[i], latestData, i);
         }
@@ -96,7 +106,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
           getChartData1(selectedOption2[i], latestData, i);
         }
       }
-      else{
+      else {
         for (var i = 0; i < devicedata.length; i++) {
           getChartData1(selectedOption2[i], latestData, i);
         }
@@ -332,7 +342,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
     }
   };
 
- 
+
 
 
   const options = {

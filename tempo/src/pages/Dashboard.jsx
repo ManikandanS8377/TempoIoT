@@ -14,12 +14,18 @@ import 'flatpickr/dist/flatpickr.min.css';
 import flatpickr from 'flatpickr';
 import { io } from "socket.io-client";
 
-const Dashboard =() => {
+const Dashboard = () => {
     const dateTimePickerRef1 = useRef(null);
     const dateTimePickerRef2 = useRef(null);
 
-    const [fromdate, setfromdate] = useState("");
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day} 00:00:00`;
+    const [fromdate, setfromdate] = useState(formattedDate);
     const [todate, settodate] = useState("");
+    let data = []
 
     const socket = io('http://localhost:5000/');
     //fromdate useeffect
@@ -58,7 +64,7 @@ const Dashboard =() => {
             enableTime: true,
             time_24hr: true,
             dateFormat: "Y-m-d H:i:S",
-            onChange:handleto
+            onChange: handleto
         });
         return () => {
             dateTimePicker2.destroy();
@@ -79,8 +85,8 @@ const Dashboard =() => {
         const minutes = String(dateTime.getMinutes()).padStart(2, '0');
         return `${year}-${month}-${day} ${hours}:${minutes}:00`;
     };
-  
-      
+
+
 
     const [isOpen1, setIsOpen1] = useState(false);
     const [isDropdownOpen1_dashboard, setIsDropdownOpen1_dashboard] = useState(false);
@@ -227,7 +233,7 @@ const Dashboard =() => {
                     </div>
                 </div>
                 <div className="lineChart_body">
-                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter}  socket={socket}  className="all_graph"  />
+                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter} socket={socket} data={data} className="all_graph" />
                 </div>
             </div>
         </div>
