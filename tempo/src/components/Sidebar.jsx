@@ -21,7 +21,7 @@ const Sidebar = ({ children }) => {
             name: "About",
             icon: <FaUserAlt />,
             head: ['Management'],
-            links: ['Assert Management', 'Alert Management', 'Device Management', 'Site Management', 'User Management']
+            links: ['Assert', 'Alert', 'Device', 'Site', 'User']
         },
         {
             name: "Analytics",
