@@ -44,12 +44,37 @@ app.get("/user", async (req, res) => {
 //GET REQUEST TO SHOW ALL THE DATA IN REACT PAGE
 app.get("/site", async (req, res) => {
     try {
-        const sites = await pool.query('SELECT * FROM site_management ORDER BY r_no')
+        const sites = await pool.query('SELECT * FROM site_management ORDER BY r_no');
         res.json(sites.rows);
     } catch (err) {
-        console.log(err)
+        console.log(err);
     }
-})
+});
+
+
+//remove duplicate values in site_company
+app.get("/site_company", async (req, res) => {
+    try {
+        const query = "SELECT DISTINCT company_name FROM site_management";
+        const companyNames = await pool.query(query);
+        res.json(companyNames.rows);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+//remove duplicate admin
+app.get("/site_admin", async (req, res) => {
+    try {
+        const query = "SELECT DISTINCT new_site_admin_name FROM site_management";
+        const adminNames = await pool.query(query);
+        res.json(adminNames.rows);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+
 
 
 //PUT REQUEST TO UPDATE THE DATA IN DB
