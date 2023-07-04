@@ -12,6 +12,7 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 //import 24 hrs time format flatpickr
 import 'flatpickr/dist/flatpickr.min.css';
 import flatpickr from 'flatpickr';
+import { io } from "socket.io-client";
 
 const Dashboard =() => {
     const dateTimePickerRef1 = useRef(null);
@@ -20,7 +21,7 @@ const Dashboard =() => {
     const [fromdate, setfromdate] = useState("");
     const [todate, settodate] = useState("");
 
-
+    const socket = io('http://localhost:5000/');
     //fromdate useeffect
     useEffect(() => {
         const currentDate = new Date();
@@ -106,8 +107,6 @@ const Dashboard =() => {
         setglobalfilter(option);
         setIsOpen2(false);
     }
-
-
     //filters based on date
     const [handlelive, sethandlelive] = useState(false);
     const handleliveclick = ((fromdate) => {
@@ -228,7 +227,7 @@ const Dashboard =() => {
                     </div>
                 </div>
                 <div className="lineChart_body">
-                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter}    className="all_graph"  />
+                    <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter}  socket={socket}  className="all_graph"  />
                 </div>
             </div>
         </div>
