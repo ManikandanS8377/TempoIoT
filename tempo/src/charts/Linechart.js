@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,15 +6,15 @@ import { faLeftLong, faCircle, faRightLong } from '@fortawesome/free-solid-svg-i
 
 
 
-function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
+function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
   //data handling state
   const [LatestData, setLatestData] = useState([]);
   const [devicedata, setdevicedata] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedOption2, setSelectedOption2] = useState(Array(100).fill('ALL'));
   const [isOpen2, setIsOpen2] = useState([]);
-  
-  let data=[];
+
+  let data = [];
   const graphsPerFrame = 4;
   const totalPages = Math.ceil(devicedata.length / graphsPerFrame);
 
@@ -29,9 +29,9 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
   });
   const [userData1, setUserData1] = useState(initialData);
 
-  useEffect(()=>{
+  useEffect(() => {
     socket.on('message', (message) => {
-      fetchData(fromdate, todate, handlelive, globalfilter,message);
+      fetchData(fromdate, todate, handlelive, globalfilter, message);
       // console.log(fromdate)
     });
     if (fromdate && todate) {
@@ -45,13 +45,13 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
   }, [fromdate, todate, handlelive, globalfilter])
 
   // useEffect(() => {
-    
+
   // }, [fromdate, todate, handlelive, globalfilter]);
 
 
-  
-  
-  const fetchData = async (fromdate, todate, handlelive, globalfilter,message) => {
+
+
+  const fetchData = async (fromdate, todate, handlelive, globalfilter, message) => {
     // console.log(fromdate, todate, handlelive, globalfilter,message);
     try {
       const response1 = await fetch('http://127.0.0.1:4000/user');
@@ -62,7 +62,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
       const Month = String(today.getMonth() + 1).padStart(2, '0');
       const dates = String(today.getDate()).padStart(2, '0');
       const formatteddate = `${year}-${Month}-${dates}`;
-      
+
       var latestData;
       if (fromdate !== "" && todate !== "" && handlelive === false) {
         latestData = message.filter(values => {
@@ -91,7 +91,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
       }
       setLatestData(latestData);
       // console.log(latestData);
-      if (globalfilter !== 'Output Model' && globalfilter !== null ) {
+      if (globalfilter !== 'Output Model' && globalfilter !== null) {
         getChartData1(globalfilter, latestData)
       }
       // else if (handlelive === true && fromdate !== "") {
@@ -104,7 +104,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
       //     getChartData1(selectedOption2[i], latestData, i);
       //   }
       // }
-      else{
+      else {
         for (var i = 0; i < devicedata.length; i++) {
           getChartData1(selectedOption2[i], latestData, i);
         }
@@ -340,7 +340,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
     }
   };
 
- 
+
 
 
   const options = {
@@ -401,6 +401,18 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
     (_, index) => index + slideStartIndex
   );
 
+  const individual_grap_selection = useRef(null);
+  const individual_grap_empty_space = (event) => {
+    if (!individual_grap_selection.current.contains(event.target)) {
+      // setIsOpen2(false)
+    }
+  }
+  useEffect(() => {
+    document.addEventListener('click', individual_grap_empty_space);
+    return () => {
+      document.removeEventListener('click', individual_grap_empty_space);
+    };
+  }, [])
 
 
   return (
@@ -410,8 +422,8 @@ function Linechart({ fromdate, todate, handlelive, globalfilter,socket}) {
           <div key={item} className="grid-item">
             <div className="graph-header display-flex" style={{ justifyContent: "center", alignItems: "center" }}>
               <label>Temperature - Assert1</label>
-              <div className="dropdown_container2">
-                <button className=" btn-loc4" style={{ border: "1px solid black" }} onClick={() => dropdown2(item)} >
+              <div className="dropdown_container2" ref={individual_grap_selection}>
+                <button className=" btn-loc4" style={{ border: "1px solid black" }} onClick={() => dropdown2(item)}  >
                   {selectedOption2[item]}
                 </button>
                 {isOpen2[item] && (

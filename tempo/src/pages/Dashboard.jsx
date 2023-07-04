@@ -18,7 +18,12 @@ const Dashboard =() => {
     const dateTimePickerRef1 = useRef(null);
     const dateTimePickerRef2 = useRef(null);
 
-    const [fromdate, setfromdate] = useState("");
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day} 00:00:00`;
+    const [fromdate, setfromdate] = useState(formattedDate);
     const [todate, settodate] = useState("");
 
     const socket = io('http://localhost:5000/');
@@ -116,6 +121,34 @@ const Dashboard =() => {
             sethandlelive(false)
         }
     })
+    // empty space effects ...........
+    const selectedref1 = useRef(null);
+    const selected_option_down1 = (event) =>{
+        if (!selectedref1.current.contains(event.target)) {
+            setIsOpen1(false);
+            setIsDropdownOpen1_dashboard(false)
+        }
+    }
+    useEffect(() => {
+        document.addEventListener('click', selected_option_down1);
+        return () => {
+            document.removeEventListener('click', selected_option_down1);
+        };
+    }, []);
+
+    const globalfilterref = useRef(null);
+    const globalfilterref_empty_space = (event) =>{
+        if (!globalfilterref.current.contains(event.target)) {
+            setIsOpen2(false)
+            setIsDropdownOpen2_dashboard(false)
+        }
+    }
+    useEffect(()=>{
+        document.addEventListener('click', globalfilterref_empty_space);
+        return () => {
+            document.removeEventListener('click', globalfilterref_empty_space);
+        };
+    },[])
 
     return (
         <div className='dashboard_page'>
@@ -154,7 +187,7 @@ const Dashboard =() => {
 
 
                         <div >
-                            <button class="device_filters" onClick={dropdown1} >
+                            <button class="device_filters" onClick={dropdown1} ref={selectedref1}>
                                 <div className="device_name">
                                     {selectedOption1}
                                 </div>
@@ -176,7 +209,7 @@ const Dashboard =() => {
                             )}
                         </div>
                         <div>
-                            <button class="device_filters" onClick={dropdown2}>
+                            <button class="device_filters" onClick={dropdown2} ref={globalfilterref}>
                                 <div className="device_name">
                                     {globalfilter}
                                 </div>
@@ -226,7 +259,6 @@ const Dashboard =() => {
                         </div>
                     </div>
                 </div>
-                    {handlefrom}
                 <div className="lineChart_body">
                     <Linechart fromdate={fromdate} todate={todate} handlelive={handlelive} globalfilter={globalfilter}  socket={socket}  className="all_graph"  />
                 </div>
