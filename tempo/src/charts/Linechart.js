@@ -4,9 +4,6 @@ import { Chart as ChartJS } from "chart.js/auto";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLeftLong, faCircle, faRightLong } from '@fortawesome/free-solid-svg-icons';
 
-
-
-function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
 function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
   //data handling state
   const [LatestData, setLatestData] = useState([]);
@@ -35,7 +32,10 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
     const handleDataUpdate = (message) => {
       fetchData(fromdate, todate, handlelive, globalfilter, message);
     };
-    socket.on('message', handleDataUpdate);
+    socket.on('message', (handleDataUpdate));
+    // socket.on('message', (handleDataUpdate)=>{
+    //   console.log(handleDataUpdate);
+    // });
 
     if (fromdate && todate) {
       console.log(LatestData)
@@ -80,6 +80,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
           }
         })
       } else if (handlelive === true && fromdate !== "") {
+        console.log("hai1");
         latestData = message.filter(values => {
           const itemDate = values.Timestamp;
           if (fromdate <= itemDate) {
@@ -88,11 +89,11 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket }) {
         })
       }
       else {
-        console.log(handlelive)
+        // console.log(handlelive)
         latestData = message.filter(values => {
           const itemDate = values.Timestamp.split(" ")[0];
           if (itemDate === formatteddate) {
-            console.log(formatteddate)
+            // console.log(formatteddate)
             return message;
           }
         })

@@ -18,17 +18,14 @@ mongoose.connect(mongodbUrl, { useNewUrlParser: true, useUnifiedTopology: true }
 
     // Socket.io connection
     io.on('connection', (socket) => {
-      if (a === 1) {
-        a=2;
-        mycollections.find({}).toArray()
-          .then((data) => {
-            socket.emit('message', data);
-            console.log("Emitted initial data");
-          })
-          .catch((error) => {
-            console.log('Error retrieving initial data:', error);
-          });
-      }
+      mycollections.find({}).toArray()
+        .then((data) => {
+          socket.emit('message', data);
+          console.log("Emitted initial data");
+        })
+        .catch((error) => {
+          console.log('Error retrieving initial data:', error);
+        });
       socket.on('disconnect', () => {
         console.log('A user disconnected');
       });

@@ -187,7 +187,7 @@ const Dashboard = () => {
                     <div className='dashboard_inputs display-flex'>
 
 
-                        <div >
+                        <div >w
                             <button class="device_filters" onClick={dropdown1} ref={selectedref1}>
                                 <div className="device_name">
                                     {selectedOption1}
