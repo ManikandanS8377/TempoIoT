@@ -23,7 +23,7 @@ import Modbus_Slave from './pages/Modbus_Slave'
 import Modbus_Master from './pages/Modbus_Master'
 import Event from './pages/Event'
 import Device_Connection from './pages/Device_Connection'
-import Real_Data from './pages/Real_Data'
+import Real_Data from './pages/Real_Data';
 // Main Content Template
 import MainContent from './components/MainContent';
 
@@ -51,6 +51,7 @@ const App = () => {
           <Route path="/Event" element={<Event/>} /> 
           <Route path="/Device_Connection" element={<Device_Connection/>} /> 
           <Route path="/Real_Data" element={<Real_Data/>} /> 
+          <Route path="/*" element={<NotFound/>} /> 
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Sidebar>

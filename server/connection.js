@@ -10,7 +10,7 @@ app.use(express.json())
 // get data from device management page to device edit page
 app.get('/edit_device_detials/:id', async (req, res) => {
     try {
-        const {id} = req.params 
+        const { id } = req.params
         const datas = await pool.query('SELECT * FROM device_management WHERE r_no = $1', [id]);
         res.json(datas.rows);
     } catch (err) {
@@ -21,7 +21,7 @@ app.get('/edit_device_detials/:id', async (req, res) => {
 // get data from device management page to device edit page
 app.get('/edit_site_detials/:id', async (req, res) => {
     try {
-        const {id} = req.params 
+        const { id } = req.params
         const datas = await pool.query('SELECT * FROM site_management WHERE r_no = $1', [id]);
         res.json(datas.rows);
         console.log(datas)
@@ -110,7 +110,7 @@ app.put("/sitedata/:id", async (req, res) => {
     } catch (err) {
         console.log(err)
     }
-})  
+})
 
 
 
@@ -219,7 +219,7 @@ app.post("/site", async (req, res) => {
     const site_id = req.body["site_id"];
     const industry = req.body["industry"];
     // console.log(company_name);
-    
+
     // Connection to Site_management
     const ins3 = 'INSERT INTO site_management(company_name, site_name, site_admin_email, site_location, site_address, site_admin_name, new_site_admin_name, industry) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
     const values3 = [company_name, site_name, site_admin_email, site_location, site_address, site_admin_name, new_site_admin_name, industry];
@@ -234,7 +234,6 @@ app.post("/site", async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
-
 
 
 
