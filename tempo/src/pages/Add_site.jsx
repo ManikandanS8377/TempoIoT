@@ -4,13 +4,13 @@ import '../assets/style/App.css';
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
 import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
-import {person} from 'react-icons-kit/iconic/person'
+import { person } from 'react-icons-kit/iconic/person'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {ic_room} from 'react-icons-kit/md/ic_room'
-import {map} from 'react-icons-kit/fa/map'
-import {ic_mail} from 'react-icons-kit/md/ic_mail'
-import {ic_home_work} from 'react-icons-kit/md/ic_home_work'
-import {ic_domain} from 'react-icons-kit/md/ic_domain'
+import { ic_room } from 'react-icons-kit/md/ic_room'
+import { map } from 'react-icons-kit/fa/map'
+import { ic_mail } from 'react-icons-kit/md/ic_mail'
+import { ic_home_work } from 'react-icons-kit/md/ic_home_work'
+import { ic_domain } from 'react-icons-kit/md/ic_domain'
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
 import { RiAddCircleLine } from "react-icons/ri";
 import { faAnglesDown, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
@@ -20,8 +20,8 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
 import { json, useNavigate } from 'react-router-dom';
 const Add_site = () => {
-const [responseData_state,set_responseData_state] = useState([])
-
+    const [responseData_state, set_responseData_state] = useState([])
+    const [admin_value, setadmin] = useState([]);
 
 
     // data fetching in site db 
@@ -31,8 +31,11 @@ const [responseData_state,set_responseData_state] = useState([])
         const fetchData = async () => {
             try {
                 const sites = await fetch('http://127.0.0.1:4000/site');
+                const response_admin = await fetch('http://127.0.0.1:4000/site_admin');
+                const data_admin = await response_admin.json();
                 const responseData = await sites.json();
-                 set_responseData_state(responseData)
+                set_responseData_state(responseData)
+                setadmin(data_admin);
                 console.log(responseData);
             } catch (error) {
                 // Error handling code removed
@@ -202,14 +205,6 @@ const [responseData_state,set_responseData_state] = useState([])
                                     <input type="text" class="form-control-loc" value={site_name} onChange={handlesitename} id="site_name" />
                                 </div>
                             </div>
-                            <div className="dsa_2nd_input">
-                                <label for="input1">Site Admin Email</label>
-                                <div className="inputs-group">
-                                    <span class="input-group-loc"><Icon icon={ic_mail} size={20} style={{ color: "lightgray" }} /></span>
-                                    <input type="text" class="form-control-loc" value={site_admin_email} onChange={handlesiteadminemail} id="site_admin_email" />
-                                </div>
-                            </div>
-
                             <div className="dsa_row_3">
                                 <div className="dsa_3rd_input">
                                     <label for="input1">Site Location</label>
@@ -252,14 +247,14 @@ const [responseData_state,set_responseData_state] = useState([])
                                     </div>
                                     {isOpen4 && (
                                         <div class="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
-                                            <div  className='device_scroll'>
+                                            <div className='device_scroll'>
                                                 <div class='device_dropdown'>
                                                     <div class="div_sts" onClick={handleButtonClick}>
                                                         Add New Admin
                                                     </div>
                                                 </div>
                                                 <hr className="hrs"></hr>
-                                                {responseData_state.map((data, index) => (
+                                                {admin_value.map((data, index) => (
                                                     <div className='device_scroll' key={index}>
                                                         <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts"> {data.new_site_admin_name}</div></div>
                                                             {index !== data.length - 1 && <hr className='hrs'></hr>}
@@ -275,7 +270,7 @@ const [responseData_state,set_responseData_state] = useState([])
                             </div>
                             <div className='dsa_row_3'>
                                 {showInput && (
-                                    <div class="dsa_row4">
+                                    <div class="dsa_row1">
                                         <div class="dsa_1st_input">
                                             <label htmlFor="input1">New Site Admin Name</label>
                                             <div class="inputs-group">
@@ -284,6 +279,14 @@ const [responseData_state,set_responseData_state] = useState([])
                                                     <Icon icon={person} size={20} style={{ color: "lightgray" }} />
                                                 </span>
                                                 <input type="text" class="form-control-loc" value={new_site_admin_name} onChange={handlenewsiteadminname} id="new_site_admin_name" />
+                                            </div>
+                                        </div>
+
+                                        <div className="dsa_2nd_input">
+                                            <label for="input1">Site Admin Email</label>
+                                            <div className="inputs-group">
+                                                <span class="input-group-loc"><Icon icon={ic_mail} size={20} style={{ color: "lightgray" }} /></span>
+                                                <input type="text" class="form-control-loc" value={site_admin_email} onChange={handlesiteadminemail} id="site_admin_email" />
                                             </div>
                                         </div>
                                     </div>

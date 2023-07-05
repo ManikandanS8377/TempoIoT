@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useRef} from "react";
 
 //import Line chart
 import { Line } from "react-chartjs-2";
@@ -39,7 +39,10 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
     const handleDataUpdate = (message) => {
       fetchData(fromdate, todate, handlelive, globalfilter, message);
     };
-    socket.on('message', handleDataUpdate);
+    socket.on('message', (handleDataUpdate));
+    // socket.on('message', (handleDataUpdate)=>{
+    //   console.log(handleDataUpdate);
+    // });
 
     if (fromdate && todate) {
       console.log(LatestData)
@@ -77,6 +80,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
           }
         })
       } else if (handlelive === true && fromdate !== "") {
+        console.log("hai1");
         latestData = message.filter(values => {
           const itemDate = values.Timestamp;
           if (fromdate <= itemDate) {
@@ -225,6 +229,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
 
 
 
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -287,6 +292,18 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
     (_, index) => index + slideStartIndex
   );
 
+  const individual_grap_selection = useRef(null);
+  const individual_grap_empty_space = (event) => {
+    if (!individual_grap_selection.current.contains(event.target)) {
+      // setIsOpen2(false)
+    }
+  }
+  useEffect(() => {
+    document.addEventListener('click', individual_grap_empty_space);
+    return () => {
+      document.removeEventListener('click', individual_grap_empty_space);
+    };
+  }, [])
 
 
   return (

@@ -29,6 +29,16 @@ app.get('/edit_site_detials/:id', async (req, res) => {
         console.log(err)
     }
 });
+app.get('/edit_site_detial/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const datas = await pool.query('UPDATE site_management SET column_name = $1 WHERE r_no = $2', [new_value, id]);
+        res.json(datas.rows);
+        console.log(datas);
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 
 //GET REQUEST TO SHOW ALL THE DATA IN REACT PAGE
@@ -44,12 +54,37 @@ app.get("/user", async (req, res) => {
 //GET REQUEST TO SHOW ALL THE DATA IN REACT PAGE
 app.get("/site", async (req, res) => {
     try {
-        const sites = await pool.query('SELECT * FROM site_management ORDER BY r_no')
+        const sites = await pool.query('SELECT * FROM site_management ORDER BY r_no');
         res.json(sites.rows);
     } catch (err) {
-        console.log(err)
+        console.log(err);
     }
-})
+});
+
+
+//remove duplicate values in site_company
+app.get("/site_company", async (req, res) => {
+    try {
+        const query = "SELECT DISTINCT company_name FROM site_management";
+        const companyNames = await pool.query(query);
+        res.json(companyNames.rows);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+//remove duplicate admin
+app.get("/site_admin", async (req, res) => {
+    try {
+        const query = "SELECT DISTINCT new_site_admin_name FROM site_management";
+        const adminNames = await pool.query(query);
+        res.json(adminNames.rows);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+
 
 
 //PUT REQUEST TO UPDATE THE DATA IN DB
@@ -75,7 +110,8 @@ app.put("/sitedata/:id", async (req, res) => {
     } catch (err) {
         console.log(err)
     }
-})
+})  
+
 
 
 //DELETE REQUEST TO DELETE THE DATA IN DB
