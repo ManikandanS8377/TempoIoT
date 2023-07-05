@@ -66,8 +66,8 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
     try {
       const response1 = await fetch('http://127.0.0.1:4000/user');
       const data1 = await response1.json();
-      setdevicedata(data1)
-      
+      const length=data1.length;
+      setdevicedata(data1)  
       var latestData;
       if (fromdate !== "" && todate !== "" && handlelive === false) {
         latestData = message.filter(values => {
@@ -100,7 +100,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
         }
       }
       else {
-        for (var i = 0; i < devicedata.length; i++) {
+        for (var i = 0; i < length; i++) {
           getChartData1(selectedOption2[i], latestData, i);
         }
       }
@@ -259,9 +259,11 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   };
 
   const handleDropdown2 = (option, index) => {
-    const updatedSelectedOption2 = [...selectedOption2];
-    updatedSelectedOption2[index] = option;
-    setSelectedOption2(updatedSelectedOption2);
+    setSelectedOption2(prevSelectedOption2 => {
+      const updatedSelectedOption2 = [...prevSelectedOption2];
+      updatedSelectedOption2[index] = option;
+      return updatedSelectedOption2;
+    });  
     const newState = false;
     globalfilterupdate(newState);
     getChartData1(option, LatestData, index);
