@@ -21,7 +21,7 @@ const Sidebar = ({ children }) => {
             name: "About",
             icon: <FaUserAlt />,
             head: ['Management'],
-            links: ['Assert', 'Alert', 'Device', 'Site', 'User']
+            links: ['Assert Management', 'Alert Management', 'Device Management', 'Site Management', 'User Management']
         },
         {
             name: "Analytics",
@@ -60,12 +60,12 @@ const Sidebar = ({ children }) => {
                 return `${path}/users`;
             case 'Configuration':
                 return '/analytics';
-            case 'Alert':
-                return '/#';
+            // case 'Alert':
+            //     return '/#k';
             case 'Modbus Slave':
-                return '/#';
+                return '/Modbus_Slave';
             case 'Modbus Master':
-                return '/#';
+                return '/Modbus_Master';
             case 'Upgradation':
                 return '#';
             case 'Firmware':
@@ -73,11 +73,11 @@ const Sidebar = ({ children }) => {
             case 'Log Maintenance':
                 return '/about';
             case 'Event':
-                return '/#';
+                return '/Event';
             case 'Device Connection':
-                return '/#';
+                return '/Device_Connection';
             case 'Real Data':
-                return '/#';
+                return '/Real_Data';
             default:
                 return "/";
         }

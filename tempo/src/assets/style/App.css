@@ -6,6 +6,23 @@
     text-decoration: none;
 }
 
+/* row_with_count_status */
+.row_with_count_status{
+    justify-content: space-between;
+    user-select: none;
+    height: 65px;
+    width: var(--WIDTH);
+    box-shadow: var(--BOX-SHADOW);
+    border: var(--BORDER_COLOUR_1PX);
+    display: flex;
+}
+.row_with_count_status:first-child{
+    align-self: flex-start;
+}
+.row_with_count_status:last-child {
+    align-self: flex-end;
+}
+
 /* top nav bar */
 .rm-pd-mr {
     user-select: none;
@@ -33,6 +50,7 @@
 
 .device_management {
     justify-content: space-between;
+    user-select: none;
 }
 
 .device_management:first-child {
@@ -1045,9 +1063,7 @@ input[type="checkbox"] {
 }
 
 /* Assert Management */
-.device_management {
-    user-select: none;
-}
+
 
 .active-loc1 {
     color: rgb(11, 127, 169);
