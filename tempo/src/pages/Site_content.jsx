@@ -58,9 +58,9 @@ const Site_content = () => {
 
     }
 
-    
-    
-   
+
+
+
     useEffect(() => {
         fetchData();
         // const interval = setInterval(fetchData, 1000);
@@ -123,7 +123,6 @@ const Site_content = () => {
         else {
             setisgreater_than_10_inactive(false);
         }
-    }, [])
     }, [])
 
 
@@ -252,8 +251,8 @@ const Site_content = () => {
     const [site_address, setsite_address] = useState("")
     const [site_admin_name, setsite_admin_name] = useState("")
     const get_site_data = (index) => {
-        alldata.map ((item,item_index)=>{
-            if (item_index === index){
+        alldata.map((item, item_index) => {
+            if (item_index === index) {
                 setcompany_name(item.company_name);
                 setsite_name(item.site_name);
                 setsite_admin_email(item.site_admin_email);
@@ -403,7 +402,7 @@ const Site_content = () => {
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action" onClick={()=>get_site_data(index)}>Site Details</div>
+                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action" onClick={() => get_site_data(index)}>Site Details</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
@@ -443,50 +442,48 @@ const Site_content = () => {
                                     <label for="input1">Site Name</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" value={site_name}/>
+                                        <input type="text" class="form-control-loc" id="input1" value={site_name} />
                                     </div>
                                 </div>
-                            </div>
-                            </div>
-                            <div className="dsa_row2">
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Site Admin Email</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" value={site_admin_email}/>
-                                    </div>
-                                </div>
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Site location</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" value={site_location}/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="dsa_row3">
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Site Address</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" value={site_address} />
-                                    </div>
-                                </div>
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Site Admin Name</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" value={site_admin_name} />
-                                    </div>
-                                </div>
-                            </div>
                             </div>
                         </div>
-                        <div class="device_status_footer">
-                            <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
-                            <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
+                        <div className="dsa_row2">
+                            <div className="dsa_1st_input">
+                                <label for="input1">Site Admin Email</label>
+                                <div className="inputs-group">
+                                    <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                    <input type="text" class="form-control-loc" id="input1" value={site_admin_email} />
+                                </div>
+                            </div>
+                            <div className="dsa_1st_input">
+                                <label for="input1">Site location</label>
+                                <div className="inputs-group">
+                                    <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                    <input type="text" class="form-control-loc" id="input1" value={site_location} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="dsa_row3">
+                            <div className="dsa_1st_input">
+                                <label for="input1">Site Address</label>
+                                <div className="inputs-group">
+                                    <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                    <input type="text" class="form-control-loc" id="input1" value={site_address} />
+                                </div>
+                            </div>
+                            <div className="dsa_1st_input">
+                                <label for="input1">Site Admin Name</label>
+                                <div className="inputs-group">
+                                    <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                    <input type="text" class="form-control-loc" id="input1" value={site_admin_name} />
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="device_status_footer">
+                    <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
+                    <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
