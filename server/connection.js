@@ -98,6 +98,26 @@ app.put("/userdata/:id", async (req, res) => {
         console.log(err)
     }
 })
+app.put("/edit_device_detials", async (req, res) => {
+    try {
+        // const { id } = req.params;
+        // const clientid = req.body["clientid"];
+        const devicename = req.body["devicename"];
+        const devicemodel = req.body["devicemodel"];
+        const devicemacaddress = req.body["devicemacaddress"];
+        // const firmwareversion = req.body["firmwareversion"];
+        // const clientname = req.body["clientname"];
+        // const host = req.body["host"];
+        // const username = req.body["username"];
+        // const password = req.body["password"];
+        // const topicname = req.body["topicname"];
+        // const concatenatedValues = req.body["concatenatedValues"];
+        // console.log("ih")
+        await pool.query('UPDATE device_management SET device_name=$1, device_model=$2 WHERE device_mac_address=$3', [devicename,devicemodel,devicemacaddress])
+    } catch (err) {
+        console.log(err)
+    }
+})
 
 
 //PUT REQUEST TO UPDATE THE DATA IN DB
@@ -105,7 +125,7 @@ app.put("/sitedata/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const { site_status } = req.body;
-        console.log("ih")
+        // console.log("ih")
         await pool.query('UPDATE site_management SET  site_status=$1 WHERE r_no=$2', [site_status, id])
     } catch (err) {
         console.log(err)

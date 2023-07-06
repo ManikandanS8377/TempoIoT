@@ -83,7 +83,7 @@ const Sidebar = ({ children }) => {
         }
     };
 
-    menuItem.forEach(item => {
+    menuItem.forEach((item , index) => {
         item.links = item.links.map(link => {
             return {
                 text: link,
@@ -103,7 +103,6 @@ const Sidebar = ({ children }) => {
                         <NavLink
                             to={item.path}
                             className="link"
-                            activeClassName="active"
                             onMouseEnter={() => {
                                 const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
                                 dropdownContent.style.display = 'block';
