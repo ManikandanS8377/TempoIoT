@@ -248,7 +248,7 @@ const Device_content = () => {
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
 
-                    <div className="device_management display-flex page_top_box box-shadow">
+                    <div className="row_with_count_status">
                         <span className='module_tittle'>Device Management</span>
                         <div className='status-btns display-flex'>
                             <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{isless_than_10_active ? `0${activeCount}` : `${activeCount}`}&nbsp;</div>Active</div>

@@ -24,6 +24,8 @@ import Modbus_Master from './pages/Modbus_Master'
 import Event from './pages/Event'
 import Device_Connection from './pages/Device_Connection'
 import Real_Data from './pages/Real_Data';
+import User from './pages/User'
+import Alert from './pages/Alert'
 // Main Content Template
 import MainContent from './components/MainContent';
 
@@ -46,6 +48,8 @@ const App = () => {
           <Route path="/edit_device/:r_no" element={<Edit_device/>} /> 
           <Route path="/edit_site/:r_no" element={<Edit_site/>} />
           <Route path="/Add_site" element={<Add_site/>} /> 
+          <Route path="/Users" element={<User/>} /> 
+          <Route path="/Alert" element={<Alert/>} /> 
           <Route path="/Modbus_Slave" element={<Modbus_Slave/>} /> 
           <Route path="/Modbus_Master" element={<Modbus_Master/>} /> 
           <Route path="/Event" element={<Event/>} /> 
