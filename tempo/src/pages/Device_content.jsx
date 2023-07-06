@@ -233,18 +233,11 @@ const Device_content = () => {
             setisgreater_than_10_inactive(false);
         }
     })
-    // if (activeCount>5) {
-    //     setisgreater_than_10(true)
-    // }
+
     const Device_edit_page = async (data) => {
-        // alert("hai");
         navigate(`/edit_device/${data.r_no}`);
     }
-    // const response = await fetch(`http://127.0.0.1:4000/edit_device/${data.r_no}`);
-    // const datas = await response.json();
-    // const { param1 } = datas;
-    // window.location.href = `http://127.0.0.1:4000/edit_device?param1=${param1}`;
-    
+   
 
 
 

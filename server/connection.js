@@ -92,7 +92,6 @@ app.put("/userdata/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const { devicestatus } = req.body;
-        console.log("ih")
         await pool.query('UPDATE device_management SET  device_status=$1 WHERE r_no=$2', [devicestatus, id])
     } catch (err) {
         console.log(err)
@@ -166,7 +165,6 @@ app.post("/user", async (req, res) => {
             const filePath = 'copy/' + fileName
             // write the file
             fs.writeFileSync(filePath, fileContent);
-            console.log(data)
 
             let allData = []
             allData = JSON.parse(fs.readFileSync('allData.json', 'utf8'));
@@ -196,30 +194,31 @@ app.post("/user", async (req, res) => {
 
 
         //connection to device_management
-        const ins = 'INSERT INTO device_management(device_name, device_mac_address, device_firmware_version,device_model,is_service_enabled)VALUES($1,$2,$3,$4,$5);'
-        const values = [device_name, device_mac_address, device_firmware_version, device_model, is_service_enabled]
+        const ins = 'INSERT INTO device_management (device_name, device_mac_address, device_firmware_version, device_model, is_service_enabled) VALUES ($1, $2, $3, $4, $5) RETURNING device_id';
+        const values = [device_name, device_mac_address, device_firmware_version, device_model, is_service_enabled];
 
-        //connection to network_protocol
-        const ins1 = 'INSERT INTO network_protocol(client_id,username,password,host) VALUES ($1,$2,$3,$4)';
-        const values1 = [client_id, user_name, passowrd, mqtt_host];
+        // Connection to network_protocol
+        const ins1 = 'INSERT INTO network_protocol (device_id, client_id, username, password, host) VALUES ($1, $2, $3, $4, $5)';
+        const values1 = [null, client_id, user_name, passowrd, mqtt_host];
+
+        //device_data_collection
+        const ins2 = 'INSERT INTO device_data_collection(device_id,device_parameters) VALUES ($1,$2)';
+        const values2 = [null,concatenatedValues]
+
+        // Execute the first query to insert into device_management
+        const result = await pool.query(ins, values);
+        const device_id = result.rows[0].device_id;
+
+        // Update the device_id value in the second query
+        values1[0] = device_id;
+        values2[0] = device_id;
+
+        //  insert into network_protocol
+        await pool.query(ins1, values1);
 
         //connection to device_data_collection
-        const ins2 = 'INSERT INTO device_data_collection(device_parameters) VALUES ($1)';
-        const values2 = [concatenatedValues]
+        await pool.query(ins2, values2)
 
-        //query to insert into database
-        await pool.query(ins, values).then((res) => {
-            console.log(res)
-        })
-        await pool.query(ins1, values1).then((res) => {
-            console.log(res)
-        })
-        await pool.query(ins2, values2).then((res) => {
-            console.log(res)
-        })
-        // await pool.query(ins3, values3).then((res) => {
-        //     console.log(res)
-        // })
     } catch (err) {
         console.log(err)
     }

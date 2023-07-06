@@ -78,7 +78,7 @@ const Site_content = () => {
             const response_company = await fetch('http://127.0.0.1:4000/site_company');
             const data_company = await response_company.json();
 
-            const modifiedData = data.map((item, index) => {
+            const modifiedData = data.map((item) => {
                 const date = new Date(item.site_created_on);
                 const year = date.getFullYear();
                 const month = date.getMonth() + 1;
@@ -101,20 +101,9 @@ const Site_content = () => {
         }
     }
 
-    useEffect(() => {
-        fetchData();
-        // alldata.map = (item,index) =>{
-        //     alert(item.site_name);
-        // }
-    }, []);
-
-
-
-
 
     const [isless_than_10_active, setisless_than_10_active] = useState(false)
     const [isgreater_than_10_inactive, setisgreater_than_10_inactive] = useState(false)
-    // console.log(activeCount);
     useEffect(() => {
         if (activeCount < 10) {
             setisless_than_10_active(true)
@@ -135,7 +124,6 @@ const Site_content = () => {
 
 
     const site_edit_page = async (data) => {
-        // alert("hai");
         navigate(`/edit_site/${data.r_no}`);
     }
 
@@ -283,11 +271,10 @@ const Site_content = () => {
             {/* {logObjects} */}
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
-
                     <div className="device_management display-flex page_top_box box-shadow">
                         <span className='module_tittle '>Site Management</span>
                         <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{setisless_than_10_active ? `0${activeCount}` : `${activeCount}`}&nbsp;</div>Active</div>
+                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{isless_than_10_active ? `0${activeCount}` : `${activeCount}`}&nbsp;</div>Active</div>
                             <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{isgreater_than_10_inactive ? `0${inactiveCount}` : `${inactiveCount}`}&nbsp;</div> Inactive</div>
                         </div>
                     </div>
@@ -295,7 +282,6 @@ const Site_content = () => {
                         <div class="pagination display-flex" onClick={handleDivClick}>
                             <div className="focus-page">
                                 <input
-
                                     type="number"
                                     value={text}
                                     onChange={handleInputChange}
@@ -303,7 +289,6 @@ const Site_content = () => {
                                     autoFocus
                                     className='editable_input_box'
                                 />
-
                             </div>
                             <div className="upcomming-pages">
                                 of 20 pages
@@ -381,9 +366,7 @@ const Site_content = () => {
                             <div className="col-head" key={index}>{data.site_name}</div>
                             <div className="col-head">Industry</div>
                             <div className="col-head" key={index}>{data.site_created_on}</div>
-
                             <div className="col-head" key={index}>{data.new_site_admin_name}</div>
-
                             <div className="col-head display-flex">
                                 <FontAwesomeIcon
                                     icon={faDiamond}
@@ -394,8 +377,6 @@ const Site_content = () => {
                                     {data.site_status == 1 ? 'Active' : 'Inactive'}
                                 </div>
                             </div>
-
-
                             <div className="col-head display-flex device_action_dropdown_parent">
                                 <div className="sts_icon" onClick={() => handleIconClick(index)}>
                                     <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
