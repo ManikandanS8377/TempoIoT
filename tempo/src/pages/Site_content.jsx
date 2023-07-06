@@ -20,7 +20,7 @@ const Site_content = () => {
     // const
     const [alldata, setalldata] = useState([]);
     const [company_value, setcompany] = useState([]);
-  
+
     const [activeCount, setactiveCount] = useState(0);
     const [inactiveCount, setinactiveCount] = useState(0);
     const [isOpen2, setIsOpen2] = useState(false);
@@ -56,12 +56,16 @@ const Site_content = () => {
         })
 
     }
+
+    
+    
+   
     useEffect(() => {
         fetchData();
-        const interval = setInterval(fetchData, 1000);
-        return () => {
-            clearInterval(interval);
-        };
+        // const interval = setInterval(fetchData, 1000);
+        // return () => {
+        //     clearInterval(interval);
+        // };
     }, []);
 
 
@@ -69,12 +73,12 @@ const Site_content = () => {
     async function fetchData() {
         try {
             const response = await fetch('http://127.0.0.1:4000/site');
-            const response_company = await fetch('http://127.0.0.1:4000/site_company');
-           
-            const data_company = await response_company.json();
-           
             const data = await response.json();
-            const modifiedData = data.map((item) => {
+
+            const response_company = await fetch('http://127.0.0.1:4000/site_company');
+            const data_company = await response_company.json();
+
+            const modifiedData = data.map((item, index) => {
                 const date = new Date(item.site_created_on);
                 const year = date.getFullYear();
                 const month = date.getMonth() + 1;
@@ -91,7 +95,7 @@ const Site_content = () => {
             setactiveCount(activeCount);
             setinactiveCount(inactiveCount);
             setcompany(data_company);
-            
+
         } catch (error) {
             console.log(error);
         }
@@ -99,6 +103,9 @@ const Site_content = () => {
 
     useEffect(() => {
         fetchData();
+        // alldata.map = (item,index) =>{
+        //     alert(item.site_name);
+        // }
     }, []);
 
 
@@ -107,16 +114,16 @@ const Site_content = () => {
 
     const [isless_than_10_active, setisless_than_10_active] = useState(false)
     const [isgreater_than_10_inactive, setisgreater_than_10_inactive] = useState(false)
-    console.log(activeCount);
+    // console.log(activeCount);
     useEffect(() => {
         if (activeCount < 10) {
             setisless_than_10_active(true)
-            console.log("t");
+            // console.log("t");
 
         }
         else {
             setisless_than_10_active(false);
-            console.log("hai");
+            // console.log("hai");
         }
         if (inactiveCount < 10) {
             setisgreater_than_10_inactive(true)
@@ -124,7 +131,7 @@ const Site_content = () => {
         else {
             setisgreater_than_10_inactive(false);
         }
-    },[])
+    }, [])
 
 
     const site_edit_page = async (data) => {
@@ -242,7 +249,29 @@ const Site_content = () => {
     const handleclick = () => {
         navigate('/Add_site');
     }
+    // console.log(fetchData().data);
+    // console.log("fetchData().data");
 
+
+    const [company_name, setcompany_name] = useState("")
+    const [site_name, setsite_name] = useState("")
+    const [site_admin_email, setsite_admin_email] = useState("")
+    const [site_location, setsite_location] = useState("")
+    const [site_address, setsite_address] = useState("")
+    const [site_admin_name, setsite_admin_name] = useState("")
+    const get_site_data = (index) => {
+        alldata.map ((item,item_index)=>{
+            if (item_index === index){
+                setcompany_name(item.company_name);
+                setsite_name(item.site_name);
+                setsite_admin_email(item.site_admin_email);
+                setsite_location(item.site_location);
+                setsite_address(item.site_address);
+                setsite_admin_name(item.site_admin_name);
+            }
+
+        })
+    }
 
 
 
@@ -251,6 +280,7 @@ const Site_content = () => {
 
     return (
         <div className='bar'>
+            {/* {logObjects} */}
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
 
@@ -374,7 +404,7 @@ const Site_content = () => {
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex'onClick={() => site_edit_page(data)}>Edit Detials</div>
+                                            <div className='device_content_dropdown display-flex' onClick={() => site_edit_page(data)}>Edit Detials</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
@@ -386,7 +416,7 @@ const Site_content = () => {
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Site Details</div>
+                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action" onClick={()=>get_site_data(index)}>Site Details</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
@@ -420,30 +450,30 @@ const Site_content = () => {
                                     <label for="input1">Company Name</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
+                                        <input type="text" class="form-control-loc" id="input1" value={company_name} />
                                     </div>
                                 </div>
                                 <div className="dsa_1st_input">
                                     <label for="input1">Site Name</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
+                                        <input type="text" class="form-control-loc" id="input1" value={site_name}/>
                                     </div>
                                 </div>
-                            </div>   
+                            </div>
                             <div className="dsa_row2">
                                 <div className="dsa_1st_input">
                                     <label for="input1">Site Admin Email</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
+                                        <input type="text" class="form-control-loc" id="input1" value={site_admin_email}/>
                                     </div>
                                 </div>
                                 <div className="dsa_1st_input">
                                     <label for="input1">Site location</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
+                                        <input type="text" class="form-control-loc" id="input1" value={site_location}/>
                                     </div>
                                 </div>
                             </div>
@@ -452,17 +482,17 @@ const Site_content = () => {
                                     <label for="input1">Site Address</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
+                                        <input type="text" class="form-control-loc" id="input1" value={site_address} />
                                     </div>
                                 </div>
                                 <div className="dsa_1st_input">
                                     <label for="input1">Site Admin Name</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
+                                        <input type="text" class="form-control-loc" id="input1" value={site_admin_name} />
                                     </div>
                                 </div>
-                            </div>         
+                            </div>
                         </div>
                         <div class="device_status_footer">
                             <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
