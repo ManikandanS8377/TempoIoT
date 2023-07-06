@@ -21,7 +21,7 @@ const Sidebar = ({ children }) => {
             name: "About",
             icon: <FaUserAlt />,
             head: ['Management'],
-            links: ['Assert', 'Alert', 'Device', 'Site', 'User']
+            links: ['Assert Management', 'Alert Management', 'Device Management', 'Site Management', 'User Management   ']
         },
         {
             name: "Analytics",
@@ -41,7 +41,6 @@ const Sidebar = ({ children }) => {
             head: ['Log Maintenance'],
             links: ['Event', 'Device Connection', 'Real Data']
         },
-
     ];
 
     const getLinkUrl = (link, path) => {

@@ -40,9 +40,6 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
       fetchData(fromdate, todate, handlelive, globalfilter, message);
     };
     socket.on('message', (handleDataUpdate));
-    // socket.on('message', (handleDataUpdate)=>{
-    //   console.log(handleDataUpdate);
-    // });
 
     if (fromdate && todate) {
       console.log(LatestData)
@@ -80,7 +77,6 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
           }
         })
       } else if (handlelive === true && fromdate !== "") {
-        console.log("hai1");
         latestData = message.filter(values => {
           const itemDate = values.Timestamp;
           if (fromdate <= itemDate) {
@@ -218,7 +214,6 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
               pointBackgroundColor: "white",
               borderWidth: 1,
             }
-
           ],
         };
       }
@@ -310,7 +305,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
     <div style={{ width: "100%" }}>
       <div className="grid-container">
         {displayedItems.map((item) => (
-          <div key={item} className="grid-item">
+          <div key={item} className="grid-item" >
             <div className="graph-header display-flex" style={{ justifyContent: "center", alignItems: "center" }}>
               <label>Temperature - Assert1</label>
               <div className="dropdown_container2">

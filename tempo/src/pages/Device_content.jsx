@@ -233,18 +233,11 @@ const Device_content = () => {
             setisgreater_than_10_inactive(false);
         }
     })
-    // if (activeCount>5) {
-    //     setisgreater_than_10(true)
-    // }
+
     const Device_edit_page = async (data) => {
-        // alert("hai");
         navigate(`/edit_device/${data.r_no}`);
     }
-    // const response = await fetch(`http://127.0.0.1:4000/edit_device/${data.r_no}`);
-    // const datas = await response.json();
-    // const { param1 } = datas;
-    // window.location.href = `http://127.0.0.1:4000/edit_device?param1=${param1}`;
-    
+   
 
 
 
@@ -257,7 +250,7 @@ const Device_content = () => {
                     <div className="device_management display-flex page_top_box box-shadow">
                         <span className='module_tittle'>Device Management</span>
                         <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{setisless_than_10_active ? `0${activeCount}` : `${activeCount}`}&nbsp;</div>Active</div>
+                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{isless_than_10_active ? `0${activeCount}` : `${activeCount}`}&nbsp;</div>Active</div>
                             <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{isgreater_than_10_inactive ? `0${inactiveCount}` : `${inactiveCount}`}&nbsp;</div> Inactive</div>
                         </div>
                     </div>
