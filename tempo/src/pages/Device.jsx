@@ -8,7 +8,7 @@ import Navbar from '../TopNavbar';
 import Device_content from './Device_content';
 
 
-const Device = () => {
+function Device(){
     return (
         <div className='device-page'>
             {/* <Navbar /> */}

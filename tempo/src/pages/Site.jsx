@@ -8,7 +8,7 @@ import Navbar from '../TopNavbar';
 import Site_content from './Site_content';
 
 
-const Site = () => {
+function Site(){
     return (
         <div className='site-page'>
             {/* <Navbar /> */}

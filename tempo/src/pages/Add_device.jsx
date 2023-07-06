@@ -253,6 +253,7 @@ const Add_device = () => {
         }
         else {
             navigate('/Device');
+            alert(clientid)
             const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, topicname, concatenatedValues, checking }
             await fetch('http://127.0.0.1:4000/user', {
                 method: "POST",
@@ -310,20 +311,20 @@ const Add_device = () => {
 
     return (
         <div className='Add_device'>
-            <div class="modal fade boot-modals" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content width_of_model">
-                        <div class="modal-header-confirm">
-                            <h5 class="modal-title" id="exampleModalLabel">CONFIRMATION</h5>
+            <div className="modal fade boot-modals" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div className="modal-content width_of_model">
+                        <div className="modal-header-confirm">
+                            <h5 className="modal-title" id="exampleModalLabel">CONFIRMATION</h5>
                             {/* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
                         </div>
-                        <div class="modal-main-confirm">
-                            <h5 class="modal-title confirm-tittle">Are you sure you want Exit ?
+                        <div className="modal-main-confirm">
+                            <h5 className="modal-title confirm-tittle">Are you sure you want Exit ?
                             </h5>
                         </div>
-                        <div class="modal-footer-confirm">
-                            <button type="button" class="btn-loc active-loc" data-bs-dismiss="modal" onClick={handleCancel}>YES</button>
-                            <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">NO</button>
+                        <div className="modal-footer-confirm">
+                            <button type="button" className="btn-loc active-loc" data-bs-dismiss="modal" onClick={handleCancel}>YES</button>
+                            <button type="button" className="btn-loc inactive-loc" data-bs-dismiss="modal">NO</button>
                         </div>
                     </div>
                 </div>

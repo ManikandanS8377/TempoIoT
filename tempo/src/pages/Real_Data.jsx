@@ -1,5 +1,5 @@
 import React from "react";
-const Real_Data = () => {
+function Real_Data(){
     return (
         <div className="row_with_count_status">Real_Data</div>
     )

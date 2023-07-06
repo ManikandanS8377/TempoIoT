@@ -10,7 +10,7 @@ app.use(express.json())
 // get data from device management page to device edit page
 app.get('/edit_device_detials/:id', async (req, res) => {
     try {
-        const {id} = req.params 
+        const { id } = req.params
         const datas = await pool.query('SELECT * FROM device_management WHERE r_no = $1', [id]);
         res.json(datas.rows);
     } catch (err) {
@@ -21,7 +21,7 @@ app.get('/edit_device_detials/:id', async (req, res) => {
 // get data from device management page to device edit page
 app.get('/edit_site_detials/:id', async (req, res) => {
     try {
-        const {id} = req.params 
+        const { id } = req.params
         const datas = await pool.query('SELECT * FROM site_management WHERE r_no = $1', [id]);
         res.json(datas.rows);
         console.log(datas)
@@ -125,8 +125,27 @@ app.put("/userdata/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const { devicestatus } = req.body;
-        console.log("ih")
         await pool.query('UPDATE device_management SET  device_status=$1 WHERE r_no=$2', [devicestatus, id])
+    } catch (err) {
+        console.log(err)
+    }
+})
+app.put("/edit_device_detials", async (req, res) => {
+    try {
+        // const { id } = req.params;
+        // const clientid = req.body["clientid"];
+        const devicename = req.body["devicename"];
+        const devicemodel = req.body["devicemodel"];
+        const devicemacaddress = req.body["devicemacaddress"];
+        // const firmwareversion = req.body["firmwareversion"];
+        // const clientname = req.body["clientname"];
+        // const host = req.body["host"];
+        // const username = req.body["username"];
+        // const password = req.body["password"];
+        // const topicname = req.body["topicname"];
+        // const concatenatedValues = req.body["concatenatedValues"];
+        // console.log("ih")
+        await pool.query('UPDATE device_management SET device_name=$1, device_model=$2 WHERE device_mac_address=$3', [devicename,devicemodel,devicemacaddress])
     } catch (err) {
         console.log(err)
     }
@@ -138,12 +157,12 @@ app.put("/sitedata/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const { site_status } = req.body;
-        console.log("ih")
+        // console.log("ih")
         await pool.query('UPDATE site_management SET  site_status=$1 WHERE r_no=$2', [site_status, id])
     } catch (err) {
         console.log(err)
     }
-})  
+})
 
 
 
@@ -179,7 +198,6 @@ app.post("/user", async (req, res) => {
             const filePath = 'copy/' + fileName
             // write the file
             fs.writeFileSync(filePath, fileContent);
-            console.log(data)
 
             let allData = []
             allData = JSON.parse(fs.readFileSync('allData.json', 'utf8'));
@@ -209,30 +227,31 @@ app.post("/user", async (req, res) => {
 
 
         //connection to device_management
-        const ins = 'INSERT INTO device_management(device_name, device_mac_address, device_firmware_version,device_model,is_service_enabled)VALUES($1,$2,$3,$4,$5);'
-        const values = [device_name, device_mac_address, device_firmware_version, device_model, is_service_enabled]
+        const ins = 'INSERT INTO device_management (device_name, device_mac_address, device_firmware_version, device_model, is_service_enabled) VALUES ($1, $2, $3, $4, $5) RETURNING device_id';
+        const values = [device_name, device_mac_address, device_firmware_version, device_model, is_service_enabled];
 
-        //connection to network_protocol
-        const ins1 = 'INSERT INTO network_protocol(client_id,username,password,host) VALUES ($1,$2,$3,$4)';
-        const values1 = [client_id, user_name, passowrd, mqtt_host];
+        // Connection to network_protocol
+        const ins1 = 'INSERT INTO network_protocol (device_id, client_id, username, password, host) VALUES ($1, $2, $3, $4, $5)';
+        const values1 = [null, client_id, user_name, passowrd, mqtt_host];
+
+        //device_data_collection
+        const ins2 = 'INSERT INTO device_data_collection(device_id,device_parameters) VALUES ($1,$2)';
+        const values2 = [null,concatenatedValues]
+
+        // Execute the first query to insert into device_management
+        const result = await pool.query(ins, values);
+        const device_id = result.rows[0].device_id;
+
+        // Update the device_id value in the second query
+        values1[0] = device_id;
+        values2[0] = device_id;
+
+        //  insert into network_protocol
+        await pool.query(ins1, values1);
 
         //connection to device_data_collection
-        const ins2 = 'INSERT INTO device_data_collection(device_parameters) VALUES ($1)';
-        const values2 = [concatenatedValues]
+        await pool.query(ins2, values2)
 
-        //query to insert into database
-        await pool.query(ins, values).then((res) => {
-            console.log(res)
-        })
-        await pool.query(ins1, values1).then((res) => {
-            console.log(res)
-        })
-        await pool.query(ins2, values2).then((res) => {
-            console.log(res)
-        })
-        // await pool.query(ins3, values3).then((res) => {
-        //     console.log(res)
-        // })
     } catch (err) {
         console.log(err)
     }
@@ -252,7 +271,7 @@ app.post("/site", async (req, res) => {
     const site_id = req.body["site_id"];
     const industry = req.body["industry"];
     // console.log(company_name);
-    
+
     // Connection to Site_management
     const ins3 = 'INSERT INTO site_management(company_name, site_name, site_admin_email, site_location, site_address, site_admin_name, new_site_admin_name, industry) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
     const values3 = [company_name, site_name, site_admin_email, site_location, site_address, site_admin_name, new_site_admin_name, industry];
@@ -267,7 +286,6 @@ app.post("/site", async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
-
 
 
 

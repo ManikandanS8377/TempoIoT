@@ -35,12 +35,7 @@ const Site_content = () => {
     const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
     const dropdownRef4 = useRef(null);
 
-    //site information 
-    const [company_name, setcompanyname] = useState("");
-    const [site_name, setsitename] = useState("");
-    const [site_admin_email, setsiteadminemail] = useState("");
-    const [site_location, setsitelocation] = useState("");
-    const [site_address, setsiteaddress] = useState("");
+
 
 
     //functions to set the device status avtive and inactive
@@ -107,12 +102,16 @@ const Site_content = () => {
         })
 
     }
+
+
+
+
     useEffect(() => {
         fetchData();
-        const interval = setInterval(fetchData, 1000);
-        return () => {
-            clearInterval(interval);
-        };
+        // const interval = setInterval(fetchData, 1000);
+        // return () => {
+        //     clearInterval(interval);
+        // };
     }, []);
 
 
@@ -120,11 +119,12 @@ const Site_content = () => {
     async function fetchData() {
         try {
             const response = await fetch('http://127.0.0.1:4000/site');
-            const response_company = await fetch('http://127.0.0.1:4000/site_company');
+            const data = await response.json();
 
+            const response_company = await fetch('http://127.0.0.1:4000/site_company');
             const data_company = await response_company.json();
 
-            const data = await response.json();
+
             const modifiedData = data.map((item) => {
                 const date = new Date(item.site_created_on);
                 const year = date.getFullYear();
@@ -148,46 +148,18 @@ const Site_content = () => {
         }
     }
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    function handlecompanyname(event) {
-        const value = event.target.value;
-        setcompanyname(value);
-    }
-
-    function handlesitename(event) {
-        const value = event.target.value;
-        setsitename(value);
-    }
-
-    function handlesiteadminemail(event) {
-        const value = event.target.value;
-        setsiteadminemail(value);
-    }
-
-    function handlesitelocation(event) {
-        const value = event.target.value;
-        setsitelocation(value);
-    }
-
-    function handlesiteaddress(event) {
-        const value = event.target.value;
-        setsiteaddress(value);
-
-    }
-
 
     const [isless_than_10_active, setisless_than_10_active] = useState(false)
     const [isgreater_than_10_inactive, setisgreater_than_10_inactive] = useState(false)
-    console.log(inactiveCount);
     useEffect(() => {
         if (activeCount < 10) {
             setisless_than_10_active(true)
+            // console.log("t");
+
         }
         else {
             setisless_than_10_active(false);
+            // console.log("hai");
         }
         if (inactiveCount < 10) {
             setisgreater_than_10_inactive(true)
@@ -195,11 +167,10 @@ const Site_content = () => {
         else {
             setisgreater_than_10_inactive(false);
         }
-    })
+    }, [])
 
 
     const site_edit_page = async (data) => {
-        // alert("hai");
         navigate(`/edit_site/${data.r_no}`);
     }
 
@@ -315,7 +286,29 @@ const Site_content = () => {
     const handleclick = () => {
         navigate('/Add_site');
     }
+    // console.log(fetchData().data);
+    // console.log("fetchData().data");
 
+
+    const [company_name, setcompany_name] = useState("")
+    const [site_name, setsite_name] = useState("")
+    const [site_admin_email, setsite_admin_email] = useState("")
+    const [site_location, setsite_location] = useState("")
+    const [site_address, setsite_address] = useState("")
+    const [site_admin_name, setsite_admin_name] = useState("")
+    const get_site_data = (index) => {
+        alldata.map((item, item_index) => {
+            if (item_index === index) {
+                setcompany_name(item.company_name);
+                setsite_name(item.site_name);
+                setsite_admin_email(item.site_admin_email);
+                setsite_location(item.site_location);
+                setsite_address(item.site_address);
+                setsite_admin_name(item.site_admin_name);
+            }
+
+        })
+    }
 
 
 
@@ -324,13 +317,13 @@ const Site_content = () => {
 
     return (
         <div className='bar'>
+            {/* {logObjects} */}
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
-
                     <div className="device_management display-flex page_top_box box-shadow">
                         <span className='module_tittle '>Site Management</span>
                         <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{setisless_than_10_active ? `0${activeCount}` : `${activeCount}`}&nbsp;</div>Active</div>
+                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{isless_than_10_active ? `0${activeCount}` : `${activeCount}`}&nbsp;</div>Active</div>
                             <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{isgreater_than_10_inactive ? `0${inactiveCount}` : `${inactiveCount}`}&nbsp;</div> Inactive</div>
                         </div>
                     </div>
@@ -338,7 +331,6 @@ const Site_content = () => {
                         <div class="pagination display-flex" onClick={handleDivClick}>
                             <div className="focus-page">
                                 <input
-
                                     type="number"
                                     value={text}
                                     onChange={handleInputChange}
@@ -346,7 +338,6 @@ const Site_content = () => {
                                     autoFocus
                                     className='editable_input_box'
                                 />
-
                             </div>
                             <div className="upcomming-pages">
                                 of 20 pages
@@ -418,15 +409,14 @@ const Site_content = () => {
                         <div className="col-head">SITE STATUS</div>
                         <div className="col-head">ACTION</div>
                     </div>
+
                     {alldata.map((data, index) => (
                         <div className="datas">
                             <div className="col-head" >Site ID</div>
                             <div className="col-head" key={index}>{data.site_name}</div>
                             <div className="col-head">Industry</div>
                             <div className="col-head" key={index}>{data.site_created_on}</div>
-
                             <div className="col-head" key={index}>{data.new_site_admin_name}</div>
-
                             <div className="col-head display-flex">
                                 <FontAwesomeIcon
                                     icon={faDiamond}
@@ -437,8 +427,6 @@ const Site_content = () => {
                                     {data.site_status == 1 ? 'Active' : 'Inactive'}
                                 </div>
                             </div>
-
-
                             <div className="col-head display-flex device_action_dropdown_parent">
                                 <div className="sts_icon" onClick={() => handleIconClick(index)}>
                                     <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
@@ -460,7 +448,7 @@ const Site_content = () => {
                                         <div className='display-flex device_action_dropdown1 dropdown_action' onClick={() => handlesiteClick(index)}>
 
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Site Details</div>
+                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action" onClick={() => get_site_data(index)}>Site Details</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
@@ -471,7 +459,6 @@ const Site_content = () => {
                             </div>
                         </div>
                     ))}
-
                 </div>
                 <div className='device_bottom'>
                     <div className='device_export cursor-pointer'>
@@ -494,55 +481,55 @@ const Site_content = () => {
                                     <label for="input1">Company Name</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={company_name} onChange={handlecompanyname} id="company_name" />
+                                        <input type="text" class="form-control-loc" id="input1" value={company_name} />
                                     </div>
                                 </div>
                                 <div className="dsa_1st_input">
                                     <label for="input1">Site Name</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="dsa_row2">
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Site Admin Email</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
-                                    </div>
-                                </div>
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Site location</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="dsa_row3">
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Site Address</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
-                                    </div>
-                                </div>
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Site Admin Name</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
+                                        <input type="text" class="form-control-loc" id="input1" value={site_name} />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="device_status_footer">
-                            <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
-                            <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
+                        <div className="dsa_row2">
+                            <div className="dsa_1st_input">
+                                <label for="input1">Site Admin Email</label>
+                                <div className="inputs-group">
+                                    <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                    <input type="text" class="form-control-loc" id="input1" value={site_admin_email} />
+                                </div>
+                            </div>
+                            <div className="dsa_1st_input">
+                                <label for="input1">Site location</label>
+                                <div className="inputs-group">
+                                    <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                    <input type="text" class="form-control-loc" id="input1" value={site_location} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="dsa_row3">
+                            <div className="dsa_1st_input">
+                                <label for="input1">Site Address</label>
+                                <div className="inputs-group">
+                                    <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                    <input type="text" class="form-control-loc" id="input1" value={site_address} />
+                                </div>
+                            </div>
+                            <div className="dsa_1st_input">
+                                <label for="input1">Site Admin Name</label>
+                                <div className="inputs-group">
+                                    <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
+                                    <input type="text" class="form-control-loc" id="input1" value={site_admin_name} />
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="device_status_footer">
+                    <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
+                    <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

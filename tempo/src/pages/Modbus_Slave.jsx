@@ -1,5 +1,5 @@
 import React from "react";
-const Modbus_Slave = () => {
+function Modbus_Slave(){
     return (
         <div className="row_with_count_status">
             <span className='module_tittle'>Modbus_Slave</span>

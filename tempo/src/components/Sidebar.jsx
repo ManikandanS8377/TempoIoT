@@ -21,7 +21,7 @@ const Sidebar = ({ children }) => {
             name: "About",
             icon: <FaUserAlt />,
             head: ['Management'],
-            links: ['Assert Management', 'Alert Management', 'Device Management', 'Site Management', 'User Management']
+            links: ['Assert Management', 'Alert Management', 'Device Management', 'Site Management', 'User Management   ']
         },
         {
             name: "Analytics",
@@ -41,7 +41,6 @@ const Sidebar = ({ children }) => {
             head: ['Log Maintenance'],
             links: ['Event', 'Device Connection', 'Real Data']
         },
-
     ];
 
     const getLinkUrl = (link, path) => {
@@ -83,7 +82,7 @@ const Sidebar = ({ children }) => {
         }
     };
 
-    menuItem.forEach(item => {
+    menuItem.forEach((item , index) => {
         item.links = item.links.map(link => {
             return {
                 text: link,
@@ -103,7 +102,6 @@ const Sidebar = ({ children }) => {
                         <NavLink
                             to={item.path}
                             className="link"
-                            activeClassName="active"
                             onMouseEnter={() => {
                                 const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
                                 dropdownContent.style.display = 'block';

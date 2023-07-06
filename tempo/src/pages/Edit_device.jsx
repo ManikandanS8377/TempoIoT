@@ -284,12 +284,13 @@ const Edit_device = () => {
 
         if (!isValidclientid || !isValiddevicename || !isValiddevicemodel || !isValidmacaddress || !isValidfirmwareversion || !isValidclientname || !isValidhost || !isValidusername || !isValidpassword || !isValidtopicname) {
             alert("not valid")
+            console.log(isValidclientid,isValiddevicename,isValiddevicemodel,isValidmacaddress,isValidfirmwareversion,isValidclientname,isValidhost,isValidusername,isValidpassword,isValidtopicname)
         }
         else {
             navigate('/Device');
-            const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, topicname, concatenatedValues, checking }
-            await fetch('http://127.0.0.1:4000/user', {
-                method: "POST",
+            const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, topicname, concatenatedValues } //{checking}
+            await fetch('http://127.0.0.1:4000/edit_device_detials', {
+                method: "PUT",
                 headers: { "content-Type": "application/json" },
                 body: JSON.stringify(body)
             })
@@ -418,7 +419,7 @@ const Edit_device = () => {
                         <div className="sub_row_three display-flex">
                             <div className="inputbox display-flex">
                                 <label htmlFor="">MQTT Client ID (<span className="required_star">*</span>)</label>
-                                <input type="text" value={clientname} onChange={handleclientname} readOnly/>
+                                <input type="text" value={clientname} onChange={handleclientname}/>
                                 <div className="error-message"><span className={clientnameerror ? "error" : ""}>{clientnameerror}</span></div>
                             </div>
                             <div className="inputbox display-flex">
