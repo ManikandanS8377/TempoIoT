@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProductList = () => {
+function ProductList(){
     return (
         <div className='page'>
             product list page

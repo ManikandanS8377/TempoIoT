@@ -20,7 +20,7 @@ const Site_content = () => {
     // const
     const [alldata, setalldata] = useState([]);
     const [company_value, setcompany] = useState([]);
-  
+
     const [activeCount, setactiveCount] = useState(0);
     const [inactiveCount, setinactiveCount] = useState(0);
     const [isOpen2, setIsOpen2] = useState(false);
@@ -72,8 +72,8 @@ const Site_content = () => {
             const data = await response.json();
             const response_company = await fetch('http://127.0.0.1:4000/site_company');
             const data_company = await response_company.json();
-           
-            
+
+
             const modifiedData = data.map((item) => {
                 const date = new Date(item.site_created_on);
                 const year = date.getFullYear();
@@ -91,7 +91,7 @@ const Site_content = () => {
             setactiveCount(activeCount);
             setinactiveCount(inactiveCount);
             setcompany(data_company);
-            
+
         } catch (error) {
             console.log(error);
         }
@@ -116,7 +116,7 @@ const Site_content = () => {
         else {
             setisgreater_than_10_inactive(false);
         }
-    },[])
+    }, [])
 
 
     const site_edit_page = async (data) => {
@@ -333,6 +333,7 @@ const Site_content = () => {
                         <div className="col-head">SITE STATUS</div>
                         <div className="col-head">ACTION</div>
                     </div>
+
                     {alldata.map((data, index) => (
                         <div className="datas">
                             <div className="col-head" >Site ID</div>
@@ -358,7 +359,7 @@ const Site_content = () => {
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex'onClick={() => site_edit_page(data)}>Edit Detials</div>
+                                            <div className='device_content_dropdown display-flex' onClick={() => site_edit_page(data)}>Edit Detials</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
@@ -381,7 +382,6 @@ const Site_content = () => {
                             </div>
                         </div>
                     ))}
-
                 </div>
                 <div className='device_bottom'>
                     <div className='device_export cursor-pointer'>
@@ -414,7 +414,7 @@ const Site_content = () => {
                                         <input type="text" class="form-control-loc" id="input1" />
                                     </div>
                                 </div>
-                            </div>   
+                            </div>
                             <div className="dsa_row2">
                                 <div className="dsa_1st_input">
                                     <label for="input1">Site Admin Email</label>
@@ -446,7 +446,7 @@ const Site_content = () => {
                                         <input type="text" class="form-control-loc" id="input1" />
                                     </div>
                                 </div>
-                            </div>         
+                            </div>
                         </div>
                         <div class="device_status_footer">
                             <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>

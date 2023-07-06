@@ -234,6 +234,7 @@ const Device_content = () => {
         }
     })
 
+    //navigate to edit page
     const Device_edit_page = async (data) => {
         navigate(`/edit_device/${data.r_no}`);
     }

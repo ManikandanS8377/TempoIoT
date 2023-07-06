@@ -27,10 +27,10 @@ const Alert_Management=()=>{
                             <button className='btn-loc1 active-loc1'>10 Total Alert</button>
                         </div>
                         <div className='status-btns1 display-flex'>
-                            <button className='btn-loc1 active-loc'>02 Action Taken</button>
+                            <button className='btn-loc1 active-loc'>03 Action Taken</button>
                         </div>
                         <div className='status-btns1 display-flex'>
-                            <button className='btn-loc1 inactive-loc'>03 Action Needed</button>
+                            <button className='btn-loc1 inactive-loc'>07 Action Needed</button>
                         </div>
                     </div>
                     
@@ -43,46 +43,7 @@ const Alert_Management=()=>{
                         <div className="upcomming-pages">
                             of 20 pages
                         </div>
-
                     </div>
-                    {/* <div className="display-flex">
-                         <button class="dropdown-toggle fonts" onClick={dropdown1}>Device Model</button>
-                         {isOpen1 && (
-                                <div class="dashboard_dropdown-menu dropdown_menu dropdown-colors">
-                                    <a className="a-a"><input type='checkbox' className='checks'></input>ALL</a>
-                                    <hr className='hrs'></hr>
-                                    <a className="a-a" ><input type='checkbox' className='checks'></input>Device 1-Assert 1</a>
-                                    <hr className='hrs'></hr>
-                                    <a className="a-a"><input type='checkbox' className='checks'></input>Device 2-Assert 2</a>
-                                </div>
-                            )}
-                    </div>
-                    <div className="display-flex">
-                         <button class="dropdown-toggle fonts " onClick={dropdown2}>Alert Category</button>
-                         {isOpen2 && (
-                                <div class="dashboard_dropdown-menu dropdown_menu dropdown-colors">
-                                    <a className="a-a" ><input type='checkbox' className='checks'></input>ALL</a>
-                                    <hr className='hrs'></hr>
-                                    <a className="a-a" ><input type='checkbox' className='checks'></input>Critical</a>
-                                    <hr className='hrs'></hr>
-                                    <a className="a-a" ><input type='checkbox' className='checks'></input>Caution</a>
-                                </div>
-                            )}
-                    </div>
-                    <div className="display-flex">
-                         <button class="dropdown-toggle fonts " onClick={dropdown3}>Alert Types</button>
-                         {isOpen3 && (
-                                <div class="dashboard_dropdown-menu dropdown_menu dropdown-colors">
-                                    <a className="a-a" ><input type='checkbox' className='checks'></input>ALL</a>
-                                    <hr className='hrs'></hr>
-                                    <a className="a-a"><input type='checkbox' className='checks'></input>Pressure</a>
-                                    <hr className='hrs'></hr>
-                                    <a className="a-a" ><input type='checkbox' className='checks'></input>Flow</a>
-                                    <hr className='hrs'></hr>
-                                    <a className="a-a" ><input type='checkbox' className='checks'></input>Temperature</a>
-                                </div>
-                            )}
-                    </div> */}
                     <div className=' display-flex'>
                     <div class="dropdown-filter">
                         <button class="device_filters" onClick={dropdown1}>Dropdown 1</button>
