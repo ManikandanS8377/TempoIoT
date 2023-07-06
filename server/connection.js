@@ -11,8 +11,9 @@ app.use(express.json())
 app.get('/edit_device_detials/:id', async (req, res) => {
     try {
         const { id } = req.params
-        const datas = await pool.query('SELECT * FROM device_management WHERE r_no = $1', [id]);
+        const datas = await pool.query(' SELECT * FROM device_management JOIN network_protocol ON device_management.device_id = network_protocol.device_id JOIN device_data_collection ON  device_management.device_id = device_data_collection.device_id WHERE device_management.r_no = $1', [id]);
         res.json(datas.rows);
+        console.log(datas.rows)
     } catch (err) {
         console.log(err)
     }
@@ -175,7 +176,6 @@ app.post("/user", async (req, res) => {
 
 
         //getting data from client side
-
         const client_id = req.body["clientid"]
         const device_name = req.body["devicename"]
         const device_status = req.body["devicestatus"]
@@ -184,13 +184,13 @@ app.post("/user", async (req, res) => {
         const mqtt_client_name = req.body["clientname"]
         const mqtt_host = req.body["host"]
         const user_name = req.body["username"]
-        const passowrd = req.body["password"]
+        const password = req.body["password"]
         const device_model = req.body["devicemodel"]
         const topic_name = req.body["topicname"]
         const concatenatedValues = req.body["concatenatedValues"]
         const is_service_enabled = req.body["checking"];
-
-
+        // console.log(user_name,password,mqtt_host)
+        // console.log()
 
 
         //connection to device_management
@@ -199,7 +199,7 @@ app.post("/user", async (req, res) => {
 
         // Connection to network_protocol
         const ins1 = 'INSERT INTO network_protocol (device_id, client_id, username, password, host) VALUES ($1, $2, $3, $4, $5)';
-        const values1 = [null, client_id, user_name, passowrd, mqtt_host];
+        const values1 = [null, client_id, user_name, password, mqtt_host];
 
         //device_data_collection
         const ins2 = 'INSERT INTO device_data_collection(device_id,device_parameters) VALUES ($1,$2)';
