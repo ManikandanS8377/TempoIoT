@@ -14,13 +14,14 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
 import { json, useNavigate } from 'react-router-dom';
 
+
 const Site_content = () => {
 
 
     // const
     const [alldata, setalldata] = useState([]);
     const [company_value, setcompany] = useState([]);
-
+    const [responseData_state, set_responseData_state] = useState([])
 
     const [activeCount, setactiveCount] = useState(0);
     const [inactiveCount, setinactiveCount] = useState(0);
@@ -34,6 +35,9 @@ const Site_content = () => {
     const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
     const dropdownRef4 = useRef(null);
 
+
+
+
     //functions to set the device status avtive and inactive
     const Editinactivedata = async (data) => {
         const site_status = "0";
@@ -44,6 +48,47 @@ const Site_content = () => {
             body: JSON.stringify(body)
         })
     }
+
+    useEffect(() => {
+        const site_edit_data = async () => {
+            try {
+                const response = await fetch(`http://127.0.0.1:4000/edit_site_detials/`);
+                const data = await response.json();
+                console.log(data);
+                // setall_data(data);
+                all_data_fun(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        site_edit_data();
+    },);
+
+    const all_data_fun = (data) => {
+        if (data && data.length > 0) {
+            const item = data[0];
+            setcompanyname(item.company_name);
+            setsitename(item.site_name);
+            setsiteadminemail(item.site_admin_email);
+            setsiteaddress(item.site_address);
+        }
+    };
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const sites = await fetch('http://127.0.0.1:4000/site');
+                const responseData = await sites.json();
+                set_responseData_state(responseData)
+                console.log(responseData);
+            } catch (error) {
+                // Error handling code removed
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const Editactivedata = async (data) => {
 
@@ -98,7 +143,6 @@ const Site_content = () => {
             setinactiveCount(inactiveCount);
             setcompany(data_company);
 
-
         } catch (error) {
             console.log(error);
         }
@@ -149,7 +193,6 @@ const Site_content = () => {
         };
     }, []);
 
-
     // company
 
     const dropdown3 = () => {
@@ -189,6 +232,9 @@ const Site_content = () => {
 
 
 
+    const handlesiteClick = () => {
+        console.log("hello");
+    };
 
 
 
@@ -393,7 +439,6 @@ const Site_content = () => {
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
                                             <div className='device_content_dropdown display-flex' onClick={() => site_edit_page(data)}>Edit Detials</div>
-                                            <div className='device_content_dropdown display-flex' onClick={() => site_edit_page(data)}>Edit Detials</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
@@ -403,7 +448,8 @@ const Site_content = () => {
                                 </div>
                                 <div key={index}>{(rotatedIndex === index && site_active == 'Inactive') &&
                                     (<div className='device_action_dropdown'>
-                                        <div className='display-flex device_action_dropdown1 dropdown_action'>
+                                        <div className='display-flex device_action_dropdown1 dropdown_action' onClick={() => handlesiteClick(index)}>
+
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
                                             <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action" onClick={() => get_site_data(index)}>Site Details</div>
                                         </div>

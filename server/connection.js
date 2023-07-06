@@ -85,6 +85,39 @@ app.get("/site_admin", async (req, res) => {
     }
 });
 
+//distinct for device model drop down
+app.get("/device_modeldata", async (req, res) => {
+    try {
+        const query = "SELECT DISTINCT device_model FROM device_management";
+        const deviceModel = await pool.query(query);
+        res.json(deviceModel.rows);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+//distinct for device model drop down
+app.get("/device_datedata", async (req, res) => {
+    try {
+        const query = "SELECT DISTINCT last_updated_on FROM device_management";
+        const deviceDate = await pool.query(query);
+        res.json(deviceDate.rows);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+//distinct for device name drop down
+app.get("/device_namedata", async (req, res) => {
+    try {
+        const query = "SELECT DISTINCT device_name FROM device_management";
+        const deviceNames = await pool.query(query);
+        res.json(deviceNames.rows);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 
 
 

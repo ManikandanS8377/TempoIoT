@@ -33,7 +33,9 @@ const Device_content = () => {
     const [text, setText] = useState('1');
     const [activeCount, setactiveCount] = useState(0);
     const [inactiveCount, setinactiveCount] = useState(0);
-
+    const [deviceModel_data, setdevicemodel] = useState([]);
+    const [deviceName_data, setdevicename] = useState([]);
+    const [deviceData_data, setdevicedate] = useState([]);
 
     const dropdownRef1 = useRef(null);
     const dropdown1 = () => {
@@ -132,8 +134,13 @@ const Device_content = () => {
     async function fetchData() {
         try {
             const response = await fetch('http://127.0.0.1:4000/user');
+            const deviceDate = await fetch('http://127.0.0.1:4000/device_datedata');
+            const deviceModel = await fetch('http://127.0.0.1:4000/device_modeldata');
+            const deviceName = await fetch('http://127.0.0.1:4000/device_namedata');
             const data = await response.json();
-
+            const date_data = await deviceDate.json();
+            const model_data = await deviceModel.json();
+            const deviceName_data = await deviceName.json();
             // Modify the last updated date in a format
             const modifiedData = data.map((item) => {
                 const date = new Date(item.last_updated_on);
@@ -150,10 +157,14 @@ const Device_content = () => {
 
             setactiveCount(activeCount);
             setinactiveCount(inactiveCount);
-
+            setdevicemodel(model_data);
+            setdevicedate(date_data);
+            setdevicename(deviceName_data);
             setalldata(modifiedData);
+            console.log(date_data)
         } catch (error) {
             console.log(error);
+
         }
     }
 
@@ -169,11 +180,11 @@ const Device_content = () => {
         })
     }
 
-    const Editactivedata=async(data)=>{
-        const devicestatus="1";
-        const body={devicestatus};
-        await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`,{
-            method:"PUT",
+    const Editactivedata = async (data) => {
+        const devicestatus = "1";
+        const body = { devicestatus };
+        await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`, {
+            method: "PUT",
             headers: { "content-Type": "application/json" },
             body: JSON.stringify(body)
         })
@@ -244,7 +255,7 @@ const Device_content = () => {
 
     return (
         <div className='bar'>
-           
+
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
 
@@ -269,39 +280,39 @@ const Device_content = () => {
                                     autoFocus
                                     className='editable_input_box'
                                 />
-                          
+
                             </div>
                             <div className="upcomming-pages">
                                 of 20 pages
                             </div>
                         </div>
-
-                        <div className='filters1 display-flex'>
-                            <div class="dropdown-filter" ref={dropdownRef1}>
-                                <div class="device_filters" onClick={dropdown1}>
-                                    <div className="device_name">
-                                        Device Name
+                        <div className='move_head' style={{ marginRight: '35%' }}>
+                            <div className='filters1 display-flex'>
+                                <div class="dropdown-filter" ref={dropdownRef1}>
+                                    <div class="device_filters" onClick={dropdown1}>
+                                        <div className="device_name">
+                                            Device Name
+                                        </div>
+                                        <div className="dropdown_icon">
+                                            <FontAwesomeIcon
+                                                icon={isDropdownOpen1 ? faChevronDown : faChevronUp}
+                                                className="dropdown-icon"
+                                            />
+                                        </div>
                                     </div>
-                                    <div className="dropdown_icon">
-                                        <FontAwesomeIcon
-                                            icon={isDropdownOpen1 ? faChevronDown : faChevronUp}
-                                            className="dropdown-icon"
-                                        />
-                                    </div>
-                                </div>
-                                {isOpen1 && (
-                                    <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors ">
-                                        {alldata.map((data, index) => (
-                                            <div className='device_scroll' key={index}>
-                                                <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts"> {data.device_name}</div></div>
-                                                    {index !== alldata.length - 1 && <hr className='hrs'></hr>}
+                                    {isOpen1 && (
+                                        <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors ">
+                                            {deviceName_data.map((data, index) => (
+                                                <div className='device_scroll' key={index}>
+                                                    <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts"> {data.device_name}</div></div>
+                                                        {index !== alldata.length - 1 && <hr className='hrs'></hr>}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                            <div class="dropdown-filter" ref={dropdownRef2}>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                                {/* <div class="dropdown-filter" ref={dropdownRef2}>
                                 <div class="device_filters" onClick={dropdown2}>
                                     <div className="device_name">
                                         Device Model
@@ -315,7 +326,7 @@ const Device_content = () => {
                                 </div>
                                 {isOpen2 && (
                                     <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
-                                        {alldata.map((data, index) => (
+                                        {deviceModel_data.map((data, index) => (
                                             <div className='device_scroll' key={index}>
                                                 <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">{data.device_model}</div></div>
                                                     {index !== alldata.length - 1 && <hr className='hrs'></hr>}
@@ -324,31 +335,31 @@ const Device_content = () => {
                                         ))}
                                     </div>
                                 )}
-                            </div>
-                            <div class="dropdown-filter" ref={dropdownRef3}>
-                                <div class="device_filters" onClick={dropdown3}>
-                                    <div className="device_name">
-                                        Device Status
-                                    </div>
-                                    <div className="dropdown_icon">
-                                        <FontAwesomeIcon
-                                            icon={isDropdownOpen3 ? faChevronDown : faChevronUp}
-                                            className="dropdown-icon"
-                                        />
-                                    </div>
-                                </div>
-                                {isOpen3 && (
-                                    <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
-                                        <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">All</div></div>
-                                            <hr className='hrs'></hr>
-                                            <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">Active</div></div>
-                                            <hr className='hrs'></hr>
-                                            <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">InActive</div></div>
+                            </div> */}
+                                <div class="dropdown-filter" ref={dropdownRef3}>
+                                    <div class="device_filters" onClick={dropdown3}>
+                                        <div className="device_name">
+                                            Device Status
+                                        </div>
+                                        <div className="dropdown_icon">
+                                            <FontAwesomeIcon
+                                                icon={isDropdownOpen3 ? faChevronDown : faChevronUp}
+                                                className="dropdown-icon"
+                                            />
                                         </div>
                                     </div>
-                                )}
-                            </div>
-                            <div class="dropdown-filter" ref={dropdownRef4}>
+                                    {isOpen3 && (
+                                        <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
+                                            <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">All</div></div>
+                                                <hr className='hrs'></hr>
+                                                <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">Active</div></div>
+                                                <hr className='hrs'></hr>
+                                                <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">InActive</div></div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                                {/* <div class="dropdown-filter" ref={dropdownRef4}>
                                 <div class="device_filters" onClick={dropdown4}>
                                     <div className="device_name">
                                         Device Installed On
@@ -362,7 +373,7 @@ const Device_content = () => {
                                 </div>
                                 {isOpen4 && (
                                     <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
-                                        {alldata.map((data, index) => (
+                                        {deviceData_data.map((data, index) => (
                                             <div className='device_scroll' key={index}>
                                                 <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">{data.last_updated_on}</div></div>
                                                     {index !== alldata.length - 1 && <hr className='hrs'></hr>}
@@ -371,9 +382,9 @@ const Device_content = () => {
                                         ))}
                                     </div>
                                 )}
+                            </div> */}
                             </div>
                         </div>
-
                         <div className='filters2 display-flex'>
                             <button className='btn btn-fill' onClick={handleclick} >Add Device</button>
                         </div>
