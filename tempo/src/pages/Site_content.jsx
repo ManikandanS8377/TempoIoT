@@ -103,9 +103,12 @@ const Site_content = () => {
     useEffect(() => {
         if (activeCount < 10) {
             setisless_than_10_active(true)
+            console.log("t");
+
         }
         else {
             setisless_than_10_active(false);
+            console.log("hai");
         }
         if (inactiveCount < 10) {
             setisgreater_than_10_inactive(true)
@@ -113,7 +116,7 @@ const Site_content = () => {
         else {
             setisgreater_than_10_inactive(false);
         }
-    })
+    },[])
 
 
     const site_edit_page = async (data) => {
