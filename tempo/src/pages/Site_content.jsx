@@ -1,7 +1,5 @@
 import React from 'react';
 import '../assets/style/App.css';
-
-
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
 import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
@@ -16,7 +14,6 @@ import { json, useNavigate } from 'react-router-dom';
 
 
 const Site_content = () => {
-
 
     // const
     const [alldata, setalldata] = useState([]);

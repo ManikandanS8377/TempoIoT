@@ -66,37 +66,23 @@ const Edit_site = () => {
     const all_data_fun = (data) => {
         if (data && data.length > 0) {
             const item = data[0];
+
             setcompanyname(item.company_name);
             setsitename(item.site_name);
             setsiteadminemail(item.site_admin_email);
             setsiteaddress(item.site_address);
+            setsitelocation(item.site_location);
+            setnewsiteadminname(item.new_site_admin_name);
+
         }
     };
-
-    // data fetching in site db 
-
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const sites = await fetch('http://127.0.0.1:4000/site');
-                const responseData = await sites.json();
-                set_responseData_state(responseData)
-                console.log(responseData);
-            } catch (error) {
-                // Error handling code removed
-            }
-        };
-
-        fetchData();
-    }, []);
-
 
     //push input box to the page
     const handleButtonClick = () => {
         setShowInput(true);
     };
     const [showInput, setShowInput] = useState(false);
+
 
 
     // cancel script
@@ -150,26 +136,32 @@ const Edit_site = () => {
     const handleClick = async () => {
         try {
             navigate('/Site');
-            const queryParams = new URLSearchParams({
+            const body = {
                 company_name,
                 site_name,
                 site_admin_email,
                 site_location,
                 site_address,
                 new_site_admin_name,
-            });
-    
-            const url = `http://127.0.0.1:4000/edit_site_detail?${queryParams}`;
-    
-            await fetch(url, {
-                method: "POST",
+            };
+            const response = await fetch('http://127.0.0.1:4000/edit_site_detials', {
+                method: "PUT",
                 headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
             });
+
+            if (!response.ok) {
+                throw new Error('Failed to update site details');
+            }
+
+            // Handle the successful response here (if needed)
         } catch (error) {
             console.error(error);
+            // Handle the error here
         }
     };
-    
+
+
 
 
 
@@ -337,7 +329,7 @@ const Edit_site = () => {
                     <div className="operating_buttons display-flex padding-loc">
                         <div className="save_cancel_btn display-flex site_button">
                             <button className="btn-loc active-loc btn btn-outline-success" onClick={() => handleClick()}>Save</button>
-                            <button className="btn-loc inactive-loc btn btn-outline-danger"onClick={() => handleCancel()} data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
+                            <button className="btn-loc inactive-loc btn btn-outline-danger" onClick={() => handleCancel()} data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
                         </div>
                     </div>
 
