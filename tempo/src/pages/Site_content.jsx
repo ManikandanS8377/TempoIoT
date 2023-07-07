@@ -222,7 +222,6 @@ const Site_content = () => {
         if (!dropdownRef4.current.contains(event.target)) {
             setIsOpen4(false);
             setIsDropdownOpen4(false)
-            ..
         }
     };
     useEffect(() => {
