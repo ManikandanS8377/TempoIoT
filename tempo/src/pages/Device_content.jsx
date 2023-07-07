@@ -312,30 +312,6 @@ const Device_content = () => {
                                         </div>
                                     )}
                                 </div>
-                                {/* <div class="dropdown-filter" ref={dropdownRef2}>
-                                <div class="device_filters" onClick={dropdown2}>
-                                    <div className="device_name">
-                                        Device Model
-                                    </div>
-                                    <div className="dropdown_icon">
-                                        <FontAwesomeIcon
-                                            icon={isDropdownOpen2 ? faChevronDown : faChevronUp}
-                                            className="dropdown-icon"
-                                        />
-                                    </div>
-                                </div>
-                                {isOpen2 && (
-                                    <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
-                                        {deviceModel_data.map((data, index) => (
-                                            <div className='device_scroll' key={index}>
-                                                <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">{data.device_model}</div></div>
-                                                    {index !== alldata.length - 1 && <hr className='hrs'></hr>}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                            </div> */}
                                 <div class="dropdown-filter" ref={dropdownRef3}>
                                     <div class="device_filters" onClick={dropdown3}>
                                         <div className="device_name">
@@ -359,30 +335,6 @@ const Device_content = () => {
                                         </div>
                                     )}
                                 </div>
-                                {/* <div class="dropdown-filter" ref={dropdownRef4}>
-                                <div class="device_filters" onClick={dropdown4}>
-                                    <div className="device_name">
-                                        Device Installed On
-                                    </div>
-                                    <div className="dropdown_icon">
-                                        <FontAwesomeIcon
-                                            icon={isDropdownOpen4 ? faChevronDown : faChevronUp}
-                                            className="dropdown-icon"
-                                        />
-                                    </div>
-                                </div>
-                                {isOpen4 && (
-                                    <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
-                                        {deviceData_data.map((data, index) => (
-                                            <div className='device_scroll' key={index}>
-                                                <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">{data.last_updated_on}</div></div>
-                                                    {index !== alldata.length - 1 && <hr className='hrs'></hr>}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                            </div> */}
                             </div>
                         </div>
                         <div className='filters2 display-flex'>
