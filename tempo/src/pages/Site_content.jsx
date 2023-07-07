@@ -61,15 +61,7 @@ const Site_content = () => {
         site_edit_data();
     },);
 
-    // const all_data_fun = (data) => {
-    //     if (data && data.length > 0) {
-    //         const item = data[0];
-    //         setcompanyname(item.company_name);
-    //         setsitename(item.site_name);
-    //         setsiteadminemail(item.site_admin_email);
-    //         setsiteaddress(item.site_address);
-    //     }
-    // };
+
 
 
     useEffect(() => {
@@ -518,20 +510,29 @@ const Site_content = () => {
                                     <input type="text" class="form-control-loc" id="input1" value={site_address} />
                                 </div>
                             </div>
-                            <div className="dsa_1st_input">
-                                <label for="input1">Site Admin Name</label>
-                                <div className="inputs-group">
-                                    <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                    <input type="text" class="form-control-loc" id="input1" value={site_admin_name} />
+                            <div className="dsa_3rd_input">
+                                <div className="dsa_updates">
+                                    <div className="updated_by">
+                                        <label htmlFor="updated_by_name" className='dsa_updates_heading'>Last Updated By
+                                        </label>
+                                        <div id="updated_by_name">Manikandan S</div>
+                                    </div>
+                                    <div className="updated_on">
+                                        <label htmlFor="updated_by_date" className='dsa_updates_heading'>Last Updated On
+                                        </label>
+                                        <div id="updated_by_date">20 march 2023, 12:57</div>
+                                    </div>
                                 </div>
                             </div>
+                            
                         </div>
+                        <div class="device_status_footer">
+                                <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
+                                <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
+                            </div>
                     </div>
                 </div>
-                <div class="device_status_footer">
-                    <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
-                    <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
-                </div>
+
             </div>
         </div>
     );
