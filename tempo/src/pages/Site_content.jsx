@@ -56,7 +56,7 @@ const Site_content = () => {
                 const data = await response.json();
                 console.log(data);
                 // setall_data(data);
-                all_data_fun(data);
+                // all_data_fun(data);
             } catch (error) {
                 console.error(error);
             }
@@ -64,15 +64,15 @@ const Site_content = () => {
         site_edit_data();
     },);
 
-    const all_data_fun = (data) => {
-        if (data && data.length > 0) {
-            const item = data[0];
-            setcompanyname(item.company_name);
-            setsitename(item.site_name);
-            setsiteadminemail(item.site_admin_email);
-            setsiteaddress(item.site_address);
-        }
-    };
+    // const all_data_fun = (data) => {
+    //     if (data && data.length > 0) {
+    //         const item = data[0];
+    //         setcompanyname(item.company_name);
+    //         setsitename(item.site_name);
+    //         setsiteadminemail(item.site_admin_email);
+    //         setsiteaddress(item.site_address);
+    //     }
+    // };
 
 
     useEffect(() => {
@@ -385,7 +385,10 @@ const Site_content = () => {
                                         <div className="dropdown_menu2 dashboard_dropdown-menu heights  dropdown-colors">
                                             {company_value.map((item, index) => (
                                                 <div className='device_scroll'>
-                                                    <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts"> {item.company_name}</div></div>
+                                                    <div>
+                                                        <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" />
+                                                            <div className="div_sts"> {item.company_name}</div>
+                                                        </div>
                                                         {index !== alldata.length - 1 && <hr className='hrs'></hr>}
                                                     </div>
                                                 </div>

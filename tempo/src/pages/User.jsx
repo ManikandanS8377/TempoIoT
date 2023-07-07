@@ -1,15 +1,16 @@
 import React from "react";
-function Modbus_Master() {
+function User() {
     return (
         <>
             <div className="row_with_count_status">
-                <span className="module_tittle">Modbus_Master</span>
+                <span className='module_tittle'>User</span>
                 <div className='status-btns display-flex'>
                     <div className='btn-loc active-loc display-flex '> Active</div>
                     <div className='btn-loc inactive-loc display-flex'>Inactive</div>
                 </div>
             </div>
             <div className="row_with_filters">
+
                 <div class="pagination display-flex">
                     <div className="focus-page">
                         <input
@@ -43,12 +44,16 @@ function Modbus_Master() {
                     </div>
                 </div>
 
+
+
+
             </div>
             <div className="row_with_column_headings">
+                <div className="col-head">ur heading</div>
                 <div className="col-head">ur heading</div>
             </div>
         </>
     )
 
 }
-export default Modbus_Master;
+export default User;
