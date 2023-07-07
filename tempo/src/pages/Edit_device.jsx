@@ -51,8 +51,7 @@ const Edit_device = () => {
             try {
                 const response = await fetch(`http://127.0.0.1:4000/edit_device_detials/${r_no}`);
                 const data = await response.json();
-                console.log(data);
-                // setall_data(data);
+                // console.log(data);
                 all_data_fun(data);
             } catch (error) {
                 console.error(error);
@@ -64,10 +63,21 @@ const Edit_device = () => {
     const all_data_fun = (data) => {
         if (data && data.length > 0) {
             const item = data[0];
+
+            setclientid(item.client_id);
+            setclientname(item.client_id);
+
             setdevicename(item.device_name);
             setdevicemodel(item.device_model);
             setdevicemacaddress(item.device_mac_address);
             setfirmwareversion(item.device_firmware_version);
+            sethost(item.host);
+            setusername(item.username);
+            setpassword(item.password);
+            setparameter(item.device_parameters)
+            // console.log(item.device_parameters)
+
+
         }
     };
 
@@ -308,7 +318,7 @@ const Edit_device = () => {
             <div className="row_five padding-loc display-flex mb-loc-5" key={newDivs.length}>
                 <div className="inputbox display-flex">
                     <label htmlFor="">Parameter</label>
-                    <input type="text" onChange={handleparameter} className="example" />
+                    <input type="text" onChange={handleparameter} className="example"/>
                     <div className="error-message"><span className={parametererror ? "error" : ""}>{parametererror}</span></div>
                 </div>
                 <div className="inputbox display-flex">
@@ -372,7 +382,7 @@ const Edit_device = () => {
                     <div className="row_one display-flex">
                         <div className="adding_new_device uppercase bold us-none">Add Device Detials </div>
                         <div className="client_id display-flex us-none">
-                            <label htmlFor="device_id">Client ID</label>
+                            <label htmlFor="device_id">Client ID {clientid}</label>
                             <input type="text" id="device_id" value={clientid} onChange={handleclientid} />
                             <div className="error-message"><span className={clientidError ? "error" : ""}>{clientidError}</span></div>
                         </div>
@@ -434,7 +444,7 @@ const Edit_device = () => {
                             </div>
                             <div className="inputbox display-flex">
                                 <label htmlFor="">Password(<span className="required_star">*</span>)</label>
-                                <input type="text" value={password} onChange={handlepassword} />
+                                <input type="password" value={password} onChange={handlepassword} />
                                 <div className="error-message"><span className={passworderror ? "error" : ""}>{passworderror}</span></div>
                             </div>
                             <div className="inputbox display-flex">
@@ -451,7 +461,7 @@ const Edit_device = () => {
                     <div className="row_five padding-loc display-flex mb-loc-5 us-none">
                         <div className="inputbox display-flex">
                             <label htmlFor="">Parameter</label>
-                            <input type="text" onChange={handleparameter} className="example" />
+                            <input type="text" onChange={handleparameter} className="example" value={parameter}/>
                             <div className="error-message"><span className={parametererror ? "error" : ""}>{parametererror}</span></div>
                         </div>
                         <div className="inputbox display-flex">

@@ -21,7 +21,7 @@ const Sidebar = ({ children }) => {
             name: "About",
             icon: <FaUserAlt />,
             head: ['Management'],
-            links: ['Assert Management', 'Alert Management', 'Device Management', 'Site Management', 'User Management   ']
+            links: ['Assert Management', 'Alert Management', 'Device Management', 'Site Management', 'User Management']
         },
         {
             name: "Analytics",
@@ -56,11 +56,11 @@ const Sidebar = ({ children }) => {
             case 'Site Management':
                 return `/site`;
             case 'User Management':
-                return `${path}/users`;
+                return `/Users`; //${path}/users
             case 'Configuration':
                 return '/analytics';
-            // case 'Alert':
-            //     return '/#k';
+            case 'Alert':
+                return '/Alert';
             case 'Modbus Slave':
                 return '/Modbus_Slave';
             case 'Modbus Master':
@@ -82,16 +82,16 @@ const Sidebar = ({ children }) => {
         }
     };
 
-    menuItem.forEach((item , index) => {
+    menuItem.forEach((item, index) => {
         item.links = item.links.map(link => {
             return {
                 text: link,
                 url: getLinkUrl(link, item.path)
             };
         });
-        
+
     });
-    
+
 
     return (
 

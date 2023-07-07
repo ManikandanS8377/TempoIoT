@@ -385,7 +385,10 @@ const Site_content = () => {
                                         <div className="dropdown_menu2 dashboard_dropdown-menu heights  dropdown-colors">
                                             {company_value.map((item, index) => (
                                                 <div className='device_scroll'>
-                                                    <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts"> {item.company_name}</div></div>
+                                                    <div>
+                                                        <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" />
+                                                            <div className="div_sts"> {item.company_name}</div>
+                                                        </div>
                                                         {index !== alldata.length - 1 && <hr className='hrs'></hr>}
                                                     </div>
                                                 </div>
