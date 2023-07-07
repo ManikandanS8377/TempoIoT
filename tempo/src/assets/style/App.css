@@ -23,6 +23,29 @@
     align-self: flex-end;
 }
 
+/* row_with_filters */
+.row_with_filters{
+    align-items: center;
+    height: 70px;
+    justify-content: space-between;
+    display: flex;
+}
+
+/* row_with_column_headings */
+.row_with_column_headings{
+    width: 98.4%;
+    font-weight: 500;
+    margin-left: 14px;
+    border: var(--BORDER_COLOUR_1PX);
+    border-radius: 8px;
+    box-shadow: var(--BOX-SHADOW);
+    display: flex;
+    height: 50px;
+    margin-bottom: 5px;
+    color: grey;
+    user-select: none;
+}
+
 /* top nav bar */
 .rm-pd-mr {
     user-select: none;
