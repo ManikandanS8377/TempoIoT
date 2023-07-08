@@ -42,6 +42,15 @@ app.get("/user", async (req, res) => {
     }
 })
 
+app.get("/network", async (req, res) => {
+    try {
+        const datas = await pool.query('SELECT * FROM network_protocol ORDER BY r_no')
+        res.json(datas.rows);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 //GET REQUEST TO SHOW ALL THE DATA IN REACT PAGE
 app.get("/site", async (req, res) => {
     try {

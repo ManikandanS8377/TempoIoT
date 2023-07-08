@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 const Device_content = () => {
     //states
     const [alldata, setalldata] = useState([]);
+    const [allnetdata, setnetwork] = useState([]);
     const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
     const [isOpen4, setIsOpen4] = useState(false);
@@ -133,10 +134,12 @@ const Device_content = () => {
     async function fetchData(Option) {
         try {
             const response = await fetch('http://127.0.0.1:4000/user');
+            const network = await fetch('http://127.0.0.1:4000/network');
             const deviceDate = await fetch('http://127.0.0.1:4000/device_datedata');
             const deviceModel = await fetch('http://127.0.0.1:4000/device_modeldata');
             const deviceName = await fetch('http://127.0.0.1:4000/device_namedata');
             const data = await response.json();
+            const network_data = await network.json();
             const date_data = await deviceDate.json();
             const model_data = await deviceModel.json();
             const deviceName_data = await deviceName.json();
@@ -167,6 +170,7 @@ const Device_content = () => {
             setdevicemodel(model_data);
             setdevicedate(date_data);
             setdevicename(deviceName_data);
+            setnetwork(network_data);
             setalldata(modifiedData);
         } catch (error) {
             console.log(error);
@@ -269,9 +273,39 @@ const Device_content = () => {
     const Device_edit_page = async (data) => {
         navigate(`/edit_device/${data.r_no}`);
     }
-    const filter_active_inactive = (Option) => {
-        fetchData(Option)
+   
+    
+    const [device_name, setdevice_name] = useState("")
+    const [device_model, setdevice_model] = useState("")
+    const [device_firmware_version, setdevice_firmware_version] = useState("")  
+    const [device_mac_address, setdevice_mac_address] = useState("")
+  
+    const get_device_data = (index) => {
+        alldata.map((item, item_index) => {
+            if (item_index === index) {
+                setdevice_name(item.device_name);
+                setdevice_model(item.device_model);
+                setdevice_firmware_version(item.device_firmware_version);            
+                setdevice_mac_address(item.device_mac_address);
+              
+            }
+
+        })
     }
+
+ 
+    // const [user_name, setuser_name] = useState("")
+    const [client_id, setclient_id] = useState("")
+    const get_device1_data = (index) => {
+        allnetdata.map((item, item_index) => {
+            if (item_index === index) {
+                // setuser_name(item.user_name);
+                setclient_id(item.client_id);            
+            }
+
+        })
+    }
+
 
     return (
         <div className='bar'>
@@ -422,7 +456,8 @@ const Device_content = () => {
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Device Details</div>
+                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action" onClick={() => { get_device_data(index); get_device1_data(index); }}>Device Details</div>
+
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
@@ -454,44 +489,44 @@ const Device_content = () => {
                         <div class="device_status_body">
                             <div className="dsa_row1">
                                 <div className="dsa_1st_input">
-                                    <label for="input1">Choose File Type</label>
+                                    <label for="input1">Device Name</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
+                                        <input type="text" value={device_name} class="form-control-loc" id="input1" />
                                     </div>
                                 </div>
                                 <div className="dsa_1st_input">
-                                    <label for="input1">Choose File Type</label>
+                                    <label for="input1">Client ID</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
+                                        <input type="text" value={client_id} class="form-control-loc" id="input1" />
                                     </div>
                                 </div>
                             </div>
 
                             <div className="dsa_row2">
                                 <div className="dsa_2nd_input">
-                                    <label for="input1">Choose File Type</label>
+                                    <label for="input1">Device MAC Address</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
+                                        <input type="text" value={device_mac_address} class="form-control-loc" id="input1" />
                                     </div>
                                 </div>
                                 <div className="dsa_2nd_input">
-                                    <label for="input1">Choose File Type</label>
+                                    <label for="input1">Firmware Version</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
+                                        <input type="text" value={device_firmware_version} class="form-control-loc" id="input1" />
                                     </div>
                                 </div>
                             </div>
 
                             <div className="dsa_row3">
                                 <div className="dsa_3rd_input">
-                                    <label for="input1">Choose File Type</label>
+                                    <label for="input1">Device Model</label>
                                     <div className="inputs-group">
                                         <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" />
+                                        <input type="text" value={device_model} class="form-control-loc" id="input1" />
                                     </div>
                                 </div>
                                 <div className="dsa_3rd_input">

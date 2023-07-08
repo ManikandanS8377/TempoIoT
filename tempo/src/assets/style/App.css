@@ -171,6 +171,8 @@
 
 .modal-dialog .modal-content {
     padding: 3rem;
+    width: 130%;
+    margin-left: -25%;
 }
 
 .device_status_body {
