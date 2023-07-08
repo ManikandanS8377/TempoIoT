@@ -2,7 +2,6 @@ const express = require('express')
 const pool = require('./database')
 const cors = require('cors')
 const fs = require('fs');
-
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -23,23 +22,14 @@ app.get('/edit_device_detials/:id', async (req, res) => {
 app.get('/edit_site_detials/:id', async (req, res) => {
     try {
         const { id } = req.params
-        const datas = await pool.query('SELECT * FROM site_management WHERE r_no = $1', [id]);
+        const datas = await pool.query('SELECT * FROM site_management WHERE site_management.r_no = $1', [id]);
         res.json(datas.rows);
         console.log(datas)
     } catch (err) {
         console.log(err)
     }
 });
-app.get('/edit_site_detial/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const datas = await pool.query('UPDATE site_management SET column_name = $1 WHERE r_no = $2', [new_value, id]);
-        res.json(datas.rows);
-        console.log(datas);
-    } catch (err) {
-        console.log(err);
-    }
-});
+
 
 
 //GET REQUEST TO SHOW ALL THE DATA IN REACT PAGE
@@ -152,6 +142,18 @@ app.put("/edit_device_detials", async (req, res) => {
     }
 })
 
+
+app.put("/edit_site_detials", async (req, res) => {
+    try {
+    const company_name = req.body["company_name"];
+    const site_name = req.body["site_name"];
+    const site_location = req.body["site_location"];
+    const site_address = req.body["site_address"]; 
+        await pool.query('UPDATE site_management SET company_name=$1, site_name=$2,site_location=$3 WHERE site_address=$4', [company_name,site_name,site_location,site_address])
+    } catch (err) {
+        console.log(err)
+    }
+})
 
 //PUT REQUEST TO UPDATE THE DATA IN DB
 app.put("/sitedata/:id", async (req, res) => {
