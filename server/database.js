@@ -3,7 +3,7 @@ const pool = new Pool({
   user: 'postgres',
   host: '127.0.0.1',
   database: 'tempo_iot',
-  password: '12345',
+  password: '123',
   port: 5432,
 })
 

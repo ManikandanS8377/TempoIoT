@@ -49,7 +49,7 @@ for (let i = 0; i < allData.length; i++) {
           valueArray.push(item);
         }
       
-        var myobj = { Timestamp: valueArray[0], Temperature: valueArray[1], Pressure: valueArray[2] };
+        var myobj = { Timestamp: valueArray[0], Temperature: valueArray[1], Pressure: valueArray[2] , Mac_Address:name};
         console.log(myobj);
 
         db.collection(`${name}`).insertOne(myobj, function (err, result) {
