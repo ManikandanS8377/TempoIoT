@@ -122,7 +122,6 @@ const Add_site = () => {
 
     const handleClick = async () => {
         try {
-            navigate('/Site');
             const body = {
                 company_name,
                 site_name,
@@ -131,14 +130,12 @@ const Add_site = () => {
                 site_address,
                 new_site_admin_name,
             };
-            console.log(body);
-
-            await fetch('http://127.0.0.1:4000/site', {
+            fetch('http://127.0.0.1:4000/site', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
             });
-            // console.log(body);
+            navigate('/Site');
         } catch (error) {
             console.error(error);
         }
