@@ -18,7 +18,7 @@ for (let i = 0; i < allData.length; i++) {
     password=allData[i].password;
 
     //MONGO DB CONNECTION
-      mongoose.connect("mongodb://127.0.0.1:27020/userdata?directConnection=true&serverSelectionTimeoutMS=2000", { useNewUrlParser: true, useUnifiedTopology: true });
+      mongoose.connect("mongodb://127.0.0.1:27017/userdata?directConnection=true&serverSelectionTimeoutMS=2000", { useNewUrlParser: true, useUnifiedTopology: true });
       const db = mongoose.connection;
       db.on('error', console.error.bind(console, 'connection error:'));
       db.once('open', function() {
@@ -48,8 +48,8 @@ for (let i = 0; i < allData.length; i++) {
           var item = users[idx];
           valueArray.push(item);
         }
-      
-        var myobj = { Timestamp: valueArray[0], Temperature: valueArray[1], Pressure: valueArray[2] , Mac_Address:name};
+
+        var myobj = { Timestamp: valueArray[0], Temperature: valueArray[1], Pressure: valueArray[2],Mac_Address:name};
         console.log(myobj);
 
         db.collection(`${name}`).insertOne(myobj, function (err, result) {
