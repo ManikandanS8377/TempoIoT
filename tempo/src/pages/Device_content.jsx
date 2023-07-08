@@ -269,7 +269,7 @@ const Device_content = () => {
     const Device_edit_page = async (data) => {
         navigate(`/edit_device/${data.r_no}`);
     }
-    const filter_active_inactive=(Option)=>{
+    const filter_active_inactive = (Option) => {
         fetchData(Option)
     }
 
@@ -346,11 +346,27 @@ const Device_content = () => {
                                     </div>
                                     {isOpen3 && (
                                         <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
-                                            <div><div className='device_dropdown' onClick={()=>filter_active_inactive('All')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">All</div></div>
+                                            <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
+                                                if (event.target.checked) {
+                                                    filter_active_inactive('All');
+                                                }
+                                            }} /><div className="div_sts">All</div></div>
                                                 <hr className='hrs'></hr>
-                                                <div className='device_dropdown'onClick={()=>filter_active_inactive('Active')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">Active</div></div>
+                                                <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
+                                                    if (event.target.checked) {
+                                                        filter_active_inactive('Active');
+                                                    }else{
+                                                        filter_active_inactive('All');
+                                                    }
+                                                }} /><div className="div_sts">Active</div></div>
                                                 <hr className='hrs'></hr>
-                                                <div className='device_dropdown' onClick={()=>filter_active_inactive('Inactive')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">InActive</div></div>
+                                                <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
+                                                    if (event.target.checked) {
+                                                        filter_active_inactive('Inactive');
+                                                    }else{
+                                                        filter_active_inactive('All');
+                                                    }
+                                                }} /><div className="div_sts">InActive</div></div>
                                             </div>
                                         </div>
                                     )}
