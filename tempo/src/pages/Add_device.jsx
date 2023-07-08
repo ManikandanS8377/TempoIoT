@@ -159,8 +159,6 @@ const Add_device = () => {
         } else {
             settopicnameerror("")
         }
-
-
     }
     function handleparameter(event) {
         const value = event.target.value;
@@ -171,7 +169,6 @@ const Add_device = () => {
         } else {
             setparametererror("")
         }
-
     }
     function handledatatype(event) {
         const value = event.target.value;
@@ -247,24 +244,20 @@ const Add_device = () => {
 
 
         //check if valid or not
-
         if (!isValidclientid || !isValiddevicename || !isValiddevicemodel || !isValidmacaddress || !isValidfirmwareversion || !isValidclientname || !isValidhost || !isValidusername || !isValidpassword || !isValidtopicname) {
             alert("not valid")
         }
         else {
-            navigate('/Device');
-            alert(clientid)
             const body = { clientid, devicename, devicemodel, devicemacaddress, firmwareversion, clientname, host, username, password, topicname, concatenatedValues, checking }
-            await fetch('http://127.0.0.1:4000/user', {
+            fetch('http://127.0.0.1:4000/user', {
                 method: "POST",
                 headers: { "content-Type": "application/json" },
                 body: JSON.stringify(body)
             })
+            navigate('/Device');
         }
-
     }
-
-
+    
     //push input box to the page
     const handleButtonClick = (e) => {
         e.preventDefault();
