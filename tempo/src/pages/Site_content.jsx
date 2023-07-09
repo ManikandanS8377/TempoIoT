@@ -30,13 +30,13 @@ const Site_content = () => {
     const [isOpen4, setIsOpen4] = useState(false);
     const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
     const dropdownRef4 = useRef(null);
-    const [active_inactive,setactive_inactive]=useState([]);
+    const [active_inactive, setactive_inactive] = useState([]);
 
 
 
 
     //functions to set the device status avtive and inactive
-    
+
 
     useEffect(() => {
         const site_edit_data = async () => {
@@ -67,33 +67,33 @@ const Site_content = () => {
         fetchData();
     }, []);
 
-    const Editinactivedata = async (data,index) => {
+    const Editinactivedata = async (data, index) => {
         const site_status = "0";
         const body = { site_status };
         setactive_inactive(prevState => {
             const newState = [...prevState];
             newState[index] = false;
             return newState;
-        });      
-        setactiveCount(activeCount-1);
-        setinactiveCount(inactiveCount+1); 
+        });
+        setactiveCount(activeCount - 1);
+        setinactiveCount(inactiveCount + 1);
         await fetch(`http://127.0.0.1:4000/sitedata/${data.r_no}`, {
             method: "PUT",
             headers: { "content-Type": "application/json" },
             body: JSON.stringify(body)
         })
     }
-                                                                                                                                        
-    const Editactivedata = async (data,index) => {
+
+    const Editactivedata = async (data, index) => {
         const site_status = "1";
         const body = { site_status };
         setactive_inactive(prevState => {
             const newState = [...prevState];
             newState[index] = true;
             return newState;
-        });      
-        setactiveCount(activeCount+1);
-        setinactiveCount(inactiveCount-1); 
+        });
+        setactiveCount(activeCount + 1);
+        setinactiveCount(inactiveCount - 1);
         await fetch(`http://127.0.0.1:4000/sitedata/${data.r_no}`, {
             method: "PUT",
             headers: { "content-Type": "application/json" },
@@ -146,11 +146,11 @@ const Site_content = () => {
             console.log(error);
         }
     }
-    useEffect(()=>{
-        if(alldata){
+    useEffect(() => {
+        if (alldata) {
             setactive_inactive(alldata.map(item => item.site_status === 1))
         }
-    },[alldata])
+    }, [alldata])
 
 
     const [isless_than_10_active, setisless_than_10_active] = useState(false)
@@ -315,7 +315,7 @@ const Site_content = () => {
         })
     }
 
-    const filter_active_inactive=(Option)=>{
+    const filter_active_inactive = (Option) => {
         fetchData(Option)
     }
 
@@ -366,11 +366,11 @@ const Site_content = () => {
                                     </div>
                                     {isOpen2 && (
                                         <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
-                                            <div><div className='device_dropdown'onClick={()=>filter_active_inactive('All')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">All</div></div>
+                                            <div><div className='device_dropdown' onClick={() => filter_active_inactive('All')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">All</div></div>
                                                 <hr className='hrs'></hr>
-                                                <div className='device_dropdown' onClick={()=>filter_active_inactive('Active')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">Active</div></div>
+                                                <div className='device_dropdown' onClick={() => filter_active_inactive('Active')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">Active</div></div>
                                                 <hr className='hrs'></hr>
-                                                <div className='device_dropdown' onClick={()=>filter_active_inactive('Inactive')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">InActive</div></div>
+                                                <div className='device_dropdown' onClick={() => filter_active_inactive('Inactive')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">InActive</div></div>
                                             </div>
                                         </div>
                                     )}
@@ -419,55 +419,57 @@ const Site_content = () => {
                         <div className="col-head">ACTION</div>
                     </div>
 
-                    {alldata.map((data, index) => (
-                        <div className="datas">
-                            <div className="col-head" >Site ID</div>
-                            <div className="col-head" key={index}>{data.site_name}</div>
-                            <div className="col-head">Industry</div>
-                            <div className="col-head" key={index}>{data.site_created_on}</div>
-                            <div className="col-head" key={index}>{data.new_site_admin_name}</div>
-                            <div className="col-head display-flex">
-                                <FontAwesomeIcon
-                                    icon={faDiamond}
-                                    style={{ color: active_inactive[index] == true ? 'green' : 'red', paddingTop: '7px' }}
-                                    size="xs"
-                                />
-                                <div className={`device_active`} style={{ color: active_inactive[index] == true ? 'green' : 'red' }}>
-                                    {active_inactive[index] == true ? 'Active' : 'Inactive'}
+                    <div className="scroll_div">
+                        {alldata.map((data, index) => (
+                            <div className="datas">
+                                <div className="col-head" >Site ID</div>
+                                <div className="col-head" key={index}>{data.site_name}</div>
+                                <div className="col-head">Industry</div>
+                                <div className="col-head" key={index}>{data.site_created_on}</div>
+                                <div className="col-head" key={index}>{data.new_site_admin_name}</div>
+                                <div className="col-head display-flex">
+                                    <FontAwesomeIcon
+                                        icon={faDiamond}
+                                        style={{ color: active_inactive[index] == true ? 'green' : 'red', paddingTop: '7px' }}
+                                        size="xs"
+                                    />
+                                    <div className={`device_active`} style={{ color: active_inactive[index] == true ? 'green' : 'red' }}>
+                                        {active_inactive[index] == true ? 'Active' : 'Inactive'}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col-head display-flex device_action_dropdown_parent">
-                                <div className="sts_icon" onClick={() => handleIconClick(index)}>
-                                    <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
-                                </div>
-                                <div key={index}>{(rotatedIndex === index && site_active == 'Active') &&
-                                    (<div className='device_action_dropdown'>
-                                        <div className='display-flex device_action_dropdown1 dropdown_action'>
-                                            <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex' onClick={() => site_edit_page(data)}>Edit Detials</div>
-                                        </div>
-                                        <div className='display-flex device_action_dropdown2 dropdown_action'>
-                                            <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                            <div className='device_content_dropdown display-flex' onClick={() => { Editinactivedata(data,index) }}>Inactivate Device</div>
-                                        </div>
-                                    </div>)}
-                                </div>
-                                <div key={index}>{(rotatedIndex === index && site_active == 'Inactive') &&
-                                    (<div className='device_action_dropdown'>
-                                        <div className='display-flex device_action_dropdown1 dropdown_action' onClick={() => handlesiteClick(index)}>
+                                <div className="col-head display-flex device_action_dropdown_parent">
+                                    <div className="sts_icon" onClick={() => handleIconClick(index)}>
+                                        <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
+                                    </div>
+                                    <div key={index}>{(rotatedIndex === index && site_active == 'Active') &&
+                                        (<div className='device_action_dropdown'>
+                                            <div className='display-flex device_action_dropdown1 dropdown_action'>
+                                                <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
+                                                <div className='device_content_dropdown display-flex' onClick={() => site_edit_page(data)}>Edit Detials</div>
+                                            </div>
+                                            <div className='display-flex device_action_dropdown2 dropdown_action'>
+                                                <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
+                                                <div className='device_content_dropdown display-flex' onClick={() => { Editinactivedata(data, index) }}>Inactivate Device</div>
+                                            </div>
+                                        </div>)}
+                                    </div>
+                                    <div key={index}>{(rotatedIndex === index && site_active == 'Inactive') &&
+                                        (<div className='device_action_dropdown'>
+                                            <div className='display-flex device_action_dropdown1 dropdown_action' onClick={() => handlesiteClick(index)}>
 
-                                            <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action" onClick={() => get_site_data(index)}>Site Details</div>
-                                        </div>
-                                        <div className='display-flex device_action_dropdown2 dropdown_action'>
-                                            <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                            <div className='device_content_dropdown display-flex' onClick={() => { Editactivedata(data,index) }}>Activate Device</div>
-                                        </div>
-                                    </div>)}
+                                                <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
+                                                <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action" onClick={() => get_site_data(index)}>Site Details</div>
+                                            </div>
+                                            <div className='display-flex device_action_dropdown2 dropdown_action'>
+                                                <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
+                                                <div className='device_content_dropdown display-flex' onClick={() => { Editactivedata(data, index) }}>Activate Device</div>
+                                            </div>
+                                        </div>)}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
                 <div className='device_bottom'>
                     <div className='device_export cursor-pointer'>
@@ -540,12 +542,12 @@ const Site_content = () => {
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="device_status_footer">
-                                <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
-                                <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
-                            </div>
+                            <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
+                            <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
 

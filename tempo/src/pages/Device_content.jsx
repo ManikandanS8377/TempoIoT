@@ -355,7 +355,7 @@ const Device_content = () => {
                                                 <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
                                                     if (event.target.checked) {
                                                         filter_active_inactive('Active');
-                                                    }else{
+                                                    } else {
                                                         filter_active_inactive('All');
                                                     }
                                                 }} /><div className="div_sts">Active</div></div>
@@ -363,7 +363,7 @@ const Device_content = () => {
                                                 <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
                                                     if (event.target.checked) {
                                                         filter_active_inactive('Inactive');
-                                                    }else{
+                                                    } else {
                                                         filter_active_inactive('All');
                                                     }
                                                 }} /><div className="div_sts">InActive</div></div>
@@ -388,56 +388,57 @@ const Device_content = () => {
                         <div className="col-head">Device status</div>
                         <div className="col-head">Device action</div>
                     </div>
+                    <div className="scroll_div">
+                        {alldata.map((data, index) => (
+                            <div className="datas">
+                                <div className="col-head" key={index}>{data.device_id}</div>
+                                <div className="col-head" key={index}>{data.device_name}</div>
+                                <div className="col-head" key={index}>{data.device_model}</div>
+                                <div className="col-head" key={index}>{data.last_updated_on}</div>
+                                <div className="col-head">ritchard</div>
 
-                    {alldata.map((data, index) => (
-                        <div className="datas">
-                            <div className="col-head" key={index}>{data.device_id}</div>
-                            <div className="col-head" key={index}>{data.device_name}</div>
-                            <div className="col-head" key={index}>{data.device_model}</div>
-                            <div className="col-head" key={index}>{data.last_updated_on}</div>
-                            <div className="col-head">ritchard</div>
+                                <div className="col-head display-flex">
+                                    <FontAwesomeIcon icon={faDiamond} style={{ color: active_inactive[index] === true ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
+                                    <div className={`device_active`} style={{ color: active_inactive[index] === true ? 'green' : 'red' }}>{active_inactive[index] === true ? 'Active' : 'Inactive'}</div>
+                                </div>
 
-                            <div className="col-head display-flex">
-                                <FontAwesomeIcon icon={faDiamond} style={{ color: active_inactive[index] === true ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
-                                <div className={`device_active`} style={{ color: active_inactive[index] === true ? 'green' : 'red' }}>{active_inactive[index] === true ? 'Active' : 'Inactive'}</div>
+                                <div className="col-head display-flex device_action_dropdown_parent">
+                                    <div className="sts_icon" onClick={() => handleIconClick(index)}>
+                                        <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
+                                    </div>
+                                    <div key={index}>{(rotatedIndex === index && device_active == 'Active') &&
+                                        (<div className='device_action_dropdown'>
+                                            <div className='display-flex device_action_dropdown1 dropdown_action'>
+                                                <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
+                                                <div className='device_content_dropdown display-flex' onClick={() => Device_edit_page(data)}>Edit Detials</div>
+                                            </div>
+                                            <div className='display-flex device_action_dropdown2 dropdown_action'>
+                                                <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
+                                                <div className='device_content_dropdown display-flex' onClick={() => { Editinactivedata(data, index) }}>Inactivate Device</div>
+                                            </div>
+                                        </div>)}
+                                    </div>
+                                    <div key={index}>{(rotatedIndex === index && device_active == 'Inactive') &&
+                                        (<div className='device_action_dropdown'>
+                                            <div className='display-flex device_action_dropdown1 dropdown_action'>
+                                                <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
+                                                <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Device Details</div>
+                                            </div>
+                                            <div className='display-flex device_action_dropdown2 dropdown_action'>
+                                                <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
+                                                <div className='device_content_dropdown display-flex' onClick={() => { Editactivedata(data, index) }}>Activate Device</div>
+                                            </div>
+                                        </div>)}
+                                    </div>
+                                </div>
                             </div>
 
-                            <div className="col-head display-flex device_action_dropdown_parent">
-                                <div className="sts_icon" onClick={() => handleIconClick(index)}>
-                                    <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
-                                </div>
-                                <div key={index}>{(rotatedIndex === index && device_active == 'Active') &&
-                                    (<div className='device_action_dropdown'>
-                                        <div className='display-flex device_action_dropdown1 dropdown_action'>
-                                            <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex' onClick={() => Device_edit_page(data)}>Edit Detials</div>
-                                        </div>
-                                        <div className='display-flex device_action_dropdown2 dropdown_action'>
-                                            <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                            <div className='device_content_dropdown display-flex' onClick={() => { Editinactivedata(data, index) }}>Inactivate Device</div>
-                                        </div>
-                                    </div>)}
-                                </div>
-                                <div key={index}>{(rotatedIndex === index && device_active == 'Inactive') &&
-                                    (<div className='device_action_dropdown'>
-                                        <div className='display-flex device_action_dropdown1 dropdown_action'>
-                                            <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Device Details</div>
-                                        </div>
-                                        <div className='display-flex device_action_dropdown2 dropdown_action'>
-                                            <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                            <div className='device_content_dropdown display-flex' onClick={() => { Editactivedata(data, index) }}>Activate Device</div>
-                                        </div>
-                                    </div>)}
-                                </div>
-                            </div>
+                        ))}
+                    </div>
+                    <div className='device_bottom'>
+                        <div className='device_export cursor-pointer'>
+                            <div className='device_exports'>Export</div>
                         </div>
-
-                    ))}
-                </div>
-                <div className='device_bottom'>
-                    <div className='device_export cursor-pointer'>
-                        <div className='device_exports'>Export</div>
                     </div>
                 </div>
             </div>
