@@ -5,9 +5,12 @@ import './assets/style/App.css'
 import TopNavbar from './TopNavbar';
 // import Device from './pages/Device';
 // import Add_device from './pages/Add_device';
+import { Navigate, BrowserRouter, Route, Routes } from 'react-router-dom';
+import Login from './pages/Login';
 ReactDOM.render(
   <React.StrictMode>
-    <TopNavbar />
+    {/* <TopNavbar /> */}
+    {/* <Route path="/" exact element={<Login />} /> */}
     <App /> 
   </React.StrictMode>,
   document.getElementById('root')

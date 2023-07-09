@@ -70,6 +70,100 @@
     justify-content: space-between;
 }
 
+/* Login page */
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    justify-content: space-around;
+}
+.digital_scan{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 0.1px solid rgb(199, 194, 194);
+    border-radius: 50px;
+    padding: 2rem;
+    width: 40%;
+    box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.5);
+}
+.login_inputs{
+    /* display: flex; */
+    /* flex-direction: column; */
+    padding: 1.5rem;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.login_inputs_individual{
+    width: 100%;
+    height: 45px;
+}
+.all_inputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+.forget{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    color: rgb(255, 4, 0);
+    /* margin-right: 10px; */
+}
+.login_btn{
+    padding: 0.5rem;
+    border-radius: 50px;
+    background-color: rgb(255, 4, 0);
+    color: white;
+    cursor: pointer;
+    min-width: 100px;
+    font-weight: 700;
+    transition:.3s ease all;
+    
+}
+.login_btn_div{
+    width: 100%;
+    
+}
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.powered_by{
+    font-size: 25px;
+    font-weight: 700;
+}
+.Quantanics{
+    color: red;
+    text-transform: uppercase;
+}
+.sketch_images{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.sketch1, .sketch2{
+    width: 100%;
+    height: 270px;
+}
+.TempoIot{
+    font-weight: 700;
+    font-size: 30px;
+    color: #716f6f;
+}
+.ds{
+    font-size: 30px;
+    color: red;
+    font-weight: 700;
+    text-transform: capitalize;
+}
 
 .device_management {
     justify-content: space-between;
