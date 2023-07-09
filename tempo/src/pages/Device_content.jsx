@@ -306,7 +306,7 @@ const Device_content = () => {
                                 of 20 pages
                             </div>
                         </div>
-                        <div className='move_head' style={{ marginRight: '35%' }}>
+                        <div className='move_head'>
                             <div className='filters1 display-flex'>
                                 <div class="dropdown-filter" ref={dropdownRef1}>
                                     <div class="device_filters" onClick={dropdown1}>
