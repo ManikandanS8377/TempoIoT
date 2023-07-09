@@ -597,6 +597,7 @@
 .scroll_div {
     height: calc(100vh - 320px);
     overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 
 .scroll_div::-webkit-scrollbar {
