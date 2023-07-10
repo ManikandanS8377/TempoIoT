@@ -64,14 +64,14 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
 
   const fetchData = async (fromdate, todate, handlelive, globalfilter, message) => {
     console.log("latestData");
-
+    
     try {
-
       const response1 = await fetch('http://127.0.0.1:4000/user');
       const data1 = await response1.json();
       const length = data1.length;
       setdevicedata(data1)
-      var latestData;
+      console.log(data1)
+      var latestData=[];
       if (fromdate !== "" && todate !== "" && handlelive === false) {
         latestData = message.filter(values => {
           const itemDate = values.Timestamp;
@@ -88,14 +88,24 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
         })
       }
       else {
-        latestData = message
-          .flatMap(values => {
-            return values.filter(value => {
-              const itemDate = value.Timestamp.split(" ")[0];
-              return itemDate === formatteddate;
-            });
+        message.filter(values => {
+          latestData = values.map((value, index) => {
+            const itemDate = value.Timestamp.split(" ")[0];
+            if (itemDate === formatteddate) {
+              console.log(itemDate, formatteddate);
+              return value;
+            }
           });
+        })
+        // latestData = message
+        //   .flatMap(values => {
+        //     return values.filter(value => {
+        //       const itemDate = value.Timestamp.split(" ")[0];
+        //       return itemDate === formatteddate;
+        //     });
+        //   });
       }
+      console.log("msg",latestData);
       setLatestData(latestData);
 
       if (globalfilter !== 'Output Model' && globalfilter !== null && globalfilterstate === true) {
@@ -304,15 +314,15 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
     };
   }, [])
 
-
+  
 
   return (
     <div style={{ width: "100%" }}>
       <div className="grid-container">
-        {displayedItems.map((item) => (
+        {displayedItems.map((item,data) => (
           <div key={item} className="grid-item" >
             <div className="graph-header display-flex" style={{ justifyContent: "center", alignItems: "center" }}>
-              <label>Temperature - Assert1</label>
+              <label>{devicedata[item].device_id}</label>
               <div className="dropdown_container2">
                 <button className=" btn-loc4" style={{ border: "1px solid black" }} onClick={() => dropdown2(item)} >
                   {selectedOption2[item] || 'ALL'}
