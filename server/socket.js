@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const port = 5000;
 
-const mongodbUrl = 'mongodb://127.0.0.1:27020/userdata?directConnection=true&serverSelectionTimeoutMS=2000';
+const mongodbUrl = 'mongodb://127.0.0.1:27017/userdata?directConnection=true&serverSelectionTimeoutMS=2000';
 const fs = require('fs');
 
 
@@ -23,9 +23,8 @@ mongoose
       return adress;
     }); // Add your collection names here
     console.log("checking for all this collections : ",collections);
-    // const collections = ['datas', 'a4_a4_a4_a4_a4_a4'];
+    
     io.on('connection', (socket) => {
-      // Fetch initial data for all collections
       Promise.all(
         collections.map((collection) => {
           return db.collection(collection).find({}).toArray();

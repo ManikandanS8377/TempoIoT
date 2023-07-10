@@ -35,10 +35,8 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
 
 
   useEffect(() => {
-
     const handleDataUpdate = (message) => {
       fetchData(fromdate, todate, handlelive, globalfilter, message);
-      // console.log(message);
     };
     socket.on('message', (handleDataUpdate));
 
@@ -66,9 +64,9 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
 
   const fetchData = async (fromdate, todate, handlelive, globalfilter, message) => {
     console.log("latestData");
-    
+
     try {
-      
+
       const response1 = await fetch('http://127.0.0.1:4000/user');
       const data1 = await response1.json();
       const length = data1.length;
@@ -90,20 +88,14 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
         })
       }
       else {
-        // var a =[[{hai:"hello"},{ss:"no"}],[{name1:"ritch"},{name2:"nithi"}],[],[]]
-        latestData = message.filter(values => {
-          // console.log("this is value :",values);
-          values.map((values,index)=>{
-            // console.log(values);
-            const itemDate = values.Timestamp.split(" ")[0];
-            if (itemDate === formatteddate) {
-              console.log(itemDate,formatteddate);
-              return message;
-            }
-          })
-        })
+        latestData = message
+          .flatMap(values => {
+            return values.filter(value => {
+              const itemDate = value.Timestamp.split(" ")[0];
+              return itemDate === formatteddate;
+            });
+          });
       }
-      console.log("msg",latestData);
       setLatestData(latestData);
 
       if (globalfilter !== 'Output Model' && globalfilter !== null && globalfilterstate === true) {
@@ -312,7 +304,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
     };
   }, [])
 
-  
+
 
   return (
     <div style={{ width: "100%" }}>
