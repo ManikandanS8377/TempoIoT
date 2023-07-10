@@ -53,8 +53,6 @@ const Edit_site = () => {
             try {
                 const response = await fetch(`http://127.0.0.1:4000/edit_site_detials/${r_no}`);
                 const data = await response.json();
-                console.log(data);
-                // setall_data(data);
                 all_data_fun(data);
             } catch (error) {
                 console.error(error);
@@ -66,23 +64,14 @@ const Edit_site = () => {
     const all_data_fun = (data) => {
         if (data && data.length > 0) {
             const item = data[0];
-
             setcompanyname(item.company_name);
             setsitename(item.site_name);
             setsiteadminemail(item.site_admin_email);
             setsiteaddress(item.site_address);
             setsitelocation(item.site_location);
             setnewsiteadminname(item.new_site_admin_name);
-
         }
     };
-
-    //push input box to the page
-    const handleButtonClick = () => {
-        setShowInput(true);
-    };
-    const [showInput, setShowInput] = useState(false);
-
 
 
     // cancel script
@@ -94,6 +83,7 @@ const Edit_site = () => {
         setsitelocation("");
         setsiteaddress("");
         setnewsiteadminname("");
+        navigate('/Site');
     }
 
 
@@ -135,7 +125,6 @@ const Edit_site = () => {
 
     const handleClick = async () => {
         try {
-            navigate('/Site');
             const body = {
                 company_name,
                 site_name,
@@ -144,28 +133,16 @@ const Edit_site = () => {
                 site_address,
                 new_site_admin_name,
             };
-            const response = await fetch('http://127.0.0.1:4000/edit_site_detials', {
+            fetch('http://127.0.0.1:4000/edit_site_detials', {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
             });
-
-            if (!response.ok) {
-                throw new Error('Failed to update site details');
-            }
-
-            // Handle the successful response here (if needed)
+            navigate('/Site');
         } catch (error) {
             console.error(error);
-            // Handle the error here
         }
     };
-
-
-
-
-
-
 
     const [isOpen4, setIsOpen4] = useState(false);
     const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
@@ -191,13 +168,27 @@ const Edit_site = () => {
 
 
     return (
-
         <div className='Add_device1 '>
-
-            <div className="page_top_box new_device box-shadow">
-                {/* <button className="btn-loc theme-btn new_device_btn" >New Device</button> */}
+            <div className="modal fade boot-modals" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div className="modal-content width_of_model">
+                        <div className="modal-header-confirm">
+                            <h5 className="modal-title" id="exampleModalLabel">CONFIRMATION</h5>
+                        </div>
+                        <div className="modal-main-confirm">
+                            <h5 className="modal-title confirm-tittle">Are you sure you want Exit ?
+                            </h5>
+                        </div>
+                        <div className="modal-footer-confirm">
+                            <button type="button" className="btn-loc active-loc" data-bs-dismiss="modal" onClick={() => handleCancel()}>YES</button>
+                            <button type="button" className="btn-loc inactive-loc" data-bs-dismiss="modal">NO</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
+            <div className="page_top_box new_device box-shadow">
+                <div className='module_tittle' style={{ textAlign: "start" }}>Site Management</div>
+            </div>
             <div className="add_device_container1">
                 <div className="new_device_content">
                     <div className="row_one display-flex">
@@ -241,8 +232,6 @@ const Edit_site = () => {
                                     />
                                 </div>
                             </div>
-
-
                             <div className="dsa_row_3">
                                 <div className="dsa_3rd_input">
                                     <label for="input1">Site Location</label>
@@ -251,7 +240,6 @@ const Edit_site = () => {
                                         <input type="text" class="form-control-loc" value={site_location} onChange={handlesitelocation} id="site_location" />
                                     </div>
                                 </div>
-
                                 <div className="dsa_3rd_input">
                                     <label for="input1">Site Address</label>
                                     <div className="inputs-group">
@@ -265,7 +253,6 @@ const Edit_site = () => {
                     <div className="row_three display-flex padding-loc">
                         <div className="mqtt_protocol display-flex">
                             <div className="network_protocol light-grey uppercase mb-loc-5 mt-loc-3">Site Admin info</div>
-
                         </div>
                         <div className="sub_row_three display-flex">
 
@@ -275,64 +262,19 @@ const Edit_site = () => {
                                         <label for="input1">Site Admin Name</label>
                                         <div class="inputs-group relative-loc">
                                             <span class="input-group-loc"><Icon icon={person} size={20} style={{ color: "lightgray" }} /></span>
-                                            <input type="text" class="form-control-loc" id="site_admin_name" />
-                                            <FontAwesomeIcon
-                                                icon={faChevronDown}
-                                                // icon={isDropdownOpen4 ? faChevronDown : faChevronUp}
-                                                class="dropdown-icon down_arrow"
-                                            />
+                                            <input type="text" class="form-control-loc" id="site_admin_name" value={new_site_admin_name} readOnly/>
                                         </div>
                                     </div>
-                                    {isOpen4 && (
-                                        <div class="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors">
-                                            <div className='device_scroll'>
-                                                <div class='device_dropdown'>
-                                                    <div class="div_sts" onClick={handleButtonClick}>
-                                                        Add New admin
-                                                    </div>
-                                                </div>
-                                                <hr className="hrs"></hr>
-                                                {responseData_state.map((data, index) => (
-                                                    <div className='device_scroll' key={index}>
-                                                        <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts"> {data.new_site_admin_name}</div></div>
-                                                            {index !== data.length - 1 && <hr className='hrs'></hr>}
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
                                 </div>
-
-
                             </div>
-                            <div className='dsa_row_3'>
-                                {showInput && (
-                                    <div class="dsa_row4">
-                                        <div class="dsa_1st_input">
-                                            <label htmlFor="input1">New Site Admin Name</label>
-                                            <div class="inputs-group">
-                                                <span class="input-group-loc">
-                                                    {/* Assuming you have imported the Icon component */}
-                                                    <Icon icon={person} size={20} style={{ color: "lightgray" }} />
-                                                </span>
-                                                <input type="text" class="form-control-loc" value={new_site_admin_name} onChange={handlenewsiteadminname} id="new_site_admin_name" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-
                         </div>
                     </div>
-
                     <div className="operating_buttons display-flex padding-loc">
                         <div className="save_cancel_btn display-flex site_button">
                             <button className="btn-loc active-loc btn btn-outline-success" onClick={() => handleClick()}>Save</button>
-                            <button className="btn-loc inactive-loc btn btn-outline-danger" onClick={() => handleCancel()} data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
+                            <button className="btn-loc inactive-loc btn btn-outline-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

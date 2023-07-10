@@ -512,7 +512,7 @@
 .device_dropdown {
     padding-left: 15px;
     padding-top: 5px;
-    /* margin-left: 1rem; */
+    cursor: pointer;
     display: flex;
     height: 40px;
     width: 150px;
@@ -696,7 +696,6 @@
     border: var(--BORDER_COLOUR_1PX);
     border-radius: 0.25rem 0 0 0.25rem;
     width: var(--WIDTH);
-
 }
 
 /* confirmation */
