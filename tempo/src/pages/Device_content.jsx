@@ -413,8 +413,8 @@ const Device_content = () => {
                             </div>
                         </div>
 
-                        <div className='filters2 display-flex'>
-                            <button className='btn btn-fill' onClick={handleclick} >Add Device</button>
+                        <div className='filters2 display-flex' onClick={handleclick}>
+                            <button className='btn btn-fill'  >Add Device</button>
                         </div>
 
                     </div>
