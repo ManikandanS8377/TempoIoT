@@ -165,7 +165,7 @@ const Device_content = () => {
             // Update active and inactive counts
             const activeCount = data.filter(item => item.device_status === 1).length;
             const inactiveCount = data.filter(item => item.device_status !== 1).length;
-
+            console.log("hello")
             setactiveCount(activeCount);
             setinactiveCount(inactiveCount);
             setdevicemodel(model_data);
