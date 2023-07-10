@@ -224,7 +224,7 @@ const Edit_site = () => {
                                     </span>
                                     <input
                                         type="text"
-                                        className="form-control-loc"
+                                        className="form-control-loc hack"
                                         value={site_admin_email}
                                         onChange={handlesiteadminemail}
                                         id="site_admin_email"
@@ -260,9 +260,9 @@ const Edit_site = () => {
                                 <div onClick={dropdown4}>
                                     <div class="dsa_1st_input">
                                         <label for="input1">Site Admin Name</label>
-                                        <div class="inputs-group relative-loc">
-                                            <span class="input-group-loc"><Icon icon={person} size={20} style={{ color: "lightgray" }} /></span>
-                                            <input type="text" class="form-control-loc" id="site_admin_name" value={new_site_admin_name} readOnly/>
+                                        <div class="inputs-group relative-loc ">
+                                            <span class="input-group-loc "><Icon icon={person} size={20} style={{ color: "lightgray" }} /></span>
+                                            <input type="text" class="form-control-loc hack" id="site_admin_name" value={new_site_admin_name} readOnly/>
                                         </div>
                                     </div>
                                 </div>

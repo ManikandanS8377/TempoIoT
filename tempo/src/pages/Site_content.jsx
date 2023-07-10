@@ -11,6 +11,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
 import { json, useNavigate } from 'react-router-dom';
+import { ic_room } from 'react-icons-kit/md/ic_room';
+import { map } from 'react-icons-kit/fa/map';
+import { ic_mail } from 'react-icons-kit/md/ic_mail';
+import { ic_home_work } from 'react-icons-kit/md/ic_home_work';
+import { ic_domain } from 'react-icons-kit/md/ic_domain';
 
 
 const Site_content = () => {
@@ -36,6 +41,7 @@ const Site_content = () => {
 
 
     //functions to set the device status avtive and inactive
+
 
 
     useEffect(() => {
@@ -293,6 +299,13 @@ const Site_content = () => {
     }
     // console.log(fetchData().data);
     // console.log("fetchData().data");
+    const [selectedOption, setSelectedOption] = useState('All');
+
+
+    // const handleOptionClick = (option) => {
+    //     setSelectedOption(option);
+       
+    //   };
 
 
     const [company_name, setcompany_name] = useState("")
@@ -315,9 +328,20 @@ const Site_content = () => {
         })
     }
 
-    const filter_active_inactive = (Option) => {
-        fetchData(Option)
-    }
+    // const filter_active_inactive = (Option) => {
+    //     fetchData(Option)
+    // }
+    const handleOptionClick = (option) => {
+        setSelectedOption(option);
+        filter_active_inactive(option);
+      };
+      
+      const filter_active_inactive = (option) => {
+        fetchData(option);
+      };
+      
+      // Assuming there is a fetchData function defined elsewhere
+      
 
 
 
@@ -365,14 +389,25 @@ const Site_content = () => {
                                         </div>
                                     </div>
                                     {isOpen2 && (
-                                        <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
-                                            <div><div className='device_dropdown' onClick={() => filter_active_inactive('All')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">All</div></div>
-                                                <hr className='hrs'></hr>
-                                                <div className='device_dropdown' onClick={() => filter_active_inactive('Active')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">Active</div></div>
-                                                <hr className='hrs'></hr>
-                                                <div className='device_dropdown' onClick={() => filter_active_inactive('Inactive')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">InActive</div></div>
-                                            </div>
+                                        <div className="dropdown_menu2 dashboard_dropdown-menu dropdown-colors">
+                                        <div>
+                                          <div className='device_dropdown' onClick={() => handleOptionClick('All')}>
+                                            <input className='device_sts_checkbox' type="checkbox" checked={selectedOption === 'All'} readOnly />
+                                            <div className="div_sts">All</div>
+                                          </div>
+                                          <hr className='hrs'></hr>
+                                          <div className='device_dropdown' onClick={() => handleOptionClick('Active')}>
+                                            <input className='device_sts_checkbox' type="checkbox" checked={selectedOption === 'Active'} readOnly />
+                                            <div className="div_sts">Active</div>
+                                          </div>
+                                          <hr className='hrs'></hr>
+                                          <div className='device_dropdown' onClick={() => handleOptionClick('Inactive')}>
+                                            <input className='device_sts_checkbox' type="checkbox" checked={selectedOption === 'Inactive'} readOnly />
+                                            <div className="div_sts">Inactive</div>
+                                          </div>
                                         </div>
+                                      </div>
+                                      
                                     )}
                                 </div>
                                 <div class="dropdown-filter" ref={dropdownRef3}>
@@ -491,68 +526,69 @@ const Site_content = () => {
                                 <div className="dsa_1st_input">
                                     <label for="input1">Company Name</label>
                                     <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" value={company_name} />
+                                        <span class="input-group-loc"><Icon icon={ic_home_work} size={20} style={{ color: "lightgray" }} /></span>
+                                        <input type="text" class="form-control-loc hack" id="input1" value={company_name} />
                                     </div>
                                 </div>
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Site Name</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" id="input1" value={site_name} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="dsa_row2">
+                            
                             <div className="dsa_1st_input">
-                                <label for="input1">Site Admin Email</label>
+                                <label for="input1">Site Name</label>
                                 <div className="inputs-group">
-                                    <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                    <input type="text" class="form-control-loc" id="input1" value={site_admin_email} />
+                                    <span class="input-group-loc"><Icon icon={ic_domain} size={20} style={{ color: "lightgray" }} /></span>
+                                    <input type="text" class="form-control-loc hack" id="input1" value={site_name} />
                                 </div>
                             </div>
-                            <div className="dsa_1st_input">
-                                <label for="input1">Site location</label>
-                                <div className="inputs-group">
-                                    <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                    <input type="text" class="form-control-loc" id="input1" value={site_location} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="dsa_row3">
-                            <div className="dsa_1st_input">
-                                <label for="input1">Site Address</label>
-                                <div className="inputs-group">
-                                    <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                    <input type="text" class="form-control-loc" id="input1" value={site_address} />
-                                </div>
-                            </div>
-                            <div className="dsa_3rd_input">
-                                <div className="dsa_updates">
-                                    <div className="updated_by">
-                                        <label htmlFor="updated_by_name" className='dsa_updates_heading'>Last Updated By
-                                        </label>
-                                        <div id="updated_by_name">Manikandan S</div>
-                                    </div>
-                                    <div className="updated_on">
-                                        <label htmlFor="updated_by_date" className='dsa_updates_heading'>Last Updated On
-                                        </label>
-                                        <div id="updated_by_date">20 march 2023, 12:57</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="device_status_footer">
-                            <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
-                            <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
-                </div>
+                    <div className="dsa_row2">
+                        <div className="dsa_1st_input">
+                            <label for="input1">Site Admin Email</label>
+                            <div className="inputs-group">
+                                <span class="input-group-loc"><Icon icon={ic_mail} size={20} style={{ color: "lightgray" }} /></span>
+                                <input type="text" class="form-control-loc hack" id="input1" value={site_admin_email} />
+                            </div>
+                        </div>
+                        <div className="dsa_1st_input">
+                            <label for="input1">Site location</label>
+                            <div className="inputs-group">
+                                <span class="input-group-loc"><Icon icon={ic_room} size={20} style={{ color: "lightgray" }} /></span>
+                                <input type="text" class="form-control-loc hack" id="input1" value={site_location} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="dsa_row3">
+                        <div className="dsa_1st_input">
+                            <label for="input1">Site Address</label>
+                            <div className="inputs-group">
+                                <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
+                                <input type="text" class="form-control-loc hack" id="input1" value={site_address} />
+                            </div>
+                        </div>
+                        <div className="dsa_3rd_input">
+                            <div className="dsa_updates">
+                                <div className="updated_by">
+                                    <label htmlFor="updated_by_name" className='dsa_updates_heading'>Last Updated By
+                                    </label>
+                                    <div id="updated_by_name">Manikandan S</div>
+                                </div>
+                                <div className="updated_on">
+                                    <label htmlFor="updated_by_date" className='dsa_updates_heading'>Last Updated On
+                                    </label>
+                                    <div id="updated_by_date">20 march 2023</div>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                    <div class="device_status_footer">
+                        <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
+                        <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
+
         </div>
+        </div >
     );
 };
 

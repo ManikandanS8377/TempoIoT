@@ -36,6 +36,7 @@ const Device_content = () => {
     const [deviceName_data, setdevicename] = useState([]);
     const [deviceData_data, setdevicedate] = useState([]);
     const [active_inactive, setactive_inactive] = useState([]);
+    const [selectedOption, setSelectedOption] = useState('All');
 
 
     const dropdownRef1 = useRef(null);
@@ -274,9 +275,7 @@ const Device_content = () => {
     const Device_edit_page = async (data) => {
         navigate(`/edit_device/${data.r_no}`);
     }
-    const filter_active_inactive = (Option) => {
-        fetchData(Option)
-    }
+
 
     const [device_name, setdevice_name] = useState("")
     const [device_model, setdevice_model] = useState("")
@@ -308,6 +307,15 @@ const Device_content = () => {
 
         })
     }
+
+    const handleOptionClick = (option) => {
+        setSelectedOption(option);
+        filter_active_inactive(option);
+      };
+      
+      const filter_active_inactive = (option) => {
+        fetchData(option);
+      };
 
 
     return (
@@ -382,30 +390,25 @@ const Device_content = () => {
                                         </div>
                                     </div>
                                     {isOpen3 && (
-                                        <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
-                                            <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
-                                                if (event.target.checked) {
-                                                    filter_active_inactive('All');
-                                                }
-                                            }} /><div className="div_sts">All</div></div>
-                                                <hr className='hrs'></hr>
-                                                <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
-                                                    if (event.target.checked) {
-                                                        filter_active_inactive('Active');
-                                                    } else {
-                                                        filter_active_inactive('All');
-                                                    }
-                                                }} /><div className="div_sts">Active</div></div>
-                                                <hr className='hrs'></hr>
-                                                <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
-                                                    if (event.target.checked) {
-                                                        filter_active_inactive('Inactive');
-                                                    } else {
-                                                        filter_active_inactive('All');
-                                                    }
-                                                }} /><div className="div_sts">InActive</div></div>
-                                            </div>
+                                        <div className="dropdown_menu2 dashboard_dropdown-menu dropdown-colors">
+                                        <div>
+                                          <div className='device_dropdown' onClick={() => handleOptionClick('All')}>
+                                            <input className='device_sts_checkbox' type="checkbox" checked={selectedOption === 'All'} readOnly />
+                                            <div className="div_sts">All</div>
+                                          </div>
+                                          <hr className='hrs'></hr>
+                                          <div className='device_dropdown' onClick={() => handleOptionClick('Active')}>
+                                            <input className='device_sts_checkbox' type="checkbox" checked={selectedOption === 'Active'} readOnly />
+                                            <div className="div_sts">Active</div>
+                                          </div>
+                                          <hr className='hrs'></hr>
+                                          <div className='device_dropdown' onClick={() => handleOptionClick('Inactive')}>
+                                            <input className='device_sts_checkbox' type="checkbox" checked={selectedOption === 'Inactive'} readOnly />
+                                            <div className="div_sts">Inactive</div>
+                                          </div>
                                         </div>
+                                      </div>
+                                      
                                     )}
                                 </div>
                             </div>

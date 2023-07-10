@@ -911,6 +911,9 @@ input[type="checkbox"] {
     background-color: #2c30af;
     color: white;
 }
+.hack:hover {
+    cursor: not-allowed;
+}
 
 .error-message {
     position: absolute;

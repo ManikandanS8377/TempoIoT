@@ -39,6 +39,7 @@ const Add_site = () => {
     const [site_locationerror, setsitelocationerror] = useState("");
     const [site_addresserror, setsiteaddresserror] = useState("");
     const [new_site_admin_nameerror, setnewsiteadminnameerror] = useState("");
+    const [site_admin_nameerror, setsiteadminnameerror] = useState("");
 
     // data fetching in site db 
     useEffect(() => {
@@ -71,38 +72,85 @@ const Add_site = () => {
         setsitelocation("");
         setsiteaddress("");
         setnewsiteadminname("");
+        setsite_admin("");
         navigate('/Site');
     }
 
     function handlecompanyname(event) {
         const value = event.target.value;
         setcompanyname(value);
+        const isValidcompany_name = /^[a-zA-Z]+$/.test(value);
+        if (!isValidcompany_name) {
+            setcompanynameerror("*Enter valid company name");
+        } else {
+            setcompanynameerror("");
+        }
     }
 
     function handlesitename(event) {
         const value = event.target.value;
         setsitename(value);
+        const isValidsite_name = /^[a-zA-Z0-9]+$/.test(value);
+        if (!isValidsite_name) {
+            setsitenameerror("*Enter valid site name");
+        } else {
+            setsitenameerror("");
+        }
     }
 
     function handlesiteadminemail(event) {
         const value = event.target.value;
         setsiteadminemail(value);
+        const isValidsite_admin_email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        if (!isValidsite_admin_email) {
+            setsiteadminemailerror("*Enter valid email");
+        } else {
+            setsiteadminemailerror("");
+        }
     }
 
     function handlesitelocation(event) {
         const value = event.target.value;
         setsitelocation(value);
+        const isValidsite_location =  /^[a-zA-Z0-9\s\/\,\.\'-]+$/i.test(value);
+        if (!isValidsite_location) {
+            setsitelocationerror("*Enter valid location");
+        } else {
+            setsitelocationerror("");
+        }
     }
 
     function handlesiteaddress(event) {
         const value = event.target.value;
         setsiteaddress(value);
-
+        const isValidsite_address =  /^[a-zA-Z0-9\s\/\,\.\'-]+$/i.test(value);
+        if (!isValidsite_address) {
+            setsiteaddresserror("*Enter valid site address");
+        } else {
+            setsiteaddresserror("");
+        }
     }
+    
 
     function handlenewsiteadminname(event) {
         const value = event.target.value;
         setnewsiteadminname(value);
+        const isValidnew_site_admin_name = /^[a-zA-Z]+$/.test(value);
+        if (!isValidnew_site_admin_name) {
+            setnewsiteadminnameerror("*Enter valid admin name");
+        } else {
+            setnewsiteadminnameerror("");
+        }
+    }
+    function handlesiteadmin(event) {
+        const value = event.target.value;
+        setsite_admin(value);
+        const isValidnew_site_admin_name = /^[0-9]+$/.test(value);
+        if (!isValidnew_site_admin_name) {
+            setsiteadminnameerror("*Enter valid new admin name");
+        } else {
+            setsiteadminnameerror("");
+        }
     }
 
 
@@ -111,7 +159,19 @@ const Add_site = () => {
 
     // validation
     const handleClick = async () => {
-        try {
+
+        const isValidcompany_name = /^[0-9]+$/.test(company_name)
+        const isValidsite_name = /^[a-zA-Z0-9]+$/.test(site_name)
+        const isValidsite_admin_email = /^[a-zA-Z0-9]+$/.test(site_admin_email)
+        const isValidsite_location = /^[0-9a-zA-Z]{2}([-:_])[0-9a-zA-Z]{2}(\1[0-9a-zA-Z]{2}){4}$/.test(site_location)
+        const isValidsite_address = /^[a-zA-Z0-9]+$/.test(site_address)
+        const isValidnew_site_admin_name = /^[a-zA-Z0-9]+$/.test(new_site_admin_name)
+        const isValidsite_admin = /^[0-9a-zA-Z./,:\\-]+$/.test(site_admin)
+        if (!isValidcompany_name || !isValidsite_name || !isValidsite_admin_email || !isValidsite_location || !isValidsite_address || !isValidnew_site_admin_name || !isValidsite_admin) {
+            alert("Enter the valid data ")
+        }
+
+        else{
             const body = {
                 company_name,
                 site_name,
@@ -126,8 +186,6 @@ const Add_site = () => {
                 body: JSON.stringify(body),
             });
             navigate('/Site');
-        } catch (error) {
-            console.error(error);
         }
     }
 
@@ -194,36 +252,40 @@ const Add_site = () => {
                             site info
                         </div>
                         <div className="input-boxes display-flex">
-                            <div class="dsa_row_1">
+                            <div class="dsa_row_1 inputbox display-flex input">
                                 <div class="dsa_1st_input">
                                     <label for="input1">Company Name</label>
-                                    <div class="inputs-group">
+                                    <div class="inputs-group display-flex">
                                         <span class="input-group-loc"><Icon icon={ic_home_work} size={20} style={{ color: "lightgray" }} /></span>
                                         <input type="text" class="form-control-loc" value={company_name} onChange={handlecompanyname} id="company_name" />
+                                        <div className="error-message"><span className={company_nameerror ? "error" : ""}>{company_nameerror}</span></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="dsa_2nd_input">
+                            <div className="dsa_2nd_input inputbox display-flex input">
                                 <label for="input1">Site Name</label>
-                                <div className="inputs-group">
+                                <div className="inputs-group display-flex">
                                     <span class="input-group-loc"><Icon icon={ic_domain} size={20} style={{ color: "lightgray" }} /></span>
                                     <input type="text" class="form-control-loc" value={site_name} onChange={handlesitename} id="site_name" />
+                                    <div className="error-message"><span className={site_nameerror ? "error" : ""}>{site_nameerror}</span></div>
                                 </div>
                             </div>
-                            <div className="dsa_row_3">
-                                <div className="dsa_3rd_input">
+                            <div className="dsa_row_3 ">
+                                <div className="dsa_3rd_input inputbox display-flex input">
                                     <label for="input1">Site Location</label>
-                                    <div className="inputs-group">
+                                    <div className="inputs-group display-flex">
                                         <span class="input-group-loc"><Icon icon={ic_room} size={20} style={{ color: "lightgray" }} /></span>
                                         <input type="text" class="form-control-loc" value={site_location} onChange={handlesitelocation} id="site_location" />
+                                        <div className="error-message"><span className={site_locationerror ? "error" : ""}>{site_locationerror}</span></div>
                                     </div>
                                 </div>
-                                <div className="dsa_3rd_input">
+                                <div className="dsa_3rd_input inputbox display-flex input">
                                     <label for="input1">Site Address</label>
-                                    <div className="inputs-group">
+                                    <div className="inputs-group display-flex">
                                         <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
                                         <input type="text" class="form-control-loc" value={site_address} onChange={handlesiteaddress} id="site_address" />
+                                        <div className="error-message"><span className={site_addresserror ? "error" : ""}>{site_addresserror}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -271,20 +333,22 @@ const Add_site = () => {
                             <div className='dsa_row_3'>
                                 {showInput && (
                                     <div class="dsa_row1">
-                                        <div class="dsa_1st_input">
+                                        <div class="dsa_1st_input inputbox display-flex input">
                                             <label htmlFor="input1">New Site Admin Name</label>
-                                            <div class="inputs-group">
+                                            <div class="inputs-group display-flex">
                                                 <span class="input-group-loc">
                                                     <Icon icon={person} size={20} style={{ color: "lightgray" }} />
                                                 </span>
                                                 <input type="text" class="form-control-loc" value={new_site_admin_name} onChange={handlenewsiteadminname} id="new_site_admin_name" />
+                                                <div className="error-message"><span className={new_site_admin_nameerror ? "error" : ""}>{new_site_admin_nameerror}</span></div>
                                             </div>
                                         </div>
-                                        <div className="dsa_2nd_input">
+                                        <div className="dsa_2nd_input inputbox display-flex input">
                                             <label for="input1">Site Admin Email</label>
-                                            <div className="inputs-group">
+                                            <div className="inputs-group display-flex">
                                                 <span class="input-group-loc"><Icon icon={ic_mail} size={20} style={{ color: "lightgray" }} /></span>
                                                 <input type="text" class="form-control-loc" value={site_admin_email} onChange={handlesiteadminemail} id="site_admin_email" />
+                                                <div className="error-message"><span className={site_admin_emailerror ? "error" : ""}>{site_admin_emailerror}</span></div>
                                             </div>
                                         </div>
                                     </div>
