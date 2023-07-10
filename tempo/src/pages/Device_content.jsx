@@ -13,7 +13,7 @@ import { faAnglesDown, faChevronDown, faChevronUp } from '@fortawesome/free-soli
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 const Device_content = () => {
     //states
@@ -139,7 +139,7 @@ const Device_content = () => {
             const deviceModel = await fetch('http://127.0.0.1:4000/device_modeldata');
             const deviceName = await fetch('http://127.0.0.1:4000/device_namedata');
             const network = await fetch('http://127.0.0.1:4000/network');
-            const network_data = await network.json();     
+            const network_data = await network.json();
             const data = await response.json();
             const date_data = await deviceDate.json();
             const model_data = await deviceModel.json();
@@ -280,15 +280,15 @@ const Device_content = () => {
 
     const [device_name, setdevice_name] = useState("")
     const [device_model, setdevice_model] = useState("")
-    const [device_firmware_version, setdevice_firmware_version] = useState("")  
+    const [device_firmware_version, setdevice_firmware_version] = useState("")
     const [device_mac_address, setdevice_mac_address] = useState("")
-  
+
     const get_device_data = (index) => {
         alldata.map((item, item_index) => {
             if (item_index === index) {
                 setdevice_name(item.device_name);
                 setdevice_model(item.device_model);
-                setdevice_firmware_version(item.device_firmware_version);            
+                setdevice_firmware_version(item.device_firmware_version);
                 setdevice_mac_address(item.device_mac_address);
                 setdevice_updated_on(item.last_updated_on);
             }
@@ -296,14 +296,14 @@ const Device_content = () => {
         })
     }
 
- 
+
     // const [user_name, setuser_name] = useState("")
     const [client_id, setclient_id] = useState("")
     const get_device1_data = (index) => {
         allnetdata.map((item, item_index) => {
             if (item_index === index) {
                 // setuser_name(item.user_name);
-                setclient_id(item.client_id);            
+                setclient_id(item.client_id);
             }
 
         })
@@ -325,91 +325,94 @@ const Device_content = () => {
                     </div>
 
                     <div className='filters display-flex' >
+                        <div className="pagination_with_filters">
+                            <div class="pagination display-flex" onClick={handleDivClick}>
+                                <div className="focus-page">
+                                    <input
+                                        // ref={inputRef}
+                                        type="number"
+                                        value={text}
+                                        onChange={handleInputChange}
+                                        onBlur={handleInputBlur}
+                                        autoFocus
+                                        className='editable_input_box'
+                                    />
 
-                        <div class="pagination display-flex" onClick={handleDivClick}>
-                            <div className="focus-page">
-                                <input
-                                    // ref={inputRef}
-                                    type="number"
-                                    value={text}
-                                    onChange={handleInputChange}
-                                    onBlur={handleInputBlur}
-                                    autoFocus
-                                    className='editable_input_box'
-                                />
-
-                            </div>
-                            <div className="upcomming-pages">
-                                of 20 pages
-                            </div>
-                        </div>
-                        <div className='move_head'>
-                            <div className='filters1 display-flex'>
-                                <div class="dropdown-filter" ref={dropdownRef1}>
-                                    <div class="device_filters" onClick={dropdown1}>
-                                        <div className="device_name">
-                                            Device Name
-                                        </div>
-                                        <div className="dropdown_icon">
-                                            <FontAwesomeIcon
-                                                icon={isDropdownOpen1 ? faChevronDown : faChevronUp}
-                                                className="dropdown-icon"
-                                            />
-                                        </div>
-                                    </div>
-                                    {isOpen1 && (
-                                        <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors ">
-                                            {deviceName_data.map((data, index) => (
-                                                <div className='device_scroll' key={index}>
-                                                    <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts"> {data.device_name}</div></div>
-                                                        {index !== alldata.length - 1 && <hr className='hrs'></hr>}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
                                 </div>
-                                <div class="dropdown-filter" ref={dropdownRef3}>
-                                    <div class="device_filters" onClick={dropdown3}>
-                                        <div className="device_name">
-                                            Device Status
-                                        </div>
-                                        <div className="dropdown_icon">
-                                            <FontAwesomeIcon
-                                                icon={isDropdownOpen3 ? faChevronDown : faChevronUp}
-                                                className="dropdown-icon"
-                                            />
-                                        </div>
-                                    </div>
-                                    {isOpen3 && (
-                                        <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
-                                            <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
-                                                if (event.target.checked) {
-                                                    filter_active_inactive('All');
-                                                }
-                                            }} /><div className="div_sts">All</div></div>
-                                                <hr className='hrs'></hr>
-                                                <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
-                                                    if (event.target.checked) {
-                                                        filter_active_inactive('Active');
-                                                    } else {
-                                                        filter_active_inactive('All');
-                                                    }
-                                                }} /><div className="div_sts">Active</div></div>
-                                                <hr className='hrs'></hr>
-                                                <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
-                                                    if (event.target.checked) {
-                                                        filter_active_inactive('Inactive');
-                                                    } else {
-                                                        filter_active_inactive('All');
-                                                    }
-                                                }} /><div className="div_sts">InActive</div></div>
+                                <div className="upcomming-pages">
+                                    of 20 pages
+                                </div>
+                            </div>
+
+                            <div className='move_head'>
+                                <div className='filters1 display-flex'>
+                                    <div class="dropdown-filter" ref={dropdownRef1}>
+                                        <div class="device_filters" onClick={dropdown1}>
+                                            <div className="device_name">
+                                                Device Name
+                                            </div>
+                                            <div className="dropdown_icon">
+                                                <FontAwesomeIcon
+                                                    icon={isDropdownOpen1 ? faChevronDown : faChevronUp}
+                                                    className="dropdown-icon"
+                                                />
                                             </div>
                                         </div>
-                                    )}
+                                        {isOpen1 && (
+                                            <div className="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors ">
+                                                {deviceName_data.map((data, index) => (
+                                                    <div className='device_scroll' key={index}>
+                                                        <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts"> {data.device_name}</div></div>
+                                                            {index !== alldata.length - 1 && <hr className='hrs'></hr>}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div class="dropdown-filter" ref={dropdownRef3}>
+                                        <div class="device_filters" onClick={dropdown3}>
+                                            <div className="device_name">
+                                                Device Status
+                                            </div>
+                                            <div className="dropdown_icon">
+                                                <FontAwesomeIcon
+                                                    icon={isDropdownOpen3 ? faChevronDown : faChevronUp}
+                                                    className="dropdown-icon"
+                                                />
+                                            </div>
+                                        </div>
+                                        {isOpen3 && (
+                                            <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
+                                                <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
+                                                    if (event.target.checked) {
+                                                        filter_active_inactive('All');
+                                                    }
+                                                }} /><div className="div_sts">All</div></div>
+                                                    <hr className='hrs'></hr>
+                                                    <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
+                                                        if (event.target.checked) {
+                                                            filter_active_inactive('Active');
+                                                        } else {
+                                                            filter_active_inactive('All');
+                                                        }
+                                                    }} /><div className="div_sts">Active</div></div>
+                                                    <hr className='hrs'></hr>
+                                                    <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" onChange={(event) => {
+                                                        if (event.target.checked) {
+                                                            filter_active_inactive('Inactive');
+                                                        } else {
+                                                            filter_active_inactive('All');
+                                                        }
+                                                    }} /><div className="div_sts">InActive</div></div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                         <div className='filters2 display-flex'>
                             <button className='btn btn-fill' onClick={handleclick} >Add Device</button>
                         </div>

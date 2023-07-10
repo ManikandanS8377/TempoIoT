@@ -334,73 +334,75 @@ const Site_content = () => {
                         </div>
                     </div>
                     <div className='filters display-flex' >
-                        <div class="pagination display-flex" onClick={handleDivClick}>
-                            <div className="focus-page">
-                                <input
-                                    type="number"
-                                    value={text}
-                                    onChange={handleInputChange}
-                                    onBlur={handleInputBlur}
-                                    autoFocus
-                                    className='editable_input_box'
-                                />
+                        <div className="pagination_with_filters">
+                            <div class="pagination display-flex" onClick={handleDivClick}>
+                                <div className="focus-page">
+                                    <input
+                                        type="number"
+                                        value={text}
+                                        onChange={handleInputChange}
+                                        onBlur={handleInputBlur}
+                                        autoFocus
+                                        className='editable_input_box'
+                                    />
+                                </div>
+                                <div className="upcomming-pages">
+                                    of 20 pages
+                                </div>
                             </div>
-                            <div className="upcomming-pages">
-                                of 20 pages
-                            </div>
-                        </div>
-                        <div className='move_head'>
-                            <div className='filters1 display-flex'>
+                            <div className='move_head'>
+                                <div className='filters1 display-flex'>
 
-                                <div class="dropdown-filter" ref={dropdownRef2}>
-                                    <div class="device_filters" onClick={dropdown2}>
-                                        <div className="device_name">
-                                            Site Status
-                                        </div>
-                                        <div className="dropdown_icon">
-                                            <FontAwesomeIcon
-                                                icon={isDropdownOpen2 ? faChevronDown : faChevronUp}
-                                                className="dropdown-icon"
-                                            />
-                                        </div>
-                                    </div>
-                                    {isOpen2 && (
-                                        <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
-                                            <div><div className='device_dropdown' onClick={() => filter_active_inactive('All')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">All</div></div>
-                                                <hr className='hrs'></hr>
-                                                <div className='device_dropdown' onClick={() => filter_active_inactive('Active')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">Active</div></div>
-                                                <hr className='hrs'></hr>
-                                                <div className='device_dropdown' onClick={() => filter_active_inactive('Inactive')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">InActive</div></div>
+                                    <div class="dropdown-filter" ref={dropdownRef2}>
+                                        <div class="device_filters" onClick={dropdown2}>
+                                            <div className="device_name">
+                                                Site Status
+                                            </div>
+                                            <div className="dropdown_icon">
+                                                <FontAwesomeIcon
+                                                    icon={isDropdownOpen2 ? faChevronDown : faChevronUp}
+                                                    className="dropdown-icon"
+                                                />
                                             </div>
                                         </div>
-                                    )}
-                                </div>
-                                <div class="dropdown-filter" ref={dropdownRef3}>
-                                    <div class="device_filters" onClick={dropdown3}>
-                                        <div className="device_name">
-                                            Company Name
-                                        </div>
-                                        <div className="dropdown_icon">
-                                            <FontAwesomeIcon
-                                                icon={isDropdownOpen3 ? faChevronDown : faChevronUp}
-                                                className="dropdown-icon"
-                                            />
-                                        </div>
-                                    </div>
-                                    {isOpen3 && (
-                                        <div className="dropdown_menu2 dashboard_dropdown-menu heights  dropdown-colors">
-                                            {company_value.map((item, index) => (
-                                                <div className='device_scroll'>
-                                                    <div>
-                                                        <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" />
-                                                            <div className="div_sts"> {item.company_name}</div>
-                                                        </div>
-                                                        {index !== alldata.length - 1 && <hr className='hrs'></hr>}
-                                                    </div>
+                                        {isOpen2 && (
+                                            <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
+                                                <div><div className='device_dropdown' onClick={() => filter_active_inactive('All')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">All</div></div>
+                                                    <hr className='hrs'></hr>
+                                                    <div className='device_dropdown' onClick={() => filter_active_inactive('Active')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">Active</div></div>
+                                                    <hr className='hrs'></hr>
+                                                    <div className='device_dropdown' onClick={() => filter_active_inactive('Inactive')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">InActive</div></div>
                                                 </div>
-                                            ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div class="dropdown-filter" ref={dropdownRef3}>
+                                        <div class="device_filters" onClick={dropdown3}>
+                                            <div className="device_name">
+                                                Company Name
+                                            </div>
+                                            <div className="dropdown_icon">
+                                                <FontAwesomeIcon
+                                                    icon={isDropdownOpen3 ? faChevronDown : faChevronUp}
+                                                    className="dropdown-icon"
+                                                />
+                                            </div>
                                         </div>
-                                    )}
+                                        {isOpen3 && (
+                                            <div className="dropdown_menu2 dashboard_dropdown-menu heights  dropdown-colors">
+                                                {company_value.map((item, index) => (
+                                                    <div className='device_scroll'>
+                                                        <div>
+                                                            <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" />
+                                                                <div className="div_sts"> {item.company_name}</div>
+                                                            </div>
+                                                            {index !== alldata.length - 1 && <hr className='hrs'></hr>}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
