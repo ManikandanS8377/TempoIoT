@@ -314,15 +314,13 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
     };
   }, [])
 
-  
-
   return (
     <div style={{ width: "100%" }}>
       <div className="grid-container">
         {displayedItems.map((item,data) => (
           <div key={item} className="grid-item" >
             <div className="graph-header display-flex" style={{ justifyContent: "center", alignItems: "center" }}>
-              <label>{devicedata[item].device_id}</label>
+            <label>{devicedata[item]?.device_id || 'temperature assert'}</label>
               <div className="dropdown_container2">
                 <button className=" btn-loc4" style={{ border: "1px solid black" }} onClick={() => dropdown2(item)} >
                   {selectedOption2[item] || 'ALL'}
