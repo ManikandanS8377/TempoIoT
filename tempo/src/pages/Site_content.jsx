@@ -588,7 +588,7 @@ const Site_content = () => {
             </div>
 
         </div>
-        </div >
+        </div>
     );
 };
 
