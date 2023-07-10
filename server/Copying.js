@@ -4,7 +4,7 @@ const mqtt = require('mqtt');
 const path = require('path');
 const {name} = path.parse(__filename);
 
-
+  
 const allData = JSON.parse(fs.readFileSync('../allData.json'));
 
 let host = '';

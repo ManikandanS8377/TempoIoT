@@ -24,7 +24,6 @@ app.get('/edit_site_detials/:id', async (req, res) => {
         const { id } = req.params
         const datas = await pool.query('SELECT * FROM site_management WHERE site_management.r_no = $1', [id]);
         res.json(datas.rows);
-        console.log(datas)
     } catch (err) {
         console.log(err)
     }
@@ -67,7 +66,7 @@ app.get("/site_company", async (req, res) => {
 //remove duplicate admin
 app.get("/site_admin", async (req, res) => {
     try {
-        const query = "SELECT DISTINCT new_site_admin_name FROM site_management";
+        const query = "SELECT new_site_admin_name, MAX(site_admin_email) AS site_admin_email FROM site_management GROUP BY new_site_admin_name;"
         const adminNames = await pool.query(query);
         res.json(adminNames.rows);
     } catch (err) {
@@ -123,19 +122,9 @@ app.put("/userdata/:id", async (req, res) => {
 })
 app.put("/edit_device_detials", async (req, res) => {
     try {
-        // const { id } = req.params;
-        // const clientid = req.body["clientid"];
         const devicename = req.body["devicename"];
         const devicemodel = req.body["devicemodel"];
         const devicemacaddress = req.body["devicemacaddress"];
-        // const firmwareversion = req.body["firmwareversion"];
-        // const clientname = req.body["clientname"];
-        // const host = req.body["host"];
-        // const username = req.body["username"];
-        // const password = req.body["password"];
-        // const topicname = req.body["topicname"];
-        // const concatenatedValues = req.body["concatenatedValues"];
-        // console.log("ih")
         await pool.query('UPDATE device_management SET device_name=$1, device_model=$2 WHERE device_mac_address=$3', [devicename,devicemodel,devicemacaddress])
     } catch (err) {
         console.log(err)
