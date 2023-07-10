@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 //import Line chart
 import { Line } from "react-chartjs-2";
@@ -20,7 +20,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
 
   const graphsPerFrame = 4;
   const totalPages = Math.ceil(devicedata.length / graphsPerFrame);
- 
+
   //declare state for graph
   const initialData = Array(100).fill({
     labels: [],
@@ -38,6 +38,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
 
     const handleDataUpdate = (message) => {
       fetchData(fromdate, todate, handlelive, globalfilter, message);
+      // console.log(message);
     };
     socket.on('message', (handleDataUpdate));
 
@@ -62,12 +63,16 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
 
 
 
+
   const fetchData = async (fromdate, todate, handlelive, globalfilter, message) => {
+    console.log("latestData");
+    
     try {
+      
       const response1 = await fetch('http://127.0.0.1:4000/user');
       const data1 = await response1.json();
-      const length=data1.length;
-      setdevicedata(data1)  
+      const length = data1.length;
+      setdevicedata(data1)
       var latestData;
       if (fromdate !== "" && todate !== "" && handlelive === false) {
         latestData = message.filter(values => {
@@ -85,13 +90,20 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
         })
       }
       else {
+        // var a =[[{hai:"hello"},{ss:"no"}],[{name1:"ritch"},{name2:"nithi"}],[],[]]
         latestData = message.filter(values => {
-          const itemDate = values.Timestamp.split(" ")[0];
-          if (itemDate === formatteddate) {
-            return message;
-          }
+          // console.log("this is value :",values);
+          values.map((values,index)=>{
+            // console.log(values);
+            const itemDate = values.Timestamp.split(" ")[0];
+            if (itemDate === formatteddate) {
+              console.log(itemDate,formatteddate);
+              return message;
+            }
+          })
         })
       }
+      console.log("msg",latestData);
       setLatestData(latestData);
 
       if (globalfilter !== 'Output Model' && globalfilter !== null && globalfilterstate === true) {
@@ -263,7 +275,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
       const updatedSelectedOption2 = [...prevSelectedOption2];
       updatedSelectedOption2[index] = option;
       return updatedSelectedOption2;
-    });  
+    });
     const newState = false;
     globalfilterupdate(newState);
     getChartData1(option, LatestData, index);
@@ -300,6 +312,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
     };
   }, [])
 
+  
 
   return (
     <div style={{ width: "100%" }}>
