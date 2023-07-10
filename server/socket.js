@@ -21,7 +21,7 @@ mongoose
       return adress;
     }); // Add your collection names here
     console.log("checking for all this collections : ",collections);
-    // const collections = ['datas', 'a4_a4_a4_a4_a4_a4'];
+  
     io.on('connection', (socket) => {
       // Fetch initial data for all collections
       Promise.all(
