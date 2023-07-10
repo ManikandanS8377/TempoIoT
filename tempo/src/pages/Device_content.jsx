@@ -13,12 +13,13 @@ import { faAnglesDown, faChevronDown, faChevronUp } from '@fortawesome/free-soli
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 const Device_content = () => {
     //states
     const [alldata, setalldata] = useState([]);
     const [allnetdata, setnetwork] = useState([]);
+    const [allupdatedata, setdevice_updated_on] = useState([]);
     const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
     const [isOpen4, setIsOpen4] = useState(false);
@@ -289,7 +290,7 @@ const Device_content = () => {
                 setdevice_model(item.device_model);
                 setdevice_firmware_version(item.device_firmware_version);            
                 setdevice_mac_address(item.device_mac_address);
-              
+                setdevice_updated_on(item.last_updated_on);
             }
 
         })
@@ -458,7 +459,8 @@ const Device_content = () => {
                                         (<div className='device_action_dropdown'>
                                             <div className='display-flex device_action_dropdown1 dropdown_action'>
                                                 <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                                <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action">Device Details</div>
+                                                <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action" onClick={() => { get_device_data(index); get_device1_data(index); }}>Device Details</div>
+
                                             </div>
                                             <div className='display-flex device_action_dropdown2 dropdown_action'>
                                                 <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
