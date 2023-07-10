@@ -288,7 +288,7 @@ const Edit_site = () => {
                                             <div className='device_scroll'>
                                                 <div class='device_dropdown'>
                                                     <div class="div_sts" onClick={handleButtonClick}>
-                                                        Add New Admin
+                                                        Add New admin
                                                     </div>
                                                 </div>
                                                 <hr className="hrs"></hr>
