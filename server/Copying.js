@@ -4,7 +4,7 @@ const mqtt = require('mqtt');
 const path = require('path');
 const {name} = path.parse(__filename);
 
-
+  
 const allData = JSON.parse(fs.readFileSync('../allData.json'));
 
 let host = '';
@@ -49,10 +49,10 @@ for (let i = 0; i < allData.length; i++) {
           valueArray.push(item);
         }
       
-        var myobj = { Timestamp: valueArray[0], Temperature: valueArray[1], Pressure: valueArray[2] };
+        var myobj = { Timestamp: valueArray[0], Temperature: valueArray[1], Pressure: valueArray[2] , Mac_Address:name};
         console.log(myobj);
 
-        db.collection('datas').insertOne(myobj, function (err, result) {
+        db.collection(`${name}`).insertOne(myobj, function (err, result) {
           if (err) {
             console.error(err);
           } else {

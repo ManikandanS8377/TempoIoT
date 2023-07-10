@@ -7,7 +7,7 @@
 }
 
 /* row_with_count_status */
-.row_with_count_status{
+.row_with_count_status {
     justify-content: space-between;
     user-select: none;
     height: 65px;
@@ -16,15 +16,17 @@
     border: var(--BORDER_COLOUR_1PX);
     display: flex;
 }
-.row_with_count_status:first-child{
+
+.row_with_count_status:first-child {
     align-self: flex-start;
 }
+
 .row_with_count_status:last-child {
     align-self: flex-end;
 }
 
 /* row_with_filters */
-.row_with_filters{
+.row_with_filters {
     align-items: center;
     height: 70px;
     justify-content: space-between;
@@ -32,7 +34,7 @@
 }
 
 /* row_with_column_headings */
-.row_with_column_headings{
+.row_with_column_headings {
     width: 98.4%;
     font-weight: 500;
     margin-left: 14px;
@@ -50,10 +52,12 @@
 .rm-pd-mr {
     user-select: none;
 }
-.top-nav{
+
+.top-nav {
     user-select: none;
 }
-.us-none{
+
+.us-none {
     user-select: none;
 }
 
@@ -70,6 +74,115 @@
     justify-content: space-between;
 }
 
+/* Login page */
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    justify-content: space-around;
+}
+
+.digital_scan {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 0.1px solid rgb(199, 194, 194);
+    border-radius: 50px;
+    padding: 2rem;
+    width: 40%;
+    box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.5);
+}
+
+.login_inputs {
+    /* display: flex; */
+    /* flex-direction: column; */
+    padding: 1.5rem;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.login_inputs_individual {
+    width: 100%;
+    height: 45px;
+}
+
+.all_inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+
+.forget {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    color: rgb(255, 4, 0);
+    /* margin-right: 10px; */
+}
+
+.login_btn {
+    padding: 0.5rem;
+    border-radius: 50px;
+    background-color: rgb(255, 4, 0);
+    color: white;
+    cursor: pointer;
+    min-width: 100px;
+    font-weight: 700;
+    transition: .3s ease all;
+
+}
+
+.login_btn_div {
+    width: 100%;
+
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.powered_by {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.Quantanics {
+    color: red;
+    text-transform: uppercase;
+}
+
+.sketch_images {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sketch1,
+.sketch2 {
+    width: 100%;
+    height: 270px;
+}
+
+.TempoIot {
+    font-weight: 700;
+    font-size: 30px;
+    color: #716f6f;
+}
+
+.ds {
+    font-size: 30px;
+    color: red;
+    font-weight: 700;
+    text-transform: capitalize;
+}
 
 .device_management {
     justify-content: space-between;
@@ -171,6 +284,8 @@
 
 .modal-dialog .modal-content {
     padding: 3rem;
+    width: 130%;
+    margin-left: -25%;
 }
 
 .device_status_body {
@@ -198,13 +313,13 @@
 
 .dsa_row_1,
 .dsa_row_2,
-.dsa_row_3 
-{
+.dsa_row_3 {
     display: flex;
     gap: 1rem;
     justify-content: space-between;
 }
-.dsa_col1{
+
+.dsa_col1 {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -223,19 +338,19 @@
 }
 
 /* sitebutton (cancel_save) */
-.site_button{
+.site_button {
     margin-left: 80%;
 }
 
 /* Add device container */
-.add_device_container1{
-height: 100%;
-font-family: var(--FONT_FAMILY);
-padding: 1rem;
+.add_device_container1 {
+    height: 100%;
+    font-family: var(--FONT_FAMILY);
+    padding: 1rem;
 }
 
 /* edit device page */
-.page_top_box{
+.page_top_box {
     user-select: none;
 }
 
@@ -274,8 +389,8 @@ padding: 1rem;
     border-radius: 2px;
 }
 
-.email_align{
-   margin-left: 50%;
+.email_align {
+    margin-left: 50%;
 }
 
 .device_content_arrows {
@@ -397,7 +512,7 @@ padding: 1rem;
 .device_dropdown {
     padding-left: 15px;
     padding-top: 5px;
-    /* margin-left: 1rem; */
+    cursor: pointer;
     display: flex;
     height: 40px;
     width: 150px;
@@ -474,6 +589,32 @@ padding: 1rem;
     user-select: none;
 }
 
+.container-slidebar {
+    height: 1%;
+}
+
+/* scroll bar */
+.scroll_div {
+    height: calc(100vh - 320px);
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.scroll_div::-webkit-scrollbar {
+    width: 8px;
+    /* Adjust the width as needed */
+}
+
+
+.scroll_div::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 8px;
+}
+
+.scroll_div::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(120, 118, 118)
+}
+/* scroll bar end */
 
 .device_active {
     margin-left: 5px;
@@ -555,7 +696,6 @@ padding: 1rem;
     border: var(--BORDER_COLOUR_1PX);
     border-radius: 0.25rem 0 0 0.25rem;
     width: var(--WIDTH);
-
 }
 
 /* confirmation */
@@ -585,6 +725,7 @@ padding: 1rem;
     font-family: var(--FONT_FAMILY);
 
 }
+
 .Add_device1 {
     height: 80%;
     font-family: var(--FONT_FAMILY);
@@ -824,7 +965,7 @@ input[type="checkbox"] {
     justify-content: end;
     width: var(--WIDTH);
     gap: 15px;
-    
+
 }
 
 
@@ -840,9 +981,10 @@ input[type="checkbox"] {
     user-select: none;
 }
 
-.lineChart_body{
+.lineChart_body {
     margin-left: -45px;
 }
+
 .legend-top-form,
 .legend-top-to {
     /* margin-top: -10px; */
@@ -951,21 +1093,23 @@ input[type="checkbox"] {
     grid-template-columns: 1fr 1fr;
     height: 505px;
     margin-left: 75px;
-    width:auto;
+    width: auto;
 }
+
 .grid-item {
     border: 1px solid #ccc;
-    width: 96%; 
+    width: 96%;
     margin-top: 10px;
     height: 240px;
     border-radius: 5px;
 }
 
 .grid-item:nth-child(3),
-.grid-item:nth-child(4){
+.grid-item:nth-child(4) {
     margin-top: 10px;
 }
-.btn-loc4{
+
+.btn-loc4 {
     cursor: pointer;
     background-color: transparent;
     font-weight: 400;
@@ -977,7 +1121,8 @@ input[type="checkbox"] {
     margin-top: 3px;
     margin-left: 2px;
 }
-.graph-size{
+
+.graph-size {
     height: 90%;
 }
 
@@ -1030,7 +1175,7 @@ input[type="checkbox"] {
     height: fit-content;
     margin-top: 10px;
     width: 105px;
-    
+
 }
 
 .arrow {
@@ -1047,7 +1192,7 @@ input[type="checkbox"] {
 }
 
 .arrows {
-    position: relative; 
+    position: relative;
 }
 
 .arrows1 {
@@ -1058,12 +1203,15 @@ input[type="checkbox"] {
 .circle-img1 {
     color: rgb(235, 229, 229);
 }
+
 .circle-img2 {
     color: rgb(235, 229, 229);
 }
+
 .arrow_active {
     color: rgb(27, 19, 136);
-} 
+}
+
 .arrow_inactive {
     color: rgb(173, 171, 171);
 }
@@ -1165,5 +1313,3 @@ input[type="checkbox"] {
     background-color: #ffffff;
     font-weight: 500;
 }
-
-
