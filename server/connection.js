@@ -42,6 +42,7 @@ app.get("/user", async (req, res) => {
     }
 })
 
+
 app.get("/network", async (req, res) => {
     try {
         const datas = await pool.query('SELECT * FROM network_protocol ORDER BY r_no')
