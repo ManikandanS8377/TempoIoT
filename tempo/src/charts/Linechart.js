@@ -17,9 +17,10 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedOption2, setSelectedOption2] = useState([]);
   const [isOpen2, setIsOpen2] = useState([]);
+  const [lenghtstate,setlenghtstate]=useState();
 
   const graphsPerFrame = 4;
-  const totalPages = Math.ceil(devicedata.length / graphsPerFrame);
+  const totalPages = Math.ceil(lenghtstate/ graphsPerFrame);
 
   //declare state for graph
   const initialData = Array(100).fill({
@@ -37,6 +38,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   useEffect(() => {
     const handleDataUpdate = (message) => {
       fetchData(fromdate, todate, handlelive, globalfilter, message);
+      setlenghtstate(message.length)
     };
     socket.on('message', (handleDataUpdate));
 
@@ -59,18 +61,13 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   const dates = String(today.getDate()).padStart(2, '0');
   const formatteddate = `${year}-${Month}-${dates}`;
 
-
-
-
   const fetchData = async (fromdate, todate, handlelive, globalfilter, message) => {
-    console.log("latestData");
-    
     try {
       const response1 = await fetch('http://127.0.0.1:4000/user');
       const data1 = await response1.json();
       const length = data1.length;
       setdevicedata(data1)
-      console.log(data1)
+
       var latestData=[];
       if (fromdate !== "" && todate !== "" && handlelive === false) {
         latestData = message.filter(values => {
@@ -107,6 +104,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
       }
       console.log("msg",latestData);
       setLatestData(latestData);
+      
 
       if (globalfilter !== 'Output Model' && globalfilter !== null && globalfilterstate === true) {
         for (var i = 0; i < devicedata.length; i++) {
@@ -295,7 +293,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   const slideStartIndex = currentPage * graphsPerFrame;
   let slideEndIndex = slideStartIndex + graphsPerFrame;
   if (currentPage === totalPages - 1) {
-    slideEndIndex = devicedata.length;
+    slideEndIndex = lenghtstate;
   }
   const displayedItems = [...Array(slideEndIndex - slideStartIndex)].map(
     (_, index) => index + slideStartIndex
@@ -304,7 +302,6 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   const individual_grap_selection = useRef(null);
   const individual_grap_empty_space = (event) => {
     if (!individual_grap_selection.current.contains(event.target)) {
-      // setIsOpen2(false)
     }
   }
   useEffect(() => {
@@ -317,10 +314,10 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   return (
     <div style={{ width: "100%" }}>
       <div className="grid-container">
-        {displayedItems.map((item,data) => (
+        {displayedItems.map((item) => (
           <div key={item} className="grid-item" >
             <div className="graph-header display-flex" style={{ justifyContent: "center", alignItems: "center" }}>
-            <label>{devicedata[item]?.device_id || 'temperature assert'}</label>
+            <label><b>{devicedata[item]?.device_name || 'temperature assert'}</b></label>
               <div className="dropdown_container2">
                 <button className=" btn-loc4" style={{ border: "1px solid black" }} onClick={() => dropdown2(item)} >
                   {selectedOption2[item] || 'ALL'}
