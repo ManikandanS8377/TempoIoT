@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const port = 5000;
 
 const mongodbUrl = 'mongodb://127.0.0.1:27020/userdata?directConnection=true&serverSelectionTimeoutMS=2000';
-=======
 const fs = require('fs');
 
 

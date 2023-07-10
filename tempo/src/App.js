@@ -34,7 +34,7 @@ import TopNavbar from './TopNavbar';
 const App = () => {
   // const location = useLocation();
   const isLoginRoute = window.location.pathname === '/login';
-  console.log(isLoginRoute);
+  // console.log(isLoginRoute);
   return (
     <BrowserRouter>
       <Routes>
