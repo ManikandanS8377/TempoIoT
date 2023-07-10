@@ -33,6 +33,12 @@ const Dashboard = () => {
     
 
     const socket = io('http://localhost:5000/');
+    socket.on('message',(msg)=>{
+        console.log(msg);
+    })
+    socket.on('inserted_message',(msg)=>{
+        console.log(msg);
+    })
     //fromdate useeffect
     useEffect(() => {
         const currentDate = new Date();
