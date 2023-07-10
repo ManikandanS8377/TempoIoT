@@ -1,7 +1,8 @@
 const express = require('express');
-  const http = require('http');
+const http = require('http');
 const mongoose = require('mongoose');
 const port = 5000;
+const fs = require('fs');
 const mongodbUrl = 'mongodb://127.0.0.1:27020/userdata?directConnection=true&serverSelectionTimeoutMS=2000';
 
 const app = express();
@@ -44,7 +45,6 @@ mongoose
     // Change streams for all collections
     collections.forEach((collection) => {
       const changeStream = db.collection(collection).watch();
-
       changeStream.on('change', (change) => {
         if (change.operationType === 'insert') {
           db.collection(collection)

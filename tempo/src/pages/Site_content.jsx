@@ -1,12 +1,10 @@
 import React from 'react';
 import '../assets/style/App.css';
-//import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
 import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
 import { faAnglesDown, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-// import { Button, Navbar, Nav, Form, FormControl } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
@@ -30,38 +28,16 @@ const Site_content = () => {
     const [isOpen4, setIsOpen4] = useState(false);
     const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
     const dropdownRef4 = useRef(null);
-    const [active_inactive, setactive_inactive] = useState([]);
-
-
-
 
     //functions to set the device status avtive and inactive
-
-
-    useEffect(() => {
-        const site_edit_data = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:4000/edit_site_detials/`);
-                const data = await response.json();
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        site_edit_data();
-    },);
-
-
-
-
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const sites = await fetch('http://127.0.0.1:4000/site');
                 const responseData = await sites.json();
                 set_responseData_state(responseData)
-                console.log(responseData);
             } catch (error) {
-                // Error handling code removed
+                console.log(error)
             }
         };
         fetchData();
@@ -70,35 +46,29 @@ const Site_content = () => {
     const Editinactivedata = async (data, index) => {
         const site_status = "0";
         const body = { site_status };
-        setactive_inactive(prevState => {
-            const newState = [...prevState];
-            newState[index] = false;
-            return newState;
-        });
-        setactiveCount(activeCount - 1);
-        setinactiveCount(inactiveCount + 1);
-        await fetch(`http://127.0.0.1:4000/sitedata/${data.r_no}`, {
+        fetch(`http://127.0.0.1:4000/sitedata/${data.r_no}`, {
             method: "PUT",
             headers: { "content-Type": "application/json" },
             body: JSON.stringify(body)
         })
+        const res=window.confirm("Do you want to Deactivate?")
+        if(res){
+            await fetchData() 
+        }
     }
 
-    const Editactivedata = async (data, index) => {
+    const Editactivedata = async (data) => {
         const site_status = "1";
         const body = { site_status };
-        setactive_inactive(prevState => {
-            const newState = [...prevState];
-            newState[index] = true;
-            return newState;
-        });
-        setactiveCount(activeCount + 1);
-        setinactiveCount(inactiveCount - 1);
-        await fetch(`http://127.0.0.1:4000/sitedata/${data.r_no}`, {
+        fetch(`http://127.0.0.1:4000/sitedata/${data.r_no}`, {
             method: "PUT",
             headers: { "content-Type": "application/json" },
             body: JSON.stringify(body)
         })
+        const res=window.confirm("Do you want to Activate?")
+        if(res){
+            await fetchData() 
+        }
     }
 
     useEffect(() => {
@@ -117,10 +87,13 @@ const Site_content = () => {
 
             let filteredData;
             if (Option === 'Active') {
+                console.log("active")
                 filteredData = data.filter(item => item.site_status === 1);
             } else if (Option === 'Inactive') {
+                console.log("inactive")
                 filteredData = data.filter(item => item.site_status === 0);
             } else {
+                console.log("all")
                 filteredData = data;
             }
 
@@ -146,11 +119,6 @@ const Site_content = () => {
             console.log(error);
         }
     }
-    useEffect(() => {
-        if (alldata) {
-            setactive_inactive(alldata.map(item => item.site_status === 1))
-        }
-    }, [alldata])
 
 
     const [isless_than_10_active, setisless_than_10_active] = useState(false)
@@ -366,11 +334,11 @@ const Site_content = () => {
                                     </div>
                                     {isOpen2 && (
                                         <div className="dropdown_menu2 dashboard_dropdown-menu  dropdown-colors">
-                                            <div><div className='device_dropdown' onClick={() => filter_active_inactive('All')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">All</div></div>
+                                            <div><div className='device_dropdown' ><input className='device_sts_checkbox' type="checkbox" onClick={() => filter_active_inactive('All')}/><div className="div_sts">All</div></div>
                                                 <hr className='hrs'></hr>
-                                                <div className='device_dropdown' onClick={() => filter_active_inactive('Active')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">Active</div></div>
+                                                <div className='device_dropdown' ><input className='device_sts_checkbox' type="checkbox" onClick={() => filter_active_inactive('Active')}/><div className="div_sts">Active</div></div>
                                                 <hr className='hrs'></hr>
-                                                <div className='device_dropdown' onClick={() => filter_active_inactive('Inactive')}><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts">InActive</div></div>
+                                                <div className='device_dropdown' ><input className='device_sts_checkbox' type="checkbox" onClick={() => filter_active_inactive('Inactive')}/><div className="div_sts">InActive</div></div>
                                             </div>
                                         </div>
                                     )}
@@ -430,11 +398,11 @@ const Site_content = () => {
                                 <div className="col-head display-flex">
                                     <FontAwesomeIcon
                                         icon={faDiamond}
-                                        style={{ color: active_inactive[index] == true ? 'green' : 'red', paddingTop: '7px' }}
+                                        style={{ color: data.site_status === 1  ? 'green' : 'red', paddingTop: '7px' }}
                                         size="xs"
                                     />
-                                    <div className={`device_active`} style={{ color: active_inactive[index] == true ? 'green' : 'red' }}>
-                                        {active_inactive[index] == true ? 'Active' : 'Inactive'}
+                                    <div className={`device_active`} style={{ color: data.site_status === 1  ? 'green' : 'red' }}>
+                                        {data.site_status === 1 ? 'Active' : 'Inactive'}
                                     </div>
                                 </div>
                                 <div className="col-head display-flex device_action_dropdown_parent">

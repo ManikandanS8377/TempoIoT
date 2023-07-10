@@ -153,14 +153,15 @@ app.put("/edit_site_detials", async (req, res) => {
         console.log(err)
     }
 })
-
+let a=1
 //PUT REQUEST TO UPDATE THE DATA IN DB
 app.put("/sitedata/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const { site_status } = req.body;
-        // console.log("ih")
-        await pool.query('UPDATE site_management SET  site_status=$1 WHERE r_no=$2', [site_status, id])
+        
+        pool.query('UPDATE site_management SET  site_status=$1 WHERE r_no=$2', [site_status, id])
+        console.log(a++)
     } catch (err) {
         console.log(err)
     }

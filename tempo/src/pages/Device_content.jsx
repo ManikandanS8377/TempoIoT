@@ -165,6 +165,7 @@ const Device_content = () => {
             // Update active and inactive counts
             const activeCount = data.filter(item => item.device_status === 1).length;
             const inactiveCount = data.filter(item => item.device_status !== 1).length;
+            
             console.log("hello")
             setactiveCount(activeCount);
             setinactiveCount(inactiveCount);
@@ -195,7 +196,7 @@ const Device_content = () => {
         });
         setactiveCount(activeCount - 1);
         setinactiveCount(inactiveCount + 1);
-        await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`, {
+        fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`, {
             method: "PUT",
             headers: { "content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -212,7 +213,7 @@ const Device_content = () => {
         });
         setactiveCount(activeCount + 1);
         setinactiveCount(inactiveCount - 1);
-        await fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`, {
+        fetch(`http://127.0.0.1:4000/userdata/${data.r_no}`, {
             method: "PUT",
             headers: { "content-Type": "application/json" },
             body: JSON.stringify(body)
