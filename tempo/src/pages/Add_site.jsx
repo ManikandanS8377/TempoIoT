@@ -160,14 +160,14 @@ const Add_site = () => {
     // validation
     const handleClick = async () => {
 
-        const isValidcompany_name = /^[0-9]+$/.test(company_name)
+        const isValidcompany_name = /^[a-zA-Z]+$/.test(company_name)
         const isValidsite_name = /^[a-zA-Z0-9]+$/.test(site_name)
-        const isValidsite_admin_email = /^[a-zA-Z0-9]+$/.test(site_admin_email)
-        const isValidsite_location = /^[0-9a-zA-Z]{2}([-:_])[0-9a-zA-Z]{2}(\1[0-9a-zA-Z]{2}){4}$/.test(site_location)
-        const isValidsite_address = /^[a-zA-Z0-9]+$/.test(site_address)
-        const isValidnew_site_admin_name = /^[a-zA-Z0-9]+$/.test(new_site_admin_name)
-        const isValidsite_admin = /^[0-9a-zA-Z./,:\\-]+$/.test(site_admin)
-        if (!isValidcompany_name || !isValidsite_name || !isValidsite_admin_email || !isValidsite_location || !isValidsite_address || !isValidnew_site_admin_name || !isValidsite_admin) {
+        const isValidsite_admin_email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(site_admin_email)
+        const isValidsite_location = /^[a-zA-Z0-9\s\/\,\.\'-]+$/i.test(site_location)
+        const isValidsite_address = /^[a-zA-Z0-9\s\/\,\.\'-]+$/i.test(site_address)
+        const isValidnew_site_admin_name = /^[a-zA-Z]+$/.test(new_site_admin_name)
+        const isValidsite_admin = /^[a-zA-Z]+$/.test(site_admin)
+        if (!isValidcompany_name || !isValidsite_name || !isValidsite_admin_email || !isValidsite_location || !isValidsite_address || !isValidnew_site_admin_name) {
             alert("Enter the valid data ")
         }
 
