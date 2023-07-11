@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const port = 5000;
 
-const mongodbUrl = 'mongodb://127.0.0.1:27017/userdata?directConnection=true&serverSelectionTimeoutMS=2000';
+const mongodbUrl = 'mongodb://127.0.0.1:27020/userdata?directConnection=true&serverSelectionTimeoutMS=2000';
 const fs = require('fs');
 
 
@@ -32,7 +32,7 @@ mongoose
         )
         .then((data) => {
           socket.emit('message', data);
-          console.log(data);
+          // console.log(data);
         })
         .catch((error) => {
           console.log('Error retrieving initial data:', error);

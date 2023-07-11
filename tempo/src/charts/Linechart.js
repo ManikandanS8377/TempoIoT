@@ -17,10 +17,10 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedOption2, setSelectedOption2] = useState([]);
   const [isOpen2, setIsOpen2] = useState([]);
-  const [lenghtstate,setlenghtstate]=useState();
+  const [lenghtstate, setlenghtstate] = useState();
 
   const graphsPerFrame = 4;
-  const totalPages = Math.ceil(lenghtstate/ graphsPerFrame);
+  const totalPages = Math.ceil(lenghtstate / graphsPerFrame);
 
   //declare state for graph
   const initialData = Array(100).fill({
@@ -37,10 +37,22 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
 
   useEffect(() => {
     const handleDataUpdate = (message) => {
+      console.log("test");
       fetchData(fromdate, todate, handlelive, globalfilter, message);
       setlenghtstate(message.length)
+      // console.log(message);
     };
+
+    const inserted_message_fun = (msg) => {
+      console.log(msg);
+    }
+
+
+
     socket.on('message', (handleDataUpdate));
+    socket.on('inserted_message', (inserted_message_fun))
+
+
 
     if (fromdate && todate) {
       console.log(LatestData)
@@ -62,13 +74,13 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   const formatteddate = `${year}-${Month}-${dates}`;
 
   const fetchData = async (fromdate, todate, handlelive, globalfilter, message) => {
+    // console.log(fromdate, todate, handlelive, globalfilter, message);
     try {
       const response1 = await fetch('http://127.0.0.1:4000/user');
       const data1 = await response1.json();
       const length = data1.length;
       setdevicedata(data1)
-
-      var latestData=[];
+      var latestData = [];
       if (fromdate !== "" && todate !== "" && handlelive === false) {
         latestData = message.filter(values => {
           const itemDate = values.Timestamp;
@@ -85,35 +97,48 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
         })
       }
       else {
-        message.filter(values => {
-          latestData = values.map((value, index) => {
-            const itemDate = value.Timestamp.split(" ")[0];
-            if (itemDate === formatteddate) {
-              console.log(itemDate, formatteddate);
-              return value;
-            }
-          });
-        })
-        // latestData = message
-        //   .flatMap(values => {
-        //     return values.filter(value => {
-        //       const itemDate = value.Timestamp.split(" ")[0];
-        //       return itemDate === formatteddate;
-        //     });
-        //   });
-      }
-      console.log("msg",latestData);
-      setLatestData(latestData);
-      
+        // latestData = message.filter(values => {
+        // values.map((value, index) => {
+        //   console.log(value);
+        //   const itemDate = value.Timestamp.split(" ")[0];
+        //   if (itemDate === formatteddate){
+        //     console.log("mm");
+        //     return value;
+        //   }
+        //   console.log("values ---- ",values);
+        // })
+        // values.map((value, index) => {
+        // if (itemDate === formatteddate) {
+        //   console.log("ss");
+        //   console.log(itemDate, formatteddate);
+        //   return a;
+        // }
+        // return a;
 
+        //   console.log(value);
+        // })
+        // if (itemDate === formatteddate) {
+        //   return message;
+        // }
+        // })
+      }
+
+      // console.log("msg", message[1]);
+      setLatestData(message[1]);
+
+
+      
       if (globalfilter !== 'Output Model' && globalfilter !== null && globalfilterstate === true) {
         for (var i = 0; i < devicedata.length; i++) {
+          // console.log("ggg");
           getChartData1(globalfilter, latestData, i);
         }
       }
       else {
-        for (var i = 0; i < length; i++) {
-          getChartData1(selectedOption2[i], latestData, i);
+        for (var i = 0; i < 2; i++) {
+          // console.log("ll");
+          getChartData1(selectedOption2[i], message[i], i);
+          // console.log("else", selectedOption2[i], message[1], i);
         }
       }
     } catch (error) {
@@ -121,7 +146,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
     }
   };
 
-  const getChartData1 = (selectedOption2, latestData, index) => {
+  const getChartData1 = (selectedOption2 = "ALL", latestData, index) => {
     setUserData1(prevState => {
       const updatedData = [...prevState];
       if (selectedOption2 === "Temperature") {
@@ -198,6 +223,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
           ],
         };
       } else {
+        // console.log(selectedOption2="ALL", latestData, index)
         updatedData[index] = {
           ...updatedData[index],
           labels: latestData.map(data => data.Timestamp.split(" ")[1]),
@@ -317,7 +343,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
         {displayedItems.map((item) => (
           <div key={item} className="grid-item" >
             <div className="graph-header display-flex" style={{ justifyContent: "center", alignItems: "center" }}>
-            <label><b>{devicedata[item]?.device_name || 'temperature assert'}</b></label>
+              <label><b>{devicedata[item]?.device_mac_address || 'temperature assert'}</b></label>
               <div className="dropdown_container2">
                 <button className=" btn-loc4" style={{ border: "1px solid black" }} onClick={() => dropdown2(item)} >
                   {selectedOption2[item] || 'ALL'}
