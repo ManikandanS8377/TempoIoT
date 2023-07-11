@@ -46,7 +46,6 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
       console.log(LatestData)
       fetchData(fromdate, todate);
     }
-
     if (handlelive) {
       fetchData(fromdate, todate, handlelive);
     }
@@ -85,26 +84,16 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
         })
       }
       else {
-        message.filter(values => {
-          latestData = values.map((value, index) => {
-            const itemDate = value.Timestamp.split(" ")[0];
-            if (itemDate === formatteddate) {
-              console.log(itemDate, formatteddate);
-              return value;
-            }
+        latestData = message
+          .flatMap(values => {
+            return values.filter(value => {
+              const itemDate = value.Timestamp.split(" ")[0];
+              return itemDate === formatteddate;
+            });
           });
-        })
-        // latestData = message
-        //   .flatMap(values => {
-        //     return values.filter(value => {
-        //       const itemDate = value.Timestamp.split(" ")[0];
-        //       return itemDate === formatteddate;
-        //     });
-        //   });
       }
       console.log("msg",latestData);
       setLatestData(latestData);
-      
 
       if (globalfilter !== 'Output Model' && globalfilter !== null && globalfilterstate === true) {
         for (var i = 0; i < devicedata.length; i++) {

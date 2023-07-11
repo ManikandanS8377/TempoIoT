@@ -52,14 +52,12 @@ for (let i = 0; i < allData.length; i++) {
         var myobj = { Timestamp: valueArray[0], Temperature: valueArray[1], Pressure: valueArray[2] };
         console.log(myobj);
 
-        db.collection('a1_a2_a3_a4_a5_a6').insertOne(myobj, function (err, result) {
+        db.collection(name).insertOne(myobj, function (err, result) {
           if (err) {
             console.error(err);
           } else {
             console.log("1 document inserted");
           }
-
-
       });
     });
 
