@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 //import Line chart
 import { Line } from "react-chartjs-2";
@@ -17,10 +17,12 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedOption2, setSelectedOption2] = useState([]);
   const [isOpen2, setIsOpen2] = useState([]);
-
+  const [lenghtstate, setlenghtstate] = useState();
+  const [updateing_div, setupdateing_div] = useState("defaul value")
+  const grapTotlaRes = useRef({});
   const graphsPerFrame = 4;
-  const totalPages = Math.ceil(devicedata.length / graphsPerFrame);
- 
+  const totalPages = Math.ceil(lenghtstate / graphsPerFrame);
+
   //declare state for graph
   const initialData = Array(100).fill({
     labels: [],
@@ -33,19 +35,53 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   });
   const [userData1, setUserData1] = useState(initialData);
 
+  const [history_msg, sethistory_msg] = useState({})
+  // useEffect(() => {
+  //   const handleDataUpdate = (message) => {
+  //     console.log(message);
+  //     sethistory_msg(message);
+  //   };
+  // })
+
+
 
   useEffect(() => {
-
-    const handleDataUpdate = (message) => {
-      fetchData(fromdate, todate, handlelive, globalfilter, message);
+    const handleDataUpdate = async (message) => {
+      console.log("message : ",message);
+      grapTotlaRes.current = message;
+      fetchData(fromdate, todate, handlelive, globalfilter, message, 0);
+      // console.log(updateing_div);
+      setlenghtstate(message.length)
+      // console.log(message);
     };
+    // console.log(history_msg);
+    const inserted_message_fun = async (inserted_message) => {
+      // const response_to_update = await fetch('http://127.0.0.1:4000/user');
+      // const data1 = await response_to_update.json();
+      // inserted_message
+      // var message
+      fetchData(fromdate, todate, handlelive, globalfilter, history_msg, inserted_message)
+      // for (var i = 0; i < 2; i++) {
+      //   // console.log(length);
+      //   const mac_to_conform = "a0_a0_a0_a0_a0_a0"
+
+      //   getChartData1(selectedOption2[i], message[mac_to_conform], i);
+      //   // console.log("else", selectedOption2[i], message[1], i);
+
+      // }
+    }
+
+
+
     socket.on('message', (handleDataUpdate));
+    socket.on('inserted_message', (inserted_message_fun))
+
+
 
     if (fromdate && todate) {
       console.log(LatestData)
       fetchData(fromdate, todate);
     }
-
     if (handlelive) {
       fetchData(fromdate, todate, handlelive);
     }
@@ -60,15 +96,38 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   const dates = String(today.getDate()).padStart(2, '0');
   const formatteddate = `${year}-${Month}-${dates}`;
 
+  const fetchData = async (fromdate, todate, handlelive, globalfilter, message, inserted_message) => {
+    // console.log(fromdate, todate, handlelive, globalfilter, message);
+    // console.log(inserted_message);
 
-
-  const fetchData = async (fromdate, todate, handlelive, globalfilter, message) => {
     try {
       const response1 = await fetch('http://127.0.0.1:4000/user');
       const data1 = await response1.json();
-      const length=data1.length;
-      setdevicedata(data1)  
-      var latestData;
+      const length = data1.length;
+
+      setdevicedata(data1)
+      var latestData = [];
+
+      // if (inserted_message) {
+      //   const obj_key = Object.keys(inserted_message)[0];
+
+      //   for (var i = 0; i < length; i++) {
+      //     const mac_to_conform = data1[i].device_mac_address.replace(/[:\-]/g, "_")
+      //     // console.log("latestdata : ",message);
+      //     if (obj_key == mac_to_conform) {
+      //       console.log("incomming data :", inserted_message);
+      //       console.log("updating div : ",updateing_div);
+      //       console.log(inserted_message[obj_key]);
+      //       // setupdateing_div(inserted_message[obj_key])
+      //       // getChartData1(selectedOption2[i], inserted_message[obj_key], i);
+      //     }
+
+      //   }
+      // }
+
+
+
+
       if (fromdate !== "" && todate !== "" && handlelive === false) {
         latestData = message.filter(values => {
           const itemDate = values.Timestamp;
@@ -85,23 +144,83 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
         })
       }
       else {
-        latestData = message.filter(values => {
-          const itemDate = values.Timestamp.split(" ")[0];
-          if (itemDate === formatteddate) {
-            return message;
-          }
-        })
+        // latestData = message.filter(values => {
+        // values.map((value, index) => {
+        //   console.log(value);
+        //   const itemDate = value.Timestamp.split(" ")[0];
+        //   if (itemDate === formatteddate){
+        //     console.log("mm");
+        //     return value;
+        //   }
+        //   console.log("values ---- ",values);
+        // })
+        // values.map((value, index) => {
+        // if (itemDate === formatteddate) {
+        //   console.log("ss");
+        //   console.log(itemDate, formatteddate);
+        //   return a;
+        // }
+        // return a;
+
+        //   console.log(value);
+        // })
+        // if (itemDate === formatteddate) {
+        //   return message;
+        // }
+        // })
       }
-      setLatestData(latestData);
+      // const mac_to_conform = data1[1].device_mac_address.replace(/[:\-]/g, "_")
+      // console.log(mac_to_conform);
+
+      // console.log("msg", message[mac_to_conform]);
+      // setLatestData(message["a2_a2_a2_a2_a2_a2"]);
+
+
 
       if (globalfilter !== 'Output Model' && globalfilter !== null && globalfilterstate === true) {
         for (var i = 0; i < devicedata.length; i++) {
+          // console.log("ggg");
           getChartData1(globalfilter, latestData, i);
         }
       }
       else {
         for (var i = 0; i < length; i++) {
-          getChartData1(selectedOption2[i], latestData, i);
+          // console.log(length);
+          const mac_to_conform = data1[i].device_mac_address.replace(/[:\-]/g, "_")
+          // console.log("else", selectedOption2[i], message[1], i);
+          console.log("grapTotlaRes",grapTotlaRes.current);
+          if (inserted_message) {
+            // console.log(message);
+            let finalValue= grapTotlaRes.current; 
+            console.log("grapTotlaRes",grapTotlaRes.current);
+            console.log(inserted_message);
+            // getChartData1(selectedOption2[i], message[mac_to_conform], i);
+
+            const obj_key = Object.keys(inserted_message)[0];
+    
+            // for (var i = 0; i < length; i++) {
+              // const mac_to_conform = data1[i].device_mac_address.replace(/[:\-]/g, "_")
+              // console.log("latestdata : ",message);
+              if (obj_key == mac_to_conform) {
+                // console.log("mac_to_conform:", mac_to_conform);
+                // console.log("updating div : ",updateing_div);
+                console.log(inserted_message[obj_key]);
+                  for (const key in finalValue) {
+                   if(obj_key === key){
+                    console.log("keys : ", obj_key , key);
+                    finalValue[key] = inserted_message[obj_key]
+                   }
+                  }
+                // setupdateing_div(inserted_message[obj_key])
+                 getChartData1(selectedOption2[i], finalValue[obj_key], i);
+              }
+    
+            // }
+          }else{
+            getChartData1(selectedOption2[i], message[mac_to_conform], i);
+
+          }
+
         }
       }
     } catch (error) {
@@ -109,7 +228,8 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
     }
   };
 
-  const getChartData1 = (selectedOption2, latestData, index) => {
+  const getChartData1 = (selectedOption2 = "ALL", latestData, index) => {
+    // console.log(selectedOption2 = "ALL", latestData, index);
     setUserData1(prevState => {
       const updatedData = [...prevState];
       if (selectedOption2 === "Temperature") {
@@ -186,9 +306,10 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
           ],
         };
       } else {
+        // console.log(selectedOption2="ALL", latestData, index)
         updatedData[index] = {
           ...updatedData[index],
-          labels: latestData.map(data => data.Timestamp.split(" ")[1]),
+          labels: latestData.map(data => data.Timestamp.split(" ")[0]),
           datasets: [
             {
               label: "Line",
@@ -263,7 +384,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
       const updatedSelectedOption2 = [...prevSelectedOption2];
       updatedSelectedOption2[index] = option;
       return updatedSelectedOption2;
-    });  
+    });
     const newState = false;
     globalfilterupdate(newState);
     getChartData1(option, LatestData, index);
@@ -281,7 +402,7 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   const slideStartIndex = currentPage * graphsPerFrame;
   let slideEndIndex = slideStartIndex + graphsPerFrame;
   if (currentPage === totalPages - 1) {
-    slideEndIndex = devicedata.length;
+    slideEndIndex = lenghtstate;
   }
   const displayedItems = [...Array(slideEndIndex - slideStartIndex)].map(
     (_, index) => index + slideStartIndex
@@ -290,7 +411,6 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
   const individual_grap_selection = useRef(null);
   const individual_grap_empty_space = (event) => {
     if (!individual_grap_selection.current.contains(event.target)) {
-      // setIsOpen2(false)
     }
   }
   useEffect(() => {
@@ -300,14 +420,17 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
     };
   }, [])
 
-
+  // console.log(userData1[0]);
+  // console.log(userData1[1]);
+  // console.log(devicedata[1]?.device_mac_address);
   return (
     <div style={{ width: "100%" }}>
       <div className="grid-container">
         {displayedItems.map((item) => (
           <div key={item} className="grid-item" >
             <div className="graph-header display-flex" style={{ justifyContent: "center", alignItems: "center" }}>
-              <label>Temperature - Assert1</label>
+              <label><b>{devicedata[item]?.device_mac_address || 'temperature assert'}</b></label>
+              {devicedata[item]?.device_mac_address === "aa" && <div>ama</div>}
               <div className="dropdown_container2">
                 <button className=" btn-loc4" style={{ border: "1px solid black" }} onClick={() => dropdown2(item)} >
                   {selectedOption2[item] || 'ALL'}
@@ -325,7 +448,8 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
                 )}
               </div>
             </div>
-            <div className="graph-size"><Line data={userData1[item]} options={options} /></div>
+            {/* <div>{userData1[item]}</div> */}
+            <div className="graph-size"><Line data={userData1[item]} options={options} />{item}</div>
           </div>
         ))}
       </div>

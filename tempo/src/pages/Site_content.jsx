@@ -358,23 +358,24 @@ const Site_content = () => {
                         </div>
                     </div>
                     <div className='filters display-flex' >
-                        <div class="pagination display-flex" onClick={handleDivClick}>
-                            <div className="focus-page">
-                                <input
-                                    type="number"
-                                    value={text}
-                                    onChange={handleInputChange}
-                                    onBlur={handleInputBlur}
-                                    autoFocus
-                                    className='editable_input_box'
-                                />
+                        <div className="pagination_with_filters">
+                            <div class="pagination display-flex" onClick={handleDivClick}>
+                                <div className="focus-page">
+                                    <input
+                                        type="number"
+                                        value={text}
+                                        onChange={handleInputChange}
+                                        onBlur={handleInputBlur}
+                                        autoFocus
+                                        className='editable_input_box'
+                                    />
+                                </div>
+                                <div className="upcomming-pages">
+                                    of 20 pages
+                                </div>
                             </div>
-                            <div className="upcomming-pages">
-                                of 20 pages
-                            </div>
-                        </div>
-                        <div className='move_head'>
-                            <div className='filters1 display-flex'>
+                            <div className='move_head'>
+                                <div className='filters1 display-flex'>
 
                                 <div class="dropdown-filter" ref={dropdownRef2}>
                                     <div class="device_filters" onClick={dropdown2}>
