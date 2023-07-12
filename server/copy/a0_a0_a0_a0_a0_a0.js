@@ -58,8 +58,6 @@ for (let i = 0; i < allData.length; i++) {
           } else {
             console.log("1 document inserted");
           }
-
-
       });
     });
 

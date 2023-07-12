@@ -82,7 +82,6 @@ function Linechart({ fromdate, todate, handlelive, globalfilter, socket, globalf
       console.log(LatestData)
       fetchData(fromdate, todate);
     }
-
     if (handlelive) {
       fetchData(fromdate, todate, handlelive);
     }
