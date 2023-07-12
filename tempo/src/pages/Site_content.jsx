@@ -304,7 +304,7 @@ const Site_content = () => {
 
     // const handleOptionClick = (option) => {
     //     setSelectedOption(option);
-
+       
     //   };
 
 
@@ -334,14 +334,14 @@ const Site_content = () => {
     const handleOptionClick = (option) => {
         setSelectedOption(option);
         filter_active_inactive(option);
-    };
-
-    const filter_active_inactive = (option) => {
+      };
+      
+      const filter_active_inactive = (option) => {
         fetchData(option);
-    };
-
-    // Assuming there is a fetchData function defined elsewhere
-
+      };
+      
+      // Assuming there is a fetchData function defined elsewhere
+      
 
 
 
@@ -358,238 +358,236 @@ const Site_content = () => {
                         </div>
                     </div>
                     <div className='filters display-flex' >
-                        <div className="pagination_with_filters">
-                            <div class="pagination display-flex" onClick={handleDivClick}>
-                                <div className="focus-page">
-                                    <input
-                                        type="number"
-                                        value={text}
-                                        onChange={handleInputChange}
-                                        onBlur={handleInputBlur}
-                                        autoFocus
-                                        className='editable_input_box'
-                                    />
-                                </div>
-                                <div className="upcomming-pages">
-                                    of 20 pages
-                                </div>
+                        <div class="pagination display-flex" onClick={handleDivClick}>
+                            <div className="focus-page">
+                                <input
+                                    type="number"
+                                    value={text}
+                                    onChange={handleInputChange}
+                                    onBlur={handleInputBlur}
+                                    autoFocus
+                                    className='editable_input_box'
+                                />
                             </div>
-                            <div className='move_head'>
-                                <div className='filters1 display-flex'>
+                            <div className="upcomming-pages">
+                                of 20 pages
+                            </div>
+                        </div>
+                        <div className='move_head'>
+                            <div className='filters1 display-flex'>
 
-                                    <div class="dropdown-filter" ref={dropdownRef2}>
-                                        <div class="device_filters" onClick={dropdown2}>
-                                            <div className="device_name">
-                                                Site Status
-                                            </div>
-                                            <div className="dropdown_icon">
-                                                <FontAwesomeIcon
-                                                    icon={isDropdownOpen2 ? faChevronDown : faChevronUp}
-                                                    className="dropdown-icon"
-                                                />
-                                            </div>
+                                <div class="dropdown-filter" ref={dropdownRef2}>
+                                    <div class="device_filters" onClick={dropdown2}>
+                                        <div className="device_name">
+                                            Site Status
                                         </div>
-                                        {isOpen2 && (
-                                            <div className="dropdown_menu2 dashboard_dropdown-menu dropdown-colors">
-                                                <div>
-                                                    <div className='device_dropdown' onClick={() => handleOptionClick('All')}>
-                                                        <input className='device_sts_checkbox' type="checkbox" checked={selectedOption === 'All'} readOnly />
-                                                        <div className="div_sts">All</div>
-                                                    </div>
-                                                    <hr className='hrs'></hr>
-                                                    <div className='device_dropdown' onClick={() => handleOptionClick('Active')}>
-                                                        <input className='device_sts_checkbox' type="checkbox" checked={selectedOption === 'Active'} readOnly />
-                                                        <div className="div_sts">Active</div>
-                                                    </div>
-                                                    <hr className='hrs'></hr>
-                                                    <div className='device_dropdown' onClick={() => handleOptionClick('Inactive')}>
-                                                        <input className='device_sts_checkbox' type="checkbox" checked={selectedOption === 'Inactive'} readOnly />
-                                                        <div className="div_sts">Inactive</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        )}
+                                        <div className="dropdown_icon">
+                                            <FontAwesomeIcon
+                                                icon={isDropdownOpen2 ? faChevronDown : faChevronUp}
+                                                className="dropdown-icon"
+                                            />
+                                        </div>
                                     </div>
-                                    <div class="dropdown-filter" ref={dropdownRef3}>
-                                        <div class="device_filters" onClick={dropdown3}>
-                                            <div className="device_name">
-                                                Company Name
-                                            </div>
-                                            <div className="dropdown_icon">
-                                                <FontAwesomeIcon
-                                                    icon={isDropdownOpen3 ? faChevronDown : faChevronUp}
-                                                    className="dropdown-icon"
-                                                />
-                                            </div>
+                                    {isOpen2 && (
+                                        <div className="dropdown_menu2 dashboard_dropdown-menu dropdown-colors">
+                                        <div>
+                                          <div className='device_dropdown' onClick={() => handleOptionClick('All')}>
+                                            <input className='device_sts_checkbox' type="checkbox" checked={selectedOption === 'All'} readOnly />
+                                            <div className="div_sts">All</div>
+                                          </div>
+                                          <hr className='hrs'></hr>
+                                          <div className='device_dropdown' onClick={() => handleOptionClick('Active')}>
+                                            <input className='device_sts_checkbox' type="checkbox" checked={selectedOption === 'Active'} readOnly />
+                                            <div className="div_sts">Active</div>
+                                          </div>
+                                          <hr className='hrs'></hr>
+                                          <div className='device_dropdown' onClick={() => handleOptionClick('Inactive')}>
+                                            <input className='device_sts_checkbox' type="checkbox" checked={selectedOption === 'Inactive'} readOnly />
+                                            <div className="div_sts">Inactive</div>
+                                          </div>
                                         </div>
-                                        {isOpen3 && (
-                                            <div className="dropdown_menu2 dashboard_dropdown-menu heights  dropdown-colors">
-                                                {company_value.map((item, index) => (
-                                                    <div className='device_scroll'>
-                                                        <div>
-                                                            <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" />
-                                                                <div className="div_sts"> {item.company_name}</div>
-                                                            </div>
-                                                            {index !== alldata.length - 1 && <hr className='hrs'></hr>}
+                                      </div>
+                                      
+                                    )}
+                                </div>
+                                <div class="dropdown-filter" ref={dropdownRef3}>
+                                    <div class="device_filters" onClick={dropdown3}>
+                                        <div className="device_name">
+                                            Company Name
+                                        </div>
+                                        <div className="dropdown_icon">
+                                            <FontAwesomeIcon
+                                                icon={isDropdownOpen3 ? faChevronDown : faChevronUp}
+                                                className="dropdown-icon"
+                                            />
+                                        </div>
+                                    </div>
+                                    {isOpen3 && (
+                                        <div className="dropdown_menu2 dashboard_dropdown-menu heights  dropdown-colors">
+                                            {company_value.map((item, index) => (
+                                                <div className='device_scroll'>
+                                                    <div>
+                                                        <div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" />
+                                                            <div className="div_sts"> {item.company_name}</div>
                                                         </div>
+                                                        {index !== alldata.length - 1 && <hr className='hrs'></hr>}
                                                     </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
-
-                            <div className='filters2 display-flex'>
-                                <button className='btn btn-fill' onClick={handleclick} >Add Site</button>
-                            </div>
-                        </div>
-                        <div className='col-headings'>
-                            <div className="col-head">SITE ID</div>
-                            <div className="col-head">SITE NAME</div>
-                            <div className="col-head">INDUSTRY</div>
-                            <div className="col-head">SITE CREATED ON</div>
-                            <div className="col-head">SITE ADMIN</div>
-                            <div className="col-head">SITE STATUS</div>
-                            <div className="col-head">ACTION</div>
                         </div>
 
-                        <div className="scroll_div">
-                            {alldata.map((data, index) => (
-                                <div className="datas">
-                                    <div className="col-head" >Site ID</div>
-                                    <div className="col-head" key={index}>{data.site_name}</div>
-                                    <div className="col-head">Industry</div>
-                                    <div className="col-head" key={index}>{data.site_created_on}</div>
-                                    <div className="col-head" key={index}>{data.new_site_admin_name}</div>
-                                    <div className="col-head display-flex">
-                                        <FontAwesomeIcon
-                                            icon={faDiamond}
-                                            style={{ color: active_inactive[index] == true ? 'green' : 'red', paddingTop: '7px' }}
-                                            size="xs"
-                                        />
-                                        <div className={`device_active`} style={{ color: active_inactive[index] == true ? 'green' : 'red' }}>
-                                            {active_inactive[index] == true ? 'Active' : 'Inactive'}
-                                        </div>
-                                    </div>
-                                    <div className="col-head display-flex device_action_dropdown_parent">
-                                        <div className="sts_icon" onClick={() => handleIconClick(index)}>
-                                            <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
-                                        </div>
-                                        <div key={index}>{(rotatedIndex === index && site_active == 'Active') &&
-                                            (<div className='device_action_dropdown'>
-                                                <div className='display-flex device_action_dropdown1 dropdown_action'>
-                                                    <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                                    <div className='device_content_dropdown display-flex' onClick={() => site_edit_page(data)}>Edit Detials</div>
-                                                </div>
-                                                <div className='display-flex device_action_dropdown2 dropdown_action'>
-                                                    <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                                    <div className='device_content_dropdown display-flex' onClick={() => { Editinactivedata(data, index) }}>Inactivate Device</div>
-                                                </div>
-                                            </div>)}
-                                        </div>
-                                        <div key={index}>{(rotatedIndex === index && site_active == 'Inactive') &&
-                                            (<div className='device_action_dropdown'>
-                                                <div className='display-flex device_action_dropdown1 dropdown_action' onClick={() => handlesiteClick(index)}>
-
-                                                    <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                                    <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action" onClick={() => get_site_data(index)}>Site Details</div>
-                                                </div>
-                                                <div className='display-flex device_action_dropdown2 dropdown_action'>
-                                                    <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                                    <div className='device_content_dropdown display-flex' onClick={() => { Editactivedata(data, index) }}>Activate Device</div>
-                                                </div>
-                                            </div>)}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                        <div className='filters2 display-flex'>
+                            <button className='btn btn-fill' onClick={handleclick} >Add Site</button>
                         </div>
                     </div>
-                    <div className='device_bottom'>
-                        <div className='device_export cursor-pointer'>
-                            <div className='device_exports'>Export</div>
-                        </div>
+                    <div className='col-headings'>
+                        <div className="col-head">SITE ID</div>
+                        <div className="col-head">SITE NAME</div>
+                        <div className="col-head">INDUSTRY</div>
+                        <div className="col-head">SITE CREATED ON</div>
+                        <div className="col-head">SITE ADMIN</div>
+                        <div className="col-head">SITE STATUS</div>
+                        <div className="col-head">ACTION</div>
+                    </div>
+
+                    <div className="scroll_div">
+                        {alldata.map((data, index) => (
+                            <div className="datas">
+                                <div className="col-head" >Site ID</div>
+                                <div className="col-head" key={index}>{data.site_name}</div>
+                                <div className="col-head">Industry</div>
+                                <div className="col-head" key={index}>{data.site_created_on}</div>
+                                <div className="col-head" key={index}>{data.new_site_admin_name}</div>
+                                <div className="col-head display-flex">
+                                    <FontAwesomeIcon
+                                        icon={faDiamond}
+                                        style={{ color: active_inactive[index] == true ? 'green' : 'red', paddingTop: '7px' }}
+                                        size="xs"
+                                    />
+                                    <div className={`device_active`} style={{ color: active_inactive[index] == true ? 'green' : 'red' }}>
+                                        {active_inactive[index] == true ? 'Active' : 'Inactive'}
+                                    </div>
+                                </div>
+                                <div className="col-head display-flex device_action_dropdown_parent">
+                                    <div className="sts_icon" onClick={() => handleIconClick(index)}>
+                                        <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
+                                    </div>
+                                    <div key={index}>{(rotatedIndex === index && site_active == 'Active') &&
+                                        (<div className='device_action_dropdown'>
+                                            <div className='display-flex device_action_dropdown1 dropdown_action'>
+                                                <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
+                                                <div className='device_content_dropdown display-flex' onClick={() => site_edit_page(data)}>Edit Detials</div>
+                                            </div>
+                                            <div className='display-flex device_action_dropdown2 dropdown_action'>
+                                                <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
+                                                <div className='device_content_dropdown display-flex' onClick={() => { Editinactivedata(data, index) }}>Inactivate Device</div>
+                                            </div>
+                                        </div>)}
+                                    </div>
+                                    <div key={index}>{(rotatedIndex === index && site_active == 'Inactive') &&
+                                        (<div className='device_action_dropdown'>
+                                            <div className='display-flex device_action_dropdown1 dropdown_action' onClick={() => handlesiteClick(index)}>
+
+                                                <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
+                                                <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action" onClick={() => get_site_data(index)}>Site Details</div>
+                                            </div>
+                                            <div className='display-flex device_action_dropdown2 dropdown_action'>
+                                                <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
+                                                <div className='device_content_dropdown display-flex' onClick={() => { Editactivedata(data, index) }}>Activate Device</div>
+                                            </div>
+                                        </div>)}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
-                {/* Edit Device detials */}
-                <div class="modal fade device_status_action" id="device_status_action" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="device_status_header">
-                                <h5 class="modal-title" id="exampleModalLabel">SITE DETAILS
-                                </h5>
-                                {/* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
-                            </div>
-                            <div class="device_status_body">
-                                <div className="dsa_row1">
-                                    <div className="dsa_1st_input">
-                                        <label for="input1">Company Name</label>
-                                        <div className="inputs-group">
-                                            <span class="input-group-loc"><Icon icon={ic_home_work} size={20} style={{ color: "lightgray" }} /></span>
-                                            <input type="text" class="form-control-loc hack" id="input1" value={company_name} />
-                                        </div>
-                                    </div>
-
-                                    <div className="dsa_1st_input">
-                                        <label for="input1">Site Name</label>
-                                        <div className="inputs-group">
-                                            <span class="input-group-loc"><Icon icon={ic_domain} size={20} style={{ color: "lightgray" }} /></span>
-                                            <input type="text" class="form-control-loc hack" id="input1" value={site_name} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="dsa_row2">
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Site Admin Email</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_mail} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc hack" id="input1" value={site_admin_email} />
-                                    </div>
-                                </div>
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Site location</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_room} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc hack" id="input1" value={site_location} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="dsa_row3">
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Site Address</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc hack" id="input1" value={site_address} />
-                                    </div>
-                                </div>
-                                <div className="dsa_3rd_input">
-                                    <div className="dsa_updates">
-                                        <div className="updated_by">
-                                            <label htmlFor="updated_by_name" className='dsa_updates_heading'>Last Updated By
-                                            </label>
-                                            <div id="updated_by_name">Manikandan S</div>
-                                        </div>
-                                        <div className="updated_on">
-                                            <label htmlFor="updated_by_date" className='dsa_updates_heading'>Last Updated On
-                                            </label>
-                                            <div id="updated_by_date">20 march 2023</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="device_status_footer">
-                                <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
-                                <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
+                <div className='device_bottom'>
+                    <div className='device_export cursor-pointer'>
+                        <div className='device_exports'>Export</div>
                     </div>
-
                 </div>
             </div>
+            {/* Edit Device detials */}
+            <div class="modal fade device_status_action" id="device_status_action" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="device_status_header">
+                            <h5 class="modal-title" id="exampleModalLabel">SITE DETAILS
+                            </h5>
+                            {/* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
+                        </div>
+                        <div class="device_status_body">
+                            <div className="dsa_row1">
+                                <div className="dsa_1st_input">
+                                    <label for="input1">Company Name</label>
+                                    <div className="inputs-group">
+                                        <span class="input-group-loc"><Icon icon={ic_home_work} size={20} style={{ color: "lightgray" }} /></span>
+                                        <input type="text" class="form-control-loc hack" id="input1" value={company_name} />
+                                    </div>
+                                </div>
+                            
+                            <div className="dsa_1st_input">
+                                <label for="input1">Site Name</label>
+                                <div className="inputs-group">
+                                    <span class="input-group-loc"><Icon icon={ic_domain} size={20} style={{ color: "lightgray" }} /></span>
+                                    <input type="text" class="form-control-loc hack" id="input1" value={site_name} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="dsa_row2">
+                        <div className="dsa_1st_input">
+                            <label for="input1">Site Admin Email</label>
+                            <div className="inputs-group">
+                                <span class="input-group-loc"><Icon icon={ic_mail} size={20} style={{ color: "lightgray" }} /></span>
+                                <input type="text" class="form-control-loc hack" id="input1" value={site_admin_email} />
+                            </div>
+                        </div>
+                        <div className="dsa_1st_input">
+                            <label for="input1">Site location</label>
+                            <div className="inputs-group">
+                                <span class="input-group-loc"><Icon icon={ic_room} size={20} style={{ color: "lightgray" }} /></span>
+                                <input type="text" class="form-control-loc hack" id="input1" value={site_location} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="dsa_row3">
+                        <div className="dsa_1st_input">
+                            <label for="input1">Site Address</label>
+                            <div className="inputs-group">
+                                <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
+                                <input type="text" class="form-control-loc hack" id="input1" value={site_address} />
+                            </div>
+                        </div>
+                        <div className="dsa_3rd_input">
+                            <div className="dsa_updates">
+                                <div className="updated_by">
+                                    <label htmlFor="updated_by_name" className='dsa_updates_heading'>Last Updated By
+                                    </label>
+                                    <div id="updated_by_name">Manikandan S</div>
+                                </div>
+                                <div className="updated_on">
+                                    <label htmlFor="updated_by_date" className='dsa_updates_heading'>Last Updated On
+                                    </label>
+                                    <div id="updated_by_date">20 march 2023</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="device_status_footer">
+                        <button type="button" class="btn-loc active-loc dsa_save_btn">Save</button>
+                        <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
         </div>
     );
 };
