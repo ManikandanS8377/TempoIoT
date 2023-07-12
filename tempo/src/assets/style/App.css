@@ -409,9 +409,14 @@
     align-items: center;
     height: 70px;
     justify-content: space-between;
+    width: 100%;
+    /* background-color: #00B0F0; */
     /* min-width: 100px; */
 }
-
+.pagination_with_filters{
+    width: 100%;
+    display: flex;
+}
 .pagination {
     border-radius: 5px;
     /* padding: 0.5rem; */
@@ -512,7 +517,7 @@
 .device_dropdown {
     padding-left: 15px;
     padding-top: 5px;
-    cursor: pointer;
+    /* margin-left: 1rem; */
     display: flex;
     height: 40px;
     width: 150px;
@@ -696,6 +701,7 @@
     border: var(--BORDER_COLOUR_1PX);
     border-radius: 0.25rem 0 0 0.25rem;
     width: var(--WIDTH);
+
 }
 
 /* confirmation */
