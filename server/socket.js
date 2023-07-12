@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const port = 5000;
 
-const mongodbUrl = 'mongodb://127.0.0.1:27020/userdata?directConnection=true&serverSelectionTimeoutMS=2000';
+const mongodbUrl = 'mongodb://127.0.0.1:27017/userdata?directConnection=true&serverSelectionTimeoutMS=2000';
 const fs = require('fs');
 
 
@@ -27,40 +27,52 @@ mongoose
     io.on('connection', (socket) => {
       Promise.all(
         collections.map((collection) => {
-          return db.collection(collection).find({}).toArray();
+          return db.collection(collection).find({}).toArray()
+            .then((data) => ({ collection, data })); // Include the collection name in the result
         })
-        )
-        .then((data) => {
-          socket.emit('message', data);
-          // console.log(data);
+      )
+        .then((results) => {
+          const formattedData = results.reduce((acc, { collection, data }) => {
+            acc[collection] = data;
+            return acc;
+          }, {});
+          socket.emit('message', formattedData);
         })
         .catch((error) => {
           console.log('Error retrieving initial data:', error);
         });
-
+      
       socket.on('disconnect', () => {
         // Cleanup on disconnect
+        console.log("disconnect");
       });
+      
     });
 
     // Change streams for all collections
     collections.forEach((collection) => {
       const changeStream = db.collection(collection).watch();
-
+    
       changeStream.on('change', (change) => {
         if (change.operationType === 'insert') {
+          const collection = change.ns.coll;
+      
           db.collection(collection)
             .find({})
             .toArray()
             .then((data) => {
+              const formattedData = {
+                [collection]: data,
+              };
               console.log(`Changes found in ${collection}`);
-              io.emit('inserted_message', data);
+              io.emit('inserted_message', formattedData);
             })
             .catch((error) => {
               console.log(`Error retrieving changed data in ${collection}:`, error);
             });
         }
       });
+      
     });
   })
   .catch((err) => {
