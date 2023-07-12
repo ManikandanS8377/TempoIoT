@@ -2,7 +2,6 @@ const express = require('express')
 const pool = require('./database')
 const cors = require('cors')
 const fs = require('fs');
-
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -23,29 +22,29 @@ app.get('/edit_device_detials/:id', async (req, res) => {
 app.get('/edit_site_detials/:id', async (req, res) => {
     try {
         const { id } = req.params
-        const datas = await pool.query('SELECT * FROM site_management WHERE r_no = $1', [id]);
+        const datas = await pool.query('SELECT * FROM site_management WHERE site_management.r_no = $1', [id]);
         res.json(datas.rows);
-        console.log(datas)
     } catch (err) {
         console.log(err)
     }
 });
-app.get('/edit_site_detial/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const datas = await pool.query('UPDATE site_management SET column_name = $1 WHERE r_no = $2', [new_value, id]);
-        res.json(datas.rows);
-        console.log(datas);
-    } catch (err) {
-        console.log(err);
-    }
-});
+
 
 
 //GET REQUEST TO SHOW ALL THE DATA IN REACT PAGE
 app.get("/user", async (req, res) => {
     try {
         const datas = await pool.query('SELECT * FROM device_management ORDER BY r_no')
+        res.json(datas.rows);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+
+app.get("/network", async (req, res) => {
+    try {
+        const datas = await pool.query('SELECT * FROM network_protocol ORDER BY r_no')
         res.json(datas.rows);
     } catch (err) {
         console.log(err)
@@ -77,7 +76,7 @@ app.get("/site_company", async (req, res) => {
 //remove duplicate admin
 app.get("/site_admin", async (req, res) => {
     try {
-        const query = "SELECT DISTINCT new_site_admin_name FROM site_management";
+        const query = "SELECT new_site_admin_name, MAX(site_admin_email) AS site_admin_email FROM site_management GROUP BY new_site_admin_name;"
         const adminNames = await pool.query(query);
         res.json(adminNames.rows);
     } catch (err) {
@@ -133,25 +132,27 @@ app.put("/userdata/:id", async (req, res) => {
 })
 app.put("/edit_device_detials", async (req, res) => {
     try {
-        // const { id } = req.params;
-        // const clientid = req.body["clientid"];
         const devicename = req.body["devicename"];
         const devicemodel = req.body["devicemodel"];
         const devicemacaddress = req.body["devicemacaddress"];
-        // const firmwareversion = req.body["firmwareversion"];
-        // const clientname = req.body["clientname"];
-        // const host = req.body["host"];
-        // const username = req.body["username"];
-        // const password = req.body["password"];
-        // const topicname = req.body["topicname"];
-        // const concatenatedValues = req.body["concatenatedValues"];
-        // console.log("ih")
         await pool.query('UPDATE device_management SET device_name=$1, device_model=$2 WHERE device_mac_address=$3', [devicename,devicemodel,devicemacaddress])
     } catch (err) {
         console.log(err)
     }
 })
 
+
+app.put("/edit_site_detials", async (req, res) => {
+    try {
+    const company_name = req.body["company_name"];
+    const site_name = req.body["site_name"];
+    const site_location = req.body["site_location"];
+    const site_address = req.body["site_address"]; 
+        await pool.query('UPDATE site_management SET company_name=$1, site_name=$2,site_location=$3 WHERE site_address=$4', [company_name,site_name,site_location,site_address])
+    } catch (err) {
+        console.log(err)
+    }
+})
 
 //PUT REQUEST TO UPDATE THE DATA IN DB
 app.put("/sitedata/:id", async (req, res) => {

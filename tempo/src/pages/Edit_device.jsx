@@ -200,8 +200,6 @@ const Edit_device = () => {
         } else {
             settopicnameerror("")
         }
-
-
     }
     function handleparameter(event) {
         const value = event.target.value;

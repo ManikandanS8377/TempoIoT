@@ -1,47 +1,58 @@
 import React from 'react';
 import '../assets/style/App.css';
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
 
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
-import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
-import { person } from 'react-icons-kit/iconic/person'
+import { person } from 'react-icons-kit/iconic/person';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ic_room } from 'react-icons-kit/md/ic_room'
-import { map } from 'react-icons-kit/fa/map'
-import { ic_mail } from 'react-icons-kit/md/ic_mail'
-import { ic_home_work } from 'react-icons-kit/md/ic_home_work'
-import { ic_domain } from 'react-icons-kit/md/ic_domain'
-import { faDiamond } from '@fortawesome/free-solid-svg-icons';
-import { RiAddCircleLine } from "react-icons/ri";
-import { faAnglesDown, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-// import { Button, Navbar, Nav, Form, FormControl } from 'react-bootstrap';
+import { ic_room } from 'react-icons-kit/md/ic_room';
+import { map } from 'react-icons-kit/fa/map';
+import { ic_mail } from 'react-icons-kit/md/ic_mail';
+import { ic_home_work } from 'react-icons-kit/md/ic_home_work';
+import { ic_domain } from 'react-icons-kit/md/ic_domain';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
-import { useState, useEffect, useRef } from "react";
-import { json, useNavigate } from 'react-router-dom';
-const Add_site = () => {
-    const [responseData_state, set_responseData_state] = useState([])
-    const [admin_value, setadmin] = useState([]);
 
+
+
+
+const Add_site = () => {
+    const [admin_value, setadmin] = useState([]);
+    // set var
+
+    const [company_name, setcompanyname] = useState("");
+    const [site_name, setsitename] = useState("");
+    const [site_admin_email, setsiteadminemail] = useState("");
+    const [site_location, setsitelocation] = useState("");
+    const [site_address, setsiteaddress] = useState("");
+    const [new_site_admin_name, setnewsiteadminname] = useState("");
+    const [site_admin,setsite_admin]=useState("")
+
+
+    //  error
+    const [company_nameerror, setcompanynameerror] = useState("");
+    const [site_nameerror, setsitenameerror] = useState("");
+    const [site_admin_emailerror, setsiteadminemailerror] = useState("");
+    const [site_locationerror, setsitelocationerror] = useState("");
+    const [site_addresserror, setsiteaddresserror] = useState("");
+    const [new_site_admin_nameerror, setnewsiteadminnameerror] = useState("");
+    const [site_admin_nameerror, setsiteadminnameerror] = useState("");
 
     // data fetching in site db 
-
-
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const sites = await fetch('http://127.0.0.1:4000/site');
                 const response_admin = await fetch('http://127.0.0.1:4000/site_admin');
                 const data_admin = await response_admin.json();
-                const responseData = await sites.json();
-                set_responseData_state(responseData)
+                console.log(data_admin)
                 setadmin(data_admin);
-                console.log(responseData);
             } catch (error) {
-                // Error handling code removed
+                console.log(error)
             }
         };
-
         fetchData();
     }, []);
 
@@ -54,7 +65,6 @@ const Add_site = () => {
 
 
     // cancel script
-
     function handleCancel() {
         setcompanyname("");
         setsitename("");
@@ -62,67 +72,106 @@ const Add_site = () => {
         setsitelocation("");
         setsiteaddress("");
         setnewsiteadminname("");
+        setsite_admin("");
+        navigate('/Site');
     }
-
-    // set var
-
-    const [company_name, setcompanyname] = useState("");
-    const [site_name, setsitename] = useState("");
-    const [site_admin_email, setsiteadminemail] = useState("");
-    const [site_location, setsitelocation] = useState("");
-    const [site_address, setsiteaddress] = useState("");
-    const [new_site_admin_name, setnewsiteadminname] = useState("");
-
-    //  error
-
-    const [company_nameerror, setcompanynameerror] = useState("");
-    const [site_nameerror, setsitenameerror] = useState("");
-    const [site_admin_emailerror, setsiteadminemailerror] = useState("");
-    const [site_locationerror, setsitelocationerror] = useState("");
-    const [site_addresserror, setsiteaddresserror] = useState("");
-    const [new_site_admin_nameerror, setnewsiteadminnameerror] = useState("");
-
-
 
     function handlecompanyname(event) {
         const value = event.target.value;
         setcompanyname(value);
+        const isValidcompany_name = /^[a-zA-Z]+$/.test(value);
+        if (!isValidcompany_name) {
+            setcompanynameerror("*Enter valid company name");
+        } else {
+            setcompanynameerror("");
+        }
     }
 
     function handlesitename(event) {
         const value = event.target.value;
         setsitename(value);
+        const isValidsite_name = /^[a-zA-Z0-9]+$/.test(value);
+        if (!isValidsite_name) {
+            setsitenameerror("*Enter valid site name");
+        } else {
+            setsitenameerror("");
+        }
     }
 
     function handlesiteadminemail(event) {
         const value = event.target.value;
         setsiteadminemail(value);
+        const isValidsite_admin_email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        if (!isValidsite_admin_email) {
+            setsiteadminemailerror("*Enter valid email");
+        } else {
+            setsiteadminemailerror("");
+        }
     }
 
     function handlesitelocation(event) {
         const value = event.target.value;
         setsitelocation(value);
+        const isValidsite_location =  /^[a-zA-Z0-9\s\/\,\.\'-]+$/i.test(value);
+        if (!isValidsite_location) {
+            setsitelocationerror("*Enter valid location");
+        } else {
+            setsitelocationerror("");
+        }
     }
 
     function handlesiteaddress(event) {
         const value = event.target.value;
         setsiteaddress(value);
-
+        const isValidsite_address =  /^[a-zA-Z0-9\s\/\,\.\'-]+$/i.test(value);
+        if (!isValidsite_address) {
+            setsiteaddresserror("*Enter valid site address");
+        } else {
+            setsiteaddresserror("");
+        }
     }
+    
 
     function handlenewsiteadminname(event) {
         const value = event.target.value;
         setnewsiteadminname(value);
+        const isValidnew_site_admin_name = /^[a-zA-Z]+$/.test(value);
+        if (!isValidnew_site_admin_name) {
+            setnewsiteadminnameerror("*Enter valid admin name");
+        } else {
+            setnewsiteadminnameerror("");
+        }
     }
+    function handlesiteadmin(event) {
+        const value = event.target.value;
+        setsite_admin(value);
+        const isValidnew_site_admin_name = /^[0-9]+$/.test(value);
+        if (!isValidnew_site_admin_name) {
+            setsiteadminnameerror("*Enter valid new admin name");
+        } else {
+            setsiteadminnameerror("");
+        }
+    }
+
+
     //redirect to device content page
     const navigate = useNavigate();
 
     // validation
-
-
     const handleClick = async () => {
-        try {
-            navigate('/Site');
+
+        const isValidcompany_name = /^[a-zA-Z]+$/.test(company_name)
+        const isValidsite_name = /^[a-zA-Z0-9]+$/.test(site_name)
+        const isValidsite_admin_email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(site_admin_email)
+        const isValidsite_location = /^[a-zA-Z0-9\s\/\,\.\'-]+$/i.test(site_location)
+        const isValidsite_address = /^[a-zA-Z0-9\s\/\,\.\'-]+$/i.test(site_address)
+        const isValidnew_site_admin_name = /^[a-zA-Z]+$/.test(new_site_admin_name)
+        const isValidsite_admin = /^[a-zA-Z]+$/.test(site_admin)
+        if (!isValidcompany_name || !isValidsite_name || !isValidsite_admin_email || !isValidsite_location || !isValidsite_address || !isValidnew_site_admin_name) {
+            alert("Enter the valid data ")
+        }
+
+        else{
             const body = {
                 company_name,
                 site_name,
@@ -131,19 +180,14 @@ const Add_site = () => {
                 site_address,
                 new_site_admin_name,
             };
-            console.log(body);
-
-            await fetch('http://127.0.0.1:4000/site', {
+            fetch('http://127.0.0.1:4000/site', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
             });
-            // console.log(body);
-        } catch (error) {
-            console.error(error);
+            navigate('/Site');
         }
     }
-
 
 
 
@@ -166,18 +210,38 @@ const Add_site = () => {
         };
     }, []);
 
+    const handlesiteadminname=(data)=>{
+        setsite_admin(data.new_site_admin_name)
+        setnewsiteadminname(data.new_site_admin_name)
+        setsiteadminemail(data.site_admin_email)
+        setShowInput(true);
+    }
 
 
 
 
     return (
-
         <div className='Add_device1 '>
-
-            <div className="page_top_box new_device box-shadow">
-                {/* <button className="btn-loc theme-btn new_device_btn" >New Device</button> */}
+            <div className="modal fade boot-modals" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div className="modal-content width_of_model">
+                        <div className="modal-header-confirm">
+                            <h5 className="modal-title" id="exampleModalLabel">CONFIRMATION</h5>
+                        </div>
+                        <div className="modal-main-confirm">
+                            <h5 className="modal-title confirm-tittle">Are you sure you want Exit ?
+                            </h5>
+                        </div>
+                        <div className="modal-footer-confirm">
+                            <button type="button" className="btn-loc active-loc" data-bs-dismiss="modal" onClick={handleCancel} >YES</button>
+                            <button type="button" className="btn-loc inactive-loc" data-bs-dismiss="modal">NO</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
+            <div className="page_top_box new_device box-shadow">
+                <div className='module_tittle' style={{ textAlign: "start" }}>Site Management</div>
+            </div>
             <div className="add_device_container1">
                 <div className="new_device_content">
                     <div className="row_one display-flex">
@@ -188,37 +252,40 @@ const Add_site = () => {
                             site info
                         </div>
                         <div className="input-boxes display-flex">
-                            <div class="dsa_row_1">
+                            <div class="dsa_row_1 inputbox display-flex input">
                                 <div class="dsa_1st_input">
                                     <label for="input1">Company Name</label>
-                                    <div class="inputs-group">
+                                    <div class="inputs-group display-flex">
                                         <span class="input-group-loc"><Icon icon={ic_home_work} size={20} style={{ color: "lightgray" }} /></span>
                                         <input type="text" class="form-control-loc" value={company_name} onChange={handlecompanyname} id="company_name" />
+                                        <div className="error-message"><span className={company_nameerror ? "error" : ""}>{company_nameerror}</span></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="dsa_2nd_input">
+                            <div className="dsa_2nd_input inputbox display-flex input">
                                 <label for="input1">Site Name</label>
-                                <div className="inputs-group">
+                                <div className="inputs-group display-flex">
                                     <span class="input-group-loc"><Icon icon={ic_domain} size={20} style={{ color: "lightgray" }} /></span>
                                     <input type="text" class="form-control-loc" value={site_name} onChange={handlesitename} id="site_name" />
+                                    <div className="error-message"><span className={site_nameerror ? "error" : ""}>{site_nameerror}</span></div>
                                 </div>
                             </div>
-                            <div className="dsa_row_3">
-                                <div className="dsa_3rd_input">
+                            <div className="dsa_row_3 ">
+                                <div className="dsa_3rd_input inputbox display-flex input">
                                     <label for="input1">Site Location</label>
-                                    <div className="inputs-group">
+                                    <div className="inputs-group display-flex">
                                         <span class="input-group-loc"><Icon icon={ic_room} size={20} style={{ color: "lightgray" }} /></span>
                                         <input type="text" class="form-control-loc" value={site_location} onChange={handlesitelocation} id="site_location" />
+                                        <div className="error-message"><span className={site_locationerror ? "error" : ""}>{site_locationerror}</span></div>
                                     </div>
                                 </div>
-
-                                <div className="dsa_3rd_input">
+                                <div className="dsa_3rd_input inputbox display-flex input">
                                     <label for="input1">Site Address</label>
-                                    <div className="inputs-group">
+                                    <div className="inputs-group display-flex">
                                         <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
                                         <input type="text" class="form-control-loc" value={site_address} onChange={handlesiteaddress} id="site_address" />
+                                        <div className="error-message"><span className={site_addresserror ? "error" : ""}>{site_addresserror}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -227,20 +294,17 @@ const Add_site = () => {
                     <div className="row_three display-flex padding-loc">
                         <div className="mqtt_protocol display-flex">
                             <div className="network_protocol light-grey uppercase mb-loc-5 mt-loc-3">Site Admin info</div>
-
                         </div>
                         <div className="sub_row_three display-flex">
-
                             <div class="dropdown-filter">
-                                <div onClick={dropdown4}>
+                                <div>
                                     <div class="dsa_1st_input">
                                         <label for="input1">Site Admin Name</label>
-                                        <div class="inputs-group relative-loc">
+                                        <div class="inputs-group relative-loc" onClick={dropdown4} >
                                             <span class="input-group-loc"><Icon icon={person} size={20} style={{ color: "lightgray" }} /></span>
-                                            <input type="text" class="form-control-loc" id="site_admin_name" />
+                                            <input type="text" class="form-control-loc" id="site_admin_name" value={site_admin} />
                                             <FontAwesomeIcon
                                                 icon={faChevronDown}
-                                                // icon={isDropdownOpen4 ? faChevronDown : faChevronUp}
                                                 class="dropdown-icon down_arrow"
                                             />
                                         </div>
@@ -256,7 +320,7 @@ const Add_site = () => {
                                                 <hr className="hrs"></hr>
                                                 {admin_value.map((data, index) => (
                                                     <div className='device_scroll' key={index}>
-                                                        <div><div className='device_dropdown'><input className='device_sts_checkbox' type="checkbox" /><div className="div_sts"> {data.new_site_admin_name}</div></div>
+                                                        <div><div className='device_dropdown' onClick={()=>handlesiteadminname(data)}><div className="div_sts"> {data.new_site_admin_name}</div></div>
                                                             {index !== data.length - 1 && <hr className='hrs'></hr>}
                                                         </div>
                                                     </div>
@@ -265,44 +329,39 @@ const Add_site = () => {
                                         </div>
                                     )}
                                 </div>
-
-
                             </div>
                             <div className='dsa_row_3'>
                                 {showInput && (
                                     <div class="dsa_row1">
-                                        <div class="dsa_1st_input">
+                                        <div class="dsa_1st_input inputbox display-flex input">
                                             <label htmlFor="input1">New Site Admin Name</label>
-                                            <div class="inputs-group">
+                                            <div class="inputs-group display-flex">
                                                 <span class="input-group-loc">
-                                                    {/* Assuming you have imported the Icon component */}
                                                     <Icon icon={person} size={20} style={{ color: "lightgray" }} />
                                                 </span>
                                                 <input type="text" class="form-control-loc" value={new_site_admin_name} onChange={handlenewsiteadminname} id="new_site_admin_name" />
+                                                <div className="error-message"><span className={new_site_admin_nameerror ? "error" : ""}>{new_site_admin_nameerror}</span></div>
                                             </div>
                                         </div>
-
-                                        <div className="dsa_2nd_input">
+                                        <div className="dsa_2nd_input inputbox display-flex input">
                                             <label for="input1">Site Admin Email</label>
-                                            <div className="inputs-group">
+                                            <div className="inputs-group display-flex">
                                                 <span class="input-group-loc"><Icon icon={ic_mail} size={20} style={{ color: "lightgray" }} /></span>
                                                 <input type="text" class="form-control-loc" value={site_admin_email} onChange={handlesiteadminemail} id="site_admin_email" />
+                                                <div className="error-message"><span className={site_admin_emailerror ? "error" : ""}>{site_admin_emailerror}</span></div>
                                             </div>
                                         </div>
                                     </div>
                                 )}
                             </div>
-
                         </div>
                     </div>
-
                     <div className="operating_buttons display-flex padding-loc">
                         <div className="save_cancel_btn display-flex site_button">
                             <button className="btn-loc active-loc btn btn-outline-success" onClick={() => handleClick()}>Save</button>
                             <button className="btn-loc inactive-loc btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
